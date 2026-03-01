@@ -215,6 +215,30 @@
     .h-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .3s, transform .3s; }
     .h-dot.active { background: var(--cyan); transform: scale(1.3); }
 
+    /* ─── SPECTRAL SPLIT ─── */
+    .spectral-split { padding: 100px 56px 80px; max-width: 1200px; margin: 0 auto; }
+    .ss-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 56px 0 0; background: var(--border); }
+    .ss-side { background: var(--bg); padding: 64px 56px 48px; text-align: center; position: relative; }
+    .ss-orb { width: 180px; height: 180px; margin: 0 auto 36px; display: block; }
+    .ss-type { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .ss-heading { font-family: var(--serif); font-size: clamp(22px,2.5vw,32px); font-weight: 300; line-height: 1.2; margin-bottom: 10px; }
+    .ss-healthy .ss-heading { color: #FFBB7A; }
+    .ss-cancer .ss-heading  { color: var(--cyan); }
+    .ss-wavelength { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 20px; }
+    .ss-healthy .ss-wavelength { color: rgba(255,160,70,.45); }
+    .ss-cancer  .ss-wavelength { color: rgba(0,200,240,.45); }
+    .ss-body { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; margin: 0 auto; }
+    .ss-spectrum-row { display: flex; align-items: center; gap: 0; margin-top: 2px; background: var(--border); }
+    .ss-spectrum-label { padding: 20px 40px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+    .ss-spectrum-label.warm { color: rgba(255,150,60,.5); }
+    .ss-spectrum-label.cool { color: rgba(0,200,240,.5); }
+    .ss-spectrum-bar { flex: 1; height: 3px; background: linear-gradient(to right, #CC3300, #FF8040, #FFCC00, #00DDAA, #00C8F0, #7722CC); opacity: .4; border-radius: 1px; }
+    @keyframes ssWarm { 0%,100%{opacity:.75;transform:scale(1)} 50%{opacity:1;transform:scale(1.07)} }
+    @keyframes ssCool { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:.95;transform:scale(1.09)} }
+    .ss-pulse-w { animation: ssWarm 3.8s ease-in-out infinite; transform-origin: center; }
+    .ss-pulse-c { animation: ssCool 4.2s ease-in-out infinite; transform-origin: center; }
+    @media(max-width:860px){ .ss-grid { grid-template-columns:1fr; } .spectral-split { padding:80px 24px 60px; } .ss-side { padding: 48px 32px 40px; } .ss-spectrum-row { flex-direction:column; gap:8px; padding: 20px 24px; } .ss-spectrum-bar { width:100%; height:3px; } }
+
     /* ─── NIROSHA SECTION ─── */
     .nirosha-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
     .nirosha-photo-side { position: sticky; top: 120px; }
@@ -542,6 +566,81 @@
         <p>Wavelength-specific signatures distinguish healthy from malignant tissue with 90–92% discriminant accuracy across 13 cell lines.</p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ═══ SPECTRAL SIGNATURE SPLIT ═══ -->
+<div style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="spectral-split reveal">
+    <p class="eyebrow">The spectral signature · 2018 published study</p>
+    <h2 style="line-height:1.15;max-width:640px">Two cells. Same body.<br><em>Opposite light.</em></h2>
+
+    <div class="ss-grid">
+      <!-- Healthy -->
+      <div class="ss-side ss-healthy">
+        <svg class="ss-orb" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="hGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#FF9940" stop-opacity=".9"/>
+              <stop offset="38%"  stop-color="#CC3300" stop-opacity=".35"/>
+              <stop offset="75%"  stop-color="#882200" stop-opacity=".1"/>
+              <stop offset="100%" stop-color="#FF4400" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="hCore" cx="42%" cy="38%" r="58%">
+              <stop offset="0%"   stop-color="#FFF0D8"/>
+              <stop offset="40%"  stop-color="#FF9940"/>
+              <stop offset="80%"  stop-color="#CC3300" stop-opacity=".6"/>
+              <stop offset="100%" stop-color="#881100" stop-opacity=".2"/>
+            </radialGradient>
+          </defs>
+          <circle cx="120" cy="120" r="114" fill="url(#hGlow)" class="ss-pulse-w"/>
+          <circle cx="120" cy="120" r="70"  fill="url(#hCore)"/>
+          <circle cx="105" cy="106" r="20"  fill="rgba(255,240,205,.5)"/>
+        </svg>
+        <p class="ss-type">Healthy tissue</p>
+        <h3 class="ss-heading">Emits toward<br><em>infrared</em></h3>
+        <p class="ss-wavelength">Near-Infrared · 950nm</p>
+        <p class="ss-body">Normal cells emit a higher proportion of long-wavelength photons. The emission profile slopes warm — toward the red end of the spectrum.</p>
+      </div>
+
+      <!-- Cancer -->
+      <div class="ss-side ss-cancer">
+        <svg class="ss-orb" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="cGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#00C8F0" stop-opacity=".85"/>
+              <stop offset="32%"  stop-color="#0055CC" stop-opacity=".35"/>
+              <stop offset="65%"  stop-color="#5511AA" stop-opacity=".12"/>
+              <stop offset="100%" stop-color="#4400AA" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="cCore" cx="42%" cy="38%" r="58%">
+              <stop offset="0%"   stop-color="#DAFAFF"/>
+              <stop offset="38%"  stop-color="#00C8F0"/>
+              <stop offset="72%"  stop-color="#1133BB"/>
+              <stop offset="100%" stop-color="#5500CC" stop-opacity=".4"/>
+            </radialGradient>
+          </defs>
+          <circle cx="120" cy="120" r="114" fill="url(#cGlow)" class="ss-pulse-c"/>
+          <circle cx="120" cy="120" r="70"  fill="url(#cCore)"/>
+          <circle cx="105" cy="106" r="20"  fill="rgba(210,248,255,.55)"/>
+        </svg>
+        <p class="ss-type">Malignant tissue</p>
+        <h3 class="ss-heading">Shifts toward<br><em>ultraviolet</em></h3>
+        <p class="ss-wavelength">Ultraviolet · 370nm</p>
+        <p class="ss-body">Cancer cells invert the pattern — emitting more short-wavelength photons. The shift toward UV is measurable, reproducible, and distinct from any healthy profile.</p>
+      </div>
+    </div>
+
+    <!-- Spectrum bar -->
+    <div class="ss-spectrum-row">
+      <div class="ss-spectrum-label warm">← Near-Infrared · 950nm</div>
+      <div class="ss-spectrum-bar"></div>
+      <div class="ss-spectrum-label cool">Ultraviolet · 370nm →</div>
+    </div>
+
+    <p style="font-size:11px;color:var(--muted);margin-top:28px;text-align:center">
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(255,255,255,.1)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · Murugan et al. · Three discriminating wavelengths: 420nm, 620nm, 950nm
+    </p>
   </div>
 </div>
 
