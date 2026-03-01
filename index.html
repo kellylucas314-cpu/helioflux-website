@@ -3,470 +3,609 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HelioFlux detects cancer at 5–10 million cells — 100–200x earlier than imaging, with no blood draw, no biopsy, no radiation. Biophotonic disease detection.">
+  <meta name="description" content="HelioFlux detects cancer at 5–10 million cells — 100–200x earlier than standard imaging. Non-invasive. No blood draw. Just light.">
   <title>HelioFlux — Biophotonic Disease Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:     #050810;
-      --bg2:    #080C16;
-      --white:  #F4F6FF;
-      --muted:  #7A8499;
+      --bg:     #04070E;
+      --bg2:    #070B15;
+      --white:  #ECF0FF;
+      --muted:  #6B7A96;
       --cyan:   #00C8F0;
-      --border: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.06);
       --serif:  'Cormorant Garamond', Georgia, serif;
       --sans:   'Inter', system-ui, sans-serif;
     }
+    html { overflow-x: hidden; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--white); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    /* ─── ENERGY BLOB (follows cursor) ─── */
+    .energy-blob {
+      position: fixed;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,240,0.09) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      top: 0; left: 0;
+      will-change: transform;
+      transition: opacity 1s;
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
+    .cursor-dot {
+      position: fixed; width: 5px; height: 5px;
+      background: var(--cyan); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      box-shadow: 0 0 8px var(--cyan);
+      transition: width .2s, height .2s;
+    }
+    .cursor-dot.big { width: 12px; height: 12px; }
+    @media (pointer: coarse) { .cursor-dot, .energy-blob { display: none; } body { cursor: auto; } }
 
     /* ─── NAV ─── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
       padding: 28px 56px;
-      transition: background 0.5s, padding 0.4s, border-color 0.5s;
+      transition: background .5s, padding .4s, border-color .5s;
       border-bottom: 1px solid transparent;
     }
-    nav.scrolled {
-      background: rgba(5,8,16,0.92);
-      backdrop-filter: blur(20px);
-      padding: 18px 56px;
-      border-bottom: 1px solid var(--border);
-    }
-    .logo { font-family: var(--serif); font-size: 21px; font-weight: 400; letter-spacing: 0.03em; color: var(--white); }
+    nav.scrolled { background: rgba(4,7,14,0.9); backdrop-filter: blur(24px); padding: 18px 56px; border-bottom-color: var(--border); }
+    .logo { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--white); }
     .logo span { color: var(--cyan); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s; }
+    .nav-links a { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; transition: color .3s; }
     .nav-links a:hover { color: var(--white); }
-    .nav-cta { padding: 9px 24px; border: 1px solid rgba(0,200,240,0.35); color: var(--cyan); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
-    .nav-cta:hover { background: rgba(0,200,240,0.08); border-color: var(--cyan); }
+    .nav-cta { padding: 9px 24px; border: 1px solid rgba(0,200,240,.3); color: var(--cyan); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: all .3s; }
+    .nav-cta:hover { background: rgba(0,200,240,.08); border-color: var(--cyan); }
 
     /* ─── HERO ─── */
     .hero {
-      height: 100vh; min-height: 640px;
       position: relative;
-      display: flex; align-items: flex-end;
+      height: 100vh; min-height: 640px;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
       padding: 80px 56px;
       overflow: hidden;
     }
-    .hero-img {
-      position: absolute; inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1800&q=85');
+    /* Canvas lives behind everything */
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    /* Real photo with subtle overlay — REPLACE with actual lab/biophoton photo */
+    .hero-photo {
+      position: absolute; inset: 0; z-index: 1;
+      background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1800&q=80');
       background-size: cover; background-position: center;
-      transform: scale(1.05);
-      animation: heroZoom 14s ease-out forwards;
+      opacity: 0.35; /* Photo peeks through canvas — ethereal */
     }
-    @keyframes heroZoom { to { transform: scale(1); } }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,8,16,0.92) 0%, rgba(5,8,16,0.4) 50%, rgba(5,8,16,0.2) 100%); }
-    /* Cyan glow from bottom-left */
-    .hero-glow { position: absolute; bottom: -10%; left: -5%; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(0,200,240,0.07) 0%, transparent 70%); pointer-events: none; }
+    .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(4,7,14,.97) 0%, rgba(4,7,14,.3) 60%, rgba(4,7,14,.1) 100%); }
 
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
-    .hero-eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; animation: fadeUp 1s 0.3s both; opacity: 0.85; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7vw, 100px); font-weight: 300; line-height: 1.02; color: var(--white); margin-bottom: 32px; animation: fadeUp 1s 0.5s both; }
+    .hero-content { position: relative; z-index: 3; max-width: 900px; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; opacity: 0; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(56px, 8vw, 108px); font-weight: 300; line-height: 1.0; color: var(--white); margin-bottom: 32px; opacity: 0; }
     .hero h1 em { font-style: italic; color: var(--cyan); }
-    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); font-weight: 300; line-height: 1.8; max-width: 480px; margin-bottom: 48px; animation: fadeUp 1s 0.75s both; }
-    .hero-actions { display: flex; gap: 16px; align-items: center; animation: fadeUp 1s 0.95s both; }
-    .btn-cyan { padding: 14px 40px; background: var(--cyan); color: var(--bg); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all 0.3s; }
-    .btn-cyan:hover { background: #2DD6F5; transform: translateY(-1px); }
-    .btn-ghost { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px; letter-spacing: 0.04em; transition: all 0.3s; }
-    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.5); }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.6); line-height: 1.8; max-width: 500px; margin-bottom: 48px; font-weight: 300; opacity: 0; }
+    .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
+    .btn-cyan { padding: 14px 40px; background: var(--cyan); color: var(--bg); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; display: inline-block; }
+    .btn-cyan:hover { background: #20D6F8; transform: translateY(-1px); }
+    .btn-ghost { font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; letter-spacing: .04em; transition: all .3s; }
+    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
 
-    /* ─── STATS STRIP ─── */
-    .stats-strip { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg2); }
-    .stat { padding: 36px 32px; border-right: 1px solid var(--border); }
+    /* Scroll indicator */
+    .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.35); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
+    .scroll-line { width: 48px; height: 1px; background: linear-gradient(to right, var(--cyan), transparent); }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ─── STATS ─── */
+    .stats-strip { display: grid; grid-template-columns: repeat(4,1fr); background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stat { padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
-    .stat-num { font-family: var(--serif); font-size: 40px; font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 12px; color: var(--muted); line-height: 1.65; letter-spacing: 0.02em; }
+    .stat-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+    /* ─── GENERIC SECTION ─── */
+    .section { padding: 140px 56px; max-width: 1200px; margin: 0 auto; }
+    .section-bg { background: var(--bg2); max-width: 100%; }
+    .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 140px 56px; }
+    .eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
+    h2 { font-family: var(--serif); font-size: clamp(38px, 4.5vw, 62px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
+    h2 em { font-style: italic; }
+    .lead { font-size: 16px; color: var(--muted); line-height: 1.85; font-weight: 300; }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
 
     /* ─── PROBLEM ─── */
-    .problem { padding: 140px 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; max-width: 1200px; margin: 0 auto; }
-    .prob-text .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
-    .prob-text h2 { font-family: var(--serif); font-size: clamp(38px, 4.5vw, 60px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
-    .prob-text h2 em { font-style: italic; color: var(--cyan); }
-    .prob-text p { font-size: 16px; color: var(--muted); line-height: 1.85; font-weight: 300; margin-bottom: 16px; }
-    .prob-text p strong { color: var(--white); font-weight: 400; }
-
-    /* Detection comparison — clean, not a grid */
-    .detect-card { background: var(--bg2); border: 1px solid var(--border); }
-    .detect-card-header { padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    .detect-row { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; border-bottom: 1px solid var(--border); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
+    .detect-card { border: 1px solid var(--border); background: rgba(0,200,240,.03); overflow: hidden; }
+    .detect-header { padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .detect-row { display: flex; justify-content: space-between; align-items: center; padding: 24px; border-bottom: 1px solid var(--border); }
     .detect-row:last-child { border-bottom: none; }
-    .detect-row.ours { background: rgba(0,200,240,0.04); }
+    .detect-row.us { background: rgba(0,200,240,.04); }
     .detect-method { font-size: 14px; color: var(--muted); }
-    .detect-val { font-family: var(--serif); font-size: 22px; font-weight: 300; }
-    .detect-val.dim { color: rgba(255,255,255,0.2); }
+    .detect-val { font-family: var(--serif); font-size: 24px; font-weight: 300; }
+    .detect-val.dim { color: rgba(255,255,255,.18); }
     .detect-val.lit { color: var(--cyan); }
-    .detect-badge { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 2px 8px; margin-left: 8px; font-weight: 500; }
+    .detect-badge { font-size: 9px; background: var(--cyan); color: var(--bg); padding: 2px 8px; margin-left: 8px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
 
     /* ─── SCIENCE ─── */
-    .science { padding: 140px 56px; background: var(--bg2); border-top: 1px solid var(--border); }
-    .science-inner { max-width: 1200px; margin: 0 auto; }
-    .science-top { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; margin-bottom: 80px; }
-    .sci-text .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
-    .sci-text h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
-    .sci-text h2 em { font-style: italic; }
-    .sci-text p { font-size: 16px; color: var(--muted); line-height: 1.85; font-weight: 300; }
+    .science-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
+    .sci-img { position: relative; }
+    .sci-img img { width: 100%; height: 440px; object-fit: cover; display: block; }
+    .sci-caption { padding: 16px 20px; border-left: 2px solid rgba(0,200,240,.2); margin-top: 0; }
+    .sci-caption p { font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.65; }
 
-    .sci-image { position: relative; }
-    .sci-image img { width: 100%; height: 420px; object-fit: cover; display: block; }
-    .sci-image-caption { padding: 16px 20px; background: rgba(0,200,240,0.05); border-left: 2px solid var(--cyan); margin-top: 0; }
-    .sci-image-caption p { font-size: 13px; color: var(--muted); font-style: italic; line-height: 1.6; }
+    .steps3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .step-block { padding: 44px 32px; background: rgba(255,255,255,.02); border: 1px solid var(--border); }
+    .step-block .step-n { font-family: var(--serif); font-size: 60px; font-weight: 300; color: var(--cyan); opacity: .13; line-height: 1; margin-bottom: 24px; }
+    .step-block h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; }
+    .step-block p { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
 
-    .sci-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
-    .sci-step { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 40px 32px; }
-    .step-n { font-family: var(--serif); font-size: 56px; font-weight: 300; color: var(--cyan); opacity: 0.18; line-height: 1; margin-bottom: 20px; }
-    .sci-step h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; letter-spacing: 0.01em; }
-    .sci-step p { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
+    /* ─── HORIZONTAL SCROLL SECTION ─── */
+    .h-section {
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .h-section-label {
+      padding: 80px 56px 0;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .h-section-label .eyebrow { margin-bottom: 12px; }
+    .h-section-label h2 { max-width: 600px; }
+
+    .h-track {
+      display: flex;
+      will-change: transform;
+      width: max-content;
+    }
+    .h-panel {
+      width: 100vw;
+      padding: 80px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .h-panel:last-child { border-right: none; }
+    .h-panel-img { position: relative; }
+    .h-panel-img img { width: 100%; height: 420px; object-fit: cover; display: block; }
+    .h-panel-status { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 4px 12px; display: inline-block; margin-bottom: 20px; font-weight: 500; }
+    .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
+    .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
+    .h-panel h3 em { font-style: italic; }
+    .h-panel p { font-size: 15px; color: var(--muted); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
+    .h-panel-pub { font-size: 12px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,200,240,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
+    .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
+    .h-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+
+    /* Scroll progress dots */
+    .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
+    .h-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .3s, transform .3s; }
+    .h-dot.active { background: var(--cyan); transform: scale(1.3); }
 
     /* ─── QUOTE ─── */
     .quote-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
-    .quote-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1600&q=75'); background-size: cover; background-position: center; background-attachment: fixed; }
-    .quote-bg-overlay { position: absolute; inset: 0; background: rgba(5,8,16,0.88); }
-    .quote-inner { position: relative; z-index: 1; max-width: 840px; margin: 0 auto; }
-    .quote-mark { font-family: var(--serif); font-size: 120px; font-weight: 300; color: var(--cyan); opacity: 0.12; line-height: 0.8; margin-bottom: 40px; }
-    .quote-section blockquote { font-family: var(--serif); font-size: clamp(24px, 3.5vw, 42px); font-weight: 300; font-style: italic; line-height: 1.4; color: var(--white); margin-bottom: 36px; }
-    .quote-cite { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-    .quote-cite a { color: var(--cyan); text-decoration: none; }
-
-    /* ─── APPLICATIONS ─── */
-    .apps { padding: 140px 56px; max-width: 1200px; margin: 0 auto; }
-    .apps-header { margin-bottom: 72px; }
-    .apps-header .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; }
-    .apps-header h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.1; }
-    .apps-header h2 em { font-style: italic; }
-    .apps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .app-card { border: 1px solid var(--border); overflow: hidden; background: var(--bg2); transition: border-color 0.4s; }
-    .app-card:hover { border-color: rgba(0,200,240,0.2); }
-    .app-card img { width: 100%; height: 280px; object-fit: cover; display: block; transition: transform 0.7s ease; }
-    .app-card:hover img { transform: scale(1.03); }
-    .app-img-wrap { overflow: hidden; position: relative; }
-    .app-status { position: absolute; top: 16px; left: 16px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 4px 10px; font-weight: 500; }
-    .app-body { padding: 32px 32px 36px; }
-    .app-body h3 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 14px; }
-    .app-body p { font-size: 15px; color: var(--muted); line-height: 1.8; font-weight: 300; margin-bottom: 24px; }
-    .app-stats { display: flex; gap: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
-    .app-stat-num { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--cyan); }
-    .app-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
-    .app-pub { font-size: 12px; color: var(--muted); font-style: italic; padding: 12px 16px; border-left: 2px solid rgba(0,200,240,0.2); margin-bottom: 20px; }
+    .q-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1600&q=75'); background-size: cover; background-position: center; background-attachment: fixed; }
+    .q-overlay { position: absolute; inset: 0; background: rgba(4,7,14,.88); }
+    .quote-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+    .q-mark { font-family: var(--serif); font-size: 140px; font-weight: 300; color: var(--cyan); opacity: .1; line-height: .8; margin-bottom: 40px; }
+    blockquote { font-family: var(--serif); font-size: clamp(22px,3.2vw,40px); font-weight: 300; font-style: italic; line-height: 1.42; color: var(--white); margin-bottom: 36px; }
+    cite { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-style: normal; }
+    cite a { color: var(--cyan); text-decoration: none; }
 
     /* ─── PRESS ─── */
-    .press { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 56px; }
-    .press-inner { max-width: 1200px; margin: 0 auto; }
-    .press-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; text-align: center; }
-    .press-logos { display: flex; justify-content: center; align-items: center; gap: 56px; flex-wrap: wrap; margin-bottom: 64px; }
-    .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: 0.25; transition: opacity 0.3s; cursor: default; }
-    .press-name:hover { opacity: 0.7; }
-    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .press-card { padding: 36px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); }
-    .press-outlet { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
-    .press-headline { font-family: var(--serif); font-size: 20px; font-weight: 400; line-height: 1.4; margin-bottom: 20px; }
-    .press-quote { font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.75; border-left: 2px solid rgba(0,200,240,0.25); padding-left: 16px; }
-    .press-quote cite { display: block; font-style: normal; font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 10px; letter-spacing: 0.04em; }
+    .press-logos { display: flex; justify-content: center; align-items: center; gap: 52px; flex-wrap: wrap; padding: 64px 56px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .22; transition: opacity .3s; cursor: default; }
+    .press-name:hover { opacity: .75; }
+    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+    .press-card { background: var(--bg2); padding: 44px; }
+    .press-outlet { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+    .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; }
+    .press-quote { font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
+    .press-quote cite { display: block; font-style: normal; font-size: 12px; color: rgba(255,255,255,.25); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
 
-    /* ─── CREDIBILITY ─── */
-    .creds { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; border-top: 1px solid var(--border); }
-    .cred { padding: 32px 24px; background: var(--bg2); text-align: center; border-right: 1px solid var(--border); }
+    /* ─── CREDS ─── */
+    .creds-strip { display: grid; grid-template-columns: repeat(4,1fr); border-bottom: 1px solid var(--border); }
+    .cred { padding: 32px 24px; text-align: center; border-right: 1px solid var(--border); background: var(--bg2); }
     .cred:last-child { border-right: none; }
-    .cred-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .cred-value { font-size: 14px; line-height: 1.5; color: var(--white); font-weight: 400; }
+    .cred-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .cred-value { font-size: 14px; color: var(--white); line-height: 1.5; }
 
     /* ─── TEAM ─── */
-    .team { padding: 140px 56px; max-width: 1200px; margin: 0 auto; }
-    .team-header { margin-bottom: 72px; }
-    .team-header .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; }
-    .team-header h2 { font-family: var(--serif); font-size: clamp(36px, 4vw, 52px); font-weight: 300; line-height: 1.1; }
-    .team-header h2 em { font-style: italic; }
-    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .team-card { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 36px; border: 1px solid var(--border); align-items: start; background: var(--bg2); transition: border-color 0.3s; }
-    .team-card:hover { border-color: rgba(0,200,240,0.15); }
-    .team-initial { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); border: 1px solid rgba(0,200,240,0.2); }
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
+    .team-card { display: grid; grid-template-columns: 76px 1fr; gap: 24px; padding: 40px; background: var(--bg2); align-items: start; transition: background .3s; }
+    .team-card:hover { background: rgba(0,200,240,.03); }
+    .team-init { width: 76px; height: 76px; border: 1px solid rgba(0,200,240,.18); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
     .team-name { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
-    .team-title { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+    .team-title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
     .team-bio { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
 
     /* ─── CTA ─── */
-    .cta { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
-    .cta-glow { position: absolute; bottom: -30%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(0,200,240,0.06) 0%, transparent 70%); pointer-events: none; }
-    .cta .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
-    .cta h2 { font-family: var(--serif); font-size: clamp(40px, 5.5vw, 72px); font-weight: 300; margin-bottom: 24px; }
-    .cta h2 em { font-style: italic; }
-    .cta p { font-size: 17px; color: var(--muted); margin-bottom: 52px; font-weight: 300; max-width: 480px; margin-left: auto; margin-right: auto; }
-    .cta-actions { display: flex; gap: 16px; justify-content: center; }
-    .cta-types { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; max-width: 900px; margin: 64px auto 0; }
-    .cta-type { padding: 24px 20px; border: 1px solid var(--border); text-align: left; }
-    .cta-type h4 { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
-    .cta-type p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .cta-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
+    .cta-glow { position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(0,200,240,.06) 0%, transparent 70%); pointer-events: none; }
+    .cta-section h2 { margin-bottom: 24px; }
+    .cta-section .lead { max-width: 480px; margin: 0 auto 52px; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; margin-bottom: 72px; }
+    .cta-types { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: var(--border); max-width: 1000px; margin: 0 auto; }
+    .cta-type { background: var(--bg2); padding: 28px 24px; }
+    .cta-type h4 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+    .cta-type p { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
     /* ─── FOOTER ─── */
-    footer { border-top: 1px solid var(--border); padding: 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; background: var(--bg2); }
-    .footer-logo { font-family: var(--serif); font-size: 22px; color: var(--white); margin-bottom: 16px; }
-    .footer-logo span { color: var(--cyan); }
-    .footer-tagline { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--muted); margin-bottom: 16px; }
-    .footer-contact { font-size: 13px; color: var(--muted); line-height: 1.9; }
-    .footer-col h4 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .footer-col a:hover { color: var(--white); }
-    .footer-bottom { border-top: 1px solid var(--border); padding: 20px 56px; display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.2); background: var(--bg2); flex-wrap: wrap; gap: 12px; }
-
-    /* ─── REVEAL ─── */
-    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s ease, transform 0.9s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 56px; }
+    .f-logo { font-family: var(--serif); font-size: 22px; margin-bottom: 12px; }
+    .f-logo span { color: var(--cyan); }
+    .f-tagline { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--muted); margin-bottom: 20px; }
+    .f-contact { font-size: 13px; color: var(--muted); line-height: 1.9; }
+    .f-col h4 { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .f-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .f-col a:hover { color: var(--white); }
+    .f-bottom { background: var(--bg2); border-top: 1px solid var(--border); padding: 20px 56px; display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,.18); flex-wrap: wrap; gap: 8px; }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 960px) {
-      nav { padding: 20px 24px; }
-      nav.scrolled { padding: 14px 24px; }
+    @media (max-width: 1024px) {
+      .h-panel { width: 100vw; grid-template-columns: 1fr; }
+      .h-panel-img img { height: 280px; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
       .nav-links { display: none; }
       .hero { padding: 60px 24px; }
+      .section { padding: 80px 24px; }
+      .section-bg .section-inner { padding: 80px 24px; }
+      .problem-grid, .science-2col { grid-template-columns: 1fr; gap: 48px; }
+      .steps3 { grid-template-columns: 1fr; }
+      .h-section-label { padding: 60px 24px 0; }
+      .h-panel { padding: 48px 24px; }
       .stats-strip { grid-template-columns: repeat(2,1fr); }
-      .problem, .science-top, .team-grid, .apps-grid, .press-cards { grid-template-columns: 1fr; gap: 48px; }
-      .problem, .team, .apps, .cta { padding: 80px 24px; }
-      .science { padding: 80px 24px; }
-      .sci-steps { grid-template-columns: 1fr; }
+      .press-cards { grid-template-columns: 1fr; }
+      .press-logos { padding: 48px 24px; gap: 32px; }
+      .creds-strip { grid-template-columns: repeat(2,1fr); }
+      .team-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 100px 24px; }
+      .cta-types { grid-template-columns: repeat(2,1fr); }
+      footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
+      .f-bottom { padding: 16px 24px; }
       .quote-section { padding: 100px 24px; }
-      .press { padding: 60px 24px; }
-      .creds, .cta-types { grid-template-columns: repeat(2,1fr); }
-      footer { grid-template-columns: 1fr; padding: 48px 24px; }
-      .footer-bottom { padding: 16px 24px; }
-      .hero h1 { font-size: clamp(44px, 10vw, 72px); }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
+      .energy-blob { display: none; }
     }
   </style>
 </head>
 <body>
+
+<!-- Energy blob — follows cursor -->
+<div class="energy-blob" id="blob"></div>
+<div class="cursor-dot" id="cdot"></div>
 
 <!-- NAV -->
 <nav id="nav">
   <div class="logo">Helio<span>Flux</span></div>
   <ul class="nav-links">
     <li><a href="#science">Technology</a></li>
-    <li><a href="#applications">Platform</a></li>
+    <li><a href="#platform">Platform</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Partner With Us</a>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-img"></div>
+  <!-- Animated canvas: photons emanating from center -->
+  <canvas id="hero-canvas"></canvas>
+  <!-- 
+    REPLACE hero photo below with a real photo of:
+    - Option A: Researcher in dark lab with glowing instrument
+    - Option B: Close-up of photomultiplier tube / lab equipment
+    - Option C: Abstract microscopy / cell imaging
+  -->
+  <div class="hero-photo"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-glow"></div>
+
   <div class="hero-content">
-    <p class="hero-eyebrow">Biophotonic Disease Detection</p>
-    <h1>Your cells emit light.<br>We learned to<br><em>read it.</em></h1>
-    <p class="hero-sub">Non-invasive cancer detection at 5–10 million cells — 100–200x earlier than traditional imaging. No blood draw. No radiation. Just light.</p>
-    <div class="hero-actions">
-      <a href="#science" class="btn-cyan">See the Science</a>
+    <p class="hero-eyebrow" id="he">Biophotonic Disease Detection</p>
+    <h1 id="hh">Your cells emit light.<br>We learned to<br><em>read it.</em></h1>
+    <p class="hero-sub" id="hs">Non-invasive cancer detection at 5–10 million cells — 100–200× earlier than standard imaging. No blood draw. No radiation. Just light.</p>
+    <div class="hero-actions" id="ha">
+      <a href="#science" class="btn-cyan">Follow the Science</a>
       <a href="#contact" class="btn-ghost">Partner with us →</a>
     </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    Follow the light
   </div>
 </section>
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat"><div class="stat-num">5–10M</div><div class="stat-label">Cell detection threshold<br>vs. 1 billion traditional</div></div>
-  <div class="stat"><div class="stat-num">100–200×</div><div class="stat-label">Earlier than<br>standard imaging</div></div>
-  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Cancer detection<br>rate (2018 study)</div></div>
-  <div class="stat"><div class="stat-num">90–92%</div><div class="stat-label">Discriminant<br>accuracy</div></div>
+  <div class="stat reveal"><div class="stat-num">5–10M</div><div class="stat-label">Cell detection threshold<br>vs. ~1 billion traditional</div></div>
+  <div class="stat reveal"><div class="stat-num">100–200×</div><div class="stat-label">Earlier than<br>standard imaging</div></div>
+  <div class="stat reveal"><div class="stat-num">100%</div><div class="stat-label">Cancer detection<br>rate (2018 study)</div></div>
+  <div class="stat reveal"><div class="stat-num">90–92%</div><div class="stat-label">Discriminant<br>accuracy</div></div>
 </div>
 
 <!-- PROBLEM -->
-<section class="problem" id="problem">
-  <div class="prob-text reveal">
-    <p class="eyebrow">The Problem</p>
-    <h2>We're finding cancer<br><em>too late.</em></h2>
-    <p>By the time a CT scan or MRI finds cancer, you already have roughly <strong>one billion cells</strong> — 30 cell divisions — growing inside you. That's a tumor you can feel. Something that may have already spread.</p>
-    <p>HelioFlux detects at 5–10 million cells. Something you <strong>can't feel yet.</strong> Something that hasn't spread. Something that's still simple to treat.</p>
-    <p>The difference between detecting at one billion cells and ten million cells isn't a better test — it's a different outcome.</p>
-  </div>
-  <div class="reveal">
-    <div class="detect-card">
-      <div class="detect-card-header">Detection Threshold Comparison</div>
-      <div class="detect-row">
-        <span class="detect-method">MRI / CT Scan</span>
-        <span class="detect-val dim">~1 billion cells</span>
-      </div>
-      <div class="detect-row">
-        <span class="detect-method">Blood Tests</span>
-        <span class="detect-val dim">~500 million cells</span>
-      </div>
-      <div class="detect-row ours">
-        <span class="detect-method">HelioFlux <span class="detect-badge">Ours</span></span>
-        <span class="detect-val lit">5–10 million cells</span>
+<section class="section" id="problem">
+  <div class="problem-grid">
+    <div class="reveal">
+      <p class="eyebrow">The Problem</p>
+      <h2>We're finding cancer<br><em>too late.</em></h2>
+      <p class="lead" style="margin-bottom:20px">By the time a CT scan finds cancer, you already have roughly <strong style="color:var(--white);font-weight:400">one billion cells</strong> — 30 cell divisions — growing inside you. A tumor you can feel. Something that may have already spread.</p>
+      <p class="lead">HelioFlux detects at 5–10 million cells. Something you <strong style="color:var(--white);font-weight:400">cannot feel yet</strong>. Something that hasn't spread. Something that's still easy to treat.</p>
+    </div>
+    <div class="reveal">
+      <div class="detect-card">
+        <div class="detect-header">Detection Threshold Comparison</div>
+        <div class="detect-row">
+          <span class="detect-method">MRI / CT Scan</span>
+          <span class="detect-val dim">~1 billion cells</span>
+        </div>
+        <div class="detect-row">
+          <span class="detect-method">Standard Blood Tests</span>
+          <span class="detect-val dim">~500 million cells</span>
+        </div>
+        <div class="detect-row us">
+          <span class="detect-method">HelioFlux <span class="detect-badge">Ours</span></span>
+          <span class="detect-val lit">5–10 million cells</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SCIENCE -->
-<section class="science" id="science">
-  <div class="science-inner">
-    <div class="science-top">
-      <div class="sci-text reveal">
+<div class="section-bg" id="science">
+  <div class="section-inner">
+    <div class="science-2col">
+      <div class="reveal">
         <p class="eyebrow">The Science</p>
         <h2>Every living cell<br>emits <em>light.</em></h2>
-        <p>Ultra-weak photon emissions (UPEs) are a direct, real-time signal of cellular metabolism — thousands of times fainter than a firefly, detectable only with instruments as sensitive as those in astronomical observatories. When metabolism changes, the light changes too. We built the detector to hear the difference.</p>
-        <p style="margin-top:20px">Our technology doesn't shine light into you — it records the light already coming out.</p>
+        <p class="lead" style="margin-bottom:20px">Ultra-weak photon emissions (UPEs) are a real-time signal of cellular metabolism — thousands of times fainter than a firefly. When metabolism changes, the light changes. We built the detector to hear the difference.</p>
+        <p class="lead">Our device doesn't shine light <em>into</em> you. It records the light already coming <em>out.</em></p>
       </div>
-      <div class="sci-image reveal">
+      <div class="sci-img reveal">
+        <!--
+          REPLACE: Photo of photomultiplier tube equipment in dark lab
+          OR: Microscopy image showing cellular glow
+          OR: Nirosha at her instrument in the lab
+        -->
         <img
           src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=800&q=80"
-          alt="Scientific microscopy imaging"
-          onerror="this.parentElement.style.background='#0B1020';this.style.display='none';this.parentElement.style.height='420px'"
+          alt="Scientific research equipment — replace with real HelioFlux lab photo"
+          onerror="this.parentElement.style.background='#080C18';this.style.display='none';this.parentElement.style.height='440px'"
         >
-        <div class="sci-image-caption">
-          <p>Photomultiplier tube (PMT) technology — the same sensitivity used in particle physics experiments, now applied to human biology.</p>
+        <div class="sci-caption">
+          <p>Photomultiplier tubes detect single photons — the same sensitivity used in particle physics, now applied to human biology.</p>
         </div>
       </div>
     </div>
-    <div class="sci-steps">
-      <div class="sci-step reveal">
-        <div class="step-n">1</div>
-        <h3>Non-Invasive Recording</h3>
-        <p>Our device records the photons your cells naturally emit. No sample. No preparation. No radiation. You simply place the affected area near the detector.</p>
+    <div class="steps3">
+      <div class="step-block reveal">
+        <div class="step-n">01</div>
+        <h3>Non-Invasive</h3>
+        <p>Place the affected area near the detector. No blood draw. No biopsy. No contrast agent. No preparation required.</p>
       </div>
-      <div class="sci-step reveal">
-        <div class="step-n">2</div>
-        <h3>Ultra-Sensitive Detection</h3>
-        <p>Photomultiplier tubes detect light at the single-photon level. The same technology used in deep-space observation, miniaturized for biological measurement.</p>
+      <div class="step-block reveal">
+        <div class="step-n">02</div>
+        <h3>Single-Photon Sensitive</h3>
+        <p>Our photomultiplier tubes detect light at the single-photon level — the same instrumentation used to study the cosmos, applied to cellular biology.</p>
       </div>
-      <div class="sci-step reveal">
-        <div class="step-n">3</div>
+      <div class="step-block reveal">
+        <div class="step-n">03</div>
         <h3>Pattern Analysis</h3>
-        <p>Advanced signal processing identifies wavelength-specific signatures that distinguish healthy from malignant tissue — with 90–92% discriminant accuracy.</p>
+        <p>Wavelength-specific signatures distinguish healthy from malignant tissue with 90–92% discriminant accuracy across 13 cell lines.</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HORIZONTAL SCROLL — PLATFORM ═══ -->
+<section id="platform">
+  <div class="h-section-label">
+    <p class="eyebrow reveal">Platform Technology</p>
+    <h2 class="reveal">One science. <em>Four frontiers.</em></h2>
+  </div>
+  <div class="h-section" id="hSection">
+    <div class="h-track" id="hTrack">
+
+      <!-- Panel 1 — Cancer Detection -->
+      <div class="h-panel">
+        <div class="h-panel-img reveal">
+          <!--
+            REPLACE: Photo of cancer cell under UV microscopy
+            OR: Nirosha working with tissue samples
+            OR: Dramatic lab imagery with cell cultures
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=900&q=80"
+            alt="Cancer detection research — replace with real lab photo"
+            onerror="this.style.background='#0A0F1E';this.style.display='none'"
+          >
+          <div class="h-panel-num">01</div>
+        </div>
+        <div class="reveal">
+          <div class="h-panel-status">Validated · Published 2018 &amp; 2020</div>
+          <h3>Cancer<br><em>Detection</em></h3>
+          <p class="h-panel-pub">Biochemistry & Biophysics Reports (Elsevier), 2018 · Cancers (MDPI), 2020</p>
+          <p>90–92% discriminant accuracy across 13 cancer cell lines. 100% of cancer cases correctly identified. Detection within 24 hours of tumor injection — before any imaging technology could find them. 47 animal models across multiple cancer types.</p>
+          <div class="h-stats">
+            <div><div class="h-stat-num">100%</div><div class="h-stat-label">Detection Rate</div></div>
+            <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal Models</div></div>
+            <div><div class="h-stat-num">13</div><div class="h-stat-label">Cell Lines</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2 — Brain Monitoring -->
+      <div class="h-panel">
+        <div class="h-panel-img reveal">
+          <!--
+            REPLACE: Brain scan imagery, or EEG/brain monitoring equipment
+            OR: Person in brain monitoring study
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=900&q=80"
+            alt="Brain monitoring research — replace with real study photo"
+            onerror="this.style.background='#0A0F1E';this.style.display='none'"
+          >
+          <div class="h-panel-num">02</div>
+        </div>
+        <div class="reveal">
+          <div class="h-panel-status">Validated · Published 2025</div>
+          <h3>Brain State<br><em>Monitoring</em></h3>
+          <p class="h-panel-pub">iScience (Cell Press), 2025 · 20 human subjects · EEG cross-validated</p>
+          <p>The world's first photoencephalography — measuring brain cellular activity through photon emission in living humans. Published in Cell Press. Cross-validated with EEG in 20 subjects. A non-invasive window into brain metabolism that has never existed before.</p>
+          <div class="h-stats">
+            <div><div class="h-stat-num">20</div><div class="h-stat-label">Human Subjects</div></div>
+            <div><div class="h-stat-num">First</div><div class="h-stat-label">Photoencephalography</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3 — Chemo Brain -->
+      <div class="h-panel">
+        <div class="h-panel-img reveal">
+          <!--
+            REPLACE: Patient receiving infusion / clinical setting
+            OR: Healthcare professional with patient
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1576671414121-aa2d60f02b7c?auto=format&fit=crop&w=900&q=80"
+            alt="Chemotherapy and neurotoxicity research — placeholder"
+            onerror="this.style.background='#0A0F1E';this.style.display='none'"
+          >
+          <div class="h-panel-num">03</div>
+        </div>
+        <div class="reveal">
+          <div class="h-panel-status" style="background:rgba(0,200,240,.12);color:rgba(0,200,240,.6);border:1px solid rgba(0,200,240,.2)">In Research</div>
+          <h3>Chemo Brain<br><em>Detection</em></h3>
+          <p>Chemotherapy-induced cognitive impairment affects up to 75% of cancer patients. There is currently no non-invasive way to measure neurotoxic insult in real time. Our 2025 iScience publication validates the pathway — the device that reads the brain can also detect when chemo is harming it.</p>
+          <p style="font-size:13px;color:var(--muted);margin-top:16px">Treatment response monitoring · Cognitive impact assessment · Neuroprotection guidance</p>
+        </div>
+      </div>
+
+      <!-- Panel 4 — Cell Reprogramming -->
+      <div class="h-panel">
+        <div class="h-panel-img reveal">
+          <!--
+            REPLACE: Abstract cell imagery, or bioluminescence photo
+            OR: Conceptual/artistic science photo
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=900&q=80"
+            alt="Cell reprogramming research — placeholder"
+            onerror="this.style.background='#0A0F1E';this.style.display='none'"
+          >
+          <div class="h-panel-num">04</div>
+        </div>
+        <div class="reveal">
+          <div class="h-panel-status" style="background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)">Long-Term Vision</div>
+          <h3>Cell<br><em>Reprogramming</em></h3>
+          <p>Phase 3 of the HelioFlux vision. The same biophysical light signals we read, we may one day write. Using photon emissions to reprogram disease states at the cellular level — moving from detection to intervention using the body's own language.</p>
+          <p style="font-size:13px;color:var(--muted);margin-top:16px">The signals that tell us something is wrong may also be how we tell cells to heal.</p>
+        </div>
+      </div>
+
+    </div><!-- end h-track -->
+    <div class="h-dots" id="hDots">
+      <div class="h-dot active"></div>
+      <div class="h-dot"></div>
+      <div class="h-dot"></div>
+      <div class="h-dot"></div>
     </div>
   </div>
 </section>
 
 <!-- QUOTE -->
 <section class="quote-section">
-  <div class="quote-bg"></div>
-  <div class="quote-bg-overlay"></div>
+  <div class="q-bg"></div>
+  <div class="q-overlay"></div>
   <div class="quote-inner reveal">
-    <div class="quote-mark">"</div>
+    <div class="q-mark">"</div>
     <blockquote>Photons are coming out of the head — full stop. It's independent, it's not spurious, it's not random.</blockquote>
-    <p class="quote-cite">Dr. Nirosha Murugan, CEO &amp; Chief Scientist &mdash; <a href="#press">Scientific American, June 2025</a></p>
-  </div>
-</section>
-
-<!-- APPLICATIONS -->
-<section class="apps" id="applications">
-  <div class="apps-header reveal">
-    <p class="eyebrow">Platform Technology</p>
-    <h2>One science.<br><em>Multiple applications.</em></h2>
-  </div>
-  <div class="apps-grid">
-    <div class="app-card reveal">
-      <div class="app-img-wrap">
-        <img
-          src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=800&q=80"
-          alt="Cancer detection research"
-          onerror="this.parentElement.style.background='#0C1520';this.style.display='none';this.parentElement.style.height='280px'"
-        >
-        <span class="app-status">Validated</span>
-      </div>
-      <div class="app-body">
-        <h3>Cancer Detection</h3>
-        <p class="app-pub">Biochemistry & Biophysics Reports, 2018 · Cancers (MDPI), 2020</p>
-        <p>90–92% discriminant accuracy across 13 cancer cell lines. 100% of cancer cases correctly identified. Tumors detected within 24 hours of injection in animal models — before any imaging technology could find them.</p>
-        <div class="app-stats">
-          <div><div class="app-stat-num">100%</div><div class="app-stat-label">Detection Rate</div></div>
-          <div><div class="app-stat-num">47</div><div class="app-stat-label">Animal Models</div></div>
-          <div><div class="app-stat-num">13</div><div class="app-stat-label">Cell Lines</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="app-card reveal">
-      <div class="app-img-wrap">
-        <img
-          src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=800&q=80"
-          alt="Brain monitoring research"
-          onerror="this.parentElement.style.background='#0C1520';this.style.display='none';this.parentElement.style.height='280px'"
-        >
-        <span class="app-status">Validated</span>
-      </div>
-      <div class="app-body">
-        <h3>Brain State Monitoring</h3>
-        <p class="app-pub">iScience (Cell Press), 2025 · 20 human subjects · EEG cross-validated</p>
-        <p>The first photoencephalography — measuring brain cellular activity through photon emission. Published in Cell Press. Cross-validated with EEG in 20 human subjects. Potential applications: chemo brain, neurotoxicity monitoring, cognitive health.</p>
-        <div class="app-stats">
-          <div><div class="app-stat-num">20</div><div class="app-stat-label">Human Subjects</div></div>
-          <div><div class="app-stat-num">First</div><div class="app-stat-label">Photoencephalography</div></div>
-        </div>
-      </div>
-    </div>
+    <cite>Dr. Nirosha Murugan, CEO &amp; Chief Scientist &mdash; <a href="#press">Scientific American, June 2025</a></cite>
   </div>
 </section>
 
 <!-- PRESS -->
-<section class="press" id="press">
-  <div class="press-inner">
-    <p class="press-eyebrow">Press & Publications</p>
-    <div class="press-logos reveal">
-      <span class="press-name">Scientific American</span>
-      <span class="press-name">NPR Radiolab</span>
-      <span class="press-name">iScience · Cell Press</span>
-      <span class="press-name">CTV News</span>
+<div id="press">
+  <div class="press-logos reveal">
+    <span class="press-name">Scientific American</span>
+    <span class="press-name">NPR Radiolab</span>
+    <span class="press-name">iScience · Cell Press</span>
+    <span class="press-name">CTV News</span>
+    <span class="press-name">LA Business Journal</span>
+  </div>
+  <div class="press-cards">
+    <div class="press-card reveal">
+      <div class="press-outlet">Scientific American · June 2025</div>
+      <div class="press-headline">"Your Brain Is Glowing, and Scientists Can't Figure Out Why"</div>
+      <div class="press-quote">"This is a very intriguing and potentially groundbreaking approach for measuring brain activity."<cite>— Dr. Michael Gramlich, Biophysicist, Auburn University</cite></div>
     </div>
-    <div class="press-cards">
-      <div class="press-card reveal">
-        <div class="press-outlet">Scientific American · June 2025</div>
-        <div class="press-headline">"Your Brain Is Glowing, and Scientists Can't Figure Out Why"</div>
-        <div class="press-quote">"This is a very intriguing and potentially groundbreaking approach for measuring brain activity."<cite>— Dr. Michael Gramlich, Auburn University</cite></div>
-      </div>
-      <div class="press-card reveal">
-        <div class="press-outlet">NPR Radiolab · September 2025</div>
-        <div class="press-headline">"The Spark of Life — Are We... Glowing?"</div>
-        <div class="press-quote">"Plants give off light. Shrimp give off light. Literally everything that is alive emits light. And what about us humans?"<cite>— Dr. Nirosha Murugan, Radiolab</cite></div>
-      </div>
+    <div class="press-card reveal">
+      <div class="press-outlet">NPR Radiolab · September 2025</div>
+      <div class="press-headline">"The Spark of Life — Are We... Glowing?"</div>
+      <div class="press-quote">"Plants give off light. Shrimp give off light. Literally everything that is alive emits light. And what about us humans?"<cite>— Dr. Nirosha Murugan, NPR Radiolab</cite></div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- CREDS -->
-<div class="creds">
+<div class="creds-strip">
   <div class="cred reveal"><div class="cred-label">Research Chair</div><div class="cred-value">Canada Research Chair in Tissue Biophysics</div></div>
   <div class="cred reveal"><div class="cred-label">NVIDIA Inception</div><div class="cred-value">Member since October 2024</div></div>
   <div class="cred reveal"><div class="cred-label">Research Funding</div><div class="cred-value">$1.3M+ in grants secured</div></div>
-  <div class="cred reveal"><div class="cred-label">IP Status</div><div class="cred-value">Provisional patent filing in progress</div></div>
+  <div class="cred reveal"><div class="cred-label">IP Status</div><div class="cred-value">Provisional patent in progress</div></div>
 </div>
 
 <!-- TEAM -->
-<section class="team" id="team">
-  <div class="team-header reveal">
-    <p class="eyebrow">The Team</p>
-    <h2>Scientists and operators<br>building the <em>future of detection.</em></h2>
-  </div>
+<section class="section" id="team">
+  <p class="eyebrow reveal">The Team</p>
+  <h2 class="reveal">Scientists and operators<br>building the <em>future of detection.</em></h2>
   <div class="team-grid">
     <div class="team-card reveal">
-      <div class="team-initial">N</div>
+      <div class="team-init">N</div>
       <div>
         <div class="team-name">Dr. Nirosha Murugan</div>
-        <div class="team-title">CEO & Co-Founder</div>
-        <div class="team-bio">Canada Research Chair in Tissue Biophysics, Wilfrid Laurier University. 15 years in electromagnetic biology. Author of three peer-reviewed publications on biophotonic disease detection. Covered by Scientific American, NPR Radiolab, and Cell Press.</div>
+        <div class="team-title">CEO &amp; Co-Founder</div>
+        <div class="team-bio">Canada Research Chair in Tissue Biophysics at Wilfrid Laurier University. 15 years in electromagnetic biology. Author of three peer-reviewed publications on biophotonic disease detection. Covered by Scientific American, NPR Radiolab, and Cell Press.</div>
       </div>
     </div>
     <div class="team-card reveal">
-      <div class="team-initial">K</div>
+      <div class="team-init">K</div>
       <div>
         <div class="team-name">Kelly Lucas</div>
-        <div class="team-title">President & Co-Founder</div>
-        <div class="team-bio">B.S. Biology with Honors, UNC Chapel Hill. MBA, Indiana University Kelley School of Business. Former PhD candidate in Biochemistry & Molecular Genetics. Leads fundraising, partnerships, and commercialization strategy.</div>
+        <div class="team-title">President &amp; Co-Founder</div>
+        <div class="team-bio">B.S. Biology with Honors, UNC Chapel Hill. MBA, Indiana University Kelley School of Business. Former PhD candidate in Biochemistry &amp; Molecular Genetics. Leads fundraising, partnerships, and commercialization strategy.</div>
       </div>
     </div>
     <div class="team-card reveal">
-      <div class="team-initial">J</div>
+      <div class="team-init">J</div>
       <div>
         <div class="team-name">Jim Armstrong</div>
         <div class="team-title">Board Member</div>
@@ -474,7 +613,7 @@
       </div>
     </div>
     <div class="team-card reveal">
-      <div class="team-initial">G</div>
+      <div class="team-init">G</div>
       <div>
         <div class="team-name">Glenn Lucas</div>
         <div class="team-title">Interim CMO</div>
@@ -485,79 +624,208 @@
 </section>
 
 <!-- CTA -->
-<section class="cta" id="contact">
+<section class="cta-section" id="contact">
   <div class="cta-glow"></div>
   <p class="eyebrow reveal">Get Involved</p>
   <h2 class="reveal">Let's talk.</h2>
-  <p class="reveal">Whether you're an investor, clinical partner, research collaborator, or member of the press — we want to hear from you.</p>
+  <p class="lead reveal">Investor, clinical partner, researcher, or press — we want to hear from you.</p>
   <div class="cta-actions reveal">
     <a href="mailto:kelly.lucas@helioflux.co" class="btn-cyan">Email Our Team</a>
-    <a href="mailto:kelly.lucas@helioflux.co?subject=Investment Inquiry" class="btn-ghost">Investor inquiries →</a>
+    <a href="mailto:kelly.lucas@helioflux.co?subject=Investment Inquiry — HelioFlux" class="btn-ghost">Investor inquiries →</a>
   </div>
   <div class="cta-types">
     <div class="cta-type reveal"><h4>Investors</h4><p>Raising bridge to deploy in clinical settings and complete human pilot data.</p></div>
-    <div class="cta-type reveal"><h4>Clinicians</h4><p>Dermatology clinics, oncology centers, and hospital systems for pilot partnerships.</p></div>
-    <div class="cta-type reveal"><h4>Research</h4><p>Technology licensing, collaborative studies, and ARPA-H aligned opportunities.</p></div>
-    <div class="cta-type reveal"><h4>Press</h4><p>Featured in Scientific American, NPR, and Cell Press. Press inquiries welcome.</p></div>
+    <div class="cta-type reveal"><h4>Clinicians</h4><p>Dermatology, oncology, mental health, and hospital systems for pilot partnerships.</p></div>
+    <div class="cta-type reveal"><h4>Research</h4><p>Technology licensing, collaborative studies, and ARPA-H opportunities.</p></div>
+    <div class="cta-type reveal"><h4>Press</h4><p>Featured in Scientific American, NPR, and Cell Press. Inquiries welcome.</p></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-logo">Helio<span>Flux</span></div>
-    <div class="footer-tagline">Detecting disease at the speed of light.</div>
-    <div class="footer-contact">kelly.lucas@helioflux.co<br>(310) 418-0482<br>Manhattan Beach, CA</div>
+    <div class="f-logo">Helio<span>Flux</span></div>
+    <div class="f-tagline">Detecting disease at the speed of light.</div>
+    <div class="f-contact">kelly.lucas@helioflux.co<br>(310) 418-0482<br>Manhattan Beach, CA</div>
   </div>
-  <div class="footer-col">
+  <div class="f-col">
     <h4>Company</h4>
     <ul>
       <li><a href="#science">Technology</a></li>
-      <li><a href="#applications">Platform</a></li>
+      <li><a href="#platform">Platform</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#press">Press</a></li>
     </ul>
   </div>
-  <div class="footer-col">
+  <div class="f-col">
     <h4>Research</h4>
     <ul>
-      <li><a href="#">2025 iScience Paper</a></li>
-      <li><a href="#">2020 Cancers Paper</a></li>
-      <li><a href="#">2018 Biophysics Paper</a></li>
+      <li><a href="#">iScience 2025</a></li>
+      <li><a href="#">Cancers 2020</a></li>
+      <li><a href="#">Biophysics Reports 2018</a></li>
     </ul>
   </div>
 </footer>
-<div class="footer-bottom">
+<div class="f-bottom">
   <span>© 2026 HelioFlux Inc. All rights reserved.</span>
-  <span>HelioFlux is in research validation. Not FDA cleared. Not intended to diagnose, treat, or prevent disease.</span>
+  <span>HelioFlux is in research validation. Not FDA cleared. Not intended to diagnose or treat any disease.</span>
 </div>
 
 <script>
-// Sticky nav
+// ─── LENIS ───
+const lenis = new Lenis({ duration: 1.25, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ─── HERO CANVAS — floating photon field ───
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const particles = [];
+class Photon {
+  constructor() { this.reset(true); }
+  reset(init = false) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = init ? Math.random() * Math.max(canvas.width, canvas.height) * 0.6 : 0;
+    this.cx = canvas.width / 2;
+    this.cy = canvas.height / 2;
+    this.x = this.cx + Math.cos(angle) * radius;
+    this.y = this.cy + Math.sin(angle) * radius;
+    this.vx = Math.cos(angle) * (0.15 + Math.random() * 0.4);
+    this.vy = Math.sin(angle) * (0.15 + Math.random() * 0.4);
+    this.size = Math.random() * 1.4 + 0.3;
+    this.life = 1;
+    this.decay = 0.003 + Math.random() * 0.004;
+    this.cyan = Math.random() > 0.55;
+    this.glow = Math.random() > 0.7;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= this.decay;
+    if (this.life <= 0 || this.x < -10 || this.y < -10 || this.x > canvas.width + 10 || this.y > canvas.height + 10) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.life * (this.cyan ? 0.7 : 0.4);
+    if (this.glow) { ctx.shadowBlur = 6; ctx.shadowColor = '#00C8F0'; }
+    ctx.fillStyle = this.cyan ? '#00C8F0' : 'rgba(180,210,255,0.9)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+for (let i = 0; i < 160; i++) particles.push(new Photon());
+
+function animateCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateCanvas);
+}
+animateCanvas();
+
+// ─── ENERGY BLOB (follows cursor + scroll) ───
+const blob = document.getElementById('blob');
+const cdot = document.getElementById('cdot');
+let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+let bx = mx, by = my;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+// Custom cursor
+document.addEventListener('mousemove', e => {
+  gsap.to(cdot, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'none' });
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cdot.classList.add('big'));
+  el.addEventListener('mouseleave', () => cdot.classList.remove('big'));
+});
+
+function animateBlob() {
+  bx += (mx - bx) * 0.07;
+  by += (my - by) * 0.07;
+  blob.style.transform = `translate(${bx - 300}px, ${by - 300}px)`;
+  requestAnimationFrame(animateBlob);
+}
+animateBlob();
+
+// ─── STICKY NAV ───
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+lenis.on('scroll', ({ scroll }) => nav.classList.toggle('scrolled', scroll > 60));
 
-// Scroll reveals with stagger for siblings
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
+// ─── HERO ENTRANCE ───
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+tl.to('#he', { opacity: 1, y: 0, duration: .8 }, .4)
+  .to('#hh', { opacity: 1, y: 0, duration: 1.1 }, .65)
+  .to('#hs', { opacity: 1, y: 0, duration: .9 }, 1.0)
+  .to('#ha', { opacity: 1, y: 0, duration: .7 }, 1.3);
 
+// ─── SCROLL REVEALS ───
 document.querySelectorAll('.reveal').forEach((el, i) => {
-  const parent = el.parentElement;
-  const siblings = parent.querySelectorAll('.reveal');
+  const siblings = el.parentElement.querySelectorAll('.reveal');
   if (siblings.length > 1) {
     const idx = Array.from(siblings).indexOf(el);
-    el.style.transitionDelay = `${idx * 0.12}s`;
+    el.style.transitionDelay = `${idx * 0.1}s`;
   }
-  observer.observe(el);
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { el.classList.add('in'); obs.unobserve(el); } });
+  }, { threshold: 0.12 });
+  obs.observe(el);
 });
+
+// ─── HORIZONTAL SCROLL SECTION ───
+const hSection = document.getElementById('hSection');
+const hTrack = document.getElementById('hTrack');
+const hDots = document.querySelectorAll('.h-dot');
+const panels = document.querySelectorAll('.h-panel');
+const panelCount = panels.length;
+
+// Only apply on desktop
+if (window.innerWidth > 1024) {
+  gsap.to(hTrack, {
+    x: () => -(hTrack.scrollWidth - window.innerWidth),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hSection,
+      start: 'top top',
+      end: () => '+=' + (hTrack.scrollWidth - window.innerWidth),
+      pin: true,
+      scrub: 1.2,
+      anticipatePin: 1,
+      onUpdate: self => {
+        const idx = Math.round(self.progress * (panelCount - 1));
+        hDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    }
+  });
+}
+
+// ─── PARALLAX HERO CANVAS ───
+gsap.to('#hero-canvas', {
+  y: -120,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '.hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: true
+  }
+});
+
 </script>
 </body>
 </html>
