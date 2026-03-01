@@ -449,6 +449,56 @@
   </div>
 </div>
 
+<!-- TUMOR DETECTION TIMELINE -->
+<div style="padding:0 56px 100px;max-width:1200px;margin:0 auto;">
+  <div class="reveal" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:64px;">
+    <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px">Published data · Cancers (MDPI), 2020</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,26px);font-weight:300;line-height:1.3;margin-bottom:36px;max-width:640px">In the 2020 study, HelioFlux detected melanoma in living mice within <em>24 hours</em> of tumor injection — 18 days before the tumor became palpable.</p>
+    <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;overflow:visible;" aria-label="Tumor detection timeline: HelioFlux detects on Day 1, tumor only palpable on Day 19">
+      <!-- HelioFlux detection zone (cyan) Day 1 → end -->
+      <rect x="65" y="55" width="495" height="14" fill="rgba(0,200,240,0.07)" rx="2"/>
+      <!-- base timeline bar -->
+      <rect x="40" y="63" width="520" height="2" fill="rgba(255,255,255,0.08)" rx="1"/>
+
+      <!-- Day 0 — Injection -->
+      <circle cx="40" cy="64" r="5" fill="#0A1020" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+      <text x="40" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Day 0</text>
+      <text x="40" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.15)">injection</text>
+
+      <!-- Day 1 — HelioFlux detects (CYAN, filled) -->
+      <circle cx="65" cy="64" r="6" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
+      <!-- detection arrow above -->
+      <line x1="65" y1="55" x2="65" y2="30" stroke="rgba(0,200,240,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="65" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#00C8F0" font-weight="500">HelioFlux detects</text>
+      <text x="65" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.6)">Day 1</text>
+      <text x="65" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(0,200,240,0.35)">24 hrs</text>
+
+      <!-- Day 7 -->
+      <circle cx="213" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+      <text x="213" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 7</text>
+
+      <!-- Day 10 -->
+      <circle cx="288" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+      <text x="288" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 10</text>
+
+      <!-- Day 13 -->
+      <circle cx="362" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+      <text x="362" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 13</text>
+
+      <!-- Day 19 — Palpable tumor (amber/warning) -->
+      <circle cx="510" cy="64" r="6" fill="rgba(255,140,40,0.15)" stroke="rgba(255,140,40,0.55)" stroke-width="1.5"/>
+      <line x1="510" y1="73" x2="510" y2="98" stroke="rgba(255,140,40,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="510" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,140,40,0.55)">first palpable tumor</text>
+      <text x="510" y="117" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,140,40,0.35)">Day 19</text>
+
+      <!-- Gap annotation -->
+      <line x1="70" y1="43" x2="505" y2="43" stroke="rgba(255,255,255,0.06)" stroke-width="1" marker-end="url(#arr)"/>
+      <text x="287" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1">18 days earlier than standard detection</text>
+    </svg>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;max-width:560px">Measurement protocol: 100 seconds of photon counting per session. No anesthesia prep beyond study requirements. No imaging. No contrast agent. No biopsy.</p>
+  </div>
+</div>
+
 <!-- SCIENCE -->
 <div class="section-bg" id="science">
   <div class="section-inner">
@@ -522,7 +572,7 @@
         <div class="reveal">
           <div class="h-panel-status">Validated · Published 2018 &amp; 2020</div>
           <h3>Cancer<br><em>Detection</em></h3>
-          <p class="h-panel-pub"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
+          <p class="h-panel-pub"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
           <p>90–92% discriminant accuracy across 13 cancer cell lines. 100% of cancer cases correctly identified across 47 animal models. In the pivotal 2018 study, detection occurred <strong style="color:var(--cyan);font-weight:400">within 24 hours of tumor injection</strong> — before any imaging technology in existence could find them.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">100%</div><div class="h-stat-label">Detection Rate</div></div>
@@ -904,7 +954,7 @@
     <h4>Research</h4>
     <ul>
       <li><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener">iScience 2025 ↗</a></li>
-      <li><a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener">Cancers 2020 ↗</a></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener">Cancers 2020 ↗</a></li>
       <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener">Biophysics Reports 2018 ↗</a></li>
     </ul>
   </div>
