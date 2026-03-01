@@ -615,80 +615,113 @@
   </div>
 </div>
 
-<!-- ═══ SPECTRAL SIGNATURE SPLIT ═══ -->
-<div style="background:var(--bg2);border-top:1px solid var(--border);">
-  <div class="spectral-split reveal">
+<!-- ═══ SPECTRAL RIBBON WAVE ═══ -->
+<div style="background:var(--bg);border-top:1px solid var(--border);">
+
+  <!-- Text header -->
+  <div style="max-width:1200px;margin:0 auto;padding:80px 56px 40px;" class="reveal">
     <p class="eyebrow">The spectral signature · 2018 published study</p>
-    <h2 style="line-height:1.15;max-width:640px">Two cells. Same body.<br><em>Opposite light.</em></h2>
-
-    <div class="ss-grid">
-      <!-- Healthy -->
-      <div class="ss-side ss-healthy">
-        <svg class="ss-orb" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <radialGradient id="hGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stop-color="#FF9940" stop-opacity=".9"/>
-              <stop offset="38%"  stop-color="#CC3300" stop-opacity=".35"/>
-              <stop offset="75%"  stop-color="#882200" stop-opacity=".1"/>
-              <stop offset="100%" stop-color="#FF4400" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="hCore" cx="42%" cy="38%" r="58%">
-              <stop offset="0%"   stop-color="#FFF0D8"/>
-              <stop offset="40%"  stop-color="#FF9940"/>
-              <stop offset="80%"  stop-color="#CC3300" stop-opacity=".6"/>
-              <stop offset="100%" stop-color="#881100" stop-opacity=".2"/>
-            </radialGradient>
-          </defs>
-          <circle cx="120" cy="120" r="114" fill="url(#hGlow)" class="ss-pulse-w"/>
-          <circle cx="120" cy="120" r="70"  fill="url(#hCore)"/>
-          <circle cx="105" cy="106" r="20"  fill="rgba(255,240,205,.5)"/>
-        </svg>
-        <p class="ss-type">Healthy tissue</p>
-        <h3 class="ss-heading">Emits toward<br><em>infrared</em></h3>
-        <p class="ss-wavelength">Near-Infrared · 950nm</p>
-        <p class="ss-body">Normal cells emit a higher proportion of long-wavelength photons. The emission profile slopes warm — toward the red end of the spectrum.</p>
+    <h2 style="line-height:1.15;max-width:580px;margin-bottom:32px">Two emission profiles.<br><em>Opposite directions.</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:720px;">
+      <div>
+        <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,155,50,.6);margin-bottom:6px">↑ Healthy tissue · 950nm</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75">Normal cells emit more near-infrared photons. The warm ribbon above represents this emission profile — sloping toward long wavelengths.</p>
       </div>
-
-      <!-- Cancer -->
-      <div class="ss-side ss-cancer">
-        <svg class="ss-orb" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <radialGradient id="cGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stop-color="#00C8F0" stop-opacity=".85"/>
-              <stop offset="32%"  stop-color="#0055CC" stop-opacity=".35"/>
-              <stop offset="65%"  stop-color="#5511AA" stop-opacity=".12"/>
-              <stop offset="100%" stop-color="#4400AA" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="cCore" cx="42%" cy="38%" r="58%">
-              <stop offset="0%"   stop-color="#DAFAFF"/>
-              <stop offset="38%"  stop-color="#00C8F0"/>
-              <stop offset="72%"  stop-color="#1133BB"/>
-              <stop offset="100%" stop-color="#5500CC" stop-opacity=".4"/>
-            </radialGradient>
-          </defs>
-          <circle cx="120" cy="120" r="114" fill="url(#cGlow)" class="ss-pulse-c"/>
-          <circle cx="120" cy="120" r="70"  fill="url(#cCore)"/>
-          <circle cx="105" cy="106" r="20"  fill="rgba(210,248,255,.55)"/>
-        </svg>
-        <p class="ss-type">Malignant tissue</p>
-        <h3 class="ss-heading">Shifts toward<br><em>ultraviolet</em></h3>
-        <p class="ss-wavelength">Ultraviolet · 370nm</p>
-        <p class="ss-body">Cancer cells invert the pattern — emitting more short-wavelength photons. The shift toward UV is measurable, reproducible, and distinct from any healthy profile.</p>
+      <div>
+        <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,200,240,.6);margin-bottom:6px">↓ Malignant tissue · 370nm</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75">Cancer cells invert the pattern — emitting more ultraviolet photons. The cool ribbon below shows this reversed signature.</p>
       </div>
     </div>
+  </div>
 
-    <!-- Spectrum bar -->
-    <div class="ss-spectrum-row">
-      <div class="ss-spectrum-label warm">← Near-Infrared · 950nm</div>
-      <div class="ss-spectrum-bar"></div>
-      <div class="ss-spectrum-label cool">Ultraviolet · 370nm →</div>
-    </div>
+  <!-- Canvas — full width, edge to edge -->
+  <div style="position:relative;height:300px;overflow:hidden;">
+    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+  </div>
 
-    <p style="font-size:11px;color:var(--muted);margin-top:28px;text-align:center">
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid rgba(255,255,255,.1)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · Murugan et al. · Three discriminating wavelengths: 420nm, 620nm, 950nm
-    </p>
+  <!-- Citation -->
+  <div style="max-width:1200px;margin:0 auto;padding:16px 56px 56px;display:flex;justify-content:flex-end;">
+    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener"
+       style="font-size:10px;color:rgba(255,255,255,.18);text-decoration:none;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:1px;">
+      Murugan et al. · Biochemistry &amp; Biophysics Reports (Elsevier), 2018
+    </a>
   </div>
 </div>
+
+<script>
+(function(){
+  var canvas = document.getElementById('ribbonCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var cssW = 0, cssH = 0, t = 0, animating = false, raf;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var LINES = 68;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    cssW = rect.width; cssH = rect.height;
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function lerpC(c1, c2, f) {
+    return [
+      c1[0] + (c2[0]-c1[0])*f | 0,
+      c1[1] + (c2[1]-c1[1])*f | 0,
+      c1[2] + (c2[2]-c1[2])*f | 0
+    ];
+  }
+
+  function drawRibbon(yRatio, phase, spreadAmp, c1, c2, baseAlpha) {
+    var cy = cssH * yRatio;
+    for (var i = 0; i < LINES; i++) {
+      var frac  = i / (LINES - 1);
+      var edge  = 1 - Math.pow(Math.abs(frac - 0.5) * 2, 1.6);
+      var alpha = baseAlpha * edge;
+      var col   = lerpC(c1, c2, frac);
+      ctx.strokeStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+','+alpha.toFixed(3)+')';
+      ctx.lineWidth = 0.85;
+      ctx.beginPath();
+      var first = true;
+      for (var px = 0; px <= cssW; px += 2) {
+        var nx = px / cssW;
+        var wave = Math.sin(nx * Math.PI * 2.7 + t + phase) * cssH * 0.12
+                 + Math.sin(nx * Math.PI * 1.2 + t * 0.6 + phase) * cssH * 0.045;
+        var env  = (Math.sin(nx * Math.PI * 2.3 + t * 0.42 + phase * 0.9) * 0.5 + 0.5) * spreadAmp;
+        var y    = cy + wave + (frac - 0.5) * env;
+        if (first) { ctx.moveTo(px, y); first = false; }
+        else          ctx.lineTo(px, y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, cssW, cssH);
+    // Warm ribbon — healthy tissue, near-infrared (amber → deep orange)
+    drawRibbon(0.33, 0,              cssH * 0.44, [255,158,48], [215,72,18],  0.72);
+    // Cool ribbon — malignant tissue, ultraviolet (cyan → violet)
+    drawRibbon(0.67, Math.PI * 0.72, cssH * 0.44, [0,200,240],  [108,28,196], 0.72);
+    t += 0.007;
+    if (animating) raf = requestAnimationFrame(draw);
+  }
+
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { animating = true; draw(); }
+    else { animating = false; cancelAnimationFrame(raf); }
+  }, { threshold: 0.05 });
+  obs.observe(canvas);
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){ resize(); }, 100);
+  });
+
+  resize();
+})();
+</script>
 
 <!-- ═══ HORIZONTAL SCROLL — PLATFORM ═══ -->
 <section id="platform">
