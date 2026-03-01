@@ -4,6 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="HelioFlux detects cancer at 5–10 million cells — 100–200x earlier than standard imaging. Non-invasive. No blood draw. No radiation.">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2304070E'/><circle cx='16' cy='16' r='8' fill='none' stroke='%2300C8F0' stroke-width='2'/><circle cx='16' cy='16' r='3' fill='%2300C8F0'/></svg>">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HelioFlux — Non-Invasive Cancer Detection">
+  <meta property="og:description" content="Detecting cancer at 5–10 million cells — 100–200x earlier than standard imaging. No blood draw. No biopsy. No radiation.">
+  <meta property="og:image" content="https://kellylucas314-cpu.github.io/helioflux-website/nirosha-lab.jpg">
+  <meta property="og:url" content="https://kellylucas314-cpu.github.io/helioflux-website/">
+  <meta property="og:site_name" content="HelioFlux">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HelioFlux — Non-Invasive Cancer Detection">
+  <meta name="twitter:description" content="Detecting cancer at 5–10 million cells — 100–200x earlier than standard imaging.">
+  <meta name="twitter:image" content="https://kellylucas314-cpu.github.io/helioflux-website/nirosha-lab.jpg">
   <title>HelioFlux — Biophotonic Disease Detection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
@@ -29,7 +43,7 @@
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      cursor: none;
+      cursor: default;
     }
 
     /* ─── ENERGY BLOB (follows cursor) ─── */
@@ -73,6 +87,8 @@
     .nav-links a:hover { color: var(--white); }
     .nav-cta { padding: 9px 24px; border: 1px solid rgba(0,200,240,.3); color: var(--cyan); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: all .3s; }
     .nav-cta:hover { background: rgba(0,200,240,.08); border-color: var(--cyan); }
+    .nav-hamburger { display: none; }
+    .mobile-menu { display: none; }
 
     /* ─── HERO ─── */
     .hero {
@@ -366,6 +382,17 @@
     @media (max-width: 900px) {
       nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 201; }
+      .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.7); transition: all .3s; }
+      .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+      .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+      .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+      .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(4,7,14,.97); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 300; color: var(--white); text-decoration: none; letter-spacing: .04em; transition: color .2s; }
+      .mobile-menu a:hover { color: var(--cyan); }
+      .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,200,240,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; }
+      .nav-cta { display: none; }
       .hero { padding: 60px 24px; }
       .section { padding: 80px 24px; }
       .section-bg .section-inner { padding: 80px 24px; }
@@ -407,7 +434,19 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Partner With Us</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="background:none;border:none;">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#science" class="mob-link">Technology</a>
+  <a href="#platform" class="mob-link">Platform</a>
+  <a href="#team" class="mob-link">Team</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <a href="#contact" class="mob-cta mob-link">Partner With Us</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
@@ -439,7 +478,7 @@
 
 <!-- ═══ LAB PHOTO — HERO BREAK ═══ -->
 <div style="position:relative;overflow:hidden;line-height:0;">
-  <img src="nirosha-lab.jpg"
+  <img loading="lazy" src="nirosha-lab.jpg"
        alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant"
        style="width:100%;height:560px;object-fit:cover;object-position:center 20%;display:block;filter:brightness(.82);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 50%);pointer-events:none;"></div>
@@ -708,7 +747,7 @@
 
 <!-- ═══ DEVICE PHOTO — BEFORE PLATFORM ═══ -->
 <div style="position:relative;overflow:hidden;line-height:0;">
-  <img src="helioflux-device.jpg"
+  <img loading="lazy" src="helioflux-device.jpg"
        alt="HelioFlux photonic sensor array worn by a study participant"
        style="width:100%;height:520px;object-fit:cover;object-position:center 22%;display:block;filter:brightness(.82);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.85) 0%, rgba(4,7,14,.05) 50%);pointer-events:none;"></div>
@@ -950,7 +989,7 @@
     <div class="nirosha-wrap">
       <div class="nirosha-photo-side reveal">
         <div class="nirosha-img-frame">
-          <img src="nirosha-lab-headshot.jpg" alt="Dr. Nirosha Murugan, Chief Scientist and Co-Founder of HelioFlux, in her lab at Wilfrid Laurier University" style="width:100%;height:520px;object-fit:cover;object-position:center top;display:block;filter:grayscale(.05);">
+          <img loading="lazy" src="nirosha-lab-headshot.jpg" alt="Dr. Nirosha Murugan, Chief Scientist and Co-Founder of HelioFlux, in her lab at Wilfrid Laurier University" style="width:100%;height:520px;object-fit:cover;object-position:center top;display:block;filter:grayscale(.05);">
         </div>
         <div style="margin-top:20px;padding:20px;border-left:2px solid rgba(0,200,240,.15);">
           <p style="font-family:var(--serif);font-size:16px;font-style:italic;color:rgba(255,255,255,.55);line-height:1.65">"Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible so survivors live longer with better quality of life."</p>
@@ -1083,7 +1122,7 @@
 
 <!-- TEAM PHOTO BREAK -->
 <div style="position:relative;overflow:hidden;line-height:0;border-top:1px solid var(--border);">
-  <img src="nirosha-team.jpg"
+  <img loading="lazy" src="nirosha-team.jpg"
        alt="Dr. Nirosha Murugan with her research team at Wilfrid Laurier University"
        style="width:100%;height:420px;object-fit:cover;object-position:center 30%;display:block;filter:brightness(.78);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 55%);pointer-events:none;"></div>
@@ -1099,7 +1138,7 @@
   <h2 class="reveal">Scientists and operators<br>building the <em>future of detection.</em></h2>
   <div class="team-grid">
     <div class="team-card reveal">
-      <img src="nirosha-headshot.jpg" alt="Dr. Nirosha Murugan" class="team-photo">
+      <img loading="lazy" src="nirosha-headshot.jpg" alt="Dr. Nirosha Murugan" class="team-photo">
       <div>
         <div class="team-name">Dr. Nirosha Murugan</div>
         <div class="team-title">Chief Scientist &amp; Co-Founder</div>
@@ -1107,7 +1146,7 @@
       </div>
     </div>
     <div class="team-card reveal">
-      <img src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
+      <img loading="lazy" src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
       <div>
         <div class="team-name">Kelly Lucas</div>
         <div class="team-title">President &amp; Co-Founder</div>
@@ -1168,7 +1207,7 @@
 <section class="cta-section" id="contact">
   <div class="cta-glow"></div>
   <p class="eyebrow reveal">Ready to learn more</p>
-  <h2 class="reveal">The deck is ready.<br><em>Are you?</em></h2>
+  <h2 class="reveal">The science is real.<br><em>Let's talk.</em></h2>
   <p class="lead reveal" style="max-width:520px;margin:0 auto 40px;">HelioFlux is raising a bridge round to complete our human pilot data and deploy in clinical settings. If the science moves you, let's talk.</p>
   <div class="cta-actions reveal" style="margin-bottom:56px;">
     <a href="mailto:kelly.lucas@helioflux.co?subject=Investor Deck Request — HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A%0AContext%3A" class="btn-cyan">Request Investor Deck</a>
@@ -1292,6 +1331,8 @@ function animateCanvas() {
 animateCanvas();
 
 // ─── ENERGY BLOB (follows cursor + scroll) ───
+// Only hide cursor after JS confirms it's running
+document.body.style.cursor = 'none';
 const blob = document.getElementById('blob');
 const cdot = document.getElementById('cdot');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
@@ -1384,6 +1425,24 @@ gsap.to('#hero-canvas', {
     scrub: true
   }
 });
+
+// ─── MOBILE HAMBURGER ───
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
 
 </script>
 </body>
