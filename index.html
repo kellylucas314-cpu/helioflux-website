@@ -237,6 +237,19 @@
     @keyframes ssCool { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:.95;transform:scale(1.09)} }
     .ss-pulse-w { animation: ssWarm 3.8s ease-in-out infinite; transform-origin: center; }
     .ss-pulse-c { animation: ssCool 4.2s ease-in-out infinite; transform-origin: center; }
+    @keyframes pepCore { 0%,100%{opacity:.85;r:6px} 50%{opacity:1;r:7.5px} }
+    @keyframes pepGlow1 { 0%,100%{opacity:.22} 50%{opacity:.42} }
+    @keyframes pepGlow2 { 0%,100%{opacity:.09} 50%{opacity:.2} }
+    @keyframes pepGlow3 { 0%,100%{opacity:.04} 50%{opacity:.1} }
+    .pep-core  { animation: pepCore  3s ease-in-out infinite; }
+    .pep-g1    { animation: pepGlow1 3s ease-in-out infinite; }
+    .pep-g2    { animation: pepGlow2 3.4s ease-in-out infinite; }
+    .pep-g3    { animation: pepGlow3 4s ease-in-out infinite; }
+    .size-compare-svg { width:100%; max-width:460px; display:block; margin:0 auto; overflow:visible; }
+    .size-caption { text-align:center; margin-top:20px; }
+    .size-caption p { font-family:var(--serif); font-size:clamp(15px,1.8vw,20px); font-weight:300; line-height:1.5; color:rgba(255,255,255,.7); }
+    .size-caption strong { color:var(--cyan); font-weight:400; }
+    .size-caption em { color:rgba(255,130,50,.7); font-style:normal; }
     @media(max-width:860px){ .ss-grid { grid-template-columns:1fr; } .spectral-split { padding:80px 24px 60px; } .ss-side { padding: 48px 32px 40px; } .ss-spectrum-row { flex-direction:column; gap:8px; padding: 20px 24px; } .ss-spectrum-bar { width:100%; height:3px; } }
 
     /* ─── NIROSHA SECTION ─── */
@@ -443,20 +456,53 @@
       <p class="lead">HelioFlux detects at 5–10 million cells. Something you <strong style="color:var(--white);font-weight:400">cannot feel yet</strong>. Something that hasn't spread. Something that's still easy to treat.</p>
     </div>
     <div class="reveal">
-      <div class="threshold-compare">
-        <div class="threshold-col">
-          <span class="threshold-label">Where medicine finds it</span>
-          <div class="threshold-num dim">~1B</div>
-          <div class="threshold-unit">cells</div>
-          <div class="threshold-sub">MRI · CT scan · standard imaging</div>
-        </div>
-        <div class="threshold-divider"></div>
-        <div class="threshold-col">
-          <span class="threshold-label">Where HelioFlux finds it</span>
-          <div class="threshold-num lit">5–10M</div>
-          <div class="threshold-unit">cells</div>
-          <div class="threshold-sub bright">100–200× earlier — validated in 47 animal models</div>
-        </div>
+      <!-- SIZE COMPARISON VISUAL -->
+      <svg class="size-compare-svg" viewBox="0 0 420 310" xmlns="http://www.w3.org/2000/svg" aria-label="Size comparison: HelioFlux detects at peppercorn size, standard imaging detects at pea size">
+
+        <!-- ── HELIOFUX DOT (peppercorn, left) ── -->
+        <!-- diffuse outer halos -->
+        <circle cx="115" cy="118" r="52" fill="rgba(0,200,240,0.03)" class="pep-g3"/>
+        <circle cx="115" cy="118" r="34" fill="rgba(0,200,240,0.07)" class="pep-g2"/>
+        <circle cx="115" cy="118" r="20" fill="rgba(0,200,240,0.16)" class="pep-g1"/>
+        <!-- core glow ring -->
+        <circle cx="115" cy="118" r="11" fill="rgba(0,200,240,0.35)" class="pep-g1"/>
+        <!-- bright core -->
+        <circle cx="115" cy="118" r="6"  fill="#00C8F0" class="pep-core"/>
+        <!-- inner highlight -->
+        <circle cx="113" cy="116" r="2.5" fill="rgba(220,250,255,0.8)"/>
+
+        <!-- HelioFlux labels -->
+        <text x="115" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(0,200,240,0.9)" letter-spacing=".08em">HelioFlux</text>
+        <text x="115" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">5–10 million cells</text>
+        <text x="115" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(0,200,240,0.35)" letter-spacing=".06em">size of a peppercorn</text>
+
+        <!-- ── STANDARD IMAGING CIRCLE (pea, right) ── -->
+        <!-- faint outer glow -->
+        <circle cx="300" cy="118" r="78" fill="rgba(160,30,15,0.04)"/>
+        <circle cx="300" cy="118" r="62" fill="rgba(160,30,15,0.07)"/>
+        <!-- main mass -->
+        <circle cx="300" cy="118" r="52" fill="rgba(110,18,10,0.55)"/>
+        <circle cx="300" cy="118" r="52" fill="none" stroke="rgba(200,45,25,0.22)" stroke-width="1.5"/>
+        <!-- inner dark core — heavy, still, no pulse -->
+        <circle cx="300" cy="118" r="38" fill="rgba(70,10,6,0.7)"/>
+        <!-- very subtle inner highlight to give depth -->
+        <circle cx="286" cy="104" r="12" fill="rgba(180,40,20,0.08)"/>
+
+        <!-- Standard Imaging labels -->
+        <text x="300" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(200,80,60,0.8)" letter-spacing=".08em">Standard Imaging</text>
+        <text x="300" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">~1 billion cells</text>
+        <text x="300" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(200,80,60,0.35)" letter-spacing=".06em">size of a pea</text>
+
+        <!-- connector line between them — subtle -->
+        <line x1="136" y1="118" x2="248" y2="118" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3 5"/>
+
+        <!-- scale annotation -->
+        <text x="210" y="252" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.15)" letter-spacing=".12em">100–200× earlier detection</text>
+
+      </svg>
+
+      <div class="size-caption reveal">
+        <p>By the time medicine finds it,<br>it's been growing for <em>two years.</em><br>We find it <strong>at the peppercorn stage.</strong></p>
       </div>
     </div>
   </div>
