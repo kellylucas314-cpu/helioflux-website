@@ -309,6 +309,7 @@
     .team-card { display: grid; grid-template-columns: 76px 1fr; gap: 24px; padding: 40px; background: var(--bg2); align-items: start; transition: background .3s; }
     .team-card:hover { background: rgba(0,200,240,.03); }
     .team-init { width: 76px; height: 76px; border: 1px solid rgba(0,200,240,.18); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
+    .team-photo { width: 76px; height: 76px; object-fit: cover; object-position: center top; flex-shrink: 0; border-radius: 2px; filter: grayscale(.08); }
     .team-name { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
     .team-title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
     .team-bio { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
@@ -1075,7 +1076,7 @@
   <h2 class="reveal">Scientists and operators<br>building the <em>future of detection.</em></h2>
   <div class="team-grid">
     <div class="team-card reveal">
-      <div class="team-init">N</div>
+      <img src="nirosha-headshot.jpg" alt="Dr. Nirosha Murugan" class="team-photo">
       <div>
         <div class="team-name">Dr. Nirosha Murugan</div>
         <div class="team-title">CEO &amp; Co-Founder</div>
@@ -1083,7 +1084,7 @@
       </div>
     </div>
     <div class="team-card reveal">
-      <div class="team-init">K</div>
+      <img src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
       <div>
         <div class="team-name">Kelly Lucas</div>
         <div class="team-title">President &amp; Co-Founder</div>
