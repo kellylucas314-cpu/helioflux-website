@@ -132,16 +132,29 @@
 
     /* ─── PROBLEM ─── */
     .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
-    .detect-card { border: 1px solid var(--border); background: rgba(0,200,240,.03); overflow: hidden; }
-    .detect-header { padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-    .detect-row { display: flex; justify-content: space-between; align-items: center; padding: 24px; border-bottom: 1px solid var(--border); }
-    .detect-row:last-child { border-bottom: none; }
-    .detect-row.us { background: rgba(0,200,240,.04); }
-    .detect-method { font-size: 14px; color: var(--muted); }
-    .detect-val { font-family: var(--serif); font-size: 24px; font-weight: 300; }
-    .detect-val.dim { color: rgba(255,255,255,.18); }
-    .detect-val.lit { color: var(--cyan); }
-    .detect-badge { font-size: 9px; background: var(--cyan); color: var(--bg); padding: 2px 8px; margin-left: 8px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* Typographic threshold comparison — no tables, no boxes */
+    .threshold-compare { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; align-items: start; }
+    .threshold-divider { background: var(--border); height: 100%; min-height: 180px; }
+    .threshold-col { padding: 0 40px; }
+    .threshold-col:first-child { padding-left: 0; }
+    .threshold-col:last-child { padding-right: 0; }
+    .threshold-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
+    .threshold-num { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1; margin-bottom: 10px; }
+    .threshold-num.dim { color: rgba(255,255,255,.15); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.08); }
+    .threshold-num.lit { color: var(--cyan); }
+    .threshold-unit { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .threshold-sub { font-size: 12px; color: rgba(255,255,255,.25); line-height: 1.65; }
+    .threshold-sub.bright { color: rgba(0,200,240,.6); }
+
+    /* Peppercorn section */
+    .peppercorn { padding: 0 56px 120px; max-width: 1200px; margin: 0 auto; }
+    .peppercorn-inner { border-left: 2px solid rgba(0,200,240,.18); padding-left: 48px; }
+    .peppercorn-tag { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 20px; display: block; }
+    .peppercorn h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
+    .peppercorn p { font-size: 15px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
+    .peppercorn p + p { margin-top: 16px; }
+    .peppercorn strong { color: rgba(255,255,255,.75); font-weight: 400; }
 
     /* ─── SCIENCE ─── */
     .science-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
@@ -359,24 +372,34 @@
       <p class="lead">HelioFlux detects at 5–10 million cells. Something you <strong style="color:var(--white);font-weight:400">cannot feel yet</strong>. Something that hasn't spread. Something that's still easy to treat.</p>
     </div>
     <div class="reveal">
-      <div class="detect-card">
-        <div class="detect-header">Detection Threshold Comparison</div>
-        <div class="detect-row">
-          <span class="detect-method">MRI / CT Scan</span>
-          <span class="detect-val dim">~1 billion cells</span>
+      <div class="threshold-compare">
+        <div class="threshold-col">
+          <span class="threshold-label">Where medicine finds it</span>
+          <div class="threshold-num dim">~1B</div>
+          <div class="threshold-unit">cells</div>
+          <div class="threshold-sub">MRI · CT scan · standard imaging</div>
         </div>
-        <div class="detect-row">
-          <span class="detect-method">Standard Blood Tests</span>
-          <span class="detect-val dim">~500 million cells</span>
-        </div>
-        <div class="detect-row us">
-          <span class="detect-method">HelioFlux <span class="detect-badge">Ours</span></span>
-          <span class="detect-val lit">5–10 million cells</span>
+        <div class="threshold-divider"></div>
+        <div class="threshold-col">
+          <span class="threshold-label">Where HelioFlux finds it</span>
+          <div class="threshold-num lit">5–10M</div>
+          <div class="threshold-unit">cells</div>
+          <div class="threshold-sub bright">100–200× earlier — validated in 47 animal models</div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- PEPPERCORN — "What Early Really Means" -->
+<div class="peppercorn">
+  <div class="peppercorn-inner reveal">
+    <span class="peppercorn-tag">What "early" really means</span>
+    <h3>A melanoma at 10 million cells is the size of a peppercorn.<br>Invisible to imaging. <em>Easy to treat.</em></h3>
+    <p>By the time it reaches 1 billion cells — the threshold where medicine typically finds it — it's the size of a blueberry. It may have already reached the lymph nodes. That growth takes roughly <strong>1.5 to 2 years.</strong></p>
+    <p>HelioFlux is built to find the peppercorn.</p>
+  </div>
+</div>
 
 <!-- SCIENCE -->
 <div class="section-bg" id="science">
@@ -451,7 +474,7 @@
         <div class="reveal">
           <div class="h-panel-status">Validated · Published 2018 &amp; 2020</div>
           <h3>Cancer<br><em>Detection</em></h3>
-          <p class="h-panel-pub">Biochemistry & Biophysics Reports (Elsevier), 2018 · Cancers (MDPI), 2020</p>
+          <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.bbrep.2017.11.001" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
           <p>90–92% discriminant accuracy across 13 cancer cell lines. 100% of cancer cases correctly identified. Detection within 24 hours of tumor injection — before any imaging technology could find them. 47 animal models across multiple cancer types.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">100%</div><div class="h-stat-label">Detection Rate</div></div>
@@ -478,7 +501,7 @@
         <div class="reveal">
           <div class="h-panel-status">Validated · Published 2025</div>
           <h3>Brain State<br><em>Monitoring</em></h3>
-          <p class="h-panel-pub">iScience (Cell Press), 2025 · 20 human subjects · EEG cross-validated</p>
+          <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">iScience (Cell Press), 2025</a> · 20 human subjects · EEG cross-validated</p>
           <p>The world's first photoencephalography — measuring brain cellular activity through photon emission in living humans. Published in Cell Press. Cross-validated with EEG in 20 subjects. A non-invasive window into brain metabolism that has never existed before.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">20</div><div class="h-stat-label">Human Subjects</div></div>
@@ -524,10 +547,10 @@
           <div class="h-panel-num">04</div>
         </div>
         <div class="reveal">
-          <div class="h-panel-status" style="background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)">Long-Term Vision</div>
-          <h3>Cell<br><em>Reprogramming</em></h3>
-          <p>Phase 3 of the HelioFlux vision. The same biophysical light signals we read, we may one day write. Using photon emissions to reprogram disease states at the cellular level — moving from detection to intervention using the body's own language.</p>
-          <p style="font-size:13px;color:var(--muted);margin-top:16px">The signals that tell us something is wrong may also be how we tell cells to heal.</p>
+          <div class="h-panel-status" style="background:rgba(255,255,255,.03);color:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.07);font-size:9px">Phase 3 · Long-Term Research Vision</div>
+          <h3 style="opacity:.6">Cell<br><em>Reprogramming</em></h3>
+          <p style="font-size:14px">We are in Phase 1: detection. Phases 2 and 3 are where the science could go. The same biophysical signals we read from cells, we may one day learn to write back — moving from detection to intervention using the body's own language of light.</p>
+          <p style="font-size:12px;color:rgba(255,255,255,.2);margin-top:20px;line-height:1.65;border-top:1px solid var(--border);padding-top:20px">This represents early-stage scientific hypothesis, not validated research. HelioFlux is currently focused on its validated cancer and brain detection platform.</p>
         </div>
       </div>
 
@@ -630,8 +653,8 @@
   <h2 class="reveal">Let's talk.</h2>
   <p class="lead reveal">Investor, clinical partner, researcher, or press — we want to hear from you.</p>
   <div class="cta-actions reveal">
-    <a href="mailto:kelly.lucas@helioflux.co" class="btn-cyan">Email Our Team</a>
-    <a href="mailto:kelly.lucas@helioflux.co?subject=Investment Inquiry — HelioFlux" class="btn-ghost">Investor inquiries →</a>
+    <a href="mailto:kelly.lucas@helioflux.co?subject=Deck Request — HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux pitch deck.%0A%0AName%3A%0AOrganization%3A%0AContext%3A" class="btn-cyan">Request Our Deck</a>
+    <a href="mailto:kelly.lucas@helioflux.co" class="btn-ghost">Contact our team →</a>
   </div>
   <div class="cta-types">
     <div class="cta-type reveal"><h4>Investors</h4><p>Raising bridge to deploy in clinical settings and complete human pilot data.</p></div>
@@ -646,7 +669,7 @@
   <div>
     <div class="f-logo">Helio<span>Flux</span></div>
     <div class="f-tagline">Detecting disease at the speed of light.</div>
-    <div class="f-contact">kelly.lucas@helioflux.co<br>(310) 418-0482<br>Manhattan Beach, CA</div>
+    <div class="f-contact">kelly.lucas@helioflux.co<br>Manhattan Beach, CA</div>
   </div>
   <div class="f-col">
     <h4>Company</h4>
@@ -660,9 +683,9 @@
   <div class="f-col">
     <h4>Research</h4>
     <ul>
-      <li><a href="#">iScience 2025</a></li>
-      <li><a href="#">Cancers 2020</a></li>
-      <li><a href="#">Biophysics Reports 2018</a></li>
+      <li><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener">iScience 2025 ↗</a></li>
+      <li><a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener">Cancers 2020 ↗</a></li>
+      <li><a href="https://doi.org/10.1016/j.bbrep.2017.11.001" target="_blank" rel="noopener">Biophysics Reports 2018 ↗</a></li>
     </ul>
   </div>
 </footer>
