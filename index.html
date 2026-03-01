@@ -112,7 +112,7 @@
     @keyframes fadeIn { to { opacity: 1; } }
 
     /* ─── STATS ─── */
-    .stats-strip { display: grid; grid-template-columns: repeat(4,1fr); background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-strip { display: grid; grid-template-columns: repeat(5,1fr); background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .stat { padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
@@ -214,6 +214,27 @@
     .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
     .h-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .3s, transform .3s; }
     .h-dot.active { background: var(--cyan); transform: scale(1.3); }
+
+    /* ─── NIROSHA SECTION ─── */
+    .nirosha-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
+    .nirosha-photo-side { position: sticky; top: 120px; }
+    .nirosha-img-frame { position: relative; overflow: hidden; }
+    .nirosha-img-frame img { width: 100%; height: 520px; object-fit: cover; display: block; filter: grayscale(.1); }
+    .nirosha-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,8,14,.7) 0%, transparent 50%); }
+    .nirosha-img-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; }
+    .nirosha-img-caption .name { font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--white); }
+    .nirosha-img-caption .title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-top: 4px; }
+    .nirosha-placeholder { height: 520px; background: linear-gradient(135deg, #07101C 0%, #0A1828 100%); border: 1px dashed rgba(0,200,240,.2); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+    .nirosha-placeholder-icon { font-size: 48px; margin-bottom: 16px; opacity: .25; }
+    .nirosha-placeholder p { font-size: 12px; color: var(--muted); line-height: 1.75; max-width: 260px; }
+    .nirosha-credentials { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 32px 0; }
+    .ncred { background: var(--bg2); padding: 20px 22px; }
+    .ncred-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .ncred-value { font-size: 13px; color: var(--white); line-height: 1.55; }
+    .ncred-value strong { color: var(--cyan); font-weight: 400; }
+    .cancer-types { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+    .cancer-type-tag { font-size: 11px; padding: 4px 12px; background: rgba(0,200,240,.06); border: 1px solid rgba(0,200,240,.15); color: rgba(255,255,255,.55); letter-spacing: .04em; }
+    @media(max-width:900px) { .nirosha-wrap { grid-template-columns: 1fr; gap: 48px; } .nirosha-photo-side { position: static; } .nirosha-credentials { grid-template-columns: 1fr 1fr; } }
 
     /* ─── QUOTE ─── */
     .quote-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
@@ -381,10 +402,11 @@
 
 <!-- STATS -->
 <div class="stats-strip">
-  <div class="stat reveal"><div class="stat-num">5–10M</div><div class="stat-label">Cell detection threshold<br>vs. ~1 billion traditional</div></div>
+  <div class="stat reveal"><div class="stat-num">5–10M</div><div class="stat-label">Cell detection threshold<br>vs. ~1 billion standard</div></div>
   <div class="stat reveal"><div class="stat-num">100–200×</div><div class="stat-label">Earlier than<br>standard imaging</div></div>
-  <div class="stat reveal"><div class="stat-num">100%</div><div class="stat-label">Cancer detection<br>rate (2018 study)</div></div>
+  <div class="stat reveal"><div class="stat-num">100%</div><div class="stat-label">Cancer detection rate<br>(2018 peer-reviewed)</div></div>
   <div class="stat reveal"><div class="stat-num">90–92%</div><div class="stat-label">Discriminant<br>accuracy</div></div>
+  <div class="stat reveal"><div class="stat-num">&lt; 24 hrs</div><div class="stat-label">First detection post-<br>tumor injection</div></div>
 </div>
 
 <!-- PROBLEM -->
@@ -501,7 +523,7 @@
           <div class="h-panel-status">Validated · Published 2018 &amp; 2020</div>
           <h3>Cancer<br><em>Detection</em></h3>
           <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.bbrep.2017.11.001" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
-          <p>90–92% discriminant accuracy across 13 cancer cell lines. 100% of cancer cases correctly identified. Detection within 24 hours of tumor injection — before any imaging technology could find them. 47 animal models across multiple cancer types.</p>
+          <p>90–92% discriminant accuracy across 13 cancer cell lines. 100% of cancer cases correctly identified across 47 animal models. In the pivotal 2018 study, detection occurred <strong style="color:var(--cyan);font-weight:400">within 24 hours of tumor injection</strong> — before any imaging technology in existence could find them.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">100%</div><div class="h-stat-label">Detection Rate</div></div>
             <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal Models</div></div>
@@ -528,7 +550,7 @@
           <div class="h-panel-status">Validated · Published 2025</div>
           <h3>Brain State<br><em>Monitoring</em></h3>
           <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">iScience (Cell Press), 2025</a> · 20 human subjects · EEG cross-validated</p>
-          <p>The world's first photoencephalography — measuring brain cellular activity through photon emission in living humans. Published in Cell Press. Cross-validated with EEG in 20 subjects. A non-invasive window into brain metabolism that has never existed before.</p>
+          <p>The world's first photoencephalography — measuring brain cellular activity through photon emission in living humans. Published in <strong style="color:var(--cyan);font-weight:400">iScience (Cell Press)</strong>, Elsevier's highest-impact open-access journal — home to Cell, Neuron, and Current Biology. Cross-validated with EEG across 20 subjects. A non-invasive window into brain metabolism that has never existed before.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">20</div><div class="h-stat-label">Human Subjects</div></div>
             <div><div class="h-stat-num">First</div><div class="h-stat-label">Photoencephalography</div></div>
@@ -599,6 +621,85 @@
     <cite>Dr. Nirosha Murugan, CEO &amp; Chief Scientist &mdash; <a href="#press">Scientific American, June 2025</a></cite>
   </div>
 </section>
+
+<!-- ═══ NIROSHA — THE SCIENTIST ═══ -->
+<div class="section-bg" id="scientist">
+  <div class="section-inner">
+    <div class="nirosha-wrap">
+      <div class="nirosha-photo-side reveal">
+        <div class="nirosha-img-frame">
+          <!--
+            ★ REPLACE THIS PLACEHOLDER WITH:
+            Option A (ideal): Nirosha at the PMT instrument — dark lab, instrument glowing
+            Option B: Nirosha presenting at a conference
+            Option C: Professional headshot with lab/university in background
+            Send the photo to Kip on Telegram → will be live in 5 min
+          -->
+          <div class="nirosha-placeholder">
+            <div class="nirosha-placeholder-icon">🔬</div>
+            <p>Photo of Dr. Nirosha Murugan<br>at the HelioFlux instrument —<br>send to Kip to add</p>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding:20px;border-left:2px solid rgba(0,200,240,.15);">
+          <p style="font-family:var(--serif);font-size:16px;font-style:italic;color:rgba(255,255,255,.55);line-height:1.65">"Photons are coming out of the head — full stop. It's independent, it's not spurious, it's not random."</p>
+          <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:12px">Scientific American · June 2025</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="eyebrow">The Scientist Behind the Science</p>
+        <h2 style="margin-bottom:8px">Dr. Nirosha<br>Murugan</h2>
+        <p style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:28px">Canada Research Chair in Tissue Biophysics · Wilfrid Laurier University</p>
+
+        <p class="lead" style="margin-bottom:20px">Fifteen years ago, Nirosha began asking a question most biophysicists considered too unconventional to pursue: could the faint light that every living cell emits be measured precisely enough to tell the difference between healthy tissue and disease? Today, three peer-reviewed publications and 47 animal models later, the answer is yes.</p>
+
+        <p class="lead" style="margin-bottom:32px">Her appointment as Canada Research Chair in Tissue Biophysics recognizes her lab at Wilfrid Laurier University as a world-leading center for this field. The research has drawn coverage from Scientific American, NPR Radiolab, and Cell Press — Elsevier's highest-impact journal family, home to Cell, Neuron, and iScience.</p>
+
+        <div class="nirosha-credentials">
+          <div class="ncred">
+            <div class="ncred-label">Position</div>
+            <div class="ncred-value">Canada Research Chair<br>in Tissue Biophysics</div>
+          </div>
+          <div class="ncred">
+            <div class="ncred-label">Institution</div>
+            <div class="ncred-value">Wilfrid Laurier University<br>Waterloo, Ontario</div>
+          </div>
+          <div class="ncred">
+            <div class="ncred-label">Publications</div>
+            <div class="ncred-value"><strong>3</strong> peer-reviewed papers<br>Elsevier · MDPI · Cell Press</div>
+          </div>
+          <div class="ncred">
+            <div class="ncred-label">Research Funding</div>
+            <div class="ncred-value"><strong>$1.3M+</strong> in grants<br>SSHRC · NSERC · CFI</div>
+          </div>
+          <div class="ncred">
+            <div class="ncred-label">Field Experience</div>
+            <div class="ncred-value"><strong>15 years</strong> in electromagnetic<br>and tissue biophysics</div>
+          </div>
+          <div class="ncred">
+            <div class="ncred-label">Validation</div>
+            <div class="ncred-value"><strong>47</strong> animal models<br>across multiple cancer types</div>
+          </div>
+        </div>
+
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;letter-spacing:.08em;text-transform:uppercase">Cancer types validated:</p>
+        <div class="cancer-types">
+          <span class="cancer-type-tag">Breast</span>
+          <span class="cancer-type-tag">Brain</span>
+          <span class="cancer-type-tag">Prostate</span>
+          <span class="cancer-type-tag">Melanoma</span>
+          <span class="cancer-type-tag">Cervical</span>
+          <span class="cancer-type-tag">Colon</span>
+          <span class="cancer-type-tag">Lung</span>
+          <span class="cancer-type-tag">Ovarian</span>
+          <span class="cancer-type-tag">Liver</span>
+          <span class="cancer-type-tag">Leukemia</span>
+          <span class="cancer-type-tag">+ more</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- PRESS -->
 <div id="press">
