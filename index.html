@@ -88,9 +88,10 @@
     /* Real photo with subtle overlay — REPLACE with actual lab/biophoton photo */
     .hero-photo {
       position: absolute; inset: 0; z-index: 1;
-      background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1800&q=80');
-      background-size: cover; background-position: center;
-      opacity: 0.35; /* Photo peeks through canvas — ethereal */
+      /* REPLACE: photo of Nirosha at her instrument / dark lab with glowing PMT */
+      background-image: url('https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1800&q=80');
+      background-size: cover; background-position: center top;
+      opacity: 0.28;
     }
     .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(4,7,14,.97) 0%, rgba(4,7,14,.3) 60%, rgba(4,7,14,.1) 100%); }
 
@@ -226,6 +227,9 @@
 
     /* ─── PRESS ─── */
     .press-logos { display: flex; justify-content: center; align-items: center; gap: 52px; flex-wrap: wrap; padding: 64px 56px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .press-logo-link { opacity: .28; transition: opacity .3s; display: flex; align-items: center; }
+    .press-logo-link:hover { opacity: .75; }
+    .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
     .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .22; transition: opacity .3s; cursor: default; }
     .press-name:hover { opacity: .75; }
     .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
@@ -276,8 +280,29 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
-      .h-panel { width: 100vw; grid-template-columns: 1fr; }
-      .h-panel-img img { height: 280px; }
+      /* Native scroll-snap horizontal scroller on mobile */
+      .h-section {
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .h-section::-webkit-scrollbar { display: none; }
+      .h-track {
+        transform: none !important; /* override any GSAP x transforms */
+        display: flex;
+        width: max-content;
+      }
+      .h-panel {
+        width: 88vw;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        grid-template-columns: 1fr;
+        padding: 52px 28px;
+        gap: 32px;
+      }
+      .h-panel-img img { height: 240px; }
+      .h-dots { padding: 20px 0 40px; }
     }
     @media (max-width: 900px) {
       nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
@@ -419,7 +444,7 @@
           OR: Nirosha at her instrument in the lab
         -->
         <img
-          src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=800&q=80"
+          src="https://images.unsplash.com/photo-1578496481449-cf2e845cc00c?auto=format&fit=crop&w=800&q=80"
           alt="Scientific research equipment — replace with real HelioFlux lab photo"
           onerror="this.parentElement.style.background='#080C18';this.style.display='none';this.parentElement.style.height='440px'"
         >
@@ -466,7 +491,7 @@
             OR: Dramatic lab imagery with cell cultures
           -->
           <img
-            src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=900&q=80"
+            src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=900&q=80"
             alt="Cancer detection research — replace with real lab photo"
             onerror="this.style.background='#0A0F1E';this.style.display='none'"
           >
@@ -541,7 +566,7 @@
             OR: Conceptual/artistic science photo
           -->
           <img
-            src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=900&q=80"
+            src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&w=900&q=80"
             alt="Cell reprogramming research — placeholder"
             onerror="this.style.background='#0A0F1E';this.style.display='none'"
           >
@@ -578,23 +603,34 @@
 <!-- PRESS -->
 <div id="press">
   <div class="press-logos reveal">
-    <span class="press-name">Scientific American</span>
-    <span class="press-name">NPR Radiolab</span>
-    <span class="press-name">iScience · Cell Press</span>
-    <span class="press-name">CTV News</span>
-    <span class="press-name">LA Business Journal</span>
+    <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Scientific_American_logo.svg/300px-Scientific_American_logo.svg.png" alt="Scientific American" class="press-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="press-name" style="display:none">Scientific American</span>
+    </a>
+    <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Radiolab_logo.svg/300px-Radiolab_logo.svg.png" alt="Radiolab" class="press-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="press-name" style="display:none">NPR Radiolab</span>
+    </a>
+    <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/CellPress_logo.svg/300px-CellPress_logo.svg.png" alt="Cell Press" class="press-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="press-name" style="display:none">iScience · Cell Press</span>
+    </a>
+    <a href="#" class="press-logo-link"><span class="press-name" style="opacity:1">CTV News</span></a>
+    <a href="#" class="press-logo-link"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
   </div>
   <div class="press-cards">
-    <div class="press-card reveal">
+    <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
       <div class="press-outlet">Scientific American · June 2025</div>
       <div class="press-headline">"Your Brain Is Glowing, and Scientists Can't Figure Out Why"</div>
       <div class="press-quote">"This is a very intriguing and potentially groundbreaking approach for measuring brain activity."<cite>— Dr. Michael Gramlich, Biophysicist, Auburn University</cite></div>
-    </div>
-    <div class="press-card reveal">
+      <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Read article ↗</div>
+    </a>
+    <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
       <div class="press-outlet">NPR Radiolab · September 2025</div>
       <div class="press-headline">"The Spark of Life — Are We... Glowing?"</div>
       <div class="press-quote">"Plants give off light. Shrimp give off light. Literally everything that is alive emits light. And what about us humans?"<cite>— Dr. Nirosha Murugan, NPR Radiolab</cite></div>
-    </div>
+      <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Listen to episode ↗</div>
+    </a>
   </div>
 </div>
 
@@ -817,8 +853,8 @@ const hDots = document.querySelectorAll('.h-dot');
 const panels = document.querySelectorAll('.h-panel');
 const panelCount = panels.length;
 
-// Only apply on desktop
 if (window.innerWidth > 1024) {
+  // Desktop: GSAP pin + horizontal scroll
   gsap.to(hTrack, {
     x: () => -(hTrack.scrollWidth - window.innerWidth),
     ease: 'none',
@@ -835,6 +871,12 @@ if (window.innerWidth > 1024) {
       }
     }
   });
+} else {
+  // Mobile: native CSS scroll-snap — update dots on scroll
+  hSection.addEventListener('scroll', () => {
+    const idx = Math.round(hSection.scrollLeft / (window.innerWidth * 0.88));
+    hDots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, panelCount - 1)));
+  }, { passive: true });
 }
 
 // ─── PARALLAX HERO CANVAS ───
