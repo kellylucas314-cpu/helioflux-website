@@ -85,7 +85,7 @@
     }
     /* Canvas lives behind everything */
     #hero-canvas { position: absolute; inset: 0; z-index: 0; }
-    /* Real photo with subtle overlay — REPLACE with actual lab/biophoton photo */
+    /* Hero background — nirosha-microscope.jpg */
     .hero-photo {
       position: absolute; inset: 0; z-index: 1;
       background-image: url('nirosha-microscope.jpg');
@@ -198,7 +198,8 @@
     }
     .h-panel:last-child { border-right: none; }
     .h-panel-img { position: relative; }
-    .h-panel-img img { width: 100%; height: 420px; object-fit: cover; display: block; }
+    .h-panel-img img { display: none; }
+    .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; }
     .h-panel-status { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 4px 12px; display: inline-block; margin-bottom: 20px; font-weight: 500; }
     .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
     .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
