@@ -16,7 +16,7 @@
       --bg:     #04070E;
       --bg2:    #070B15;
       --white:  #ECF0FF;
-      --muted:  #6B7A96;
+      --muted:  #A8BBCC;
       --cyan:   #00C8F0;
       --border: rgba(255,255,255,0.06);
       --serif:  'Fraunces', Georgia, serif;
@@ -144,7 +144,7 @@
     .threshold-num.dim { color: rgba(255,255,255,.15); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.08); }
     .threshold-num.lit { color: var(--cyan); }
     .threshold-unit { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-    .threshold-sub { font-size: 12px; color: rgba(255,255,255,.25); line-height: 1.65; }
+    .threshold-sub { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.65; }
     .threshold-sub.bright { color: rgba(0,200,240,.6); }
 
     /* Peppercorn section */
@@ -288,7 +288,7 @@
     .press-logo-link { opacity: .28; transition: opacity .3s; display: flex; align-items: center; }
     .press-logo-link:hover { opacity: .75; }
     .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
-    .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .22; transition: opacity .3s; cursor: default; }
+    .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .5; transition: opacity .3s; cursor: default; }
     .press-name:hover { opacity: .75; }
     .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
     .press-card { background: var(--bg2); padding: 44px; }
@@ -427,14 +427,13 @@
     <h1 id="hh">Your cells emit light.<br>We learned to<br><em>read it.</em></h1>
     <p class="hero-sub" id="hs">Non-invasive cancer detection at 5–10 million cells — 100–200× earlier than standard imaging. No blood draw. No biopsy. No radiation.</p>
     <div class="hero-actions" id="ha">
-      <a href="#science" class="btn-cyan">Follow the Science</a>
+      <a href="#science" class="btn-cyan">See How It Works</a>
       <a href="#contact" class="btn-ghost">Partner with us →</a>
     </div>
   </div>
 
   <div class="scroll-cue">
     <div class="scroll-line"></div>
-    Follow the light
   </div>
 </section>
 
@@ -445,8 +444,8 @@
        style="width:100%;height:560px;object-fit:cover;object-position:center 20%;display:block;filter:brightness(.82);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 50%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:32px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;">Dr. Nirosha Murugan · Photonic sensor array · Wilfrid Laurier University</p>
-    <p style="font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(0,200,240,.5);">The measurement is already possible.</p>
+    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">Dr. Nirosha Murugan · Photonic sensor array · Wilfrid Laurier University</p>
+    <p style="font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(0,200,240,.85);">The measurement is already possible.</p>
   </div>
 </div>
 
@@ -628,7 +627,7 @@
   <!-- Citation -->
   <div style="max-width:1200px;margin:0 auto;padding:16px 56px 56px;display:flex;justify-content:flex-end;">
     <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener"
-       style="font-size:10px;color:rgba(255,255,255,.18);text-decoration:none;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:1px;">
+       style="font-size:10px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:1px;">
       Murugan et al. · Biochemistry &amp; Biophysics Reports (Elsevier), 2018
     </a>
   </div>
@@ -716,7 +715,7 @@
        style="width:100%;height:520px;object-fit:cover;object-position:center 22%;display:block;filter:brightness(.82);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.85) 0%, rgba(4,7,14,.05) 50%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:36px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;">HelioFlux photonic sensor array · Wilfrid Laurier University</p>
+    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">HelioFlux photonic sensor array · Wilfrid Laurier University</p>
     <p style="font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(0,200,240,.55);">One device. Multiple detection frontiers.</p>
   </div>
 </div>
@@ -1091,8 +1090,8 @@
        style="width:100%;height:420px;object-fit:cover;object-position:center 30%;display:block;filter:brightness(.78);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 55%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:28px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;">Research team · Wilfrid Laurier University · Waterloo, Ontario</p>
-    <p style="font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(0,200,240,.45);">Building the next generation of cancer detection.</p>
+    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">Research team · Wilfrid Laurier University · Waterloo, Ontario</p>
+    <p style="font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(0,200,240,.85);">Building the next generation of cancer detection.</p>
   </div>
 </div>
 
