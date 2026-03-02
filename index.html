@@ -494,9 +494,9 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="logo">Helio<span>Flux</span></div>
+  <a href="#" class="logo" style="text-decoration:none;color:inherit;">Helio<span>Flux</span></a>
   <ul class="nav-links">
-    <li><a href="#science">Technology</a></li>
+    <li><a href="#solution">Technology</a></li>
     <li><a href="#platform">Platform</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -509,7 +509,7 @@
 
 <!-- Mobile menu overlay -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#science" class="mob-link">Technology</a>
+  <a href="#solution" class="mob-link">Technology</a>
   <a href="#platform" class="mob-link">Platform</a>
   <a href="#team" class="mob-link">Team</a>
   <a href="#contact" class="mob-link">Contact</a>
@@ -529,7 +529,7 @@
     <p style="font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);font-weight:300;font-style:italic;color:rgba(255,255,255,.82);margin-bottom:32px;line-height:1.4;opacity:0;" id="hpoetic">Your cells emit light. We learned to read it.</p>
     <p class="hero-sub" id="hs">No blood draw. No biopsy. No radiation.</p>
     <div class="hero-actions" id="ha">
-      <a href="#science" class="btn-cyan">See How It Works</a>
+      <a href="#solution" class="btn-cyan">See How It Works</a>
       <a href="#contact" class="btn-ghost">Partner with us →</a>
     </div>
   </div>
@@ -559,30 +559,20 @@
     <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.6;max-width:520px;">Most cancers are only visible after years of silent growth, when treatment is harder and outcomes drop.</p>
   </div>
 
-  <div style="margin-top:48px;">
+  <div style="margin-top:48px;max-width:900px;">
+
+      <!-- 40% stat callout -->
       <div class="crisis-callout reveal" style="margin-bottom:0;">
         <div class="crisis-callout-pct">40%</div>
         <div class="crisis-callout-text">of men and women will be diagnosed with cancer in their lifetime</div>
       </div>
 
       <div class="problem-rows reveal">
+
+        <!-- The Survival Gap -->
         <div class="problem-row">
           <div class="problem-dot"></div>
-          <div>
-            <div class="problem-row-title">Late Detection</div>
-            <p>Standard imaging can't see a tumor until it reaches ~1 billion cells — after years of silent growth.</p>
-          </div>
-        </div>
-        <div class="problem-row">
-          <div class="problem-dot"></div>
-          <div>
-            <div class="problem-row-title">Limited Screening</div>
-            <p>Routine screening exists for only 5 cancer types. <span style="color:var(--cyan);font-weight:500;">200+</span> have no standard screening at all.</p>
-          </div>
-        </div>
-        <div class="problem-row">
-          <div class="problem-dot"></div>
-          <div>
+          <div style="width:100%;">
             <div class="problem-row-title">The Survival Gap</div>
             <div class="survival-bars">
               <div class="survival-bar-row">
@@ -596,11 +586,43 @@
                 <span class="survival-pct low">&lt;20%</span>
               </div>
             </div>
+            <div style="display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;">
+              <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;"><span style="color:rgba(220,70,50,.9);font-weight:500;">90%</span> of cancer deaths come from late-stage diagnoses.</p>
+              <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;">Only <span style="color:rgba(220,70,50,.9);font-weight:500;">1 in 5</span> patients survive late-stage cancer.</p>
+            </div>
           </div>
         </div>
+
+        <!-- Limited Screening -->
+        <div class="problem-row">
+          <div class="problem-dot"></div>
+          <div>
+            <div class="problem-row-title">Why Current Screening Fails</div>
+            <p style="margin-bottom:16px;">Routine screening exists for only <span style="color:var(--cyan);font-weight:500;">5 cancer types</span>. More than <span style="color:var(--cyan);font-weight:500;">200</span> have no standard screening at all.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;">
+              <div>
+                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Detect Too Late</p>
+                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">CT, MRI, and mammograms only detect tumors of ~1 billion cells — not early cancer cells.</p>
+              </div>
+              <div>
+                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Expensive</p>
+                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">Not all tests are covered by insurers. High out-of-pocket costs delay or prevent screening.</p>
+              </div>
+              <div>
+                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Painful &amp; Risky</p>
+                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">Radiation exposure, invasive biopsies, and low accuracy make repeated screening impractical.</p>
+              </div>
+              <div>
+                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Slow</p>
+                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">Long waits for appointments and results. When cancer is detected late, time matters most.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <a href="#solution" class="btn-ghost reveal" style="display:inline-block;margin-top:32px;font-size:14px;">See How HelioFlux Changes the Timeline &rarr;</a>
+      <a href="#solution" class="btn-ghost reveal" style="display:inline-block;margin-top:32px;font-size:14px;">See How HelioFlux Changes This &rarr;</a>
       <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:20px;">Source: American Cancer Society, Cancer Statistics 2026</p>
   </div>
 </section>
@@ -610,11 +632,10 @@
   <div class="section-inner">
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow">Our Solution</p>
-      <h2>HelioFlux built a technology<br>to <em>detect cancer earlier.</em></h2>
-      <p style="font-size:17px;color:rgba(255,255,255,.55);margin-top:16px;line-height:1.6;">QSense captures the signal. LuminAI reads it. No needles. No radiation. About 15 minutes.</p>
+      <h2>HelioFlux detects cancer<br><em>before tumors form.</em></h2>
     </div>
 
-    <!-- Cell progression diagram -->
+    <!-- Detection timeline diagrams -->
     <div class="detection-diagram reveal" style="margin-top:32px;">
       <img id="problem-diagram-img" src="problem-diagram.png" alt="Cell progression diagram — cancer detection timeline" style="width:100%;border-radius:2px;" onerror="this.style.display='none'">
       <div id="problem-diagram-placeholder">
@@ -623,36 +644,62 @@
       </div>
     </div>
 
-    <!-- Detection stage diagram placeholder -->
     <div class="detection-diagram reveal">
-      <img id="detection-diagram-img" src="detection-diagram.png" alt="HelioFlux detection window — cancer stage timeline" style="width:100%;display:none;" onerror="this.style.display='none'">
+      <img id="detection-diagram-img" src="detection-diagram.png" alt="HelioFlux detection window — cancer stage timeline" style="width:100%;" onerror="this.style.display='none'">
       <div id="detection-diagram-placeholder">
         <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,200,240,.4);margin-bottom:8px;">Detection Stage Timeline</p>
         <p style="font-size:13px;color:rgba(255,255,255,.25);text-align:center;line-height:1.8;">Normal → Precancerous (HelioFlux 5–10M) → Stage I–II (Liquid Biopsy 50–100M) → Stage III–IV (Imaging 1B+)<br><span style="color:rgba(0,200,240,.3);">Image coming — replacing with Canva export</span></p>
       </div>
     </div>
 
-    <!-- 3-step how it works -->
-    <div style="margin-top:72px;">
-    <div class="reveal" style="max-width:760px;margin-bottom:64px;">
-      <p class="eyebrow">How It Works</p>
-      <h2>Every living cell<br>emits <em>light.</em></h2>
+    <!-- Our Advantages -->
+    <div style="margin-top:80px;" class="reveal">
+      <p class="eyebrow">Our Advantages</p>
+      <h2 style="margin-bottom:48px;">Why HelioFlux is <em>different.</em></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);">
+        <div style="background:var(--bg);padding:36px 28px;">
+          <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Broad Coverage</p>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0;">Analyzes a universal cellular signal, not a cancer-type-specific biomarker. Applies across cancer types and body locations inaccessible to traditional screening.</p>
+        </div>
+        <div style="background:var(--bg);padding:36px 28px;">
+          <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Ultra-Early Detection</p>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0;">Detects cancer at 5–10 million cells — before a tumor is visible on any imaging. Standard imaging requires ~1 billion cells. HelioFlux doesn't wait.</p>
+        </div>
+        <div style="background:var(--bg);padding:36px 28px;">
+          <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Non-Invasive &amp; Safe</p>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0;">No radiation. No needles. No blood draw. Safe enough for repeated screenings — enabling ongoing monitoring, not just one-time diagnosis.</p>
+        </div>
+        <div style="background:var(--bg);padding:36px 28px;">
+          <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Real-Time Results</p>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0;">Photon signal analysis delivered instantly. No weeks waiting for lab results. No anxiety while results process. The measurement and the answer are nearly simultaneous.</p>
+        </div>
+        <div style="background:var(--bg);padding:36px 28px;">
+          <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Accessible</p>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0;">Less expensive than traditional imaging. Designed for point-of-care deployment without specialized infrastructure — making early detection accessible, not just available.</p>
+        </div>
+        <div style="background:var(--bg);padding:36px 28px;">
+          <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Improved Accuracy</p>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin:0;">Detecting cancer at the cellular level reduces false positives common in traditional imaging and improves early-stage detection rates, when outcomes are best.</p>
+        </div>
+      </div>
     </div>
-    <div class="steps3">
-      <div class="step-block reveal">
-        <div class="step-n">01</div>
-        <h3>The body emits</h3>
-        <p>Every living cell continuously releases ultra-weak photons — no dye, no contrast, no radiation needed. The signal is already there.</p>
-      </div>
-      <div class="step-block reveal">
-        <div class="step-n">02</div>
-        <h3>The device captures</h3>
-        <p>Photomultiplier tubes detect light at single-photon sensitivity — the same technology used in particle physics, now adapted for biological tissue measurement. Non-invasive. Approximately 15 minutes. No radiation, no contrast agents.</p>
-      </div>
-      <div class="step-block reveal">
-        <div class="step-n">03</div>
-        <h3>The pattern decides</h3>
-        <p>Healthy and malignant tissue emit measurably different signatures. That difference has been validated at 90–92% discriminant accuracy across 13 cell lines in two peer-reviewed studies.</p>
+
+    <!-- How It Works — QSense + LuminAI -->
+    <div style="margin-top:80px;" class="reveal" id="science">
+      <p class="eyebrow">How Our Technology Works</p>
+      <h2 style="margin-bottom:24px;">AI-Driven Cancer<br><em>Detection Technology</em></h2>
+      <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.7;max-width:680px;margin-bottom:56px;">All living cells emit faint light signals. But cancer cells emit distinct patterns and wavelengths — different from healthy cells. HelioFlux uses a proprietary combination of advanced hardware and AI to detect these unique signals.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);max-width:800px;">
+        <div style="background:var(--bg);padding:40px 36px;">
+          <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Hardware</p>
+          <h3 style="font-family:var(--serif);font-size:28px;font-weight:300;margin-bottom:16px;">QSense&#8482;</h3>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">Our devices capture ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation. Approximately 15 minutes.</p>
+        </div>
+        <div style="background:var(--bg);padding:40px 36px;">
+          <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Software</p>
+          <h3 style="font-family:var(--serif);font-size:28px;font-weight:300;margin-bottom:16px;">LuminAI&#8482;</h3>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">AI processes the captured signals instantly, analyzing photon patterns against a validated cancer signature database. Powered by NVIDIA computing.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -905,18 +952,18 @@
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
 
-      <!-- Panel 1 — Cancer Detection -->
+      <!-- Panel 1 — Skin Cancer Detection -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
           <!-- gradient background only — no stock photos -->
           <div class="h-panel-num">01</div>
         </div>
         <div class="reveal">
-          <div class="h-panel-status">Validated · Published 2018 &amp; 2020</div>
-          <h3>Melanoma<br><em>Detection</em></h3>
+          <div class="h-panel-status">Validated · Functional Prototype · Pilot Q3 2026</div>
+          <h3>Skin Cancer<br><em>Detection</em></h3>
           <p class="h-panel-pub"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
-          <p>In the 2020 in vivo study, HelioFlux detected melanoma (B16F10) in <strong style="color:var(--cyan);font-weight:400">47 living mice within 24 hours of injection</strong> — 18 days before tumors became palpable. Validated in vitro across 13 cancer cell lines: 92% discriminant accuracy, 100% detection rate.</p>
-          <p style="font-size:13px;color:var(--muted);margin-top:16px;">Also being explored for treatment response monitoring — tracking how tumor cells respond to therapy in real time.</p>
+          <p>Validated in vivo: HelioFlux detected melanoma in <strong style="color:var(--cyan);font-weight:400">47 living mice within 24 hours of injection</strong> — 18 days before tumors became palpable. 92% discriminant accuracy across 13 cancer cell lines. 100% detection rate.</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7;">Functional prototype devices in development for deployment in dermatology clinics with our Canadian manufacturing partner. <strong style="color:var(--cyan);font-weight:400;">Pilot launch: Q3 2026.</strong> Also being explored for real-time treatment response monitoring.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">100%</div><div class="h-stat-label">Cancer samples identified · 2018 in vitro · n=30</div></div>
             <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal Models</div></div>
@@ -1102,25 +1149,20 @@
         <span class="cancer-tag">3 HelioFlux Papers</span>
         <span class="cancer-tag">47 Animal Models</span>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);">
-        <div style="background:var(--bg2);padding:20px;"><div style="font-family:var(--serif);font-size:32px;color:var(--cyan);font-weight:300;">15+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Years in biophysics</div></div>
-        <div style="background:var(--bg2);padding:20px;"><div style="font-family:var(--serif);font-size:32px;color:var(--cyan);font-weight:300;">$1.3M+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Research grants</div></div>
-        <div style="background:var(--bg2);padding:20px;"><div style="font-family:var(--serif);font-size:32px;color:var(--cyan);font-weight:300;">40+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Publications</div></div>
-        <div style="background:var(--bg2);padding:20px;"><div style="font-family:var(--serif);font-size:32px;color:var(--cyan);font-weight:300;">13</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Cancer cell lines</div></div>
-      </div>
+
     </div>
   </div>
 
   <!-- Supporting team grid -->
   <div style="border-top:1px solid var(--border);padding-top:56px;margin-top:56px;">
     <p class="eyebrow reveal" style="margin-bottom:32px;">Leadership</p>
-    <div class="team-grid">
+    <div class="team-grid" style="grid-template-columns:repeat(3,1fr);">
     <div class="team-card reveal">
       <img loading="lazy" src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
       <div>
         <div class="team-name">Kelly Lucas</div>
         <div class="team-title">President &amp; Co-Founder</div>
-        <div class="team-bio">Kelly co-founded HelioFlux after watching Nirosha present the technology at a quantum biology conference — and immediately wondering why it wasn't already in the world. She holds a B.A. in Biology with Honors from UNC Chapel Hill and an MBA from Indiana University's Kelley School of Business. As President, she leads fundraising, strategy, and commercial development, and has helped build HelioFlux from a lab discovery into a company with peer-reviewed publications, $1.3M+ in research funding, and coverage in Scientific American and NPR.</div>
+        <div class="team-bio">Kelly co-founded HelioFlux after watching Nirosha present the technology at a quantum biology conference — and immediately wondering why it wasn't already in the world. She holds a B.A. in Biology with Honors from UNC Chapel Hill and an MBA from Indiana University's Kelley School of Business. A former quantum biology research consultant, she brings together frontier science fluency, investor strategy, and commercial execution. As President, she leads fundraising, partnerships, and go-to-market development — building HelioFlux from a lab discovery into a company with peer-reviewed publications, $1.3M+ in research funding, two FDA-pathway products, and coverage in Scientific American, NPR, and the LA Business Journal.</div>
       </div>
     </div>
     <div class="team-card reveal">
@@ -1136,7 +1178,7 @@
       <div>
         <div class="team-name">Glenn Lucas</div>
         <div class="team-title">Interim CMO</div>
-        <div class="team-bio">Glenn Lucas is a media executive and producer with two decades at the center of Hollywood's most culturally defining franchises. As Head of Business Development at Ternion Pictures — production home of HBO's <em>Silicon Valley</em>, <em>Idiocracy</em>, and <em>Beavis and Butt-Head</em> — he Executive Produced the Miramax film <em>Extract</em>, directed by Mike Judge and starring Jason Bateman, Mila Kunis, and Ben Affleck. He currently serves as Chief Strategy Officer at Escape AI Media and Strategic Advisor at Composite Ventures. At HelioFlux, he leads commercial strategy and business development.</div>
+        <div class="team-bio">A media executive and producer who spent two decades identifying cultural gravity before the mainstream caught up. As Head of Business Development at Ternion Pictures — production home of HBO's <em>Silicon Valley</em>, <em>Idiocracy</em>, and <em>Beavis and Butt-Head</em> — he Executive Produced <em>Extract</em> (Miramax), starring Jason Bateman, Mila Kunis, and Ben Affleck. Now Chief Strategy Officer at Escape AI Media and Strategic Advisor at Composite Ventures. The same instinct that drove his entertainment career — spotting overlooked things before they break into the mainstream — guides his role at HelioFlux, where he leads commercial strategy, media partnerships, and narrative development for one of the most underrecognized technologies in medicine.</div>
       </div>
     </div>
   </div>
@@ -1146,7 +1188,7 @@
   <!-- Scientific Advisory Board -->
   <div style="border-top:1px solid var(--border);margin-top:56px;padding-top:56px;">
     <p class="eyebrow reveal" style="margin-bottom:32px">Scientific Advisory Board</p>
-    <div class="team-grid">
+    <div class="team-grid" style="grid-template-columns:repeat(3,1fr);">
       <div class="team-card reveal">
         <img loading="lazy" src="michael-levin-headshot.jpg" alt="Dr. Michael Levin" class="team-photo">
         <div>
@@ -1288,27 +1330,22 @@
 <!-- CREDIBILITY STACK -->
 <div class="creds-strip">
   <div class="cred reveal">
-    <div style="font-size:22px;margin-bottom:10px;">🎓</div>
     <div class="cred-label">Canada Research Chair</div>
     <div class="cred-value">CRC in Tissue Biophysics</div>
   </div>
   <div class="cred reveal">
-    <div style="font-size:22px;margin-bottom:10px;">⚡</div>
     <div class="cred-label">NVIDIA Inception</div>
     <div class="cred-value">Accepted October 2024</div>
   </div>
   <div class="cred reveal">
-    <div style="font-size:22px;margin-bottom:10px;">📋</div>
     <div class="cred-label">Patent Pending</div>
     <div class="cred-value">Provisional filing in progress</div>
   </div>
   <div class="cred reveal">
-    <div style="font-size:22px;margin-bottom:10px;">💰</div>
-    <div class="cred-label">$1.3M+ Research Grants</div>
-    <div class="cred-value">Through Nirosha's lab</div>
+    <div class="cred-label">$1.3M+ in Federal Research Grants</div>
+    <div class="cred-value">Awarded to R&D team through 2027</div>
   </div>
   <div class="cred reveal">
-    <div style="font-size:22px;margin-bottom:10px;">🏆</div>
     <div class="cred-label">Forbes Midas List Advisor</div>
     <div class="cred-value">Jim Armstrong, CFO</div>
   </div>
@@ -1356,6 +1393,34 @@
         <p style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;">Unlike liquid biopsy (blood draw, ~$950/test) or whole-body MRI ($1,200+), HelioFlux requires no biological sample, no radiation, and targets detection at a fraction of the cell count.</p>
       </div>
     </div>
+
+    <!-- Regulatory Strategy -->
+    <div style="margin-top:64px;border-top:1px solid var(--border);padding-top:56px;">
+      <p class="eyebrow">Regulatory Strategy</p>
+      <h2 style="margin-bottom:48px;">Launch skin cancer pilot.<br><em>Build toward FDA clearance.</em></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);">
+        <div style="background:var(--bg);padding:40px 36px;">
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,180,40,.7);margin-bottom:16px;font-weight:500;">Phase 1 · Now</div>
+          <h3 style="font-size:20px;font-weight:500;margin-bottom:20px;">Physician-Directed Launch</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:16px;">Launch as a physician-directed screening service — no FDA approval required. The same regulatory pathway successfully used by Grail, Prenuvo, and Viome.</p>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li style="font-size:13px;color:rgba(255,255,255,.5);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:var(--cyan);">·</span>Partner with dermatologists to validate efficacy using biopsy-confirmed cases</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.5);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:var(--cyan);">·</span>Correlate photonic scan results with biopsy outcomes to establish real-world accuracy</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.5);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:var(--cyan);">·</span>Track positive photonic scans with initially negative biopsies to demonstrate ultra-early detection</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg);padding:40px 36px;opacity:.75;">
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;font-weight:500;">Phase 2 · 24–36 Months</div>
+          <h3 style="font-size:20px;font-weight:500;margin-bottom:20px;">FDA Breakthrough Pathway</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:16px;">Collect real-world clinical data during the physician-exemption phase and apply for FDA Breakthrough Device designation (expedited review).</p>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li style="font-size:13px;color:rgba(255,255,255,.35);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:rgba(0,200,240,.3);">·</span>Secure 510(k) or De Novo clearance within 24–36 months</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.35);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:rgba(0,200,240,.3);">·</span>Unlock broader market access including insurance reimbursement</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.35);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:rgba(0,200,240,.3);">·</span>Commercialize skin cancer detection and launch breast cancer pilot</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1399,7 +1464,7 @@
   <div class="f-col">
     <h4>Company</h4>
     <ul>
-      <li><a href="#science">Technology</a></li>
+      <li><a href="#solution">Technology</a></li>
       <li><a href="#platform">Platform</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#press">Press</a></li>
