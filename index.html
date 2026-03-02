@@ -142,9 +142,10 @@
     h2 em { font-style: italic; }
     .lead { font-size: 16px; color: var(--muted); line-height: 1.85; font-weight: 300; }
 
-    /* ─── REVEAL ─── */
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s ease, transform .9s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
+    /* ─── REVEAL — progressive enhancement (content visible without JS) ─── */
+    .reveal { opacity: 1; transform: none; transition: opacity .9s ease, transform .9s ease; }
+    .js-ready .reveal { opacity: 0; transform: translateY(28px); }
+    .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
 
     /* ─── PROBLEM ─── */
     .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
@@ -290,7 +291,30 @@
     @media(max-width:900px) { .nirosha-wrap { grid-template-columns: 1fr; gap: 48px; } .nirosha-photo-side { position: static; } .nirosha-credentials { grid-template-columns: 1fr 1fr; } }
 
     /* ─── QUOTE ─── */
-    .quote-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
+    .quote-section {
+      padding: 120px 56px; text-align: center; position: relative; overflow: hidden;
+      background: linear-gradient(180deg, var(--bg) 0%, #050E1C 50%, var(--bg) 100%);
+    }
+    .quote-section::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 80vw; height: 80vw; max-width: 900px; max-height: 900px;
+      background: radial-gradient(ellipse, rgba(0,200,240,.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .quote-mark {
+      font-family: var(--serif); font-size: 120px; line-height: .7;
+      color: rgba(0,200,240,.12); display: block; margin-bottom: 8px;
+    }
+    .quote-body {
+      font-family: var(--serif); font-size: clamp(22px, 2.8vw, 36px);
+      font-weight: 300; font-style: italic; line-height: 1.5;
+      color: rgba(255,255,255,.88); max-width: 820px; margin: 0 auto 28px;
+    }
+    .quote-attr {
+      font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--cyan); opacity: .7;
+    }
     .q-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #070B15 0%, #0A1828 50%, #04070E 100%); }
     .q-overlay { position: absolute; inset: 0; background: rgba(4,7,14,.88); }
     .quote-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
@@ -487,6 +511,22 @@
       .survival-bar.high { width: 120px; }
     }
   
+
+    /* ─── BACK TO TOP ─── */
+    #back-to-top {
+      position: fixed; bottom: 36px; right: 36px; z-index: 500;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(0,200,240,.12); border: 1px solid rgba(0,200,240,.25);
+      color: var(--cyan); font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0; pointer-events: none;
+      transition: opacity .4s, background .3s, transform .3s;
+      text-decoration: none;
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover { background: rgba(0,200,240,.22); transform: translateY(-3px); }
+    @media (pointer: coarse) { #back-to-top { bottom: 24px; right: 20px; } }
+
     /* ─── PHOTO BREAK FADE-IN ─── */
     .lab-break, .team-photo-break {
       opacity: 0;
@@ -496,30 +536,6 @@
       will-change: transform;
     }
 
-    /* ─── NAV DROPDOWN ─── */
-    .nav-dropdown { position: relative; }
-    .nav-dropdown-menu {
-      position: absolute; top: calc(100% + 16px); left: 50%;
-      transform: translateX(-50%);
-      background: rgba(4,7,14,.96); backdrop-filter: blur(24px);
-      border: 1px solid var(--border);
-      padding: 8px 0; min-width: 188px;
-      opacity: 0; pointer-events: none;
-      transition: opacity .22s ease, transform .22s ease;
-      transform: translateX(-50%) translateY(-6px);
-      list-style: none; z-index: 300;
-    }
-    .nav-dropdown:hover .nav-dropdown-menu {
-      opacity: 1; pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
-    .nav-dropdown-menu li a {
-      display: block; padding: 10px 22px;
-      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; transition: color .2s, padding-left .2s;
-    }
-    .nav-dropdown-menu li a:hover { color: var(--white); padding-left: 28px; }
-    .nav-dropdown > a::after { content: ' ↓'; font-size: 9px; opacity: .5; }
 
     /* ─── PRESS MARQUEE ─── */
     .press-logos { overflow: hidden; padding: 52px 0 !important; }
@@ -699,6 +715,14 @@
       <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:20px;">Source: American Cancer Society, Cancer Statistics 2026</p>
   </div>
 </section>
+
+
+<!-- ═══ NIROSHA QUOTE ═══ -->
+<div class="quote-section reveal">
+  <span class="quote-mark" aria-hidden="true">"</span>
+  <p class="quote-body">Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible — so survivors live longer with better quality of life.</p>
+  <p class="quote-attr">Dr. Nirosha Murugan — Canada Research Chair in Tissue Biophysics</p>
+</div>
 
 <!-- ═══ THE SOLUTION ═══ -->
 <div class="section-bg" id="solution">
@@ -1719,6 +1743,12 @@ document.querySelectorAll('.problem-rows .problem-row, .press-card').forEach((el
 });
 
 
+
+// ─── BACK TO TOP ───
+const btt = document.getElementById('back-to-top');
+lenis.on('scroll', ({ scroll }) => btt.classList.toggle('visible', scroll > 400));
+btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { duration: 1.4 }); });
+
 // ─── MOBILE HAMBURGER ───
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -1740,5 +1770,6 @@ if (hamburger && mobileMenu) {
 </script>
 
 
+<a href="#" id="back-to-top" aria-label="Back to top">↑</a>
 </body>
 </html>
