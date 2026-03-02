@@ -450,6 +450,7 @@
       .scroll-cue { display: none; }
       /* Lab photo mobile */
       .lab-photo-img { height: clamp(320px, 75vw, 480px) !important; object-position: center 18% !important; }
+      .lab-break { margin-top: -48px !important; }
       .solution-grid { grid-template-columns: 1fr; }
       .solution-col { padding: 40px 24px; }
     }
@@ -535,7 +536,7 @@
 </section>
 
 <!-- ═══ LAB PHOTO — HERO BREAK ═══ -->
-<div style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
+<div class="lab-break" style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
   <img loading="lazy" src="nirosha-lab.jpg"
        alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant"
        class="lab-photo-img" style="width:100%;height:clamp(480px,60vw,820px);object-fit:cover;object-position:center 22%;display:block;filter:brightness(.9);">
@@ -908,7 +909,7 @@
         </div>
         <div class="reveal">
           <div class="h-panel-status">Validated · Published 2018 &amp; 2020</div>
-          <h3>Cancer<br><em>Detection</em></h3>
+          <h3>Melanoma &amp;<br><em>Cancer Detection</em></h3>
           <p class="h-panel-pub"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
           <p>92% discriminant accuracy in vitro, 100% of cancer cases correctly identified — published 2018. In the 2020 in vivo study, HelioFlux detected melanoma in <strong style="color:var(--cyan);font-weight:400">47 living mice as early as 24 hours post-injection</strong>, 18 days before the tumors became palpable. Standard imaging couldn't see them yet.</p>
           <div class="h-stats">
@@ -1001,35 +1002,38 @@
         </div>
       </div>
 
-      <!-- Panel 2 — Brain Health (state monitoring + chemo brain) -->
+      <!-- Panel 2 — Brain Health (state monitoring + chemo brain combined) -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
           <!-- gradient background only -->
           <div class="h-panel-num">02</div>
         </div>
         <div class="reveal">
-          <div class="h-panel-status">Validated · Published 2025</div>
-          <h3>Brain State<br><em>Monitoring</em></h3>
+          <div class="h-panel-status">Validated + In Research · 2025</div>
+          <h3>Brain<br><em>Health</em></h3>
           <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">iScience (Cell Press), 2025</a> · 20 human subjects · EEG cross-validated</p>
-          <p>The world's first photoencephalography — measuring brain cellular activity through photon emission in living humans. Published in <strong style="color:var(--cyan);font-weight:400">iScience (Cell Press)</strong>, Elsevier's highest-impact open-access journal — home to Cell, Neuron, and Current Biology. Cross-validated with EEG across 20 subjects. A non-invasive window into brain metabolism that has never existed before.</p>
+          <p>The world's first photoencephalography — reading brain cellular activity through photon emission in living humans, without EEG gel, electrodes, or radiation. Cross-validated against EEG in 20 subjects and published in <strong style="color:var(--cyan);font-weight:400">iScience (Cell Press)</strong>.</p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;margin-top:16px">The same sensor is now being used to track chemotherapy-induced cognitive impairment — chemo brain affects up to 75% of cancer patients, and no non-invasive detection method currently exists. Dr. Murugan is collaborating with a medical oncologist to monitor patients through a full treatment cycle.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">20</div><div class="h-stat-label">Human Subjects</div></div>
             <div><div class="h-stat-num">First</div><div class="h-stat-label">Photoencephalography</div></div>
+            <div><div class="h-stat-num">75%</div><div class="h-stat-label">Chemo patients affected</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Panel 3 — Chemo Brain -->
+      <!-- Panel 3 — Metabolic & Systemic Disease -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
           <!-- gradient background only -->
           <div class="h-panel-num">03</div>
         </div>
         <div class="reveal">
-          <div class="h-panel-status" style="background:rgba(0,200,240,.12);color:rgba(0,200,240,.6);border:1px solid rgba(0,200,240,.2)">In Research</div>
-          <h3>Chemo Brain<br><em>Detection</em></h3>
-          <p>Chemotherapy-induced cognitive impairment affects up to 75% of cancer patients — memory loss, depression, cognitive decline. There is currently no non-invasive way to detect it early. Dr. Murugan is actively collaborating with a medical oncologist to track patients through a full year of chemotherapy, building toward a real-time early-warning system for treatment-related cognitive damage.</p>
-          <p style="font-size:13px;color:var(--muted);margin-top:16px">Treatment response monitoring · Cognitive impact assessment · Neuroprotection guidance</p>
+          <div class="h-panel-status" style="background:rgba(108,28,196,.15);color:rgba(160,100,240,.7);border:1px solid rgba(108,28,196,.3)">Research Frontier</div>
+          <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
+          <p>Ultra-weak photon emissions are a direct readout of cellular metabolism — driven by mitochondrial activity and reactive oxygen species. Disrupted UPE signatures are a known marker of oxidative stress, which underlies type 2 diabetes, cardiovascular disease, and autoimmune conditions.</p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;margin-top:16px">The same non-invasive platform that reads cancer and brain signals may offer a window into systemic metabolic health — without blood draws, biopsies, or radiation. A research frontier still being mapped.</p>
+          <p style="font-size:13px;color:rgba(160,100,240,.5);margin-top:16px">Oxidative stress · Metabolic monitoring · Treatment response · Systemic inflammation</p>
         </div>
       </div>
 
@@ -1050,10 +1054,6 @@
        alt="Dr. Nirosha Murugan with her research team at Wilfrid Laurier University"
        style="width:100%;height:420px;object-fit:cover;object-position:center 30%;display:block;filter:brightness(.78);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 55%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:28px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:16px;color:rgba(255,255,255,.88);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,1);">Research team · Wilfrid Laurier University · Waterloo, Ontario</p>
-    <p style="font-family:var(--serif);font-size:15px;font-style:italic;color:rgba(0,200,240,.95);text-shadow:0 1px 8px rgba(0,0,0,.9);">Building the next generation of cancer detection.</p>
-  </div>
 </div>
 
 
