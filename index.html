@@ -486,6 +486,80 @@
       .problem-layout { grid-template-columns: 1fr; gap: 40px; }
       .survival-bar.high { width: 120px; }
     }
+  
+    /* ─── PHOTO BREAK FADE-IN ─── */
+    .lab-break, .team-photo-break {
+      opacity: 0;
+      will-change: opacity, transform;
+    }
+    .lab-break img, .team-photo-break img {
+      will-change: transform;
+    }
+
+    /* ─── NAV DROPDOWN ─── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 16px); left: 50%;
+      transform: translateX(-50%);
+      background: rgba(4,7,14,.96); backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      padding: 8px 0; min-width: 188px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s ease, transform .22s ease;
+      transform: translateX(-50%) translateY(-6px);
+      list-style: none; z-index: 300;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu li a {
+      display: block; padding: 10px 22px;
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .2s, padding-left .2s;
+    }
+    .nav-dropdown-menu li a:hover { color: var(--white); padding-left: 28px; }
+    .nav-dropdown > a::after { content: ' ↓'; font-size: 9px; opacity: .5; }
+
+    /* ─── PRESS MARQUEE ─── */
+    .press-logos { overflow: hidden; padding: 52px 0 !important; }
+    .press-marquee-track {
+      display: flex; align-items: center; gap: 72px;
+      width: max-content;
+      animation: marqueeScroll 28s linear infinite;
+    }
+    .press-marquee-track:hover { animation-play-state: paused; }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── STAT COUNT-UP ─── */
+    .stat-num { transition: color .3s; }
+    .stat-num.counting { color: var(--cyan); }
+
+    /* ─── SECTION GLOW ACCENTS ─── */
+    .glow-left  { position: relative; overflow: hidden; }
+    .glow-left::before {
+      content: '';
+      position: absolute; top: -30%; left: -15%;
+      width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
+      background: radial-gradient(ellipse, rgba(0,200,240,.045) 0%, transparent 68%);
+      pointer-events: none; z-index: 0;
+    }
+    .glow-left > * { position: relative; z-index: 1; }
+    .glow-right::before {
+      content: '';
+      position: absolute; top: -20%; right: -15%;
+      width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
+      background: radial-gradient(ellipse, rgba(0,200,240,.04) 0%, transparent 68%);
+      pointer-events: none; z-index: 0;
+    }
+    .glow-right { position: relative; overflow: hidden; }
+    .glow-right > * { position: relative; z-index: 1; }
+
+    /* ─── SECTION COLOR BREAKS ─── */
+    .section-accent { background: linear-gradient(180deg, var(--bg) 0%, #050D1A 50%, var(--bg) 100%); }
   </style>
 </head>
 <body>
@@ -1068,7 +1142,7 @@
 </section>
 
 <!-- TEAM PHOTO BREAK -->
-<div style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
+<div class="team-photo-break" style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
   <img loading="lazy" src="nirosha-team.jpg"
        alt="Nirosha's research team at Wilfrid Laurier University — brain monitoring study"
        style="width:100%;height:480px;object-fit:cover;object-position:center 15%;display:block;filter:brightness(.75);">
@@ -1194,19 +1268,22 @@
     <p class="eyebrow reveal">What the World Is Saying</p>
     <h2 class="reveal">Press coverage<br>and <em>published research.</em></h2>
   </div>
-  <div class="press-logos reveal">
-    <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link">
-      <img src="logo-sciam.jpg" alt="Scientific American" class="press-logo-img" style="height:28px;">
-    </a>
-    <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link">
-      <img src="logo-radiolab.jpg" alt="Radiolab" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;">
-    </a>
-    <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link">
-      <img src="logo-cellpress.jpg" alt="Cell Press" class="press-logo-img" style="height:26px;">
-    </a>
-    <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CBC News</span></a>
-    <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CTV News</span></a>
-    <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
+  <div class="press-logos">
+    <div class="press-marquee-track" aria-hidden="false">
+      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-sciam.jpg" alt="Scientific American" class="press-logo-img" style="height:28px;"></a>
+      <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-radiolab.jpg" alt="Radiolab" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;"></a>
+      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-cellpress.jpg" alt="Cell Press" class="press-logo-img" style="height:26px;"></a>
+      <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CBC News</span></a>
+      <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CTV News</span></a>
+      <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
+      <!-- duplicate for seamless loop -->
+      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-sciam.jpg" alt="" class="press-logo-img" style="height:28px;"></a>
+      <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-radiolab.jpg" alt="" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;"></a>
+      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-cellpress.jpg" alt="" class="press-logo-img" style="height:26px;"></a>
+      <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">CBC News</span></a>
+      <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">CTV News</span></a>
+      <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
+    </div>
   </div>
   <div class="press-cards">
     <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
@@ -1589,6 +1666,58 @@ gsap.to('#hero-canvas', {
     scrub: true
   }
 });
+
+
+// ─── PHOTO BREAK FADE-IN + KEN BURNS ───
+gsap.utils.toArray('.lab-break, .team-photo-break').forEach(el => {
+  const img = el.querySelector('img');
+  // Fade in the whole section
+  gsap.fromTo(el, { opacity: 0 }, {
+    opacity: 1, duration: 1.6, ease: 'power2.inOut',
+    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+  });
+  // Ken Burns: subtle scale-out as photo reveals
+  if (img) {
+    gsap.fromTo(img, { scale: 1.06 }, {
+      scale: 1, duration: 3.5, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    });
+  }
+});
+
+// ─── STAT COUNT-UP ───
+function animateCount(el, target, suffix, decimals) {
+  const dur = 1.8;
+  const start = { val: 0 };
+  gsap.to(start, {
+    val: target, duration: dur, ease: 'power2.out',
+    onUpdate: () => {
+      el.textContent = start.val.toFixed(decimals) + suffix;
+    },
+    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+  });
+}
+
+document.querySelectorAll('.stat-num').forEach(el => {
+  const text = el.textContent.trim();
+  const match = text.match(/^([\d.]+)(.*)$/);
+  if (match) {
+    const num = parseFloat(match[1]);
+    const suffix = match[2];
+    const decimals = (match[1].includes('.')) ? match[1].split('.')[1].length : 0;
+    el.textContent = '0' + suffix;
+    animateCount(el, num, suffix, decimals);
+  }
+});
+
+// ─── SECTION ENTRANCE — staggered slide-in for grid children ───
+document.querySelectorAll('.problem-rows .problem-row, .press-card').forEach((el, i) => {
+  gsap.fromTo(el, { opacity: 0, x: -20 }, {
+    opacity: 1, x: 0, duration: .7, delay: i * 0.08, ease: 'power2.out',
+    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+  });
+});
+
 
 // ─── MOBILE HAMBURGER ───
 const hamburger = document.getElementById('hamburger');
