@@ -513,6 +513,34 @@
   
 
 
+
+    /* ─── PROBLEM ACCORDION CARDS ─── */
+    .prob-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 40px; max-width: 900px; }
+    .prob-card { background: var(--bg2); }
+    .prob-trigger {
+      width: 100%; display: flex; align-items: flex-start; gap: 16px;
+      padding: 24px 28px; background: none; border: none;
+      color: var(--white); cursor: pointer; text-align: left;
+      transition: background .2s;
+    }
+    .prob-trigger:hover { background: rgba(255,255,255,.02); }
+    .prob-trigger-text { flex: 1; }
+    .prob-card-tag { font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(220,70,50,.7); margin-bottom: 6px; display: block; }
+    .prob-card-title { font-size: 15px; font-weight: 400; line-height: 1.35; margin-bottom: 4px; }
+    .prob-card-oneliner { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .prob-card-icon { font-size: 16px; font-weight: 200; color: rgba(255,255,255,.25);
+      transition: transform .32s ease; flex-shrink: 0; margin-top: 2px; line-height: 1; }
+    .prob-card.open .prob-card-icon { transform: rotate(45deg); color: var(--cyan); }
+    .prob-card-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .38s ease;
+    }
+    .prob-card.open .prob-card-body { grid-template-rows: 1fr; }
+    .prob-card-body-inner { overflow: hidden; }
+    .prob-card-detail { padding: 0 28px 24px; font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.8; }
+    @media(max-width:640px) { .prob-cards { grid-template-columns: 1fr; } }
+
     /* ─── ACCORDION ─── */
     .acc-stack { margin-top: 64px; max-width: 860px; }
     .acc-intro { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 32px; }
@@ -685,77 +713,115 @@
 <section class="section" id="problem">
   <div class="reveal" style="margin-bottom:8px;">
     <p class="eyebrow">The Problem</p>
-    <h2 style="margin-bottom:16px;">We detect cancer<br><em>too late.</em></h2>
+    <h2 style="margin-bottom:16px;">Cancer is winning<br><em>because we detect it too late.</em></h2>
     <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.6;max-width:520px;">Most cancers are only visible after years of silent growth, when treatment is harder and outcomes drop.</p>
   </div>
 
   <div style="margin-top:48px;max-width:900px;">
 
-      <!-- 40% stat callout -->
-      <div class="crisis-callout reveal" style="margin-bottom:0;">
-        <div class="crisis-callout-pct">40%</div>
-        <div class="crisis-callout-text">of men and women will be diagnosed with cancer in their lifetime</div>
-      </div>
+    <!-- 40% stat callout -->
+    <div class="crisis-callout reveal" style="margin-bottom:0;">
+      <div class="crisis-callout-pct">40%</div>
+      <div class="crisis-callout-text">of men and women will be diagnosed with cancer in their lifetime</div>
+    </div>
 
-      <div class="problem-rows reveal">
-
-        <!-- The Survival Gap -->
-        <div class="problem-row">
-          <div class="problem-dot"></div>
-          <div style="width:100%;">
-            <div class="problem-row-title">The Survival Gap</div>
-            <div class="survival-bars">
-              <div class="survival-bar-row">
-                <span class="survival-label">Early Stage</span>
-                <div class="survival-bar high"></div>
-                <span class="survival-pct high">&gt;90%</span>
-              </div>
-              <div class="survival-bar-row">
-                <span class="survival-label">Late Stage</span>
-                <div class="survival-bar low"></div>
-                <span class="survival-pct low">&lt;20%</span>
-              </div>
+    <!-- Survival Gap -->
+    <div class="problem-rows reveal">
+      <div class="problem-row">
+        <div class="problem-dot"></div>
+        <div style="width:100%;">
+          <div class="problem-row-title">The Survival Gap</div>
+          <div class="survival-bars">
+            <div class="survival-bar-row">
+              <span class="survival-label">Early Stage</span>
+              <div class="survival-bar high"></div>
+              <span class="survival-pct high">&gt;90%</span>
             </div>
-            <div style="display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;">
-              <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;"><span style="color:rgba(220,70,50,.9);font-weight:500;">90%</span> of cancer deaths come from late-stage diagnoses.</p>
-              <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;">Only <span style="color:rgba(220,70,50,.9);font-weight:500;">1 in 5</span> patients survive late-stage cancer.</p>
+            <div class="survival-bar-row">
+              <span class="survival-label">Late Stage</span>
+              <div class="survival-bar low"></div>
+              <span class="survival-pct low">~30%</span>
             </div>
           </div>
-        </div>
-
-        <!-- Limited Screening -->
-        <div class="problem-row">
-          <div class="problem-dot"></div>
-          <div>
-            <div class="problem-row-title">Why Current Screening Fails</div>
-            <p style="margin-bottom:16px;">Routine screening exists for only <span style="color:var(--cyan);font-weight:500;">5 cancer types</span>. More than <span style="color:var(--cyan);font-weight:500;">200</span> have no standard screening at all.</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;">
-              <div>
-                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Detect Too Late</p>
-                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">CT, MRI, and mammograms only detect tumors of ~1 billion cells — not early cancer cells.</p>
-              </div>
-              <div>
-                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Expensive</p>
-                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">Not all tests are covered by insurers. High out-of-pocket costs delay or prevent screening.</p>
-              </div>
-              <div>
-                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Painful &amp; Risky</p>
-                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">Radiation exposure, invasive biopsies, and low accuracy make repeated screening impractical.</p>
-              </div>
-              <div>
-                <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;">Slow</p>
-                <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.5;margin:0;">Long waits for appointments and results. When cancer is detected late, time matters most.</p>
-              </div>
-            </div>
+          <div style="display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;">
+            <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;"><span style="color:rgba(220,70,50,.9);font-weight:500;">90%</span> of cancer deaths come from late-stage diagnoses.</p>
+            <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;">Roughly <span style="color:rgba(220,70,50,.9);font-weight:500;">1 in 3</span> patients survive late-stage cancer.</p>
           </div>
         </div>
+      </div>
+    </div>
 
+    <!-- 4 accordion cards -->
+    <div class="prob-cards reveal">
+
+      <div class="prob-card">
+        <button class="prob-trigger" aria-expanded="false">
+          <div class="prob-trigger-text">
+            <span class="prob-card-tag">Too Late</span>
+            <div class="prob-card-title">Detects tumors, not cancer cells</div>
+            <div class="prob-card-oneliner">Imaging only works after a billion cells have grown.</div>
+          </div>
+          <span class="prob-card-icon">+</span>
+        </button>
+        <div class="prob-card-body"><div class="prob-card-body-inner">
+          <p class="prob-card-detail">CT, MRI, and mammograms only detect tumors of ~1 billion cells — not the early cancer cells where intervention is most effective. By the time imaging finds it, cancer has had years to grow.</p>
+        </div></div>
       </div>
 
-      <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:20px;">Source: American Cancer Society, Cancer Statistics 2026</p>
+      <div class="prob-card">
+        <button class="prob-trigger" aria-expanded="false">
+          <div class="prob-trigger-text">
+            <span class="prob-card-tag">Too Few</span>
+            <div class="prob-card-title">Screening for only 5 of 200+ cancer types</div>
+            <div class="prob-card-oneliner">57% of all diagnosed cancers have no screening test.</div>
+          </div>
+          <span class="prob-card-icon">+</span>
+        </button>
+        <div class="prob-card-body"><div class="prob-card-body-inner">
+          <p class="prob-card-detail">The USPSTF recommends routine screening for just 4 cancers (breast, cervical, colorectal, lung) plus prostate with caveats. The other 200+ cancer types have no standard screening at all.</p>
+        </div></div>
+      </div>
+
+      <div class="prob-card">
+        <button class="prob-trigger" aria-expanded="false">
+          <div class="prob-trigger-text">
+            <span class="prob-card-tag">Too Expensive</span>
+            <div class="prob-card-title">High costs delay or prevent screening</div>
+            <div class="prob-card-oneliner">Financial barriers hit underserved communities hardest.</div>
+          </div>
+          <span class="prob-card-icon">+</span>
+        </button>
+        <div class="prob-card-body"><div class="prob-card-body-inner">
+          <p class="prob-card-detail">Not all tests are covered by insurers. High out-of-pocket costs create barriers, especially for underserved communities. Many patients face financial hardship even before treatment begins.</p>
+        </div></div>
+      </div>
+
+      <div class="prob-card">
+        <button class="prob-trigger" aria-expanded="false">
+          <div class="prob-trigger-text">
+            <span class="prob-card-tag">Too Invasive</span>
+            <div class="prob-card-title">Radiation, biopsies, and long waits</div>
+            <div class="prob-card-oneliner">Repeated screening is impractical when it causes harm.</div>
+          </div>
+          <span class="prob-card-icon">+</span>
+        </button>
+        <div class="prob-card-body"><div class="prob-card-body-inner">
+          <p class="prob-card-detail">Radiation exposure, invasive biopsies, and low accuracy make repeated screening impractical. Patients often face months-long waits for scans and specialist appointments.</p>
+        </div></div>
+      </div>
+
+    </div><!-- /prob-cards -->
+
+    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-top:20px;">Sources: American Cancer Society 2026 · USPSTF · NORC at University of Chicago 2024 · SEER 2015–2021</p>
   </div>
 </section>
 
+
+
+<!-- ═══ BRIDGE TO SOLUTION ═══ -->
+<div style="max-width:1200px;margin:0 auto;padding:0 56px;">
+  <p class="reveal" style="font-family:var(--serif);font-size:clamp(22px,2.8vw,38px);font-weight:300;font-style:italic;color:rgba(255,255,255,.75);line-height:1.4;max-width:720px;padding:64px 0 0;">What if we could detect cancer at the cellular level — <em style="color:var(--cyan);">before a tumor ever forms?</em></p>
+</div>
 
 <!-- ═══ NIROSHA QUOTE ═══ -->
 <div class="quote-section reveal">
@@ -1888,6 +1954,23 @@ document.querySelectorAll('.problem-rows .problem-row, .press-card').forEach((el
 
 
 
+
+
+// ─── PROBLEM ACCORDION CARDS ───
+document.querySelectorAll('.prob-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.prob-card');
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.prob-card.open').forEach(c => {
+      c.classList.remove('open');
+      c.querySelector('.prob-trigger').setAttribute('aria-expanded','false');
+    });
+    if (!isOpen) {
+      card.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+});
 
 // ─── ACCORDION ───
 document.querySelectorAll('.acc-trigger').forEach(btn => {
