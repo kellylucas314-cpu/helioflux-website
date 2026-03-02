@@ -512,6 +512,46 @@
     }
   
 
+
+    /* ─── ACCORDION ─── */
+    .acc-stack { margin-top: 64px; max-width: 860px; }
+    .acc-intro { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 32px; }
+    .acc-item { border-top: 1px solid var(--border); }
+    .acc-item:last-child { border-bottom: 1px solid var(--border); }
+    .acc-trigger {
+      width: 100%; display: flex; align-items: center; gap: 20px;
+      padding: 26px 0; background: none; border: none;
+      color: var(--white); cursor: pointer; text-align: left;
+      transition: color .2s;
+    }
+    .acc-trigger:hover .acc-label { color: var(--cyan); }
+    .acc-num { font-family: var(--serif); font-size: 13px; font-style: italic;
+      color: rgba(0,200,240,.35); min-width: 32px; flex-shrink: 0; }
+    .acc-label { font-size: clamp(15px,1.4vw,18px); font-weight: 300; letter-spacing: .01em;
+      flex: 1; line-height: 1.4; transition: color .2s; }
+    .acc-icon { font-size: 22px; font-weight: 200; color: rgba(0,200,240,.5);
+      transition: transform .38s ease; flex-shrink: 0; line-height: 1; }
+    .acc-item.open .acc-icon { transform: rotate(45deg); color: var(--cyan); }
+    .acc-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .42s ease;
+      padding-left: 52px;
+    }
+    .acc-item.open .acc-body { grid-template-rows: 1fr; }
+    .acc-body-inner { overflow: hidden; }
+    .acc-body-pad { padding-bottom: 40px; }
+    .acc-body p { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 680px; }
+    .acc-body p + p { margin-top: 14px; }
+    .acc-body strong { color: rgba(255,255,255,.8); font-weight: 400; }
+    .acc-stat-row { display: flex; gap: 40px; margin: 28px 0; flex-wrap: wrap; }
+    .acc-stat { }
+    .acc-stat-n { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--cyan); line-height: 1; }
+    .acc-stat-l { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5; max-width: 160px; }
+    .acc-pub-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; margin-right: 24px;
+      font-size: 12px; color: rgba(0,200,240,.6); text-decoration: none; border-bottom: 1px solid rgba(0,200,240,.2);
+      padding-bottom: 2px; transition: color .2s; letter-spacing: .06em; }
+    .acc-pub-link:hover { color: var(--cyan); }
+
     /* ─── BACK TO TOP ─── */
     #back-to-top {
       position: fixed; bottom: 36px; right: 36px; z-index: 500;
@@ -762,10 +802,114 @@
         </div>
       </div>
 
-      <!-- How It Works — step diagram (after QSense/LuminAI) -->
-      <div style="margin-top:56px;overflow:hidden;border-radius:4px;border:1px solid rgba(0,200,240,.08);">
-        <img src="science-diagram.jpg" alt="How biophotonic cancer detection works: Metabolic stress → Ultra-weak Photon Emissions → High-Sensitivity Optics → Spectral Power Density Analysis → Biomarker Classification" style="width:100%;display:block;">
-      </div>
+      <!-- ─── ACCORDION: EXPLORE THE SCIENCE ─── -->
+      <div class="acc-stack reveal">
+        <p class="acc-intro">Explore the science</p>
+
+        <!-- ITEM 1: The physics -->
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            <span class="acc-num">01</span>
+            <span class="acc-label">How your cells reveal cancer — the physics of light</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner"><div class="acc-body-pad">
+              <p>All living cells continuously emit ultra-weak photon emissions (UPEs) — faint light produced as a byproduct of oxidative metabolism. The intensity and spectral pattern of these emissions is a direct readout of cellular metabolic state.</p>
+              <p>In cancer, metabolic stress produces a measurably different emission profile. Malignant cells emit a characteristic spectral signature — inverted relative to healthy tissue — detectable at as few as <strong>5–10 million cells</strong>. That's before a tumor forms, before any imaging can see it, and before most liquid biopsies can detect circulating DNA.</p>
+              <div style="margin-top:32px;overflow:hidden;border-radius:4px;border:1px solid rgba(0,200,240,.08);">
+                <img src="science-diagram.jpg" alt="Biophotonic detection pipeline: Metabolic Stress → UPE → High-Sensitivity Optics → Spectral Power Density Analysis → Biomarker Classification" style="width:100%;display:block;">
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        <!-- ITEM 2: What LuminAI analyzes -->
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            <span class="acc-num">02</span>
+            <span class="acc-label">What the AI sees — signal patterns and classification</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner"><div class="acc-body-pad">
+              <p>QSense captures raw photon emission data at single-photon sensitivity. LuminAI then runs spectral power density analysis — decomposing the signal by wavelength and frequency to extract the emission fingerprint.</p>
+              <p>The AI compares that fingerprint against a validated database of cancer and healthy-tissue signatures, built from three peer-reviewed studies across <strong>13 cancer cell lines</strong> and <strong>47 living animal models</strong>. The output: a biomarker classification — positive or negative — with a confidence score. Powered by NVIDIA computing infrastructure.</p>
+              <p>The key insight is not the brightness of the signal, but its <strong>spectral shape and directional profile</strong>. Cancer cells invert the healthy-tissue emission pattern — a distinction detectable even at very early cell counts.</p>
+            </div></div>
+          </div>
+        </div>
+
+        <!-- ITEM 3: Validation data -->
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            <span class="acc-num">03</span>
+            <span class="acc-label">Published validation — what the research shows</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner"><div class="acc-body-pad">
+              <div class="acc-stat-row">
+                <div class="acc-stat">
+                  <div class="acc-stat-n">92%</div>
+                  <div class="acc-stat-l">Accuracy in vitro · 30 samples · 6 cell lines · 2018</div>
+                </div>
+                <div class="acc-stat">
+                  <div class="acc-stat-n">100%</div>
+                  <div class="acc-stat-l">Cancer detection rate · every malignant sample identified · 2018</div>
+                </div>
+                <div class="acc-stat">
+                  <div class="acc-stat-n">90%</div>
+                  <div class="acc-stat-l">Accuracy in vivo · 47 living mice · 13 cancer types · 2020</div>
+                </div>
+                <div class="acc-stat">
+                  <div class="acc-stat-n">&lt;24h</div>
+                  <div class="acc-stat-l">Detection after tumor cell injection · 18 days before palpable mass · 2020</div>
+                </div>
+              </div>
+              <p>Three peer-reviewed publications across two decades of work, with a fourth (human pilot) in active planning:</p>
+              <div>
+                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" class="acc-pub-link">Biochemistry &amp; Biophysics Reports · Elsevier · 2018 ↗</a>
+                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="acc-pub-link">Cancers · MDPI · 2020 ↗</a>
+                <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="acc-pub-link">iScience · Cell Press · 2025 ↗</a>
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        <!-- ITEM 4: How it compares -->
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            <span class="acc-num">04</span>
+            <span class="acc-label">How it compares — vs liquid biopsy and standard imaging</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner"><div class="acc-body-pad">
+              <p>The critical difference is <strong>detection threshold</strong> — how many cells must be present before each method can find them.</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin:28px 0;max-width:640px;">
+                <div style="background:var(--bg);padding:20px 16px;">
+                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">HelioFlux</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;">5–10M</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · ≈ 2–3mm · pre-tumor</div>
+                </div>
+                <div style="background:var(--bg);padding:20px 16px;">
+                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;">Liquid Biopsy</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.25);line-height:1;">50–100M</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · cfDNA · Stage I–II</div>
+                </div>
+                <div style="background:var(--bg);padding:20px 16px;">
+                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;">Standard Imaging</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.15);line-height:1;">1B+</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · MRI/CT · Stage III–IV</div>
+                </div>
+              </div>
+              <p>HelioFlux detects at 100–200× fewer cells than standard imaging, and 10–20× fewer than the leading liquid biopsy approaches — without a blood draw, radiation, or invasive procedure.</p>
+            </div></div>
+          </div>
+        </div>
+
+      </div><!-- /acc-stack -->
     </div>
   </div>
 </div>
@@ -1743,6 +1887,25 @@ document.querySelectorAll('.problem-rows .problem-row, .press-card').forEach((el
 });
 
 
+
+
+// ─── ACCORDION ───
+document.querySelectorAll('.acc-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.acc-item');
+    const isOpen = item.classList.contains('open');
+    // Close all others
+    document.querySelectorAll('.acc-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
+    });
+    // Toggle clicked
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
 
 // ─── BACK TO TOP ───
 const btt = document.getElementById('back-to-top');
