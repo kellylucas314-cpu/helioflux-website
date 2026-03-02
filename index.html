@@ -355,12 +355,16 @@
 
 
     /* ─── CANCER CRISIS ─── */
-    .crisis-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border); margin-top: 64px; }
-    .crisis-col { background: var(--bg); padding: 48px 36px; }
-    .crisis-num { font-family: var(--serif); font-size: clamp(48px, 6vw, 72px); font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
-    .crisis-unit { font-size: 13px; color: var(--cyan); opacity: .6; letter-spacing: .06em; margin-bottom: 20px; }
-    .crisis-text { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
-    .crisis-text strong { color: rgba(255,255,255,.75); font-weight: 400; }
+    /* Cancer Crisis — callout + cards */
+    .crisis-callout { border: 1px solid rgba(0,200,240,.25); background: rgba(0,200,240,.05); padding: 36px 52px; margin-bottom: 64px; display: flex; align-items: center; gap: 36px; max-width: 780px; }
+    .crisis-callout-pct { font-family: var(--serif); font-size: clamp(56px,7vw,88px); font-weight: 300; color: var(--cyan); line-height: 1; flex-shrink: 0; }
+    .crisis-callout-text { font-family: var(--serif); font-size: clamp(17px,1.8vw,22px); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.75); }
+    .crisis-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
+    .crisis-card { background: var(--bg2); padding: 40px 44px; }
+    .crisis-card-title { font-size: 15px; font-weight: 500; color: var(--cyan); margin-bottom: 20px; letter-spacing: .01em; }
+    .crisis-bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .crisis-bullets li { font-size: 14px; color: var(--muted); line-height: 1.75; padding-left: 18px; position: relative; }
+    .crisis-bullets li::before { content: ''; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; background: rgba(0,200,240,.4); border-radius: 50%; }
 
     /* ─── SOLUTION ─── */
     .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
@@ -437,8 +441,9 @@
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
       .quote-section { padding: 100px 24px; }
-      .crisis-grid { grid-template-columns: 1fr; }
-      .crisis-col { padding: 36px 24px; }
+      .crisis-callout { flex-direction: column; padding: 28px 24px; gap: 16px; text-align: center; }
+      .crisis-cards { grid-template-columns: 1fr; }
+      .crisis-card { padding: 32px 24px; }
       .solution-grid { grid-template-columns: 1fr; }
       .solution-col { padding: 40px 24px; }
     }
@@ -517,27 +522,50 @@
 <section class="section" id="problem">
   <div class="reveal">
     <p class="eyebrow">The Cancer Crisis</p>
-    <h2>2.1 million new diagnoses<br>this year. <em>Most found too late.</em></h2>
-    <p class="lead" style="max-width:680px;">Every day, 5,800 Americans learn they have cancer. Only five cancer types have recommended screening tests. The other 200+ are found by accident, by symptom, or too late.</p>
+    <h2>Why we need<br>a <em>new approach.</em></h2>
   </div>
-  <div class="crisis-grid">
-    <div class="crisis-col reveal">
-      <div class="crisis-num">1B+</div>
-      <div class="crisis-unit">cells before detection</div>
-      <p class="crisis-text"><strong>Late Detection.</strong> Standard imaging cannot see a tumor until it reaches roughly 1 billion cells, about 1 centimeter across. By that point, it may have been growing silently for 1.5 to 2 years, potentially spreading to lymph nodes and distant tissue.</p>
+  <!-- Big callout stat -->
+  <div class="crisis-callout reveal">
+    <div class="crisis-callout-pct">39%</div>
+    <div class="crisis-callout-text">of men and women will be diagnosed with cancer during their lifetime</div>
+  </div>
+
+  <!-- Simple category cards -->
+  <div class="crisis-cards">
+    <div class="crisis-card reveal">
+      <div class="crisis-card-title">Late Detection</div>
+      <ul class="crisis-bullets">
+        <li>Many cancers are found too late, drastically reducing survival rates</li>
+        <li>Standard imaging cannot detect a tumor until it has roughly 1 billion cells — by then it may have been growing silently for two years</li>
+        <li>Current tests are often invasive, expensive, or inaccurate</li>
+      </ul>
     </div>
-    <div class="crisis-col reveal">
-      <div class="crisis-num">5</div>
-      <div class="crisis-unit">cancer types screened</div>
-      <p class="crisis-text"><strong>Limited Screening.</strong> The USPSTF recommends screening for only 5 cancer types: breast, cervical, colorectal, lung, and prostate. More than 200 other cancer types have no recommended screening test at all. If you are not looking, you are not finding.</p>
+    <div class="crisis-card reveal">
+      <div class="crisis-card-title">Limited Screening</div>
+      <ul class="crisis-bullets">
+        <li>The USPSTF recommends screening for only 5 cancer types</li>
+        <li>More than 200 other cancer types have no routine screening test at all</li>
+        <li>Most cancers are caught by accident, by symptom, or not at all</li>
+      </ul>
     </div>
-    <div class="crisis-col reveal">
-      <div class="crisis-num">626K</div>
-      <div class="crisis-unit">deaths projected in 2026</div>
-      <p class="crisis-text"><strong>Devastating Costs.</strong> Late-stage diagnosis dramatically reduces survival and drives treatment costs exponentially higher. The 5-year survival rate has reached 70%, up from 50% in the mid-1970s, but that progress stalls when cancer is caught late.</p>
+    <div class="crisis-card reveal">
+      <div class="crisis-card-title">High Costs and Limited Access</div>
+      <ul class="crisis-bullets">
+        <li>Late-stage cancer treatment costs far exceed early-stage care</li>
+        <li>Patients often face agonizing months-long waits for scans and specialist appointments</li>
+        <li>Many patients face serious financial hardship from diagnosis and treatment</li>
+      </ul>
+    </div>
+    <div class="crisis-card reveal">
+      <div class="crisis-card-title">The Survival Gap</div>
+      <ul class="crisis-bullets">
+        <li>Early-stage cancer: 5-year survival rates often exceed 90%</li>
+        <li>Late-stage cancer: survival rates can fall below 20%</li>
+        <li>626,000 Americans will die of cancer in 2026 — many from cancers that could have been caught earlier</li>
+      </ul>
     </div>
   </div>
-  <p class="reveal" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:24px;text-align:right;">Source: American Cancer Society, Cancer Statistics 2026</p>
+  <p class="reveal" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:16px;text-align:right;">Source: American Cancer Society, Cancer Statistics 2026</p>
 </section>
 
 <!-- ═══ THE SOLUTION ═══ -->
