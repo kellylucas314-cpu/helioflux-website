@@ -444,6 +444,9 @@
       .crisis-callout { flex-direction: column; padding: 28px 24px; gap: 16px; text-align: center; }
       .crisis-cards { grid-template-columns: 1fr; }
       .crisis-card { padding: 32px 24px; }
+
+      /* Lab photo mobile */
+      .lab-photo-img { height: clamp(320px, 75vw, 480px) !important; object-position: center 18% !important; }
       .solution-grid { grid-template-columns: 1fr; }
       .solution-col { padding: 40px 24px; }
     }
@@ -529,13 +532,14 @@
 </section>
 
 <!-- ═══ LAB PHOTO — HERO BREAK ═══ -->
-<div style="position:relative;overflow:hidden;line-height:0;">
+<div style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
   <img loading="lazy" src="nirosha-lab.jpg"
        alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant"
-       style="width:100%;height:clamp(680px,72vw,960px);object-fit:cover;object-position:center 32%;display:block;filter:brightness(.88);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.92) 0%, rgba(4,7,14,.1) 55%, transparent 75%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:32px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:16px;color:rgba(255,255,255,.88);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,1);">Dr. Nirosha Murugan · Photonic sensor array · Wilfrid Laurier University</p>
+       class="lab-photo-img" style="width:100%;height:clamp(480px,60vw,820px);object-fit:cover;object-position:center 22%;display:block;filter:brightness(.9);">
+  <!-- Top fade: blends seamlessly with hero bottom -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(4,7,14,.95) 0%, rgba(4,7,14,.3) 18%, transparent 38%, transparent 58%, rgba(4,7,14,.92) 100%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:28px;left:40px;right:40px;line-height:1.5;">
+    <p style="font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,1);">Dr. Nirosha Murugan · Photonic Sensor Array · Wilfrid Laurier University</p>
   </div>
 </div>
 
