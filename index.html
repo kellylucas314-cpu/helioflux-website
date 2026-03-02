@@ -361,10 +361,10 @@
     .crisis-callout-text { font-family: var(--serif); font-size: clamp(17px,1.8vw,22px); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.75); }
     .crisis-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
     .crisis-card { background: var(--bg2); padding: 40px 44px; }
-    .crisis-card-title { font-size: 15px; font-weight: 500; color: var(--cyan); margin-bottom: 20px; letter-spacing: .01em; }
-    .crisis-bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .crisis-bullets li { font-size: 14px; color: var(--muted); line-height: 1.75; padding-left: 18px; position: relative; }
-    .crisis-bullets li::before { content: ''; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; background: rgba(0,200,240,.4); border-radius: 50%; }
+    .crisis-card-title { font-size: 18px; font-weight: 500; color: var(--cyan); margin-bottom: 20px; letter-spacing: .01em; }
+    .crisis-bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .crisis-bullets li { font-size: 16px; color: var(--muted); line-height: 1.7; padding-left: 20px; position: relative; }
+    .crisis-bullets li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; background: rgba(0,200,240,.4); border-radius: 50%; }
 
     /* ─── SOLUTION ─── */
     .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
@@ -526,7 +526,7 @@
   </div>
   <!-- Big callout stat -->
   <div class="crisis-callout reveal">
-    <div class="crisis-callout-pct">39%</div>
+    <div class="crisis-callout-pct">40%</div>
     <div class="crisis-callout-text">of men and women will be diagnosed with cancer during their lifetime</div>
   </div>
 
@@ -571,37 +571,22 @@
 <!-- ═══ THE SOLUTION ═══ -->
 <div class="section-bg">
   <div class="section-inner">
-    <div class="reveal">
+    <div class="reveal" style="margin-bottom:56px;">
       <p class="eyebrow">The Solution</p>
-      <h2>One platform. <em>Two systems.</em></h2>
-      <p class="lead" style="max-width:680px;">HelioFlux detects cancer at 5 to 10 million cells, 100 to 200 times earlier than standard imaging. No blood draw. No biopsy. No radiation. The platform combines a purpose-built hardware detector with intelligent signal processing software.</p>
+      <h2>HelioFlux has developed a platform<br>to <em>address these challenges.</em></h2>
     </div>
     <div class="solution-grid">
       <div class="solution-col reveal">
-        <div class="solution-badge hardware">Hardware · Prototype Validated</div>
+        <div class="solution-badge hardware">Hardware</div>
         <div class="solution-name">QSense</div>
-        <div class="solution-sub">Photomultiplier tube detection system</div>
-        <ul class="solution-features">
-          <li><span>&#9670;</span> Single-photon sensitivity detection</li>
-          <li><span>&#9670;</span> Non-invasive, approximately 15 minutes</li>
-          <li><span>&#9670;</span> No radiation, no contrast agents</li>
-          <li><span>&#9670;</span> Point-of-care form factor</li>
-          <li><span>&#9670;</span> Validated in 3 peer-reviewed studies</li>
-        </ul>
-        <div class="solution-status"><strong>Status:</strong> Prototype validated in lab. Human pilot studies underway.</div>
+        <p style="font-size:18px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:28px;">A device that detects the faint light your cells naturally emit — and reads whether that light looks healthy or cancerous. No needles. No radiation. About 15 minutes.</p>
+        <div class="solution-status"><strong>Status:</strong> Prototype built and validated across 3 peer-reviewed studies.</div>
       </div>
       <div class="solution-col reveal">
-        <div class="solution-badge software">Software · In Development</div>
+        <div class="solution-badge software">Software</div>
         <div class="solution-name">LuminAI</div>
-        <div class="solution-sub">Signal processing + pattern recognition</div>
-        <ul class="solution-features">
-          <li><span>&#9670;</span> Real-time spectral analysis</li>
-          <li><span>&#9670;</span> 90 to 92% discriminant accuracy</li>
-          <li><span>&#9670;</span> Cancer-specific signature database</li>
-          <li><span>&#9670;</span> 13 cancer cell lines characterized</li>
-          <li><span>&#9670;</span> EEG cross-validated in 20 human subjects</li>
-        </ul>
-        <div class="solution-status"><strong>Status:</strong> Pattern recognition algorithms validated. Expanding signature library.</div>
+        <p style="font-size:18px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:28px;">The software that analyzes the light data and tells you what it means. It has already learned the difference between healthy and cancerous tissue with 90–92% accuracy.</p>
+        <div class="solution-status"><strong>Status:</strong> Validated in the lab. Expanding across more cancer types.</div>
       </div>
     </div>
   </div>
