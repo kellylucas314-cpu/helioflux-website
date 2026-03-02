@@ -353,6 +353,30 @@
     .f-col a:hover { color: var(--white); }
     .f-bottom { background: var(--bg2); border-top: 1px solid var(--border); padding: 20px 56px; display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,.18); flex-wrap: wrap; gap: 8px; }
 
+
+    /* ─── CANCER CRISIS ─── */
+    .crisis-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border); margin-top: 64px; }
+    .crisis-col { background: var(--bg); padding: 48px 36px; }
+    .crisis-num { font-family: var(--serif); font-size: clamp(48px, 6vw, 72px); font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
+    .crisis-unit { font-size: 13px; color: var(--cyan); opacity: .6; letter-spacing: .06em; margin-bottom: 20px; }
+    .crisis-text { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
+    .crisis-text strong { color: rgba(255,255,255,.75); font-weight: 400; }
+
+    /* ─── SOLUTION ─── */
+    .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
+    .solution-col { background: var(--bg2); padding: 56px 48px; }
+    .solution-badge { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; padding: 5px 14px; display: inline-block; margin-bottom: 24px; font-weight: 500; }
+    .solution-badge.hardware { background: rgba(0,200,240,.1); color: rgba(0,200,240,.8); border: 1px solid rgba(0,200,240,.2); }
+    .solution-badge.software { background: rgba(0,200,240,.06); color: rgba(0,200,240,.6); border: 1px solid rgba(0,200,240,.15); }
+    .solution-name { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 300; margin-bottom: 8px; }
+    .solution-sub { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .solution-features { list-style: none; }
+    .solution-features li { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .solution-features li:last-child { border-bottom: none; }
+    .solution-features li span { color: var(--cyan); margin-right: 8px; font-size: 11px; }
+    .solution-status { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .solution-status strong { color: var(--cyan); font-weight: 400; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
       /* Native scroll-snap horizontal scroller on mobile */
@@ -413,6 +437,10 @@
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
       .quote-section { padding: 100px 24px; }
+      .crisis-grid { grid-template-columns: 1fr; }
+      .crisis-col { padding: 36px 24px; }
+      .solution-grid { grid-template-columns: 1fr; }
+      .solution-col { padding: 40px 24px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -485,17 +513,87 @@
   </div>
 </div>
 
-<!-- PROBLEM -->
+<!-- ═══ THE CANCER CRISIS ═══ -->
 <section class="section" id="problem">
-  <div class="problem-grid">
-    <div class="reveal">
-      <p class="eyebrow">The Problem</p>
-      <h2>We're finding cancer<br><em>too late.</em></h2>
-      <p class="lead" style="margin-bottom:20px">By the time a CT scan finds cancer, you already have roughly <strong style="color:var(--white);font-weight:400">one billion cells</strong> — 30 cell divisions — growing inside you. A tumor you can feel. Something that may have already spread.</p>
-      <p class="lead">HelioFlux detects at 5–10 million cells. Something you <strong style="color:var(--white);font-weight:400">cannot feel yet</strong>. Something that hasn't spread. Something that's still easy to treat.</p>
+  <div class="reveal">
+    <p class="eyebrow">The Cancer Crisis</p>
+    <h2>2.1 million new diagnoses<br>this year. <em>Most found too late.</em></h2>
+    <p class="lead" style="max-width:680px;">Every day, 5,800 Americans learn they have cancer. Only five cancer types have recommended screening tests. The other 200+ are found by accident, by symptom, or too late.</p>
+  </div>
+  <div class="crisis-grid">
+    <div class="crisis-col reveal">
+      <div class="crisis-num">1B+</div>
+      <div class="crisis-unit">cells before detection</div>
+      <p class="crisis-text"><strong>Late Detection.</strong> Standard imaging cannot see a tumor until it reaches roughly 1 billion cells, about 1 centimeter across. By that point, it may have been growing silently for 1.5 to 2 years, potentially spreading to lymph nodes and distant tissue.</p>
     </div>
+    <div class="crisis-col reveal">
+      <div class="crisis-num">5</div>
+      <div class="crisis-unit">cancer types screened</div>
+      <p class="crisis-text"><strong>Limited Screening.</strong> The USPSTF recommends screening for only 5 cancer types: breast, cervical, colorectal, lung, and prostate. More than 200 other cancer types have no recommended screening test at all. If you are not looking, you are not finding.</p>
+    </div>
+    <div class="crisis-col reveal">
+      <div class="crisis-num">626K</div>
+      <div class="crisis-unit">deaths projected in 2026</div>
+      <p class="crisis-text"><strong>Devastating Costs.</strong> Late-stage diagnosis dramatically reduces survival and drives treatment costs exponentially higher. The 5-year survival rate has reached 70%, up from 50% in the mid-1970s, but that progress stalls when cancer is caught late.</p>
+    </div>
+  </div>
+  <p class="reveal" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:24px;text-align:right;">Source: American Cancer Society, Cancer Statistics 2026</p>
+</section>
+
+<!-- ═══ THE SOLUTION ═══ -->
+<div class="section-bg">
+  <div class="section-inner">
     <div class="reveal">
-      <!-- SIZE COMPARISON VISUAL -->
+      <p class="eyebrow">The Solution</p>
+      <h2>One platform. <em>Two systems.</em></h2>
+      <p class="lead" style="max-width:680px;">HelioFlux detects cancer at 5 to 10 million cells, 100 to 200 times earlier than standard imaging. No blood draw. No biopsy. No radiation. The platform combines a purpose-built hardware detector with intelligent signal processing software.</p>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-col reveal">
+        <div class="solution-badge hardware">Hardware · Prototype Validated</div>
+        <div class="solution-name">QSense</div>
+        <div class="solution-sub">Photomultiplier tube detection system</div>
+        <ul class="solution-features">
+          <li><span>&#9670;</span> Single-photon sensitivity detection</li>
+          <li><span>&#9670;</span> Non-invasive, approximately 15 minutes</li>
+          <li><span>&#9670;</span> No radiation, no contrast agents</li>
+          <li><span>&#9670;</span> Point-of-care form factor</li>
+          <li><span>&#9670;</span> Validated in 3 peer-reviewed studies</li>
+        </ul>
+        <div class="solution-status"><strong>Status:</strong> Prototype validated in lab. Human pilot studies underway.</div>
+      </div>
+      <div class="solution-col reveal">
+        <div class="solution-badge software">Software · In Development</div>
+        <div class="solution-name">LuminAI</div>
+        <div class="solution-sub">Signal processing + pattern recognition</div>
+        <ul class="solution-features">
+          <li><span>&#9670;</span> Real-time spectral analysis</li>
+          <li><span>&#9670;</span> 90 to 92% discriminant accuracy</li>
+          <li><span>&#9670;</span> Cancer-specific signature database</li>
+          <li><span>&#9670;</span> 13 cancer cell lines characterized</li>
+          <li><span>&#9670;</span> EEG cross-validated in 20 human subjects</li>
+        </ul>
+        <div class="solution-status"><strong>Status:</strong> Pattern recognition algorithms validated. Expanding signature library.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DEVICE PHOTO — BEFORE PLATFORM ═══ -->
+<div style="position:relative;overflow:hidden;line-height:0;">
+  <img loading="lazy" src="helioflux-device.jpg"
+       alt="HelioFlux photonic sensor array worn by a study participant"
+       style="width:100%;height:520px;object-fit:cover;object-position:center 22%;display:block;filter:brightness(.82);">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.85) 0%, rgba(4,7,14,.05) 50%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:36px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
+    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">HelioFlux photonic sensor array · Wilfrid Laurier University</p>
+    <p style="font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(0,200,240,.55);">One device. Multiple detection frontiers.</p>
+  </div>
+</div>
+
+<!-- SIZE COMPARISON -->
+<section class="section" style="padding-top:80px;padding-bottom:0;">
+  <div class="reveal">
       <svg class="size-compare-svg" viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" aria-label="Three-way detection threshold comparison: HelioFlux 2-3mm, liquid biopsy 5mm, standard imaging 1cm">
 
         <!-- ── LEFT: HELIOFUX (2-3mm, r=7) ── -->
@@ -544,7 +642,6 @@
         <p style="font-family:var(--serif);font-size:clamp(17px,2vw,22px);font-weight:300;line-height:1.5;color:rgba(0,200,240,0.9);margin-bottom:16px;">In animal models, HelioFlux found it<br>within <em>24 hours.</em></p>
         <p style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Cancers (MDPI), 2020 &nbsp;·&nbsp; 47 animal models &nbsp;·&nbsp; 13 cancer types</p>
       </div>
-    </div>
   </div>
 </section>
 
@@ -559,54 +656,104 @@
   </div>
 </div>
 
-<!-- TUMOR DETECTION TIMELINE -->
-<div style="padding:0 56px 100px;max-width:1200px;margin:0 auto;">
-  <div class="reveal" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:64px;">
-    <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px">Published data · Cancers (MDPI), 2020</p>
-    <p style="font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:300;line-height:1.3;margin-bottom:36px;max-width:640px">In the 2020 study, HelioFlux detected tumor cells in living mice within <em>24 hours</em> of injection — 18 days before any tumor became palpable, across 13 cell lines.</p>
-    <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;overflow:visible;" aria-label="Tumor detection timeline: HelioFlux detects on Day 1, tumor only palpable on Day 19">
-      <!-- HelioFlux detection zone (cyan) Day 1 → end -->
-      <rect x="65" y="55" width="495" height="14" fill="rgba(0,200,240,0.07)" rx="2"/>
-      <!-- base timeline bar -->
-      <rect x="40" y="63" width="520" height="2" fill="rgba(255,255,255,0.08)" rx="1"/>
-
-      <!-- Day 0 — Injection -->
-      <circle cx="40" cy="64" r="5" fill="#0A1020" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-      <text x="40" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Day 0</text>
-      <text x="40" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.15)">injection</text>
-
-      <!-- Day 1 — HelioFlux detects (CYAN, filled) -->
-      <circle cx="65" cy="64" r="6" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
-      <!-- detection arrow above -->
-      <line x1="65" y1="55" x2="65" y2="30" stroke="rgba(0,200,240,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
-      <text x="65" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#00C8F0" font-weight="500">HelioFlux detects</text>
-      <text x="65" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.6)">Day 1</text>
-      <text x="65" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(0,200,240,0.35)">24 hrs</text>
-
-      <!-- Day 7 -->
-      <circle cx="213" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-      <text x="213" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 7</text>
-
-      <!-- Day 10 -->
-      <circle cx="288" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-      <text x="288" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 10</text>
-
-      <!-- Day 13 -->
-      <circle cx="362" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-      <text x="362" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 13</text>
-
-      <!-- Day 19 — Palpable tumor (amber/warning) -->
-      <circle cx="510" cy="64" r="6" fill="rgba(255,140,40,0.15)" stroke="rgba(255,140,40,0.55)" stroke-width="1.5"/>
-      <line x1="510" y1="73" x2="510" y2="98" stroke="rgba(255,140,40,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
-      <text x="510" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,140,40,0.55)">first palpable tumor</text>
-      <text x="510" y="117" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,140,40,0.35)">Day 19</text>
-
-      <!-- Gap annotation -->
-      <line x1="70" y1="43" x2="505" y2="43" stroke="rgba(255,255,255,0.06)" stroke-width="1" marker-end="url(#arr)"/>
-      <text x="287" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1">18 days earlier than standard detection</text>
-    </svg>
-    <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;max-width:560px">Non-invasive. No imaging. No contrast agent. No biopsy. No blood draw.</p>
+<!-- TEAM PHOTO BREAK -->
+<div style="position:relative;overflow:hidden;line-height:0;border-top:1px solid var(--border);">
+  <img loading="lazy" src="nirosha-team.jpg"
+       alt="Dr. Nirosha Murugan with her research team at Wilfrid Laurier University"
+       style="width:100%;height:420px;object-fit:cover;object-position:center 30%;display:block;filter:brightness(.78);">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 55%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:28px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
+    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">Research team · Wilfrid Laurier University · Waterloo, Ontario</p>
+    <p style="font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(0,200,240,.85);">Building the next generation of cancer detection.</p>
   </div>
+</div>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <p class="eyebrow reveal">The Team</p>
+  <h2 class="reveal">Scientists and operators<br>building the <em>future of detection.</em></h2>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <img loading="lazy" src="nirosha-headshot.jpg" alt="Dr. Nirosha Murugan" class="team-photo">
+      <div>
+        <div class="team-name">Dr. Nirosha Murugan</div>
+        <div class="team-title">Chief Scientist &amp; Co-Founder</div>
+        <div class="team-bio">Canada Research Chair in Tissue Biophysics at Wilfrid Laurier University. PhD in Biomolecular Sciences from Laurentian University, where she pioneered the quantum-sensor technology now commercialized as HelioFlux. Postdoctoral fellow in Dr. Michael Levin's lab at Tufts; co-developed bioengineered tissue systems with Dr. David Kaplan. Former Harvard teaching fellow. Three peer-reviewed publications in Elsevier, MDPI, and Cell Press.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <img loading="lazy" src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
+      <div>
+        <div class="team-name">Kelly Lucas</div>
+        <div class="team-title">President &amp; Co-Founder</div>
+        <div class="team-bio">Kelly co-founded HelioFlux after watching Nirosha present the technology at a quantum biology conference — and immediately wondering why it wasn't already in the world. She holds a B.A. in Biology with Honors from UNC Chapel Hill and an MBA from Indiana University's Kelley School of Business. As President, she leads fundraising, strategy, and commercial development, and has helped build HelioFlux from a lab discovery into a company with peer-reviewed publications, $1.3M+ in research funding, and coverage in Scientific American and NPR.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-init">J</div>
+      <div>
+        <div class="team-name">Jim Armstrong</div>
+        <div class="team-title">Board Member &amp; Financial Advisor</div>
+        <div class="team-bio">Multiple Forbes Midas List honoree and one of the most recognized early-stage venture investors in the US. Pre-launch investor in PayPal, NetZero, and CarsDirect. Co-founded Clearstone Venture Partners (2002) and March Capital (2014). At HelioFlux, Jim advises on capital strategy, milestone execution, and investor relationships — the same operational role he plays for select early-stage companies he believes in.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-init">G</div>
+      <div>
+        <div class="team-name">Glenn Lucas</div>
+        <div class="team-title">Interim CMO</div>
+        <div class="team-bio">Venture investor and strategic advisor at Composite Ventures. Expert in commercializing emerging healthcare technologies and building market-entry strategies for science-driven companies.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scientific Advisory Board -->
+  <div style="border-top:1px solid var(--border);margin-top:2px;padding-top:56px;">
+    <p class="eyebrow reveal" style="margin-bottom:32px">Scientific Advisory Board</p>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-init" style="background:rgba(0,200,240,.06);color:rgba(0,200,240,.6);">ML</div>
+        <div>
+          <div class="team-name">Dr. Michael Levin</div>
+          <div class="team-title">Scientific Advisor</div>
+          <div class="team-bio">Vannevar Bush Chair at Tufts University. Associate Faculty, Wyss Institute at Harvard. DARPA-funded pioneer in bioelectric control of cell behavior and tissue patterning. Dr. Nirosha Murugan completed her postdoctoral fellowship in Dr. Levin's lab — the scientific foundation this technology is built on.</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-init" style="background:rgba(0,200,240,.06);color:rgba(0,200,240,.6);">DK</div>
+        <div>
+          <div class="team-name">Dr. David Kaplan</div>
+          <div class="team-title">Scientific Advisor</div>
+          <div class="team-bio">Distinguished Professor and Chair of Biomedical Engineering, Tufts University. Fellow of the National Academy of Engineering. Editor-in-Chief, ACS Biomaterials Science and Engineering. Collaborated directly with Dr. Murugan on bioengineered tissue systems during her Tufts postdoctoral work.</div>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-init" style="background:rgba(0,200,240,.06);color:rgba(0,200,240,.6);">RO</div>
+        <div>
+          <div class="team-name">Dr. Rodney O'Connor</div>
+          <div class="team-title">Scientific Advisor</div>
+          <div class="team-bio">Cellular Biophysicist and Professor, École Nationale Supérieure des Mines de Saint-Étienne. Leads research in Oncoelectronics — combining bioelectronics and cancer research. Expertise in cancer biology, bioelectronics, and neuroscience.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS MINI STRIP — validation before the scientist intro -->
+<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 56px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;background:var(--bg2);">
+  <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-right:8px;white-space:nowrap;">As featured in</span>
+  <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" style="opacity:.45;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Scientific_American_logo.svg/200px-Scientific_American_logo.svg.png" alt="Scientific American" style="height:18px;filter:brightness(10);display:block;" onerror="this.style.display='none'">
+  </a>
+  <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" style="opacity:.45;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Radiolab_logo.svg/200px-Radiolab_logo.svg.png" alt="NPR Radiolab" style="height:18px;filter:brightness(10);display:block;" onerror="this.style.display='none'">
+  </a>
+  <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="opacity:.45;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/CellPress_logo.svg/200px-CellPress_logo.svg.png" alt="Cell Press" style="height:18px;filter:brightness(10);display:block;" onerror="this.style.display='none'">
+  </a>
+  <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">CBC News</a>
+  <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">CTV News</a>
+  <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">LA Business Journal</a>
 </div>
 
 <!-- SCIENCE -->
@@ -745,15 +892,53 @@
 })();
 </script>
 
-<!-- ═══ DEVICE PHOTO — BEFORE PLATFORM ═══ -->
-<div style="position:relative;overflow:hidden;line-height:0;">
-  <img loading="lazy" src="helioflux-device.jpg"
-       alt="HelioFlux photonic sensor array worn by a study participant"
-       style="width:100%;height:520px;object-fit:cover;object-position:center 22%;display:block;filter:brightness(.82);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.85) 0%, rgba(4,7,14,.05) 50%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:36px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">HelioFlux photonic sensor array · Wilfrid Laurier University</p>
-    <p style="font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(0,200,240,.55);">One device. Multiple detection frontiers.</p>
+<!-- TUMOR DETECTION TIMELINE -->
+<div style="padding:0 56px 100px;max-width:1200px;margin:0 auto;">
+  <div class="reveal" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:64px;">
+    <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px">Published data · Cancers (MDPI), 2020</p>
+    <p style="font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:300;line-height:1.3;margin-bottom:36px;max-width:640px">In the 2020 study, HelioFlux detected tumor cells in living mice within <em>24 hours</em> of injection — 18 days before any tumor became palpable, across 13 cell lines.</p>
+    <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;overflow:visible;" aria-label="Tumor detection timeline: HelioFlux detects on Day 1, tumor only palpable on Day 19">
+      <!-- HelioFlux detection zone (cyan) Day 1 → end -->
+      <rect x="65" y="55" width="495" height="14" fill="rgba(0,200,240,0.07)" rx="2"/>
+      <!-- base timeline bar -->
+      <rect x="40" y="63" width="520" height="2" fill="rgba(255,255,255,0.08)" rx="1"/>
+
+      <!-- Day 0 — Injection -->
+      <circle cx="40" cy="64" r="5" fill="#0A1020" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+      <text x="40" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Day 0</text>
+      <text x="40" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.15)">injection</text>
+
+      <!-- Day 1 — HelioFlux detects (CYAN, filled) -->
+      <circle cx="65" cy="64" r="6" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
+      <!-- detection arrow above -->
+      <line x1="65" y1="55" x2="65" y2="30" stroke="rgba(0,200,240,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="65" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#00C8F0" font-weight="500">HelioFlux detects</text>
+      <text x="65" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.6)">Day 1</text>
+      <text x="65" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(0,200,240,0.35)">24 hrs</text>
+
+      <!-- Day 7 -->
+      <circle cx="213" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+      <text x="213" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 7</text>
+
+      <!-- Day 10 -->
+      <circle cx="288" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+      <text x="288" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 10</text>
+
+      <!-- Day 13 -->
+      <circle cx="362" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+      <text x="362" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 13</text>
+
+      <!-- Day 19 — Palpable tumor (amber/warning) -->
+      <circle cx="510" cy="64" r="6" fill="rgba(255,140,40,0.15)" stroke="rgba(255,140,40,0.55)" stroke-width="1.5"/>
+      <line x1="510" y1="73" x2="510" y2="98" stroke="rgba(255,140,40,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="510" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,140,40,0.55)">first palpable tumor</text>
+      <text x="510" y="117" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,140,40,0.35)">Day 19</text>
+
+      <!-- Gap annotation -->
+      <line x1="70" y1="43" x2="505" y2="43" stroke="rgba(255,255,255,0.06)" stroke-width="1" marker-end="url(#arr)"/>
+      <text x="287" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1">18 days earlier than standard detection</text>
+    </svg>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;max-width:560px">Non-invasive. No imaging. No contrast agent. No biopsy. No blood draw.</p>
   </div>
 </div>
 
@@ -932,23 +1117,6 @@
     <cite>Dr. Nirosha Murugan, CEO &amp; Chief Scientist &mdash; <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener">NPR Radiolab, "The Spark of Life," September 2025</a></cite>
   </div>
 </section>
-
-<!-- PRESS MINI STRIP — validation before the scientist intro -->
-<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 56px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;background:var(--bg2);">
-  <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-right:8px;white-space:nowrap;">As featured in</span>
-  <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" style="opacity:.45;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Scientific_American_logo.svg/200px-Scientific_American_logo.svg.png" alt="Scientific American" style="height:18px;filter:brightness(10);display:block;" onerror="this.style.display='none'">
-  </a>
-  <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" style="opacity:.45;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Radiolab_logo.svg/200px-Radiolab_logo.svg.png" alt="NPR Radiolab" style="height:18px;filter:brightness(10);display:block;" onerror="this.style.display='none'">
-  </a>
-  <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="opacity:.45;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='.45'">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/CellPress_logo.svg/200px-CellPress_logo.svg.png" alt="Cell Press" style="height:18px;filter:brightness(10);display:block;" onerror="this.style.display='none'">
-  </a>
-  <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">CBC News</a>
-  <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">CTV News</a>
-  <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">LA Business Journal</a>
-</div>
 
 <!-- ═══ NIROSHA — THE SCIENTIST ═══ -->
 <div class="section-bg" id="scientist">
@@ -1138,89 +1306,6 @@
     <div class="cred-value">Jim Armstrong, Board Member</div>
   </div>
 </div>
-
-<!-- TEAM PHOTO BREAK -->
-<div style="position:relative;overflow:hidden;line-height:0;border-top:1px solid var(--border);">
-  <img loading="lazy" src="nirosha-team.jpg"
-       alt="Dr. Nirosha Murugan with her research team at Wilfrid Laurier University"
-       style="width:100%;height:420px;object-fit:cover;object-position:center 30%;display:block;filter:brightness(.78);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.75) 0%, transparent 55%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:28px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:flex-end;line-height:1.5;">
-    <p style="font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.8);">Research team · Wilfrid Laurier University · Waterloo, Ontario</p>
-    <p style="font-family:var(--serif);font-size:13px;font-style:italic;color:rgba(0,200,240,.85);">Building the next generation of cancer detection.</p>
-  </div>
-</div>
-
-<!-- TEAM -->
-<section class="section" id="team">
-  <p class="eyebrow reveal">The Team</p>
-  <h2 class="reveal">Scientists and operators<br>building the <em>future of detection.</em></h2>
-  <div class="team-grid">
-    <div class="team-card reveal">
-      <img loading="lazy" src="nirosha-headshot.jpg" alt="Dr. Nirosha Murugan" class="team-photo">
-      <div>
-        <div class="team-name">Dr. Nirosha Murugan</div>
-        <div class="team-title">Chief Scientist &amp; Co-Founder</div>
-        <div class="team-bio">Canada Research Chair in Tissue Biophysics at Wilfrid Laurier University. PhD in Biomolecular Sciences from Laurentian University, where she pioneered the quantum-sensor technology now commercialized as HelioFlux. Postdoctoral fellow in Dr. Michael Levin's lab at Tufts; co-developed bioengineered tissue systems with Dr. David Kaplan. Former Harvard teaching fellow. Three peer-reviewed publications in Elsevier, MDPI, and Cell Press.</div>
-      </div>
-    </div>
-    <div class="team-card reveal">
-      <img loading="lazy" src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
-      <div>
-        <div class="team-name">Kelly Lucas</div>
-        <div class="team-title">President &amp; Co-Founder</div>
-        <div class="team-bio">Kelly co-founded HelioFlux after watching Nirosha present the technology at a quantum biology conference — and immediately wondering why it wasn't already in the world. She holds a B.A. in Biology with Honors from UNC Chapel Hill and an MBA from Indiana University's Kelley School of Business. As President, she leads fundraising, strategy, and commercial development, and has helped build HelioFlux from a lab discovery into a company with peer-reviewed publications, $1.3M+ in research funding, and coverage in Scientific American and NPR.</div>
-      </div>
-    </div>
-    <div class="team-card reveal">
-      <div class="team-init">J</div>
-      <div>
-        <div class="team-name">Jim Armstrong</div>
-        <div class="team-title">Board Member &amp; Financial Advisor</div>
-        <div class="team-bio">Multiple Forbes Midas List honoree and one of the most recognized early-stage venture investors in the US. Pre-launch investor in PayPal, NetZero, and CarsDirect. Co-founded Clearstone Venture Partners (2002) and March Capital (2014). At HelioFlux, Jim advises on capital strategy, milestone execution, and investor relationships — the same operational role he plays for select early-stage companies he believes in.</div>
-      </div>
-    </div>
-    <div class="team-card reveal">
-      <div class="team-init">G</div>
-      <div>
-        <div class="team-name">Glenn Lucas</div>
-        <div class="team-title">Interim CMO</div>
-        <div class="team-bio">Venture investor and strategic advisor at Composite Ventures. Expert in commercializing emerging healthcare technologies and building market-entry strategies for science-driven companies.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scientific Advisory Board -->
-  <div style="border-top:1px solid var(--border);margin-top:2px;padding-top:56px;">
-    <p class="eyebrow reveal" style="margin-bottom:32px">Scientific Advisory Board</p>
-    <div class="team-grid">
-      <div class="team-card reveal">
-        <div class="team-init" style="background:rgba(0,200,240,.06);color:rgba(0,200,240,.6);">ML</div>
-        <div>
-          <div class="team-name">Dr. Michael Levin</div>
-          <div class="team-title">Scientific Advisor</div>
-          <div class="team-bio">Vannevar Bush Chair at Tufts University. Associate Faculty, Wyss Institute at Harvard. DARPA-funded pioneer in bioelectric control of cell behavior and tissue patterning. Dr. Nirosha Murugan completed her postdoctoral fellowship in Dr. Levin's lab — the scientific foundation this technology is built on.</div>
-        </div>
-      </div>
-      <div class="team-card reveal">
-        <div class="team-init" style="background:rgba(0,200,240,.06);color:rgba(0,200,240,.6);">DK</div>
-        <div>
-          <div class="team-name">Dr. David Kaplan</div>
-          <div class="team-title">Scientific Advisor</div>
-          <div class="team-bio">Distinguished Professor and Chair of Biomedical Engineering, Tufts University. Fellow of the National Academy of Engineering. Editor-in-Chief, ACS Biomaterials Science and Engineering. Collaborated directly with Dr. Murugan on bioengineered tissue systems during her Tufts postdoctoral work.</div>
-        </div>
-      </div>
-      <div class="team-card reveal">
-        <div class="team-init" style="background:rgba(0,200,240,.06);color:rgba(0,200,240,.6);">RO</div>
-        <div>
-          <div class="team-name">Dr. Rodney O'Connor</div>
-          <div class="team-title">Scientific Advisor</div>
-          <div class="team-bio">Cellular Biophysicist and Professor, École Nationale Supérieure des Mines de Saint-Étienne. Leads research in Oncoelectronics — combining bioelectronics and cancer research. Expertise in cancer biology, bioelectronics, and neuroscience.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PATH TO MARKET -->
 <div style="padding:100px 56px;max-width:1200px;margin:0 auto;border-top:1px solid var(--border);">
