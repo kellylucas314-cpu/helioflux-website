@@ -451,6 +451,30 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* ── Problem section — Mockup 2 layout ── */
+    .problem-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 48px; }
+    .problem-rows { display: flex; flex-direction: column; gap: 0; margin: 36px 0; }
+    .problem-row { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .problem-row:last-child { border-bottom: none; }
+    .problem-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; box-shadow: 0 0 8px rgba(0,200,240,.5); }
+    .problem-row-title { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; font-weight: 500; }
+    .problem-row p { font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.6; margin: 0; }
+    .survival-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .survival-bar-row { display: flex; align-items: center; gap: 12px; }
+    .survival-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); width: 80px; flex-shrink: 0; }
+    .survival-bar { height: 6px; border-radius: 3px; }
+    .survival-bar.high { width: 160px; background: var(--cyan); }
+    .survival-bar.low { width: 40px; background: rgba(220,60,40,.8); }
+    .survival-pct { font-size: 13px; font-weight: 500; }
+    .survival-pct.high { color: var(--cyan); }
+    .survival-pct.low { color: rgba(220,80,60,.9); }
+    .problem-diagram { border: 1px dashed rgba(0,200,240,.25); background: rgba(0,200,240,.03); min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; }
+    .detection-diagram { width: 100%; border: 1px dashed rgba(0,200,240,.25); background: rgba(0,200,240,.03); min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; margin-top: 48px; }
+    @media (max-width: 768px) {
+      .problem-layout { grid-template-columns: 1fr; gap: 40px; }
+      .survival-bar.high { width: 120px; }
+    }
   </style>
 </head>
 <body>
@@ -517,76 +541,93 @@
 
 <!-- ═══ THE CANCER CRISIS ═══ -->
 <section class="section" id="problem">
-  <div class="reveal">
+  <div class="reveal" style="margin-bottom:8px;">
     <p class="eyebrow">The Problem</p>
-    <h2>Why we need<br>a <em>new approach.</em></h2>
-  </div>
-  <!-- Big callout stat -->
-  <div class="crisis-callout reveal">
-    <div class="crisis-callout-pct">40%</div>
-    <div class="crisis-callout-text">of men and women will be diagnosed with cancer during their lifetime</div>
+    <h2 style="margin-bottom:16px;">We detect cancer<br><em>too late.</em></h2>
+    <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.6;max-width:520px;">Most cancers are only visible after years of silent growth, when treatment is harder and outcomes drop.</p>
   </div>
 
-  <!-- Simple category cards -->
-  <div class="crisis-cards">
-    <div class="crisis-card reveal">
-      <div class="crisis-card-title">Late Detection</div>
-      <ul class="crisis-bullets">
-        <li>Most cancers are found too late, when survival odds drop dramatically</li>
-        <li>Standard imaging can't see a tumor until it has ~1 billion cells — after years of silent growth</li>
-      </ul>
-    </div>
-    <div class="crisis-card reveal">
-      <div class="crisis-card-title">Limited Screening</div>
-      <ul class="crisis-bullets">
-        <li>Routine screening exists for only 5 cancer types</li>
-        <li>200+ cancer types have no standard screening at all</li>
-      </ul>
+  <div class="problem-layout">
+    <!-- Left: stat + 3 rows + CTA -->
+    <div>
+      <div class="crisis-callout reveal" style="margin-bottom:0;">
+        <div class="crisis-callout-pct">40%</div>
+        <div class="crisis-callout-text">of men and women will be diagnosed with cancer in their lifetime</div>
+      </div>
+
+      <div class="problem-rows reveal">
+        <div class="problem-row">
+          <div class="problem-dot"></div>
+          <div>
+            <div class="problem-row-title">Late Detection</div>
+            <p>Standard imaging can't see a tumor until it reaches ~1 billion cells — after years of silent growth.</p>
+          </div>
+        </div>
+        <div class="problem-row">
+          <div class="problem-dot"></div>
+          <div>
+            <div class="problem-row-title">Limited Screening</div>
+            <p>Routine screening exists for only 5 cancer types. <span style="color:var(--cyan);font-weight:500;">200+</span> have no standard screening at all.</p>
+          </div>
+        </div>
+        <div class="problem-row">
+          <div class="problem-dot"></div>
+          <div>
+            <div class="problem-row-title">The Survival Gap</div>
+            <div class="survival-bars">
+              <div class="survival-bar-row">
+                <span class="survival-label">Early Stage</span>
+                <div class="survival-bar high"></div>
+                <span class="survival-pct high">&gt;90%</span>
+              </div>
+              <div class="survival-bar-row">
+                <span class="survival-label">Late Stage</span>
+                <div class="survival-bar low"></div>
+                <span class="survival-pct low">&lt;20%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#solution" class="btn-ghost reveal" style="display:inline-block;margin-top:32px;font-size:14px;">See How HelioFlux Changes the Timeline &rarr;</a>
+      <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:20px;">Source: American Cancer Society, Cancer Statistics 2026</p>
     </div>
 
-    <div class="crisis-card reveal">
-      <div class="crisis-card-title">The Survival Gap</div>
-      <ul class="crisis-bullets">
-        <li>Catch it early: survival rates often exceed 90%</li>
-        <li>Catch it late: survival rates can fall below 20%</li>
-      </ul>
+    <!-- Right: cell progression diagram placeholder -->
+    <div class="problem-diagram reveal">
+      <img id="problem-diagram-img" src="problem-diagram.png" alt="Cell progression diagram — cancer detection timeline" style="width:100%;display:none;" onerror="this.style.display='none'">
+      <div id="problem-diagram-placeholder">
+        <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,200,240,.4);margin-bottom:8px;">Cell Progression Diagram</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.25);text-align:center;line-height:1.6;">Healthy → 5–10M cells → Detectable Late → Metastasis<br><span style="color:rgba(0,200,240,.3);">Image coming — replacing with Canva export</span></p>
+      </div>
     </div>
   </div>
-  <p class="reveal" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:16px;text-align:right;">Source: American Cancer Society, Cancer Statistics 2026</p>
 </section>
 
 <!-- ═══ THE SOLUTION ═══ -->
-<div class="section-bg">
+<div class="section-bg" id="solution">
   <div class="section-inner">
-    <div class="reveal" style="margin-bottom:56px;">
+    <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow">Our Solution</p>
-      <h2>HelioFlux built a technology platform<br>to <em>detect cancer earlier.</em></h2>
+      <h2>HelioFlux built a technology<br>to <em>detect cancer earlier.</em></h2>
+      <p style="font-size:17px;color:rgba(255,255,255,.55);margin-top:16px;line-height:1.6;">QSense captures the signal. LuminAI reads it. No needles. No radiation. About 15 minutes.</p>
     </div>
-    <div class="solution-grid">
-      <div class="solution-col reveal">
-        <div class="solution-badge hardware">Hardware</div>
-        <div class="solution-name">QSense</div>
-        <p style="font-size:18px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:28px;">A device that detects the faint light your cells naturally emit — and reads whether that light looks healthy or cancerous. No needles. No radiation. About 15 minutes.</p>
-        <div class="solution-status"><strong>Status:</strong> Prototype built and validated across 3 peer-reviewed studies.</div>
-      </div>
-      <div class="solution-col reveal">
-        <div class="solution-badge software">Software</div>
-        <div class="solution-name">LuminAI</div>
-        <p style="font-size:18px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:28px;">The software that analyzes the light data and tells you what it means. It has already learned the difference between healthy and cancerous tissue with 90–92% accuracy.</p>
-        <div class="solution-status"><strong>Status:</strong> Validated in the lab. Expanding across more cancer types.</div>
+
+    <!-- Detection stage diagram placeholder -->
+    <div class="detection-diagram reveal">
+      <img id="detection-diagram-img" src="detection-diagram.png" alt="HelioFlux detection window — cancer stage timeline" style="width:100%;display:none;" onerror="this.style.display='none'">
+      <div id="detection-diagram-placeholder">
+        <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,200,240,.4);margin-bottom:8px;">Detection Stage Timeline</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.25);text-align:center;line-height:1.8;">Normal → Precancerous (HelioFlux 5–10M) → Stage I–II (Liquid Biopsy 50–100M) → Stage III–IV (Imaging 1B+)<br><span style="color:rgba(0,200,240,.3);">Image coming — replacing with Canva export</span></p>
       </div>
     </div>
-  </div>
-</div>
 
-
-<!-- SCIENCE -->
-<div class="section-bg" id="science">
-  <div class="section-inner">
+    <!-- 3-step how it works -->
+    <div style="margin-top:72px;">
     <div class="reveal" style="max-width:760px;margin-bottom:64px;">
       <p class="eyebrow">How It Works</p>
       <h2>Every living cell<br>emits <em>light.</em></h2>
-      <p class="lead">Ultra-weak photon emissions are a real-time signal of cellular metabolism — thousands of times fainter than a firefly, but measurable. When a cell turns cancerous, its metabolism changes. When metabolism changes, the light changes. We built the detector that reads the difference.</p>
     </div>
     <div class="steps3">
       <div class="step-block reveal">
