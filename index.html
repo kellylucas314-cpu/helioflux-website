@@ -291,7 +291,7 @@
 
     /* ─── QUOTE ─── */
     .quote-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
-    .q-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1600&q=75'); background-size: cover; background-position: center; background-attachment: fixed; }
+    .q-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #070B15 0%, #0A1828 50%, #04070E 100%); }
     .q-overlay { position: absolute; inset: 0; background: rgba(4,7,14,.88); }
     .quote-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
     .q-mark { font-family: var(--serif); font-size: 140px; font-weight: 300; color: var(--cyan); opacity: .1; line-height: .8; margin-bottom: 40px; }
@@ -314,7 +314,7 @@
     .press-quote cite { display: block; font-style: normal; font-size: 12px; color: rgba(255,255,255,.25); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
 
     /* ─── CREDS ─── */
-    .creds-strip { display: grid; grid-template-columns: repeat(4,1fr); border-bottom: 1px solid var(--border); }
+    .creds-strip { display: grid; grid-template-columns: repeat(5,1fr); border-bottom: 1px solid var(--border); }
     .cred { padding: 32px 24px; text-align: center; border-right: 1px solid var(--border); background: var(--bg2); }
     .cred:last-child { border-right: none; }
     .cred-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
@@ -404,6 +404,8 @@
       .press-cards { grid-template-columns: 1fr; }
       .press-logos { padding: 48px 24px; gap: 32px; }
       .creds-strip { grid-template-columns: repeat(2,1fr); }
+      /* Path to market responsive */
+      [style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr 1fr !important; }
       .quotes-grid { grid-template-columns: 1fr !important; }
       .team-grid { grid-template-columns: 1fr; }
       .cta-section { padding: 100px 24px; }
@@ -624,7 +626,7 @@
       <div class="step-block reveal">
         <div class="step-n">02</div>
         <h3>The device captures</h3>
-        <p>Photomultiplier tubes detect light at single-photon sensitivity — the same technology used in particle physics, now adapted for biological tissue measurement.</p>
+        <p>Photomultiplier tubes detect light at single-photon sensitivity — the same technology used in particle physics, now adapted for biological tissue measurement. Non-invasive. Approximately 15 minutes. No radiation, no contrast agents.</p>
       </div>
       <div class="step-block reveal">
         <div class="step-n">03</div>
@@ -767,11 +769,7 @@
       <!-- Panel 1 — Cancer Detection -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
-          <img
-            src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=900&q=80"
-            alt="Cancer detection research"
-            onerror="this.style.background='#0A0F1E';this.style.display='none'"
-          >
+          <!-- gradient background only — no stock photos -->
           <div class="h-panel-num">01</div>
         </div>
         <div class="reveal">
@@ -872,11 +870,7 @@
       <!-- Panel 2 — Brain Monitoring -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
-          <img
-            src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=900&q=80"
-            alt="Brain monitoring research"
-            onerror="this.style.background='#0A0F1E';this.style.display='none'"
-          >
+          <!-- gradient background only -->
           <div class="h-panel-num">02</div>
         </div>
         <div class="reveal">
@@ -894,11 +888,7 @@
       <!-- Panel 3 — Chemo Brain -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
-          <img
-            src="https://images.unsplash.com/photo-1576671414121-aa2d60f02b7c?auto=format&fit=crop&w=900&q=80"
-            alt="Chemotherapy and neurotoxicity research"
-            onerror="this.style.background='#0A0F1E';this.style.display='none'"
-          >
+          <!-- gradient background only -->
           <div class="h-panel-num">03</div>
         </div>
         <div class="reveal">
@@ -912,11 +902,7 @@
       <!-- Panel 4 — Cell Reprogramming -->
       <div class="h-panel">
         <div class="h-panel-img reveal">
-          <img
-            src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&w=900&q=80"
-            alt="Cell reprogramming research"
-            onerror="this.style.background='#0A0F1E';this.style.display='none'"
-          >
+          <!-- gradient background only -->
           <div class="h-panel-num">04</div>
         </div>
         <div class="reveal">
@@ -1027,7 +1013,7 @@
           </div>
         </div>
 
-        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;letter-spacing:.08em;text-transform:uppercase">Cancer types validated:</p>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;letter-spacing:.08em;text-transform:uppercase">Cancer cell lines tested <span style="font-size:10px;opacity:.6;text-transform:none">(in vitro · 2018 &amp; 2020 studies)</span></p>
         <div class="cancer-types">
           <span class="cancer-type-tag">Breast</span>
           <span class="cancer-type-tag">Brain</span>
@@ -1096,12 +1082,18 @@
       <div class="press-quote">"I wondered why this technology was not already out in the world. It is incredible technology that could save a lot of lives."<cite>— Kelly Lucas, President &amp; Co-Founder, HelioFlux · LA Business Journal</cite></div>
       <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Read article ↗</div>
     </a>
+    <a href="https://www.wlu.ca/news/news-releases/2025/jan/laurier-researcher-explores-ultra-weak-photon-emissions-to-detect-cancer.html" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
+      <div class="press-outlet">Wilfrid Laurier University · January 2025</div>
+      <div class="press-headline">"Laurier researcher explores ultra-weak photon emissions to detect cancer"</div>
+      <div class="press-quote">"Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible so survivors live longer with better quality of life."<cite>— Dr. Nirosha Murugan, Canada Research Chair in Tissue Biophysics</cite></div>
+      <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Read feature ↗</div>
+    </a>
   </div>
 </div>
 
 <!-- QUOTABLE HIGHLIGHTS -->
 <div style="padding:80px 56px;max-width:1200px;margin:0 auto;" class="reveal">
-  <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,240,.45);margin-bottom:48px;">Quotable highlights · For investors</p>
+  <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,240,.45);margin-bottom:48px;">In their words</p>
   <div class="quotes-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;">
     <blockquote style="margin:0;border-left:2px solid rgba(0,200,240,.3);padding-left:24px;">
       <p style="font-family:var(--serif);font-size:clamp(15px,1.5vw,18px);font-weight:300;line-height:1.6;color:rgba(255,255,255,.8);margin:0 0 16px;">"The very first finding is that photons are coming out of the head — full stop. It's independent, it's not spurious, it's not random."</p>
@@ -1123,12 +1115,17 @@
   <div class="cred reveal">
     <div style="font-size:22px;margin-bottom:10px;">🎓</div>
     <div class="cred-label">Canada Research Chair</div>
-    <div class="cred-value">Nirosha holds CRC in Bioelectricity</div>
+    <div class="cred-value">CRC in Tissue Biophysics</div>
   </div>
   <div class="cred reveal">
     <div style="font-size:22px;margin-bottom:10px;">⚡</div>
     <div class="cred-label">NVIDIA Inception</div>
     <div class="cred-value">Accepted October 2024</div>
+  </div>
+  <div class="cred reveal">
+    <div style="font-size:22px;margin-bottom:10px;">📋</div>
+    <div class="cred-label">Patent Pending</div>
+    <div class="cred-value">Provisional filing in progress</div>
   </div>
   <div class="cred reveal">
     <div style="font-size:22px;margin-bottom:10px;">💰</div>
@@ -1224,6 +1221,41 @@
     </div>
   </div>
 </section>
+
+<!-- PATH TO MARKET -->
+<div style="padding:100px 56px;max-width:1200px;margin:0 auto;border-top:1px solid var(--border);">
+  <div class="reveal">
+    <p class="eyebrow">Path to market</p>
+    <h2 style="margin-bottom:48px">From published science<br>to <em>clinical reality.</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);">
+      <div style="background:var(--bg);padding:36px 28px;">
+        <div style="font-family:var(--serif);font-size:32px;color:var(--cyan);opacity:.25;margin-bottom:16px;">01</div>
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;font-weight:500;">Completed</div>
+        <h4 style="font-size:15px;margin-bottom:10px;">Preclinical Validation</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75;">3 peer-reviewed papers. 47 animal models. 20 human subjects. 13 cancer cell lines. Published in Elsevier, MDPI, and Cell Press.</p>
+      </div>
+      <div style="background:var(--bg);padding:36px 28px;">
+        <div style="font-family:var(--serif);font-size:32px;color:var(--cyan);opacity:.25;margin-bottom:16px;">02</div>
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,180,40,.7);margin-bottom:8px;font-weight:500;">Current</div>
+        <h4 style="font-size:15px;margin-bottom:10px;">Human Pilot Studies</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.75;">Bridge round funding human pilot data collection. Expanding from animal models to clinical human validation across multiple cancer types.</p>
+      </div>
+      <div style="background:var(--bg);padding:36px 28px;">
+        <div style="font-family:var(--serif);font-size:32px;color:rgba(255,255,255,.08);margin-bottom:16px;">03</div>
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:8px;">Next</div>
+        <h4 style="font-size:15px;margin-bottom:10px;opacity:.6;">Regulatory Submission</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,.3);line-height:1.75;">FDA de novo pathway. Non-invasive diagnostic device classification. Patent pending.</p>
+      </div>
+      <div style="background:var(--bg);padding:36px 28px;">
+        <div style="font-family:var(--serif);font-size:32px;color:rgba(255,255,255,.08);margin-bottom:16px;">04</div>
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:8px;">Target</div>
+        <h4 style="font-size:15px;margin-bottom:10px;opacity:.6;">Clinical Deployment</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,.3);line-height:1.75;">Point-of-care cancer screening in oncology, dermatology, and primary care settings. No infrastructure changes required.</p>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:24px;line-height:1.6;">Global cancer screening and early detection market: $200B+ · HelioFlux targets the earliest possible point of intervention.</p>
+  </div>
+</div>
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
