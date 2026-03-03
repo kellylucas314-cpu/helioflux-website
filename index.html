@@ -35,7 +35,7 @@
       --bg-warm: #0E1218;
       --white:   #FFFFFF;
       --off-white: #ECF0FF;
-      --muted:   #A8BBCC;
+      --muted:   #C4D4E0;
       --cyan:    #00C8F0;
       --amber:   #E8A838;
       --coral:   #E85A4F;
@@ -130,7 +130,7 @@
     .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
 
     /* Scroll indicator */
-    .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.35); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
+    .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.55); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
     .scroll-line { width: 48px; height: 1px; background: linear-gradient(to right, var(--cyan), transparent); }
     @keyframes fadeIn { to { opacity: 1; } }
 
@@ -139,7 +139,7 @@
     .stat { padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 12px; color: var(--muted); line-height: 1.65; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.65; }
 
     /* ─── GENERIC SECTION ─── */
     .section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
@@ -148,7 +148,7 @@
     .eyebrow { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
     h2 { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
     h2 em { font-style: italic; }
-    .lead { font-size: 16px; color: var(--muted); line-height: 1.85; font-weight: 300; }
+    .lead { font-size: 17px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; }
 
     /* ─── REVEAL — progressive enhancement (content visible without JS) ─── */
     .reveal { opacity: 1; transform: none; transition: opacity .9s ease, transform .9s ease; }
@@ -164,9 +164,9 @@
     .threshold-col { padding: 0 40px; }
     .threshold-col:first-child { padding-left: 0; }
     .threshold-col:last-child { padding-right: 0; }
-    .threshold-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
+    .threshold-label { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
     .threshold-num { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1; margin-bottom: 10px; }
-    .threshold-num.dim { color: rgba(255,255,255,.15); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.08); }
+    .threshold-num.dim { color: rgba(255,255,255,.6); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.08); }
     .threshold-num.lit { color: var(--cyan); }
     .threshold-unit { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
     .threshold-sub { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.65; }
@@ -175,7 +175,7 @@
     /* Peppercorn section */
     .peppercorn { padding: 0 56px 120px; max-width: 1200px; margin: 0 auto; }
     .peppercorn-inner { border-left: 2px solid rgba(0,200,240,.18); padding-left: 48px; }
-    .peppercorn-tag { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 20px; display: block; }
+    .peppercorn-tag { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 20px; display: block; }
     .peppercorn h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
     .peppercorn p { font-size: 16px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
     .peppercorn p + p { margin-top: 16px; }
@@ -242,11 +242,11 @@
     .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
     .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
     .h-panel h3 em { font-style: italic; }
-    .h-panel p { font-size: 16px; color: rgba(255,255,255,.62); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
+    .h-panel p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
     .h-panel-pub { font-size: 12px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,200,240,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
     .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
     .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
-    .h-stat-label { font-size: 12px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+    .h-stat-label { font-size: 12px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
 
     /* Scroll progress dots */
     .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
@@ -258,7 +258,7 @@
     .ss-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 56px 0 0; background: var(--border); }
     .ss-side { background: var(--bg); padding: 64px 56px 48px; text-align: center; position: relative; }
     .ss-orb { width: 180px; height: 180px; margin: 0 auto 36px; display: block; }
-    .ss-type { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .ss-type { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
     .ss-heading { font-family: var(--serif); font-size: clamp(22px,2.5vw,26px); font-weight: 600; line-height: 1.2; margin-bottom: 10px; }
     .ss-healthy .ss-heading { color: #FFBB7A; }
     .ss-cancer .ss-heading  { color: var(--cyan); }
@@ -267,7 +267,7 @@
     .ss-cancer  .ss-wavelength { color: rgba(0,200,240,.45); }
     .ss-body { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; margin: 0 auto; }
     .ss-spectrum-row { display: flex; align-items: center; gap: 0; margin-top: 2px; background: var(--border); }
-    .ss-spectrum-label { padding: 20px 40px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+    .ss-spectrum-label { padding: 20px 40px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
     .ss-spectrum-label.warm { color: rgba(255,150,60,.5); }
     .ss-spectrum-label.cool { color: rgba(0,200,240,.5); }
     .ss-spectrum-bar { flex: 1; height: 3px; background: linear-gradient(to right, #CC3300, #FF8040, #FFCC00, #00DDAA, #00C8F0, #7722CC); opacity: .4; border-radius: 1px; }
@@ -304,7 +304,7 @@
     .nirosha-placeholder p { font-size: 12px; color: var(--muted); line-height: 1.75; max-width: 260px; }
     .nirosha-credentials { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 32px 0; }
     .ncred { background: var(--bg2); padding: 20px 22px; }
-    .ncred-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .ncred-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
     .ncred-value { font-size: 13px; color: var(--white); line-height: 1.55; }
     .ncred-value strong { color: var(--cyan); font-weight: 400; }
     .cancer-types { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
@@ -352,17 +352,18 @@
     .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .5; transition: opacity .3s; cursor: default; }
     .press-name:hover { opacity: .75; }
     .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
-    .press-card { background: var(--bg2); padding: 44px; }
-    .press-outlet { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
-    .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.35; margin-bottom: 20px; }
-    .press-quote { font-size: 16px; font-style: italic; color: var(--muted); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
-    .press-quote cite { display: block; font-style: normal; font-size: 12px; color: rgba(255,255,255,.25); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
+    .press-card { background: var(--bg2); padding: 44px; color: var(--white); }
+    a.press-card, a.press-card:visited, a.press-card:link { color: var(--white); text-decoration: none; }
+    .press-outlet { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+    .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; color: rgba(255,255,255,.9); }
+    .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.75); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
+    .press-quote cite { display: block; font-style: normal; font-size: 13px; color: rgba(255,255,255,.5); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
 
     /* ─── CREDS ─── */
     .creds-strip { display: grid; grid-template-columns: repeat(5,1fr); border-bottom: 1px solid var(--border); }
     .cred { padding: 32px 24px; text-align: center; border-right: 1px solid var(--border); background: var(--bg2); }
     .cred:last-child { border-right: none; }
-    .cred-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .cred-label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
     .cred-value { font-size: 14px; color: var(--white); line-height: 1.5; }
 
     /* ─── TEAM ─── */
@@ -526,7 +527,7 @@
     .problem-row p { font-size: 16px; color: var(--body); line-height: 1.6; margin: 0; }
     .survival-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
     .survival-bar-row { display: flex; align-items: center; gap: 12px; }
-    .survival-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); width: 80px; flex-shrink: 0; }
+    .survival-label { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); width: 80px; flex-shrink: 0; }
     .survival-bar { height: 6px; border-radius: 3px; }
     .survival-bar.high { width: 160px; background: var(--cyan); }
     .survival-bar.low { width: 40px; background: var(--coral); }
@@ -651,7 +652,7 @@
       color: #00E0FF; font-weight: 700;
       text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
     }
-    .prob-subline { font-size: 13px; color: rgba(255,255,255,.4); margin-bottom: 36px; }
+    .prob-subline { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 36px; }
     .prob-glass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .prob-glass-card {
       background: rgba(255,255,255,.03);
@@ -671,7 +672,7 @@
       text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
       margin-bottom: 10px; line-height: 1;
     }
-    .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.3); font-weight: 400; margin-left: 4px; vertical-align: middle; }
+    .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.55); font-weight: 400; margin-left: 4px; vertical-align: middle; }
     .prob-glass-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 9px; }
     .prob-glass-summary { font-size: 13px; color: rgba(255,255,255,.62); line-height: 1.65; }
     .prob-glass-expand { display: flex; justify-content: flex-end; margin-top: 14px; }
@@ -749,7 +750,7 @@
     .acc-item.open .acc-body { grid-template-rows: 1fr; }
     .acc-body-inner { overflow: hidden; }
     .acc-body-pad { padding-bottom: 40px; }
-    .acc-body p { font-size: 16px; color: var(--muted); line-height: 1.85; max-width: 680px; }
+    .acc-body p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; max-width: 680px; }
     .acc-body p + p { margin-top: 14px; }
     .acc-body strong { color: rgba(255,255,255,.8); font-weight: 400; }
     .acc-stat-row { display: flex; gap: 40px; margin: 28px 0; flex-wrap: wrap; }
@@ -956,7 +957,7 @@
   <div style="padding:100px 56px;text-align:center;max-width:900px;margin:0 auto;">
     <span class="prob-eyebrow2 reveal">The Problem</span>
 
-    <p class="prob-opener reveal" style="margin-bottom:56px;">Someone in the U.S. dies from cancer approximately every 60 seconds. <span style="font-size:.7em;color:rgba(255,255,255,.3);font-style:normal;">American Cancer Society, 2025</span></p>
+    <p class="prob-opener reveal" style="margin-bottom:56px;">Someone in the U.S. dies from cancer approximately every 60 seconds. <span style="font-size:.7em;color:rgba(255,255,255,.55);font-style:normal;">American Cancer Society, 2025</span></p>
 
     <!-- Two big numbers -->
     <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:48px;">
@@ -975,7 +976,7 @@
 
     <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;max-width:520px;margin:0 auto 32px;font-style:italic;">Routine screening exists for only 5 cancer types. More than 200 have none.</p>
 
-    <p class="reveal" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);">Sources: ACS 2026 · SEER 2015&ndash;2021</p>
+    <p class="reveal" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);">Sources: ACS 2026 · SEER 2015&ndash;2021</p>
   </div>
 
 </section>
@@ -1151,29 +1152,29 @@
               <p>The critical difference is <strong>detection threshold</strong> — how many cells must be present before each method can find them.</p>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin:24px 0;max-width:640px;">
                 <div style="background:var(--bg);padding:20px 16px;">
-                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">HelioFlux</div>
+                  <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">HelioFlux</div>
                   <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;">5–10M</div>
                   <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · ≈ 2–3mm · pre-tumor</div>
                 </div>
                 <div style="background:var(--bg);padding:20px 16px;">
-                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;">Liquid Biopsy</div>
-                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.25);line-height:1;">50–100M</div>
+                  <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Liquid Biopsy</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.5);line-height:1;">50–100M</div>
                   <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · cfDNA · Stage I–II</div>
                 </div>
                 <div style="background:var(--bg);padding:20px 16px;">
-                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;">Standard Imaging</div>
-                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.15);line-height:1;">1B+</div>
+                  <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Standard Imaging</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.6);line-height:1;">1B+</div>
                   <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · MRI/CT · Stage III–IV</div>
                 </div>
               </div>
               <p>HelioFlux detects at 100–200× fewer cells than standard imaging, and 10–20× fewer than the leading liquid biopsy approaches — without a blood draw, radiation, or invasive procedure.</p>              <div style="margin-top:28px;padding:24px;background:rgba(0,200,240,.03);border-left:2px solid rgba(0,200,240,.15);border-radius:4px;">
-                <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:12px;">What "early" really means</p>
+                <p style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:12px;">What "early" really means</p>
                 <p style="font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.5;margin-bottom:12px;color:rgba(255,255,255,.85);">A tumor at 5–10 million cells is 2–3 millimeters across — roughly the size of a peppercorn. Too small to feel. <em>Invisible on a scan.</em></p>
                 <p style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.8;">By the time that peppercorn becomes a pea, 1 billion cells, roughly 1 centimeter, medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.75);">1.5 to 2 years.</strong> HelioFlux doesn't wait for the pea. <strong style="color:rgba(255,255,255,.75);">We're built to find the peppercorn.</strong></p>
               </div>
               <!-- Why current screening fails — consolidated from Problem section -->
               <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
-                <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px;">Why current screening falls short</p>
+                <p style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px;">Why current screening falls short</p>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);max-width:640px;">
                   <div style="background:var(--bg);padding:20px 16px;">
                     <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">~1B</div>
@@ -1181,7 +1182,7 @@
                     <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">CT, MRI, and mammograms need roughly 1 billion cells before they can spot anything. Cancer has been growing silently for years.</div>
                   </div>
                   <div style="background:var(--bg);padding:20px 16px;">
-                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">5 <span style="font-size:.55em;color:rgba(255,255,255,.3);font-weight:400;">of 200+</span></div>
+                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">5 <span style="font-size:.55em;color:rgba(255,255,255,.55);font-weight:400;">of 200+</span></div>
                     <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Cancers with screening</div>
                     <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">Only breast, cervical, colorectal, lung, and prostate have USPSTF-recommended screening. Over 200 types have none.</div>
                   </div>
@@ -1433,7 +1434,7 @@
           <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
           <p style="color:rgba(255,255,255,.65);">Ultra-weak photon emissions are a direct readout of cellular metabolism. Disrupted UPE signatures are a known marker of oxidative stress, which underlies type 2 diabetes, cardiovascular disease, and autoimmune conditions.</p>
           <p style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-top:16px">The same non-invasive platform that reads cancer and brain signals may offer a window into systemic metabolic health. A research frontier still being mapped.</p>
-          <p style="font-size:14px;color:rgba(255,255,255,.35);margin-top:16px;letter-spacing:.04em;">Oxidative stress · Metabolic monitoring · Treatment response · Systemic inflammation</p>
+          <p style="font-size:14px;color:rgba(255,255,255,.55);margin-top:16px;letter-spacing:.04em;">Oxidative stress · Metabolic monitoring · Treatment response · Systemic inflammation</p>
         </div>
       </div>
 
@@ -1477,7 +1478,7 @@
       </div>
       <div style="margin-top:20px;padding:20px;border-left:2px solid rgba(0,200,240,.15);">
         <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Canada Research Chair · Tissue Biophysics</p>
-        <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;">3 peer-reviewed publications · 40+ publications total · Harvard Wyss Fellow · Allen Discovery Center PI</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;">3 peer-reviewed publications · 40+ publications total · Harvard Wyss Fellow · Allen Discovery Center PI</p>
       </div>
     </div>
     <div>
@@ -1647,19 +1648,19 @@
   <p class="eyebrow" style="margin-bottom:32px;">Published Research</p>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);">
     <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="background:var(--bg);padding:32px;text-decoration:none;display:block;transition:background .2s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-      <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Biochemistry & Biophysics Reports · Elsevier · 2018</div>
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Biochemistry & Biophysics Reports · Elsevier · 2018</div>
       <div style="font-size:15px;color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:12px;">Biophotonic Markers of Malignancy: Discriminating Cancers using Wavelength-Specific Biophotons</div>
       <div style="font-size:12px;color:var(--muted);">92% accuracy · 100% cancer detection rate · In vitro</div>
       <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:16px;letter-spacing:.08em;">Read paper ↗</div>
     </a>
     <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="background:var(--bg);padding:32px;text-decoration:none;display:block;transition:background .2s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-      <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Cancers · MDPI · 2020</div>
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Cancers · MDPI · 2020</div>
       <div style="font-size:15px;color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:12px;">Ultra-Weak Photon Emissions as a Non-Invasive Biophysical Marker for Cancer Detection</div>
       <div style="font-size:12px;color:var(--muted);">90% accuracy · 47 animal models · 13 cancer cell lines · In vivo</div>
       <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:16px;letter-spacing:.08em;">Read paper ↗</div>
     </a>
     <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="background:var(--bg);padding:32px;text-decoration:none;display:block;transition:background .2s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-      <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">iScience · Cell Press · 2025</div>
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">iScience · Cell Press · 2025</div>
       <div style="font-size:15px;color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:12px;">Photoencephalography: First Human Study of Ultra-Weak Photon Emissions from the Brain</div>
       <div style="font-size:12px;color:var(--muted);">20 human subjects · EEG cross-validated · World's first photoencephalography</div>
       <div style="font-size:11px;color:rgba(0,200,240,.4);margin-top:16px;letter-spacing:.08em;">Read paper ↗</div>
