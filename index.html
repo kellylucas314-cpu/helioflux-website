@@ -731,18 +731,19 @@
     .acc-item { border-top: 1px solid var(--border); }
     .acc-item:last-child { border-bottom: 1px solid var(--border); }
     .acc-trigger {
-      width: 100%; display: flex; align-items: center; gap: 20px;
-      padding: 26px 0; background: none; border: none;
+      width: 100%; display: flex; align-items: flex-start; gap: 16px;
+      padding: 28px 0; background: none; border: none;
       color: var(--white); cursor: pointer; text-align: left;
       transition: color .2s;
     }
     .acc-trigger:hover .acc-label { color: var(--cyan); }
-    .acc-num { font-family: var(--serif); font-size: 13px; font-style: italic;
-      color: rgba(0,200,240,.35); min-width: 32px; flex-shrink: 0; }
-    .acc-preview { display: block; font-size: 14px; color: rgba(255,255,255,.6); font-weight: 300; line-height: 1.6; margin-top: 8px; }
-    .acc-label { font-size: clamp(22px,2vw,26px); font-weight: 600; letter-spacing: .01em;
-      flex: 1; line-height: 1.4; transition: color .2s; }
-    .acc-icon { font-size: 22px; font-weight: 200; color: rgba(0,200,240,.5);
+    .acc-num { font-family: var(--serif); font-size: 14px; font-style: italic;
+      color: rgba(0,200,240,.5); min-width: 28px; flex-shrink: 0; padding-top: 4px; }
+    .acc-label-wrap { flex: 1; }
+    .acc-preview { display: block; font-size: 15px; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.6; margin-top: 8px; }
+    .acc-label { font-size: clamp(18px,2vw,22px); font-weight: 500; letter-spacing: .01em;
+      line-height: 1.4; transition: color .2s; }
+    .acc-icon { font-size: 28px; font-weight: 300; color: var(--cyan);
       transition: transform .38s ease; flex-shrink: 0; line-height: 1; }
     .acc-item.open .acc-icon { transform: rotate(45deg); color: var(--cyan); }
     .acc-body {
@@ -1000,7 +1001,7 @@
 <div class="section-divider"></div>
 
 <!-- ═══ THE SOLUTION ═══ -->
-<div class="section-bg" id="solution">
+<div class="section-bg" id="solution" style="background:#04070E;">
   <div class="section-inner">
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow">Our Solution</p>
@@ -1025,7 +1026,7 @@
       <h2 style="margin-bottom:24px;">AI-Driven Cancer<br><em>Detection Technology</em></h2>
       <!-- H2 inherits global 36-42px/700 styling -->
       <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.7;max-width:680px;margin-bottom:56px;">All living cells emit faint light signals. But cancer cells emit distinct patterns and wavelengths — different from healthy cells. HelioFlux uses a proprietary combination of advanced hardware and AI to detect these unique signals.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
         <div style="background:var(--bg);overflow:hidden;border:1px solid var(--border);border-radius:6px;">
           <img src="qsense-product.jpg" alt="QSense — biophotonic cancer detection hardware" style="width:100%;max-height:220px;object-fit:cover;display:block;">
           <div style="padding:28px 32px;">
@@ -1043,7 +1044,6 @@
           </div>
         </div>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,.5);margin-top:20px;letter-spacing:.06em;">NVIDIA Inception Program Member</p>
 
       <!-- ─── ACCORDION: EXPLORE THE SCIENCE ─── -->
       <div class="acc-stack reveal">
@@ -1053,8 +1053,8 @@
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">01</span>
-            <span class="acc-label">How your cells reveal cancer — the physics of light</span>
-            <span class="acc-preview">All living cells emit faint light. Cancer cells emit a different pattern, detectable at just 5-10 million cells.</span>
+            <div class="acc-label-wrap"><span class="acc-label">How your cells reveal cancer — the physics of light</span>
+            <span class="acc-preview">All living cells emit faint light. Cancer cells emit a different pattern, detectable at just 5-10 million cells.</span></div>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1072,8 +1072,8 @@
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">02</span>
-            <span class="acc-label">What the AI sees — signal patterns and classification</span>
-            <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan and compares it against a validated cancer signature database.</span>
+            <div class="acc-label-wrap"><span class="acc-label">What the AI sees — signal patterns and classification</span>
+            <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan and compares it against a validated cancer signature database.</span></div>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1089,8 +1089,8 @@
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">03</span>
-            <span class="acc-label">Published validation — what the research shows</span>
-            <span class="acc-preview">Three peer-reviewed papers: 90-92% accuracy across 13 cancer types, detection within 24 hours in animal models.</span>
+            <div class="acc-label-wrap"><span class="acc-label">Published validation — what the research shows</span>
+            <span class="acc-preview">Three peer-reviewed papers: 90-92% accuracy across 13 cancer types, detection within 24 hours in animal models.</span></div>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1153,8 +1153,8 @@
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">04</span>
-            <span class="acc-label">The patient experience — what a scan looks like</span>
-            <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span>
+            <div class="acc-label-wrap"><span class="acc-label">The patient experience — what a scan looks like</span>
+            <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span></div>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1221,9 +1221,9 @@
 <div class="section-divider"></div>
 
 <!-- ═══ SPECTRAL RIBBON WAVE — visual only ═══ -->
-<div style="background:#000000;padding:40px 0;">
-  <div style="position:relative;height:300px;overflow:hidden;background:#000000;">
-    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;background:#000000;"></canvas>
+<div style="background:#04070E;padding:40px 0;">
+  <div style="position:relative;height:300px;overflow:hidden;background:#04070E;">
+    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;background:#04070E;"></canvas>
   </div>
 </div>
 
@@ -1594,6 +1594,7 @@
   <div class="section" style="padding-bottom:48px;">
     <p class="eyebrow reveal" id="press">What the World Is Saying</p>
     <h2 class="reveal">Press coverage<br>and <em>published research.</em></h2>
+    <p class="reveal" style="font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-top:16px;">NVIDIA Inception Program Member</p>
   </div>
   <div class="press-logos">
     <div class="press-marquee-track" aria-hidden="false">
