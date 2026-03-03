@@ -1865,16 +1865,18 @@ const panelCount = panels.length;
 
 if (window.innerWidth > 1024) {
   // Desktop: GSAP pin + horizontal scroll
+  const totalScroll = () => hTrack.scrollWidth - window.innerWidth;
   gsap.to(hTrack, {
-    x: () => -(hTrack.scrollWidth - window.innerWidth),
+    x: () => -totalScroll(),
     ease: 'none',
     scrollTrigger: {
       trigger: hSection,
       start: 'top top',
-      end: () => '+=' + (hTrack.scrollWidth - window.innerWidth),
+      end: () => '+=' + (totalScroll() + window.innerHeight * 0.5),
       pin: true,
-      scrub: 1.2,
+      scrub: 1,
       anticipatePin: 1,
+      invalidateOnRefresh: true,
       onUpdate: self => {
         const idx = Math.round(self.progress * (panelCount - 1));
         hDots.forEach((d, i) => d.classList.toggle('active', i === idx));
