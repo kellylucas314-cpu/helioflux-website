@@ -216,7 +216,20 @@
     .h-panel:last-child { border-right: none; }
     .h-panel-img { position: relative; }
     .h-panel-img img { display: none; }
-    .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; }
+    .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; overflow: hidden; }
+    .h-panel-img::after {
+      content: '';
+      position: absolute; top: 30%; left: 35%;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(0,200,240,.12) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: panelPulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes panelPulse {
+      0%,100% { transform: scale(1); opacity: .5; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
     .h-panel-status { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 6px 16px; display: inline-block; margin-bottom: 20px; font-weight: 500; }
     .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
     .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
@@ -448,6 +461,10 @@
       .hero { height: auto !important; min-height: 0 !important; padding: 120px 24px 64px; }
       .section { padding: 80px 24px; }
       .section-bg .section-inner { padding: 80px 24px; }
+      .section { padding: 80px 24px; }
+      .acc-body { padding-left: 0; }
+      .acc-body-pad { padding-bottom: 32px; }
+      .prob-card-detail { padding: 0 20px 20px; }
       .problem-grid, .science-2col { grid-template-columns: 1fr; gap: 48px; }
       .steps3 { grid-template-columns: 1fr; }
       .h-section-label { padding: 60px 24px 0; }
@@ -1428,6 +1445,14 @@
 <section class="section" id="team">
   <p class="eyebrow reveal">The Team</p>
   <h2 class="reveal">The people<br>behind the <em>science.</em></h2>
+
+
+  <!-- Founding Story -->
+  <div class="reveal" style="max-width:720px;margin:48px 0 72px;padding:32px 0 32px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.45);margin-bottom:16px;">How it started</p>
+    <p style="font-family:var(--serif);font-size:clamp(17px,1.9vw,22px);font-weight:300;line-height:1.6;color:rgba(255,255,255,.78);">Kelly met Nirosha at a quantum biology conference in Galveston, Texas. She watched Nirosha present the biophotonic detection technology to a room of scientists — then walked up afterward and asked the question that started everything: <em>"Why isn't this already in the world?"</em></p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-top:16px;">HelioFlux was founded on the conviction that the answer to that question was simply: no one had built the company yet.</p>
+  </div>
 
   <!-- Nirosha — prominent full profile -->
   <div class="nirosha-wrap reveal" style="margin-bottom:2px;">
