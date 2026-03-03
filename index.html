@@ -541,6 +541,41 @@
     .prob-card-detail { padding: 0 28px 24px; font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.8; }
     @media(max-width:640px) { .prob-cards { grid-template-columns: 1fr; } }
 
+
+    /* ─── WARM COLOR BREAKS ─── */
+    :root {
+      --gold:   #C4900A;
+      --amber:  rgba(196,144,10,1);
+      --warm-bg: #0C0903;
+    }
+    .quote-warm {
+      background: linear-gradient(180deg, var(--bg) 0%, #0F0A03 40%, #0D0802 60%, var(--bg) 100%) !important;
+    }
+    .quote-warm .quote-mark { color: rgba(196,144,10,.18); }
+    .quote-warm .quote-attr { color: rgba(196,144,10,.65); }
+
+    /* Carousel arrows */
+    .h-arrows { display: flex; justify-content: center; gap: 16px; padding-bottom: 20px; }
+    .h-arrow {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.15); background: none;
+      color: rgba(255,255,255,.6); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .25s, color .25s, background .25s;
+    }
+    .h-arrow:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,200,240,.06); }
+    .h-arrow:disabled { opacity: .25; cursor: default; }
+
+    /* Team section warm accent */
+    #team { position: relative; }
+    #team::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 30%, rgba(140,90,5,.06) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    #team > * { position: relative; z-index: 1; }
+
     /* ─── ACCORDION ─── */
     .acc-stack { margin-top: 64px; max-width: 860px; }
     .acc-intro { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 32px; }
@@ -824,7 +859,7 @@
 </div>
 
 <!-- ═══ NIROSHA QUOTE ═══ -->
-<div class="quote-section reveal">
+<div class="quote-section quote-warm reveal">
   <span class="quote-mark" aria-hidden="true">"</span>
   <p class="quote-body">Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible — so survivors live longer with better quality of life.</p>
   <p class="quote-attr">Dr. Nirosha Murugan — Canada Research Chair in Tissue Biophysics</p>
@@ -1367,6 +1402,10 @@
 
 
     </div><!-- end h-track -->
+    <div class="h-arrows">
+      <button class="h-arrow" id="hPrev" aria-label="Previous panel">&#8592;</button>
+      <button class="h-arrow" id="hNext" aria-label="Next panel">&#8594;</button>
+    </div>
     <div class="h-dots" id="hDots">
       <div class="h-dot active"></div>
       <div class="h-dot"></div>
@@ -1901,6 +1940,36 @@ gsap.to('#hero-canvas', {
   }
 });
 
+
+
+// ─── CAROUSEL ARROWS ───
+const hPrev = document.getElementById('hPrev');
+const hNext = document.getElementById('hNext');
+let currentPanel = 0;
+const totalPanels = document.querySelectorAll('.h-panel').length;
+
+function goToPanel(idx) {
+  idx = Math.max(0, Math.min(idx, totalPanels - 1));
+  currentPanel = idx;
+  if (window.innerWidth > 1024) {
+    // Desktop: use GSAP to scroll to panel position
+    const panelW = document.querySelector('.h-panel').offsetWidth;
+    gsap.to(hTrack, { x: -(panelW * idx), duration: .65, ease: 'power2.inOut' });
+  } else {
+    // Mobile: native scroll
+    const panelW = window.innerWidth * 0.88;
+    hSection.scrollTo({ left: panelW * idx, behavior: 'smooth' });
+  }
+  hDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  if (hPrev) hPrev.disabled = idx === 0;
+  if (hNext) hNext.disabled = idx === totalPanels - 1;
+}
+
+if (hPrev && hNext) {
+  hPrev.disabled = true;
+  hPrev.addEventListener('click', () => goToPanel(currentPanel - 1));
+  hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
+}
 
 // ─── PHOTO BREAK FADE-IN + KEN BURNS ───
 gsap.utils.toArray('.lab-break, .team-photo-break').forEach(el => {
