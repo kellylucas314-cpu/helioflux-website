@@ -896,13 +896,14 @@
   <!-- ── HEADER ── -->
   <div class="prob-beat1">
     <span class="prob-eyebrow2 reveal">The Problem</span>
-    <p class="prob-opener reveal">"Every two minutes, someone is told they have cancer that could have been caught sooner."</p>
+    <p class="prob-opener reveal">Every 60 seconds, the US loses one person to cancer.</p>
     <div class="prob-glow-line reveal"></div>
   </div>
 
   <!-- ── SURVIVAL GAP ── -->
   <div class="prob-beat2">
-    <p class="prob-beat2-head reveal">The Survival Gap</p>
+    <p class="prob-beat2-head reveal">The Diagnostic Resolution Gap</p>
+    <p class="reveal" style="font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:300;color:rgba(255,255,255,.7);margin-bottom:32px;line-height:1.5;">Current imaging requires mass. HelioFlux detects metabolism.</p>
 
     <!-- Big numbers -->
     <div class="prob-gap-grid reveal" id="survivalGapGrid">
@@ -933,61 +934,27 @@
       </div>
     </div>
 
-    <div class="prob-glow-line reveal" style="margin:36px auto;"></div>
-    <p class="prob-support reveal">"The difference between life and death<br>is when cancer is found."</p>
-    <p class="prob-1in3 reveal">Studies suggest <strong>nearly 1 in 3</strong> cancer deaths could be prevented through earlier detection. <span style="color:rgba(255,255,255,.3);font-size:.85em;">NCI, 2023</span></p>
+    <!-- Blind spot text -->
+    <p class="reveal" style="font-family:var(--serif);font-size:clamp(15px,1.8vw,19px);font-weight:300;font-style:italic;color:rgba(255,255,255,.55);max-width:620px;margin:36px auto 0;text-align:center;line-height:1.6;">Standard imaging (CT/MRI) requires roughly 1 billion cells to visualize a tumor. Between cellular onset and visible mass, there is a diagnostic blind spot — often lasting years.</p>
+
+    <!-- Resolution gap comparison -->
+    <div class="reveal" style="display:flex;justify-content:center;gap:0;margin:48px auto 0;max-width:560px;">
+      <div style="flex:1;padding:28px 24px;border:1px solid rgba(255,255,255,.08);border-radius:8px 0 0 8px;text-align:center;background:rgba(255,255,255,.02);">
+        <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;">Standard Imaging</p>
+        <p style="font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:300;color:rgba(255,255,255,.5);">~1B</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">cells · ~1 cm mass · Stage III/IV</p>
+      </div>
+      <div style="flex:1;padding:28px 24px;border:1px solid rgba(0,200,240,.15);border-radius:0 8px 8px 0;text-align:center;background:rgba(0,200,240,.03);">
+        <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">HelioFlux</p>
+        <p style="font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:300;color:#fff;">5-10M</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">cells · ~2-3 mm · Pre-symptomatic</p>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;font-size:12px;color:var(--cyan);margin-top:16px;letter-spacing:.08em;">100× detection gap</p>
+
+    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:28px;text-align:center;">Sources: ACS 2026 · SEER 2015–2021</p>
   </div>
 
-  <!-- ── BEAT 3: Why current screening fails ── -->
-  <div class="prob-beat3">
-    <span class="prob-eyebrow2 reveal">Why Current Screening Fails</span>
-    <p class="prob-beat3-intro reveal">Routine screening exists for only <span class="prob-cyan">5</span> cancer types.<br>More than <span class="prob-cyan">200</span> have none at all.</p>
-    <p class="prob-subline reveal">57% of all diagnosed cancers have no recommended screening test. &mdash; NORC, 2024</p>
-
-    <div class="prob-glass-grid">
-
-      <div class="prob-glass-card reveal">
-        <div class="prob-glass-stat">~1B</div>
-        <div class="prob-glass-title">Cells before detection</div>
-        <div class="prob-glass-summary">Imaging finds tumors, not cancer cells. By then, it has been growing for years.</div>
-        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
-        <div class="prob-glass-body"><div class="prob-glass-body-inner">
-          <div class="prob-glass-detail">CT, MRI, and mammograms require a mass of roughly 1 billion cells before they can detect anything. That means cancer has been silently multiplying — sometimes for a decade — before current tools can see it.</div>
-        </div></div>
-      </div>
-
-      <div class="prob-glass-card reveal">
-        <div class="prob-glass-stat">5 <span class="prob-glass-stat-suffix">of 200+</span></div>
-        <div class="prob-glass-title">Cancers with standard screening</div>
-        <div class="prob-glass-summary">The vast majority of cancer types have no routine screening test whatsoever.</div>
-        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
-        <div class="prob-glass-body"><div class="prob-glass-body-inner">
-          <div class="prob-glass-detail">Breast, cervical, colorectal, and lung cancer have USPSTF-recommended screening. Prostate screening exists but with caveats. Every other cancer type — over 200 of them — has no routine screening at all. Most people will not know they have cancer until symptoms appear, likely at stage III or IV.</div>
-        </div></div>
-      </div>
-
-      <div class="prob-glass-card reveal">
-        <div class="prob-glass-stat">$10K+</div>
-        <div class="prob-glass-title">Average patient out-of-pocket cost</div>
-        <div class="prob-glass-summary">High costs delay or prevent screening entirely, especially in underserved communities.</div>
-        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
-        <div class="prob-glass-body"><div class="prob-glass-body-inner">
-          <div class="prob-glass-detail">Even when screening exists, not all tests are covered. High deductibles and copays create real barriers. Many patients face financial hardship before treatment even begins — and for the uninsured, screening is often skipped entirely.</div>
-        </div></div>
-      </div>
-
-      <div class="prob-glass-card reveal">
-        <div class="prob-glass-stat">6+ mo</div>
-        <div class="prob-glass-title">From first symptom to diagnosis</div>
-        <div class="prob-glass-summary">Invasive tests, long waits, radiation exposure — and cancer keeps growing.</div>
-        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
-        <div class="prob-glass-body"><div class="prob-glass-body-inner">
-          <div class="prob-glass-detail">The current diagnostic pathway involves radiation exposure, invasive biopsies, and weeks or months of waiting between appointments and referrals. For cancers like ovarian and pancreatic, the average time from first symptoms to confirmed diagnosis often exceeds six months. Every week matters.</div>
-        </div></div>
-      </div>
-
-    </div><!-- /prob-glass-grid -->
-    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:28px;">Sources: American Cancer Society 2026 · USPSTF · NORC at University of Chicago 2024 · SEER 2015&ndash;2021 · ACS Cancer Facts &amp; Figures 2025</p>
   </div>
 
 </section>
@@ -997,7 +964,7 @@
 
 <!-- ═══ BRIDGE TO SOLUTION ═══ -->
 <div style="max-width:1200px;margin:0 auto;padding:0 56px;">
-  <p class="reveal" style="font-family:var(--serif);font-size:clamp(22px,2.8vw,38px);font-weight:300;font-style:italic;color:rgba(255,255,255,.75);line-height:1.4;max-width:720px;padding:64px 0 0;">What if we could detect cancer at the cellular level — <em style="color:var(--cyan);">before a tumor ever forms?</em></p>
+  <p class="reveal" style="font-family:var(--serif);font-size:clamp(22px,2.8vw,38px);font-weight:300;font-style:italic;color:rgba(255,255,255,.75);line-height:1.4;max-width:720px;padding:64px 0 0;">What if we could detect cancer at the cellular level — <em style="color:var(--cyan);">before it becomes visible to any scan?</em></p>
 </div>
 
 <!-- ═══ THE SOLUTION ═══ -->
@@ -1131,403 +1098,6 @@
 </div>
 
 
-<!-- ═══ SPECTRAL RIBBON WAVE ═══ -->
-<div style="background:var(--bg);border-top:1px solid var(--border);">
-
-  <!-- Text header -->
-  <div style="max-width:1200px;margin:0 auto;padding:80px 56px 40px;" class="reveal">
-    <p class="eyebrow">The emission signature · 2018 published study</p>
-    <h2 style="line-height:1.15;max-width:580px;margin-bottom:32px">Two emission profiles.<br><em>Opposite directions.</em></h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:720px;">
-      <div>
-        <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,155,50,.6);margin-bottom:6px">↑ Healthy tissue</p>
-        <p style="font-size:13px;color:var(--muted);line-height:1.75">Healthy cells produce a consistent, measurable emission profile. The warm ribbon represents this signature — reproducible across cell types.</p>
-      </div>
-      <div>
-        <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,200,240,.6);margin-bottom:6px">↓ Malignant tissue</p>
-        <p style="font-size:13px;color:var(--muted);line-height:1.75">Cancer cells produce an inverted profile. That reversal — measurable without needles, scans, or contrast agents — is the signal HelioFlux reads.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Canvas — full width, edge to edge -->
-  <div style="position:relative;height:300px;overflow:hidden;">
-    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
-  </div>
-
-  <!-- Citation -->
-  <div style="max-width:1200px;margin:0 auto;padding:16px 56px 56px;display:flex;justify-content:flex-end;">
-    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener"
-       style="font-size:10px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:1px;">
-      Murugan et al. · Biochemistry &amp; Biophysics Reports (Elsevier), 2018
-    </a>
-  </div>
-</div>
-
-<script>
-(function(){
-  var canvas = document.getElementById('ribbonCanvas');
-  if (!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var cssW = 0, cssH = 0, t = 0, animating = false, raf;
-  var dpr = Math.min(window.devicePixelRatio || 1, 2);
-  var LINES = 68;
-
-  function resize() {
-    var rect = canvas.getBoundingClientRect();
-    cssW = rect.width; cssH = rect.height;
-    canvas.width = Math.round(cssW * dpr);
-    canvas.height = Math.round(cssH * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function lerpC(c1, c2, f) {
-    return [
-      c1[0] + (c2[0]-c1[0])*f | 0,
-      c1[1] + (c2[1]-c1[1])*f | 0,
-      c1[2] + (c2[2]-c1[2])*f | 0
-    ];
-  }
-
-  function drawRibbon(yRatio, phase, spreadAmp, c1, c2, baseAlpha) {
-    var cy = cssH * yRatio;
-    for (var i = 0; i < LINES; i++) {
-      var frac  = i / (LINES - 1);
-      var edge  = 1 - Math.pow(Math.abs(frac - 0.5) * 2, 1.6);
-      var alpha = baseAlpha * edge;
-      var col   = lerpC(c1, c2, frac);
-      ctx.strokeStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+','+alpha.toFixed(3)+')';
-      ctx.lineWidth = 0.85;
-      ctx.beginPath();
-      var first = true;
-      for (var px = 0; px <= cssW; px += 2) {
-        var nx = px / cssW;
-        var wave = Math.sin(nx * Math.PI * 2.7 + t + phase) * cssH * 0.12
-                 + Math.sin(nx * Math.PI * 1.2 + t * 0.6 + phase) * cssH * 0.045;
-        var env  = (Math.sin(nx * Math.PI * 2.3 + t * 0.42 + phase * 0.9) * 0.5 + 0.5) * spreadAmp;
-        var y    = cy + wave + (frac - 0.5) * env;
-        if (first) { ctx.moveTo(px, y); first = false; }
-        else          ctx.lineTo(px, y);
-      }
-      ctx.stroke();
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, cssW, cssH);
-    // Warm ribbon — healthy tissue, near-infrared (amber → deep orange)
-    drawRibbon(0.33, 0,              cssH * 0.44, [255,158,48], [215,72,18],  0.72);
-    // Cool ribbon — malignant tissue, ultraviolet (cyan → violet)
-    drawRibbon(0.67, Math.PI * 0.72, cssH * 0.44, [0,200,240],  [108,28,196], 0.72);
-    t += 0.007;
-    if (animating) raf = requestAnimationFrame(draw);
-  }
-
-  var obs = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting) { animating = true; draw(); }
-    else { animating = false; cancelAnimationFrame(raf); }
-  }, { threshold: 0.05 });
-  obs.observe(canvas);
-
-  var resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){ resize(); }, 100);
-  });
-
-  resize();
-})();
-</script>
-
-
-
-<!-- ═══ DEVICE PHOTO — BEFORE PLATFORM ═══ -->
-<div style="position:relative;overflow:hidden;line-height:0;">
-  <img loading="lazy" src="helioflux-device.jpg"
-       alt="HelioFlux photonic sensor array worn by a study participant"
-       style="width:100%;height:520px;object-fit:cover;object-position:center 22%;display:block;filter:brightness(.82);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(4,7,14,.85) 0%, rgba(4,7,14,.05) 50%);pointer-events:none;"></div>
-
-</div>
-
-<!-- SIZE COMPARISON -->
-<section class="section" style="padding-top:80px;padding-bottom:0;">
-  <div class="reveal">
-      <svg class="size-compare-svg" viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" aria-label="Three-way detection threshold comparison: HelioFlux 2-3mm, liquid biopsy 5mm, standard imaging 1cm">
-
-        <!-- ── LEFT: HELIOFUX (2-3mm, r=7) ── -->
-        <circle cx="90" cy="118" r="48" fill="rgba(0,200,240,0.025)"/>
-        <circle cx="90" cy="118" r="30" fill="rgba(0,200,240,0.06)"/>
-        <circle cx="90" cy="118" r="18" fill="rgba(0,200,240,0.14)"/>
-        <circle cx="90" cy="118" r="11" fill="rgba(0,200,240,0.32)"/>
-        <circle cx="90" cy="118" r="7"  fill="#00C8F0"/>
-        <circle cx="88" cy="116" r="2.5" fill="rgba(220,250,255,0.8)"/>
-        <text x="90" y="183" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" fill="rgba(0,200,240,0.9)" letter-spacing=".07em">HelioFlux</text>
-        <text x="90" y="197" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.3)">5–10M cells</text>
-        <text x="90" y="210" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.35)" letter-spacing=".05em">≈ 2–3 mm</text>
-
-        <!-- ── CENTER: LIQUID BIOPSY / cfDNA (5mm, r=14 — 2× HelioFlux diameter) ── -->
-        <circle cx="250" cy="118" r="30" fill="rgba(200,160,0,0.04)"/>
-        <circle cx="250" cy="118" r="20" fill="rgba(200,160,0,0.08)"/>
-        <circle cx="250" cy="118" r="14" fill="rgba(160,120,10,0.5)"/>
-        <circle cx="250" cy="118" r="14" fill="none" stroke="rgba(220,170,20,0.25)" stroke-width="1.5"/>
-        <circle cx="250" cy="118" r="9"  fill="rgba(100,75,5,0.65)"/>
-        <circle cx="244" cy="112" r="4"  fill="rgba(220,170,20,0.07)"/>
-        <text x="250" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" fill="rgba(210,170,40,0.85)" letter-spacing=".07em">Liquid Biopsy</text>
-        <text x="250" y="162" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">cfDNA · 50–100M cells</text>
-        <text x="250" y="175" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(210,170,40,0.3)" letter-spacing=".05em">≈ 5 mm · requires blood draw</text>
-
-        <!-- ── RIGHT: STANDARD IMAGING (1cm, r=28 — 4× HelioFlux diameter) ── -->
-        <circle cx="430" cy="118" r="46" fill="rgba(160,30,15,0.04)"/>
-        <circle cx="430" cy="118" r="36" fill="rgba(160,30,15,0.07)"/>
-        <circle cx="430" cy="118" r="28" fill="rgba(110,18,10,0.55)"/>
-        <circle cx="430" cy="118" r="28" fill="none" stroke="rgba(200,45,25,0.22)" stroke-width="1.5"/>
-        <circle cx="430" cy="118" r="20" fill="rgba(70,10,6,0.7)"/>
-        <circle cx="422" cy="110" r="7"  fill="rgba(180,40,20,0.07)"/>
-        <text x="430" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" fill="rgba(200,80,60,0.85)" letter-spacing=".07em">Standard Imaging</text>
-        <text x="430" y="177" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.3)">~1 billion cells</text>
-        <text x="430" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(200,80,60,0.35)" letter-spacing=".05em">≈ 1 cm · MRI / CT</text>
-
-        <!-- subtle connector baseline -->
-        <line x1="97" y1="118" x2="236" y2="118" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="3 6"/>
-        <line x1="264" y1="118" x2="402" y2="118" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-dasharray="3 6"/>
-
-        <!-- scale annotation -->
-        <text x="260" y="248" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.12)" letter-spacing=".12em">100–200× fewer cells needed than standard imaging</text>
-      </svg>
-
-      <div class="size-caption reveal" style="margin-top:32px;text-align:center;padding:0 16px;">
-        <p style="font-family:var(--serif);font-size:clamp(17px,2vw,22px);font-weight:300;line-height:1.5;color:rgba(255,255,255,0.75);margin-bottom:6px;">By the time medicine finds it,<br>it's been growing for <span style="color:rgba(200,80,60,0.9);font-style:italic;">two years.</span></p>
-        <p style="font-family:var(--serif);font-size:clamp(17px,2vw,22px);font-weight:300;line-height:1.5;color:rgba(0,200,240,0.9);margin-bottom:16px;">In animal models, HelioFlux found it<br>within <em>24 hours.</em></p>
-        <p style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Cancers (MDPI), 2020 &nbsp;·&nbsp; 47 animal models &nbsp;·&nbsp; 13 cancer types</p>
-      </div>
-  </div>
-</section>
-
-<!-- PEPPERCORN — "What Early Really Means" -->
-<div class="peppercorn">
-  <div class="peppercorn-inner reveal">
-    <span class="peppercorn-tag">What "early" really means</span>
-    <h3>A tumor at 5–10 million cells is 2–3 millimeters across — roughly the size of a peppercorn. Too small to feel. <em>Invisible on a scan.</em></h3>
-    <p>But at this stage, survival rates are highest and treatment is simplest.</p>
-    <p>By the time that peppercorn becomes a pea — 1 billion cells, roughly 1 centimeter — medicine can finally see it. But that growth took <strong>1.5 to 2 years.</strong> Years where the tumor was doubling silently, potentially reaching lymph nodes, quietly shifting from treatable to dangerous.</p>
-    <p>HelioFlux doesn't wait for the pea. <strong>We're built to find the peppercorn.</strong></p>
-  </div>
-</div>
-
-<!-- TUMOR DETECTION TIMELINE -->
-<div style="padding:0 56px 100px;max-width:1200px;margin:0 auto;">
-  <div class="reveal" style="border-top:1px solid rgba(255,255,255,0.06);padding-top:64px;">
-    <p style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:28px">Cancers (MDPI), 2020 · 47 animal models · 13 cancer cell lines</p>
-    <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;overflow:visible;" aria-label="Tumor detection timeline: HelioFlux detects on Day 1, tumor only palpable on Day 19">
-      <!-- HelioFlux detection zone (cyan) Day 1 → end -->
-      <rect x="65" y="55" width="495" height="14" fill="rgba(0,200,240,0.07)" rx="2"/>
-      <!-- base timeline bar -->
-      <rect x="40" y="63" width="520" height="2" fill="rgba(255,255,255,0.08)" rx="1"/>
-
-      <!-- Day 0 — Injection -->
-      <circle cx="40" cy="64" r="5" fill="#0A1020" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-      <text x="40" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Day 0</text>
-      <text x="40" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.15)">injection</text>
-
-      <!-- Day 1 — HelioFlux detects (CYAN, filled) -->
-      <circle cx="65" cy="64" r="6" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
-      <!-- detection arrow above -->
-      <line x1="65" y1="55" x2="65" y2="30" stroke="rgba(0,200,240,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
-      <text x="65" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#00C8F0" font-weight="500">HelioFlux detects</text>
-      <text x="65" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.6)">Day 1</text>
-      <text x="65" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(0,200,240,0.35)">24 hrs</text>
-
-      <!-- Day 7 -->
-      <circle cx="213" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-      <text x="213" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 7</text>
-
-      <!-- Day 10 -->
-      <circle cx="288" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-      <text x="288" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 10</text>
-
-      <!-- Day 13 -->
-      <circle cx="362" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-      <text x="362" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 13</text>
-
-      <!-- Day 19 — Palpable tumor (amber/warning) -->
-      <circle cx="510" cy="64" r="6" fill="rgba(255,140,40,0.15)" stroke="rgba(255,140,40,0.55)" stroke-width="1.5"/>
-      <line x1="510" y1="73" x2="510" y2="98" stroke="rgba(255,140,40,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
-      <text x="510" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,140,40,0.55)">first palpable tumor</text>
-      <text x="510" y="117" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,140,40,0.35)">Day 19</text>
-
-      <!-- Gap annotation -->
-      <line x1="70" y1="43" x2="505" y2="43" stroke="rgba(255,255,255,0.06)" stroke-width="1" marker-end="url(#arr)"/>
-      <text x="287" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1">18 days earlier than standard detection</text>
-    </svg>
-    <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;max-width:560px">Non-invasive. No imaging. No contrast agent. No biopsy. No blood draw.</p>
-  </div>
-</div>
-
-
-
-
-<!-- ═══ HORIZONTAL SCROLL — PLATFORM ═══ -->
-<section id="platform">
-  <div class="h-section-label">
-    <p class="eyebrow reveal">What It Can Detect</p>
-    <h2 class="reveal">One science. <em>Many applications.</em></h2>
-  </div>
-  <div class="h-section" id="hSection">
-    <div class="h-track" id="hTrack">
-
-      <!-- Panel 1 — Skin Cancer Detection -->
-      <div class="h-panel">
-        <div class="h-panel-img reveal">
-          <!-- gradient background only — no stock photos -->
-          <div class="h-panel-num">01</div>
-        </div>
-        <div class="reveal">
-          <div class="h-panel-status">Validated · Functional Prototype · Pilot Q3 2026</div>
-          <h3>Skin Cancer<br><em>Detection</em></h3>
-          <p class="h-panel-pub"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
-          <p>Validated in vivo: HelioFlux detected melanoma in <strong style="color:var(--cyan);font-weight:400">47 living mice within 24 hours of injection</strong> — 18 days before tumors became palpable. 92% discriminant accuracy across 13 cancer cell lines. 100% detection rate.</p>
-          <p style="font-size:13px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7;">Functional prototype devices in development for deployment in dermatology clinics with our Canadian manufacturing partner. <strong style="color:var(--cyan);font-weight:400;">Pilot launch: Q3 2026.</strong> Also being explored for real-time treatment response monitoring.</p>
-          <div class="h-stats">
-            <div><div class="h-stat-num">100%</div><div class="h-stat-label">Cancer samples identified · 2018 in vitro · n=30</div></div>
-            <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal Models</div></div>
-            <div><div class="h-stat-num">13</div><div class="h-stat-label">Cell Lines</div></div>
-          </div>
-
-          <!-- SPECTRAL FINGERPRINT — removed pre-patent -->
-          <div style="display:none;">
-            <svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg">
-              <!-- background -->
-              <rect width="520" height="210" fill="#04070E"/>
-              <!-- grid lines -->
-              <line x1="60" y1="20" x2="60" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <line x1="500" y1="20" x2="500" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <line x1="60" y1="100" x2="500" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 6"/>
-              <line x1="60" y1="20" x2="500" y2="20" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-              <line x1="60" y1="180" x2="500" y2="180" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <!-- x-axis filter tick marks -->
-              <line x1="60"  y1="180" x2="60"  y2="186" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="98"  y1="180" x2="98"  y2="186" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="159" y1="180" x2="159" y2="186" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="250" y1="180" x2="250" y2="186" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="379" y1="180" x2="379" y2="186" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <line x1="500" y1="180" x2="500" y2="186" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <!-- x-axis wavelength labels -->
-              <text x="60"  y="198" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">370nm</text>
-              <text x="98"  y="198" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">420</text>
-              <text x="159" y="198" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">500</text>
-              <text x="250" y="198" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">620</text>
-              <text x="379" y="198" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">790</text>
-              <text x="500" y="198" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">950nm</text>
-              <!-- x-axis spectrum gradient bar -->
-              <defs>
-                <linearGradient id="spectrumGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%"   stop-color="#9B4DCA"/>
-                  <stop offset="18%"  stop-color="#4169E1"/>
-                  <stop offset="36%"  stop-color="#00C8F0"/>
-                  <stop offset="55%"  stop-color="#00CC66"/>
-                  <stop offset="73%"  stop-color="#FFB300"/>
-                  <stop offset="100%" stop-color="#CC3300"/>
-                </linearGradient>
-              </defs>
-              <rect x="60" y="173" width="440" height="4" fill="url(#spectrumGrad)" opacity="0.35" rx="2"/>
-              <!-- UV / IR axis labels -->
-              <text x="60"  y="13" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="2">UV</text>
-              <text x="500" y="13" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" letter-spacing="2">IR</text>
-
-              <!-- HEALTHY CELL LINE (positive slope: more IR) — muted blue -->
-              <!-- Points: (60,165) (98,155) (159,138) (250,115) (379,85) (500,50) -->
-              <polyline points="60,165 98,155 159,138 250,115 379,85 500,50"
-                fill="none" stroke="rgba(100,180,255,0.45)" stroke-width="2" stroke-linejoin="round"/>
-              <!-- healthy dots -->
-              <circle cx="60"  cy="165" r="3.5" fill="none" stroke="rgba(100,180,255,0.6)" stroke-width="1.5"/>
-              <circle cx="98"  cy="155" r="3.5" fill="none" stroke="rgba(100,180,255,0.6)" stroke-width="1.5"/>
-              <circle cx="159" cy="138" r="3.5" fill="none" stroke="rgba(100,180,255,0.6)" stroke-width="1.5"/>
-              <circle cx="250" cy="115" r="3.5" fill="none" stroke="rgba(100,180,255,0.6)" stroke-width="1.5"/>
-              <circle cx="379" cy="85"  r="3.5" fill="none" stroke="rgba(100,180,255,0.6)" stroke-width="1.5"/>
-              <circle cx="500" cy="50"  r="3.5" fill="rgba(100,180,255,0.6)" stroke="rgba(100,180,255,0.6)" stroke-width="1.5"/>
-              <!-- healthy label -->
-              <text x="505" y="54" font-family="Inter,sans-serif" font-size="10" fill="rgba(100,180,255,0.7)" dominant-baseline="middle">Healthy</text>
-
-              <!-- CANCER CELL LINE (negative slope: more UV) — site cyan bright -->
-              <!-- Points: (60,50) (98,65) (159,92) (250,115) (379,140) (500,162) -->
-              <polyline points="60,50 98,65 159,92 250,115 379,140 500,162"
-                fill="none" stroke="#00C8F0" stroke-width="2.5" stroke-linejoin="round"/>
-              <!-- cancer dots -->
-              <circle cx="60"  cy="50"  r="4" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
-              <circle cx="98"  cy="65"  r="4" fill="none"   stroke="#00C8F0" stroke-width="1.5"/>
-              <circle cx="159" cy="92"  r="4" fill="none"   stroke="#00C8F0" stroke-width="1.5"/>
-              <circle cx="250" cy="115" r="4" fill="none"   stroke="#00C8F0" stroke-width="1.5"/>
-              <circle cx="379" cy="140" r="4" fill="none"   stroke="#00C8F0" stroke-width="1.5"/>
-              <circle cx="500" cy="162" r="4" fill="none"   stroke="#00C8F0" stroke-width="1.5"/>
-              <!-- cancer label -->
-              <text x="505" y="162" font-family="Inter,sans-serif" font-size="10" fill="#00C8F0" dominant-baseline="middle">Malignant</text>
-
-              <!-- crossover annotation -->
-              <circle cx="250" cy="115" r="10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-              <text x="255" y="108" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.2)">crossover</text>
-
-              <!-- y-axis labels -->
-              <text x="55" y="52"  text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">high</text>
-              <text x="55" y="168" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">low</text>
-              <text x="14" y="100" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)" transform="rotate(-90 14 100)" text-anchor="middle">emission</text>
-            </svg>
-            <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">Cancer cells emit more light at UV wavelengths and less at infrared. Healthy cells do the opposite. That reversed spectral signature is what HelioFlux detects — without a needle, a scan, or a biopsy.</p>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Panel 2 — Brain Health (state monitoring + chemo brain combined) -->
-      <div class="h-panel">
-        <div class="h-panel-img reveal">
-          <!-- gradient background only -->
-          <div class="h-panel-num">02</div>
-        </div>
-        <div class="reveal">
-          <div class="h-panel-status">Validated + In Research · 2025</div>
-          <h3>Brain<br><em>Health</em></h3>
-          <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">iScience (Cell Press), 2025</a> · 20 human subjects · EEG cross-validated</p>
-          <p>The world's first photoencephalography — reading brain cellular activity through photon emission in living humans, without EEG gel, electrodes, or radiation. Cross-validated against EEG in 20 subjects and published in <strong style="color:var(--cyan);font-weight:400">iScience (Cell Press)</strong>.</p>
-          <p style="font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;margin-top:16px">The same sensor is now being used to track chemotherapy-induced cognitive impairment — chemo brain affects up to 75% of cancer patients, and no non-invasive detection method currently exists. Dr. Murugan is collaborating with a medical oncologist to monitor patients through a full treatment cycle.</p>
-          <div class="h-stats">
-            <div><div class="h-stat-num">20</div><div class="h-stat-label">Human Subjects</div></div>
-            <div><div class="h-stat-num">First</div><div class="h-stat-label">Photoencephalography</div></div>
-            <div><div class="h-stat-num">75%</div><div class="h-stat-label">Chemo patients affected</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 3 — Metabolic & Systemic Disease -->
-      <div class="h-panel">
-        <div class="h-panel-img reveal">
-          <!-- gradient background only -->
-          <div class="h-panel-num">03</div>
-        </div>
-        <div class="reveal">
-          <div class="h-panel-status" style="background:rgba(108,28,196,.15);color:rgba(160,100,240,.7);border:1px solid rgba(108,28,196,.3)">Research Frontier</div>
-          <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
-          <p>Ultra-weak photon emissions are a direct readout of cellular metabolism — driven by mitochondrial activity and reactive oxygen species. Disrupted UPE signatures are a known marker of oxidative stress, which underlies type 2 diabetes, cardiovascular disease, and autoimmune conditions.</p>
-          <p style="font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;margin-top:16px">The same non-invasive platform that reads cancer and brain signals may offer a window into systemic metabolic health — without blood draws, biopsies, or radiation. A research frontier still being mapped.</p>
-          <p style="font-size:13px;color:rgba(160,100,240,.5);margin-top:16px">Oxidative stress · Metabolic monitoring · Treatment response · Systemic inflammation</p>
-        </div>
-      </div>
-
-
-
-    </div><!-- end h-track -->
-    <div class="h-arrows">
-      <button class="h-arrow" id="hPrev" aria-label="Previous panel">&#8592;</button>
-      <button class="h-arrow" id="hNext" aria-label="Next panel">&#8594;</button>
-    </div>
-    <div class="h-dots" id="hDots">
-      <div class="h-dot active"></div>
-      <div class="h-dot"></div>
-      <div class="h-dot"></div>
-    </div>
-  </div>
-</section>
-
 <!-- TEAM PHOTO BREAK -->
 <div class="team-photo-break" style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
   <img loading="lazy" src="nirosha-team.jpg"
@@ -1543,19 +1113,8 @@
   <h2 class="reveal">The people<br>behind the <em>science.</em></h2>
 
 
-  <!-- Founding Story -->
-  <div class="reveal" style="max-width:720px;margin:48px 0 72px;padding:32px 0 32px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-    <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.45);margin-bottom:16px;">How it started</p>
-    <p style="font-family:var(--serif);font-size:clamp(17px,1.9vw,22px);font-weight:300;line-height:1.6;color:rgba(255,255,255,.78);">Kelly met Nirosha at a quantum biology conference in Galveston, Texas. She watched Nirosha present the biophotonic detection technology to a room of scientists — then walked up afterward and asked the question that started everything: <em>"Why isn't this already in the world?"</em></p>
-    <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-top:16px;">HelioFlux was founded on the conviction that the answer to that question was simply: no one had built the company yet.</p>
-  </div>
-
   <!-- Nirosha mission quote -->
-  <div class="quote-section quote-warm reveal" style="margin:0 0 48px;">
-    <span class="quote-mark" aria-hidden="true">"</span>
-    <p class="quote-body">Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible — so survivors live longer with better quality of life.</p>
-    <p class="quote-attr">Dr. Nirosha Murugan — Canada Research Chair in Tissue Biophysics</p>
-  </div>
+<!-- quotes removed -->
 
   <!-- Nirosha — prominent full profile -->
   <div class="nirosha-wrap reveal" style="margin-bottom:2px;">
