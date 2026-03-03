@@ -349,9 +349,9 @@
     .press-logo-link { opacity: .55; transition: opacity .3s; display: flex; align-items: center; }
     .press-logo-link:hover { opacity: .85; }
     .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
-    .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .5; transition: opacity .3s; cursor: default; }
-    .press-name:hover { opacity: .75; }
-    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
+    .press-name { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--white); opacity: .65; transition: opacity .3s; white-space: nowrap; }
+    .press-name:hover { opacity: .9; }
+    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; overflow: hidden; }
     .press-card { background: var(--bg2); padding: 44px; color: var(--white); }
     a.press-card, a.press-card:visited, a.press-card:link { color: var(--white); text-decoration: none; }
     .press-outlet { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
@@ -737,6 +737,7 @@
     .acc-trigger:hover .acc-label { color: var(--cyan); }
     .acc-num { font-family: var(--serif); font-size: 13px; font-style: italic;
       color: rgba(0,200,240,.35); min-width: 32px; flex-shrink: 0; }
+    .acc-preview { display: block; font-size: 14px; color: rgba(255,255,255,.6); font-weight: 300; line-height: 1.6; margin-top: 8px; }
     .acc-label { font-size: clamp(22px,2vw,26px); font-weight: 600; letter-spacing: .01em;
       flex: 1; line-height: 1.4; transition: color .2s; }
     .acc-icon { font-size: 22px; font-weight: 200; color: rgba(0,200,240,.5);
@@ -957,7 +958,7 @@
   <div style="padding:100px 56px;text-align:center;max-width:900px;margin:0 auto;">
     <span class="prob-eyebrow2 reveal">The Problem</span>
 
-    <p class="prob-opener reveal" style="margin-bottom:56px;">Someone in the U.S. dies from cancer approximately every 60 seconds. <span style="font-size:.7em;color:rgba(255,255,255,.55);font-style:normal;">American Cancer Society, 2025</span></p>
+    <p class="prob-opener reveal" style="margin-bottom:56px;">Someone in the U.S. dies from cancer approximately <span style="color:var(--cyan);font-weight:400;">every 60 seconds.</span></p>
 
     <!-- Two big numbers -->
     <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:48px;">
@@ -1000,6 +1001,7 @@
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow">Our Solution</p>
       <h2>HelioFlux detects cancer<br><em>before tumors form.</em></h2>
+      <p style="font-size:18px;color:rgba(255,255,255,.7);margin-top:16px;line-height:1.6;">Current imaging requires mass. <strong style="color:var(--cyan);font-weight:400;">HelioFlux detects metabolism.</strong></p>
     </div>
 
     <!-- Detection stages diagram -->
@@ -1048,6 +1050,7 @@
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">01</span>
             <span class="acc-label">How your cells reveal cancer — the physics of light</span>
+            <span class="acc-preview">All living cells emit faint light. Cancer cells emit a different pattern, detectable at just 5-10 million cells.</span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1066,6 +1069,7 @@
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">02</span>
             <span class="acc-label">What the AI sees — signal patterns and classification</span>
+            <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan and compares it against a validated cancer signature database.</span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1082,6 +1086,7 @@
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">03</span>
             <span class="acc-label">Published validation — what the research shows</span>
+            <span class="acc-preview">Three peer-reviewed papers: 90-92% accuracy across 13 cancer types, detection within 24 hours in animal models.</span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1144,7 +1149,8 @@
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">04</span>
-            <span class="acc-label">How it compares — and what "early" actually means</span>
+            <span class="acc-label">The patient experience — what a scan looks like</span>
+            <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
@@ -1587,16 +1593,16 @@
   </div>
   <div class="press-logos">
     <div class="press-marquee-track" aria-hidden="false">
-      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-sciam.jpg" alt="Scientific American" class="press-logo-img" style="height:28px;"></a>
+      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1;font-size:16px;">Scientific American</span></a>
       <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-radiolab.jpg" alt="Radiolab" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;"></a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-cellpress.jpg" alt="Cell Press" class="press-logo-img" style="height:26px;"></a>
+      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1;font-size:16px;">Cell Press / iScience</span></a>
       <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CBC News</span></a>
       <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CTV News</span></a>
       <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
       <!-- duplicate for seamless loop -->
-      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-sciam.jpg" alt="" class="press-logo-img" style="height:28px;"></a>
+      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1;font-size:16px;">Scientific American</span></a>
       <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-radiolab.jpg" alt="" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;"></a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-cellpress.jpg" alt="" class="press-logo-img" style="height:26px;"></a>
+      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1;font-size:16px;">Cell Press / iScience</span></a>
       <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">CBC News</span></a>
       <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">CTV News</span></a>
       <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
