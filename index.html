@@ -346,8 +346,8 @@
 
     /* ─── PRESS ─── */
     .press-logos { display: flex; justify-content: center; align-items: center; gap: 52px; flex-wrap: wrap; padding: 64px 56px; border-bottom: 1px solid var(--border); background: var(--bg2); }
-    .press-logo-link { opacity: .28; transition: opacity .3s; display: flex; align-items: center; }
-    .press-logo-link:hover { opacity: .75; }
+    .press-logo-link { opacity: .55; transition: opacity .3s; display: flex; align-items: center; }
+    .press-logo-link:hover { opacity: .85; }
     .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
     .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .5; transition: opacity .3s; cursor: default; }
     .press-name:hover { opacity: .75; }
@@ -367,6 +367,7 @@
 
     /* ─── TEAM ─── */
     .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 40px; }
+    .team-grid-3 { grid-template-columns: repeat(3, 1fr); }
     .team-card { display: grid; grid-template-columns: 76px 1fr; gap: 24px; padding: 40px; background: var(--bg2); align-items: start; transition: background .3s; }
     .team-card:hover { background: rgba(0,200,240,.03); }
     .team-init { width: 76px; height: 76px; border: 1px solid rgba(0,200,240,.18); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
@@ -479,12 +480,15 @@
       .h-panel { padding: 48px 24px; }
       .stats-strip { grid-template-columns: repeat(2,1fr); }
       .press-cards { grid-template-columns: 1fr; }
-      .press-logos { padding: 48px 24px; gap: 32px; }
+      .press-logos { padding: 48px 24px; gap: 32px; overflow: visible !important; }
+      .press-marquee-track { animation: none !important; width: auto !important; flex-wrap: wrap; justify-content: center; gap: 28px; }
+      .press-logo-link[aria-hidden="true"] { display: none; }
       .creds-strip { grid-template-columns: repeat(2,1fr); }
       /* Path to market responsive */
       [style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr 1fr !important; }
       .quotes-grid { grid-template-columns: 1fr !important; }
       .team-grid { grid-template-columns: 1fr; }
+      .team-grid-3 { grid-template-columns: 1fr; }
       .cta-section { padding: 100px 24px; }
       .cta-types { grid-template-columns: repeat(2,1fr); }
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
@@ -952,7 +956,7 @@
   <div style="padding:100px 56px;text-align:center;max-width:900px;margin:0 auto;">
     <span class="prob-eyebrow2 reveal">The Problem</span>
 
-    <p class="prob-opener reveal" style="margin-bottom:56px;">"Every two minutes, someone is told they have cancer that could have been caught sooner."</p>
+    <p class="prob-opener reveal" style="margin-bottom:56px;">Someone in the U.S. dies from cancer approximately every 60 seconds. <span style="font-size:.7em;color:rgba(255,255,255,.3);font-style:normal;">American Cancer Society, 2025</span></p>
 
     <!-- Two big numbers -->
     <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:48px;">
@@ -1000,6 +1004,12 @@
     <!-- Detection stages diagram -->
     <div class="reveal" style="margin:48px 0 56px;overflow:hidden;border-radius:6px;border:1px solid rgba(0,200,240,.08);">
       <img src="detection-stages.jpg" alt="Cancer progression stages: HelioFlux detects at precancerous lesion (5-10M cells), liquid biopsy at 50-100M cells, traditional imaging at over 1 billion cells" style="width:100%;display:block;">
+    </div>
+
+    <!-- Nirosha mission quote -->
+    <div class="reveal" style="border-left:2px solid rgba(0,200,240,.2);padding:24px 32px;margin:0 0 64px;max-width:720px;">
+      <p style="font-family:var(--serif);font-size:clamp(17px,2vw,22px);font-weight:300;font-style:italic;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:12px;">"Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible, so survivors live longer with better quality of life."</p>
+      <p style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);opacity:.6;">Dr. Nirosha Murugan, Canada Research Chair in Tissue Biophysics</p>
     </div>
 
     <!-- How It Works — QSense + LuminAI -->
@@ -1200,9 +1210,9 @@
 <div class="section-divider"></div>
 
 <!-- ═══ SPECTRAL RIBBON WAVE — visual only ═══ -->
-<div style="background:var(--bg);">
-  <div style="position:relative;height:300px;overflow:hidden;">
-    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+<div style="background:#04070E;">
+  <div style="position:relative;height:300px;overflow:hidden;background:#04070E;">
+    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;background:#04070E;"></canvas>
   </div>
 </div>
 
@@ -1296,7 +1306,7 @@
       <div class="h-panel">
         <div class="h-panel-img reveal">
           <!-- gradient background only — no stock photos -->
-          <div class="h-panel-num">01</div>
+          
         </div>
         <div class="reveal">
           <div class="h-panel-status">Validated · Functional Prototype · Pilot Q3 2026</div>
@@ -1394,7 +1404,7 @@
       <div class="h-panel">
         <div class="h-panel-img reveal">
           <!-- gradient background only -->
-          <div class="h-panel-num">02</div>
+          
         </div>
         <div class="reveal">
           <div class="h-panel-status">Validated + In Research · 2025</div>
@@ -1416,7 +1426,7 @@
       <div class="h-panel">
         <div class="h-panel-img reveal">
           <!-- gradient background only -->
-          <div class="h-panel-num">03</div>
+          
         </div>
         <div class="reveal">
           <div class="h-panel-status" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);letter-spacing:.12em;">Research Frontier</div>
@@ -1448,8 +1458,8 @@
 <div class="team-photo-break" style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
   <img loading="lazy" src="nirosha-lab-team.jpg"
        alt="Dr. Nirosha Murugan and research team at Wilfrid Laurier University lab"
-       style="width:100%;height:520px;object-fit:cover;object-position:center 25%;display:block;filter:brightness(.78);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,14,26,1) 0%, rgba(10,14,26,.8) 12%, rgba(10,14,26,.35) 32%, transparent 55%, rgba(10,14,26,.65) 82%, rgba(10,14,26,.97) 100%);pointer-events:none;"></div>
+       style="width:100%;height:520px;object-fit:cover;object-position:center 25%;display:block;filter:brightness(.92);">
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(4,7,14,.7) 0%, rgba(4,7,14,.3) 15%, transparent 40%, transparent 60%, rgba(4,7,14,.3) 85%, rgba(4,7,14,.9) 100%);pointer-events:none;"></div>
 </div>
 
 
@@ -1458,15 +1468,6 @@
   <p class="eyebrow reveal">The Team</p>
   <h2 class="reveal">The people<br>behind the <em>science.</em></h2>
 
-
-  <!-- Nirosha mission quote -->
-  <div class="quote-block reveal" style="margin:0 -56px 48px;width:calc(100% + 112px);">
-    <div class="quote-block-inner">
-      <span class="quote-block-mark" aria-hidden="true">"</span>
-      <p class="quote-block-text">Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible, so survivors live longer with better quality of life.</p>
-      <p class="quote-block-attr">Dr. Nirosha Murugan, Canada Research Chair in Tissue Biophysics</p>
-    </div>
-  </div>
 
   <!-- Nirosha — prominent full profile -->
   <div class="nirosha-wrap reveal" style="margin-bottom:2px;">
@@ -1511,7 +1512,7 @@
   <!-- Supporting team grid -->
   <div style="border-top:1px solid var(--border);padding-top:56px;margin-top:56px;">
     <p class="eyebrow reveal" style="margin-bottom:32px;">Leadership</p>
-    <div class="team-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="team-grid team-grid-3">
     <div class="team-card reveal">
       <img loading="lazy" src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
       <div>
@@ -1543,7 +1544,7 @@
   <!-- Scientific Advisory Board -->
   <div style="border-top:1px solid var(--border);margin-top:56px;padding-top:56px;">
     <p class="eyebrow reveal" style="margin-bottom:32px">Scientific Advisory Board</p>
-    <div class="team-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="team-grid team-grid-3">
       <div class="team-card reveal">
         <img loading="lazy" src="michael-levin-headshot.jpg" alt="Dr. Michael Levin" class="team-photo">
         <div>
