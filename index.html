@@ -535,7 +535,7 @@
     :root { --coral: #E55050; }
 
     /* Beat 1 */
-    .prob-beat1 { padding: 120px 56px 80px; text-align: center; position: relative; overflow: hidden; }
+    .prob-beat1 { padding: 100px 56px 56px; text-align: center; position: relative; overflow: hidden; }
     .prob-beat1::before {
       content: ''; position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%); width: 700px; height: 480px;
@@ -558,54 +558,84 @@
     }
 
     /* Beat 2 */
-    .prob-beat2 { padding: 88px 56px 72px; text-align: center; }
+    .prob-beat2 { padding: 56px 56px 48px; text-align: center; }
     .prob-beat2-head {
-      font-size: clamp(20px,2.2vw,27px); font-weight: 600; color: #fff;
-      margin-bottom: 52px; display: flex; align-items: center; justify-content: center; gap: 12px;
-    }
-    .prob-beat2-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--cyan);
-      box-shadow: 0 0 8px rgba(0,200,240,.7); flex-shrink: 0;
+      font-size: clamp(18px,2vw,24px); font-weight: 600; color: #fff;
+      margin-bottom: 40px; justify-content: center;
     }
     .prob-gap-grid {
       display: flex; align-items: center; justify-content: center;
-      max-width: 620px; margin: 0 auto 40px;
+      max-width: 640px; margin: 0 auto 32px; position: relative;
     }
-    .prob-gap-col { flex: 1; padding: 12px 32px; }
+    .prob-gap-col { flex: 1; padding: 12px 40px; position: relative; }
+    /* Radial bloom behind each big number */
+    .prob-gap-col.early::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%); width: 220px; height: 160px;
+      background: radial-gradient(ellipse, rgba(0,224,255,.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .prob-gap-col.late::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%); width: 220px; height: 160px;
+      background: radial-gradient(ellipse, rgba(255,107,107,.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
     .prob-gap-num {
-      font-size: clamp(60px,9vw,100px); font-weight: 700; line-height: 1; margin-bottom: 12px;
+      font-size: clamp(64px,9vw,104px); font-weight: 700; line-height: 1; margin-bottom: 10px;
+      position: relative;
     }
-    .prob-gap-col.early .prob-gap-num { color: var(--cyan); text-shadow: 0 0 24px rgba(0,200,240,.2); }
-    .prob-gap-col.late .prob-gap-num { color: var(--coral); text-shadow: 0 0 24px rgba(229,80,80,.2); }
-    .prob-gap-num.counting { text-shadow: 0 0 32px rgba(0,200,240,.5) !important; }
-    .prob-gap-col.late .prob-gap-num.counting { text-shadow: 0 0 32px rgba(229,80,80,.5) !important; }
-    .prob-gap-survive { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 8px; }
-    .prob-gap-label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: #666; }
+    .prob-gap-col.early .prob-gap-num {
+      color: #00E0FF;
+      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
+    }
+    .prob-gap-col.late .prob-gap-num {
+      color: #FF6B6B;
+      text-shadow: 0 0 20px rgba(255,107,107,.4), 0 0 60px rgba(255,107,107,.15);
+    }
+    .prob-gap-survive { font-size: 15px; color: rgba(255,255,255,.5); margin-bottom: 0; }
+    .prob-gap-label { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 4px; }
     .prob-gap-vline {
-      width: 1px; height: 180px; flex-shrink: 0;
-      background: linear-gradient(to bottom, transparent, rgba(0,200,240,.18) 30%, rgba(0,200,240,.18) 70%, transparent);
+      width: 1px; height: 160px; flex-shrink: 0;
+      background: linear-gradient(to bottom, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
     }
-    .prob-support { font-size: 16px; color: #777; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+    .prob-support {
+      font-family: Georgia,'Playfair Display',serif; font-style: italic;
+      font-size: clamp(17px,1.8vw,20px); color: rgba(255,255,255,.7);
+      max-width: 520px; margin: 0 auto; line-height: 1.65;
+    }
 
     /* Beat 3 — glass cards */
-    .prob-beat3 { padding: 72px 56px 100px; max-width: 1060px; margin: 0 auto; }
-    .prob-beat3-intro { font-size: clamp(17px,1.9vw,21px); color: rgba(255,255,255,.88); line-height: 1.65; max-width: 680px; margin-bottom: 10px; }
-    .prob-cyan { color: var(--cyan); font-weight: 700; text-shadow: 0 0 10px rgba(0,200,240,.35); }
-    .prob-subline { font-size: 13px; color: #555; margin-bottom: 40px; }
-    .prob-glass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .prob-beat3 { padding: 56px 56px 100px; max-width: 1060px; margin: 0 auto; }
+    .prob-beat3-intro {
+      font-size: clamp(20px,2.2vw,26px); color: rgba(255,255,255,.9);
+      line-height: 1.55; max-width: 680px; margin-bottom: 10px; font-weight: 400;
+    }
+    .prob-cyan {
+      color: #00E0FF; font-weight: 700;
+      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
+    }
+    .prob-subline { font-size: 13px; color: #555; margin-bottom: 36px; }
+    .prob-glass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .prob-glass-card {
-      background: #0F1827; border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,224,255,.12);
+      border-top: 2px solid rgba(0,224,255,.3);
       border-radius: 10px; padding: 32px; cursor: pointer;
-      transition: border-color .2s, box-shadow .2s;
+      transition: background .22s, box-shadow .22s, transform .22s;
     }
     .prob-glass-card:hover {
-      border-color: rgba(255,255,255,.17); box-shadow: 0 0 20px rgba(0,200,240,.07);
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 0 30px rgba(0,224,255,.08);
+      transform: translateY(-2px);
     }
     .prob-glass-stat {
-      font-size: clamp(30px,3.5vw,42px); font-weight: 700; color: var(--cyan);
-      text-shadow: 0 0 14px rgba(0,200,240,.28); margin-bottom: 10px; line-height: 1;
+      font-size: clamp(30px,3.5vw,42px); font-weight: 700; color: #00E0FF;
+      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
+      margin-bottom: 10px; line-height: 1;
     }
-    .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.35); font-weight: 400; margin-left: 4px; vertical-align: middle; }
+    .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.3); font-weight: 400; margin-left: 4px; vertical-align: middle; }
     .prob-glass-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 9px; }
     .prob-glass-summary { font-size: 13px; color: #999; line-height: 1.65; }
     .prob-glass-expand { display: flex; justify-content: flex-end; margin-top: 14px; }
@@ -620,12 +650,12 @@
     }
 
     @media(max-width:640px) {
-      .prob-beat1 { padding: 80px 24px 56px; }
-      .prob-beat2 { padding: 64px 24px 56px; }
-      .prob-beat3 { padding: 48px 24px 80px; }
+      .prob-beat1 { padding: 80px 24px 48px; }
+      .prob-beat2 { padding: 40px 24px 40px; }
+      .prob-beat3 { padding: 40px 24px 80px; }
       .prob-gap-grid { flex-direction: column; }
       .prob-gap-vline { width: 80px; height: 1px;
-        background: linear-gradient(to right, transparent, rgba(0,200,240,.18) 30%, rgba(0,200,240,.18) 70%, transparent);
+        background: linear-gradient(to right, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
       }
       .prob-glass-grid { grid-template-columns: 1fr; }
     }
@@ -834,7 +864,7 @@
 </div>
 
 <!-- ═══ THE CANCER CRISIS — 4 BEATS ═══ -->
-<section id="problem">
+<section id="problem" style="background: linear-gradient(180deg, var(--bg) 0%, #071322 30%, #0A1A2E 55%, #071322 80%, var(--bg) 100%);">
 
   <!-- ── BEAT 1: Cinematic opener ── -->
   <div class="prob-beat1">
@@ -845,25 +875,22 @@
 
   <!-- ── BEAT 2: The Survival Gap ── -->
   <div class="prob-beat2">
-    <div class="prob-beat2-head reveal">
-      <span class="prob-beat2-dot"></span>
-      The Survival Gap
-    </div>
+    <p class="prob-beat2-head reveal">The Survival Gap</p>
     <div class="prob-gap-grid reveal" id="survivalGapGrid">
       <div class="prob-gap-col early">
         <div class="prob-gap-num" id="earlyNum">&gt;90%</div>
-        <div class="prob-gap-survive">survive</div>
-        <div class="prob-gap-label">5-year survival rate · caught early</div>
+        <div class="prob-gap-survive">5-year survival</div>
+        <div class="prob-gap-label">when caught early</div>
       </div>
       <div class="prob-gap-vline"></div>
       <div class="prob-gap-col late">
         <div class="prob-gap-num" id="lateNum">~30%</div>
-        <div class="prob-gap-survive">survive</div>
-        <div class="prob-gap-label">5-year survival rate · caught late</div>
+        <div class="prob-gap-survive">5-year survival</div>
+        <div class="prob-gap-label">when caught late</div>
       </div>
     </div>
     <div class="prob-glow-line reveal" style="margin-bottom:28px;"></div>
-    <p class="prob-support reveal">The difference between life and death is when cancer is found.</p>
+    <p class="prob-support reveal" style="margin-top:36px;">"The difference between life and death<br>is when cancer is found."</p>
   </div>
 
   <!-- ── BEAT 3: Why current screening fails ── -->
