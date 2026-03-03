@@ -22,21 +22,29 @@
   <meta name="twitter:image" content="https://kellylucas314-cpu.github.io/helioflux-website/nirosha-lab-v2.jpg">
   <title>HelioFlux — Biophotonic Disease Detection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..600&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:     #04070E;
-      --bg2:    #070B15;
-      --white:  #ECF0FF;
-      --muted:  #A8BBCC;
-      --cyan:   #00C8F0;
-      --border: rgba(255,255,255,0.06);
-      --serif:  'Fraunces', Georgia, serif;
-      --sans:   'DM Sans', system-ui, sans-serif;
+      --bg:      #0A0E1A;
+      --bg2:     #070B15;
+      --bg-alt:  #0D1225;
+      --bg-warm: #0E1218;
+      --white:   #FFFFFF;
+      --off-white: #ECF0FF;
+      --muted:   #A8BBCC;
+      --cyan:    #00C8F0;
+      --amber:   #E8A838;
+      --coral:   #E85A4F;
+      --body:    rgba(255,255,255,0.85);
+      --caption: rgba(255,255,255,0.5);
+      --border:  rgba(255,255,255,0.06);
+      --divider: rgba(255,255,255,0.1);
+      --serif:   'Fraunces', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
     }
     html { overflow-x: hidden; }
     body {
@@ -70,7 +78,7 @@
       transition: background .5s, padding .4s, border-color .5s;
       border-bottom: 1px solid transparent;
     }
-    nav.scrolled { background: rgba(4,7,14,0.9); backdrop-filter: blur(24px); padding: 18px 56px; border-bottom-color: var(--border); }
+    nav.scrolled { background: rgba(10,14,26,0.9); backdrop-filter: blur(24px); padding: 18px 56px; border-bottom-color: var(--border); }
     .logo { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--white); }
     .logo span { color: var(--cyan); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -95,7 +103,7 @@
       position: absolute;
       left: 0; right: 0; bottom: 0;
       height: 160px;
-      background: linear-gradient(to bottom, rgba(4,7,14,0) 0%, rgba(4,7,14,1) 100%);
+      background: linear-gradient(to bottom, rgba(10,14,26,0) 0%, rgba(10,14,26,1) 100%);
       pointer-events: none;
       z-index: 2;
     }
@@ -108,11 +116,11 @@
       background-size: cover; background-position: center 20%;
       opacity: 0.42;
     }
-    .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(4,7,14,1) 0%, rgba(4,7,14,.85) 8%, rgba(4,7,14,.35) 55%, rgba(4,7,14,.12) 100%); }
+    .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,1) 0%, rgba(10,14,26,.85) 8%, rgba(10,14,26,.35) 55%, rgba(10,14,26,.12) 100%); }
 
     .hero-content { position: relative; z-index: 3; max-width: 900px; }
     .hero-eyebrow { font-size: 14px; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; opacity: 0; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(56px, 8vw, 108px); font-weight: 300; line-height: 1.0; color: var(--white); margin-bottom: 32px; opacity: 0; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(56px, 8vw, 108px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 32px; opacity: 0; }
     .hero h1 em { font-style: italic; color: var(--cyan); }
     .hero-sub { font-size: 17px; color: rgba(255,255,255,.6); line-height: 1.8; max-width: 500px; margin-bottom: 48px; font-weight: 300; opacity: 0; }
     .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
@@ -134,9 +142,9 @@
     .stat-label { font-size: 12px; color: var(--muted); line-height: 1.65; }
 
     /* ─── GENERIC SECTION ─── */
-    .section { padding: 140px 56px; max-width: 1200px; margin: 0 auto; }
-    .section-bg { background: var(--bg2); max-width: 100%; }
-    .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 80px 56px; }
+    .section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
+    .section-bg { background: var(--bg-alt); max-width: 100%; }
+    .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 100px 56px; }
     .eyebrow { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
     h2 { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
     h2 em { font-style: italic; }
@@ -169,7 +177,7 @@
     .peppercorn-inner { border-left: 2px solid rgba(0,200,240,.18); padding-left: 48px; }
     .peppercorn-tag { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 20px; display: block; }
     .peppercorn h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
-    .peppercorn p { font-size: 15px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
+    .peppercorn p { font-size: 16px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
     .peppercorn p + p { margin-top: 16px; }
     .peppercorn strong { color: rgba(255,255,255,.75); font-weight: 400; }
 
@@ -184,7 +192,7 @@
     .step-block { padding: 44px 32px; background: rgba(255,255,255,.02); border: 1px solid var(--border); }
     .step-block .step-n { font-family: var(--serif); font-size: 60px; font-weight: 300; color: var(--cyan); opacity: .13; line-height: 1; margin-bottom: 24px; }
     .step-block h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; }
-    .step-block p { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
+    .step-block p { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; }
 
     /* ─── HORIZONTAL SCROLL SECTION ─── */
     .h-section {
@@ -234,11 +242,11 @@
     .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
     .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
     .h-panel h3 em { font-style: italic; }
-    .h-panel p { font-size: 15px; color: var(--muted); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
+    .h-panel p { font-size: 16px; color: rgba(255,255,255,.62); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
     .h-panel-pub { font-size: 12px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,200,240,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
     .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
     .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
-    .h-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+    .h-stat-label { font-size: 12px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
 
     /* Scroll progress dots */
     .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
@@ -251,7 +259,7 @@
     .ss-side { background: var(--bg); padding: 64px 56px 48px; text-align: center; position: relative; }
     .ss-orb { width: 180px; height: 180px; margin: 0 auto 36px; display: block; }
     .ss-type { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-    .ss-heading { font-family: var(--serif); font-size: clamp(22px,2.5vw,32px); font-weight: 300; line-height: 1.2; margin-bottom: 10px; }
+    .ss-heading { font-family: var(--serif); font-size: clamp(22px,2.5vw,26px); font-weight: 600; line-height: 1.2; margin-bottom: 10px; }
     .ss-healthy .ss-heading { color: #FFBB7A; }
     .ss-cancer .ss-heading  { color: var(--cyan); }
     .ss-wavelength { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 20px; }
@@ -328,8 +336,8 @@
       font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
       color: var(--cyan); opacity: .7;
     }
-    .q-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #070B15 0%, #0A1828 50%, #04070E 100%); }
-    .q-overlay { position: absolute; inset: 0; background: rgba(4,7,14,.88); }
+    .q-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #070B15 0%, #0A1828 50%, #0A0E1A 100%); }
+    .q-overlay { position: absolute; inset: 0; background: rgba(10,14,26,.88); }
     .quote-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
     .q-mark { font-family: var(--serif); font-size: 140px; font-weight: 300; color: var(--cyan); opacity: .1; line-height: .8; margin-bottom: 40px; }
     blockquote { font-family: var(--serif); font-size: clamp(22px,3.2vw,40px); font-weight: 300; font-style: italic; line-height: 1.42; color: var(--white); margin-bottom: 36px; }
@@ -343,11 +351,11 @@
     .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
     .press-name { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--white); opacity: .5; transition: opacity .3s; cursor: default; }
     .press-name:hover { opacity: .75; }
-    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
     .press-card { background: var(--bg2); padding: 44px; }
     .press-outlet { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
-    .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; }
-    .press-quote { font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
+    .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.35; margin-bottom: 20px; }
+    .press-quote { font-size: 16px; font-style: italic; color: var(--muted); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
     .press-quote cite { display: block; font-style: normal; font-size: 12px; color: rgba(255,255,255,.25); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
 
     /* ─── CREDS ─── */
@@ -358,14 +366,14 @@
     .cred-value { font-size: 14px; color: var(--white); line-height: 1.5; }
 
     /* ─── TEAM ─── */
-    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 40px; }
     .team-card { display: grid; grid-template-columns: 76px 1fr; gap: 24px; padding: 40px; background: var(--bg2); align-items: start; transition: background .3s; }
     .team-card:hover { background: rgba(0,200,240,.03); }
     .team-init { width: 76px; height: 76px; border: 1px solid rgba(0,200,240,.18); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
     .team-photo { width: 76px; height: 76px; object-fit: cover; object-position: center top; flex-shrink: 0; border-radius: 2px; filter: grayscale(.08); }
     .team-name { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
     .team-title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
-    .team-bio { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; }
+    .team-bio { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; }
 
     /* ─── CTA ─── */
     .cta-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
@@ -375,8 +383,8 @@
     .cta-actions { display: flex; gap: 16px; justify-content: center; margin-bottom: 72px; }
     .cta-types { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: var(--border); max-width: 1000px; margin: 0 auto; }
     .cta-type { background: var(--bg2); padding: 28px 24px; }
-    .cta-type h4 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
-    .cta-type p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .cta-type h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+    .cta-type p { font-size: 16px; color: var(--body); line-height: 1.7; }
 
     /* ─── FOOTER ─── */
     footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 56px; }
@@ -409,13 +417,13 @@
     .solution-badge { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; display: inline-block; margin-bottom: 24px; font-weight: 500; }
     .solution-badge.hardware { background: rgba(0,200,240,.1); color: rgba(0,200,240,.8); border: 1px solid rgba(0,200,240,.2); }
     .solution-badge.software { background: rgba(0,200,240,.06); color: rgba(0,200,240,.6); border: 1px solid rgba(0,200,240,.15); }
-    .solution-name { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 300; margin-bottom: 8px; }
+    .solution-name { font-family: var(--serif); font-size: clamp(24px, 3vw, 32px); font-weight: 600; margin-bottom: 8px; }
     .solution-sub { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
     .solution-features { list-style: none; }
-    .solution-features li { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .solution-features li { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; padding: 6px 0; border-bottom: 1px solid var(--border); }
     .solution-features li:last-child { border-bottom: none; }
     .solution-features li span { color: var(--cyan); margin-right: 8px; font-size: 11px; }
-    .solution-status { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .solution-status { font-size: 16px; color: var(--caption); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
     .solution-status strong { color: var(--cyan); font-weight: 400; }
 
     /* ─── RESPONSIVE ─── */
@@ -452,7 +460,7 @@
       .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
       .nav-hamburger.open span:nth-child(2) { opacity: 0; }
       .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-      .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(4,7,14,.97); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+      .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(10,14,26,.97); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
       .mobile-menu.open { display: flex; }
       .mobile-menu a { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 300; color: var(--white); text-decoration: none; letter-spacing: .04em; transition: color .2s; }
       .mobile-menu a:hover { color: var(--cyan); }
@@ -511,16 +519,16 @@
     .problem-row:last-child { border-bottom: none; }
     .problem-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; box-shadow: 0 0 8px rgba(0,200,240,.5); }
     .problem-row-title { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; font-weight: 500; }
-    .problem-row p { font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.6; margin: 0; }
+    .problem-row p { font-size: 16px; color: var(--body); line-height: 1.6; margin: 0; }
     .survival-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
     .survival-bar-row { display: flex; align-items: center; gap: 12px; }
     .survival-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); width: 80px; flex-shrink: 0; }
     .survival-bar { height: 6px; border-radius: 3px; }
     .survival-bar.high { width: 160px; background: var(--cyan); }
-    .survival-bar.low { width: 40px; background: rgba(220,60,40,.8); }
+    .survival-bar.low { width: 40px; background: var(--coral); }
     .survival-pct { font-size: 13px; font-weight: 500; }
     .survival-pct.high { color: var(--cyan); }
-    .survival-pct.low { color: rgba(220,80,60,.9); }
+    .survival-pct.low { color: var(--coral); }
     .problem-diagram { border: 1px dashed rgba(0,200,240,.25); background: rgba(0,200,240,.03); min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; }
     .detection-diagram { width: 100%; border: 1px dashed rgba(0,200,240,.25); background: rgba(0,200,240,.03); min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; margin-top: 48px; }
     @media (max-width: 768px) {
@@ -532,12 +540,11 @@
 
 
     /* ─── PROBLEM v2 — 4 BEATS ─── */
-    :root { --coral: #E55050; }
 
     /* Beat 1 */
     .prob-beat1 { padding: 100px 56px 48px; text-align: center; position: relative; overflow: hidden; }
     .prob-h2 {
-      font-size: clamp(28px,4vw,52px); font-weight: 600; line-height: 1.15;
+      font-size: clamp(36px,4.5vw,42px); font-weight: 700; line-height: 1.15;
       margin: 16px auto 28px; max-width: 700px;
     }
     .prob-h2 em { color: #00E0FF; font-style: italic; }
@@ -552,7 +559,7 @@
     }
     .prob-bar-fill { height: 100%; border-radius: 3px; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
     .prob-bar-early { background: linear-gradient(to right, rgba(0,200,240,.6), #00E0FF); box-shadow: 0 0 8px rgba(0,224,255,.4); }
-    .prob-bar-late  { background: linear-gradient(to right, rgba(255,80,80,.5), #FF6B6B);  box-shadow: 0 0 8px rgba(255,107,107,.4); }
+    .prob-bar-late  { background: linear-gradient(to right, rgba(232,90,79,.5), var(--coral));  box-shadow: 0 0 8px rgba(232,90,79,.4); }
     .prob-bar-pct { font-size: 13px; font-weight: 600; width: 40px; flex-shrink: 0; }
 
     /* 1-in-3 callout */
@@ -568,9 +575,9 @@
       pointer-events: none;
     }
     .prob-eyebrow2 {
-      font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+      font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
       color: var(--cyan); margin-bottom: 40px; display: block;
-      text-shadow: 0 0 14px rgba(0,200,240,.45);
+      font-weight: 600;
     }
     .prob-opener {
       font-family: Georgia, 'Playfair Display', serif;
@@ -615,10 +622,10 @@
       text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
     }
     .prob-gap-col.late .prob-gap-num {
-      color: #FF6B6B;
-      text-shadow: 0 0 20px rgba(255,107,107,.4), 0 0 60px rgba(255,107,107,.15);
+      color: var(--coral);
+      text-shadow: 0 0 20px rgba(232,90,79,.4), 0 0 60px rgba(232,90,79,.15);
     }
-    .prob-gap-survive { font-size: 15px; color: rgba(255,255,255,.72); margin-bottom: 0; }
+    .prob-gap-survive { font-size: 16px; color: rgba(255,255,255,.72); margin-bottom: 0; }
     .prob-gap-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 4px; }
     .prob-gap-vline {
       width: 1px; height: 160px; flex-shrink: 0;
@@ -661,7 +668,7 @@
       margin-bottom: 10px; line-height: 1;
     }
     .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.3); font-weight: 400; margin-left: 4px; vertical-align: middle; }
-    .prob-glass-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 9px; }
+    .prob-glass-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 9px; }
     .prob-glass-summary { font-size: 13px; color: rgba(255,255,255,.62); line-height: 1.65; }
     .prob-glass-expand { display: flex; justify-content: flex-end; margin-top: 14px; }
     .prob-glass-chevron { font-size: 11px; color: #555; transition: transform .3s; display: block; line-height: 1; }
@@ -689,16 +696,11 @@
 
 
     /* ─── WARM COLOR BREAKS ─── */
-    :root {
-      --gold:   #C4900A;
-      --amber:  rgba(196,144,10,1);
-      --warm-bg: #0C0903;
-    }
     .quote-warm {
-      background: linear-gradient(180deg, var(--bg) 0%, #0F0A03 40%, #0D0802 60%, var(--bg) 100%) !important;
+      background: var(--bg-alt) !important;
     }
-    .quote-warm .quote-mark { color: rgba(196,144,10,.18); }
-    .quote-warm .quote-attr { color: rgba(196,144,10,.65); }
+    .quote-warm .quote-mark { color: rgba(0,200,240,.12); }
+    .quote-warm .quote-attr { color: var(--cyan); opacity: .7; }
 
     /* Carousel arrows */
     .h-arrows { display: flex; justify-content: center; gap: 16px; padding-bottom: 20px; }
@@ -713,13 +715,7 @@
     .h-arrow:disabled { opacity: .25; cursor: default; }
 
     /* Team section warm accent */
-    #team { position: relative; }
-    #team::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 80% 30%, rgba(140,90,5,.06) 0%, transparent 60%);
-      pointer-events: none; z-index: 0;
-    }
+    #team { position: relative; background: var(--bg-warm); }
     #team > * { position: relative; z-index: 1; }
 
     /* ─── ACCORDION ─── */
@@ -736,7 +732,7 @@
     .acc-trigger:hover .acc-label { color: var(--cyan); }
     .acc-num { font-family: var(--serif); font-size: 13px; font-style: italic;
       color: rgba(0,200,240,.35); min-width: 32px; flex-shrink: 0; }
-    .acc-label { font-size: clamp(15px,1.4vw,18px); font-weight: 300; letter-spacing: .01em;
+    .acc-label { font-size: clamp(22px,2vw,26px); font-weight: 600; letter-spacing: .01em;
       flex: 1; line-height: 1.4; transition: color .2s; }
     .acc-icon { font-size: 22px; font-weight: 200; color: rgba(0,200,240,.5);
       transition: transform .38s ease; flex-shrink: 0; line-height: 1; }
@@ -749,7 +745,7 @@
     .acc-item.open .acc-body { grid-template-rows: 1fr; }
     .acc-body-inner { overflow: hidden; }
     .acc-body-pad { padding-bottom: 40px; }
-    .acc-body p { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 680px; }
+    .acc-body p { font-size: 16px; color: var(--muted); line-height: 1.85; max-width: 680px; }
     .acc-body p + p { margin-top: 14px; }
     .acc-body strong { color: rgba(255,255,255,.8); font-weight: 400; }
     .acc-stat-row { display: flex; gap: 40px; margin: 28px 0; flex-wrap: wrap; }
@@ -825,6 +821,64 @@
 
     /* ─── SECTION COLOR BREAKS ─── */
     .section-accent { background: linear-gradient(180deg, var(--bg) 0%, #050D1A 50%, var(--bg) 100%); }
+
+    /* ─── VISITED LINK FIX ─── */
+    a:visited { color: inherit; }
+    a.btn-cyan:visited { color: var(--bg); }
+    a.btn-ghost:visited { color: rgba(255,255,255,.78); }
+    a.nav-cta:visited { color: var(--cyan); }
+    .nav-links a:visited { color: rgba(255,255,255,0.72); }
+    .press-card:visited .press-headline,
+    .press-card:visited .press-outlet,
+    .press-card:visited .press-quote { color: inherit; }
+    .acc-pub-link:visited { color: rgba(0,200,240,.6); }
+    .f-col a:visited { color: var(--muted); }
+    .press-logo-link:visited { color: inherit; }
+
+    /* ─── SECTION DIVIDERS ─── */
+    .section-divider { width: 100%; height: 1px; background: var(--divider); }
+
+    /* ─── FULL-WIDTH QUOTE BLOCKS ─── */
+    .quote-block {
+      background: var(--bg-alt);
+      padding: 100px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-block::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 80vw; height: 80vw; max-width: 800px; max-height: 800px;
+      background: radial-gradient(ellipse, rgba(0,200,240,.03) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .quote-block-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+    .quote-block-mark {
+      font-family: var(--serif); font-size: 120px; line-height: .7;
+      color: rgba(0,200,240,.1); display: block; margin-bottom: 16px;
+    }
+    .quote-block-text {
+      font-family: var(--serif); font-size: clamp(24px, 3vw, 36px);
+      font-weight: 300; font-style: italic; line-height: 1.45;
+      color: rgba(255,255,255,.88); margin-bottom: 24px;
+    }
+    .quote-block-text em { font-style: italic; color: var(--cyan); }
+    .quote-block-attr {
+      font-family: var(--sans); font-size: 12px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--cyan); opacity: .7;
+    }
+    @media(max-width:900px) {
+      .quote-block { padding: 80px 24px; }
+    }
+
+    /* ─── STAT POP ─── */
+    .stat-pop { color: var(--cyan); font-family: var(--serif); }
+
+    /* ─── LATE-STAGE CORAL ─── */
+    .stat-coral { color: var(--coral); }
+    .prob-gap-col.late .prob-gap-num { color: var(--coral); text-shadow: 0 0 20px rgba(232,90,79,.4), 0 0 60px rgba(232,90,79,.15); }
   </style>
 </head>
 <body>
@@ -884,29 +938,24 @@
        alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant"
        class="lab-photo-img" style="width:100%;height:clamp(480px,60vw,820px);object-fit:cover;object-position:center 8%;display:block;filter:brightness(.88);">
   <!-- Top fade: bright window ceiling does the heavy lifting, gradient just bridges the edge -->
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(4,7,14,.96) 0%, rgba(4,7,14,.55) 10%, rgba(4,7,14,.1) 22%, transparent 38%, rgba(4,7,14,.55) 82%, rgba(4,7,14,.97) 100%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,14,26,.96) 0%, rgba(10,14,26,.55) 10%, rgba(10,14,26,.1) 22%, transparent 38%, rgba(10,14,26,.55) 82%, rgba(10,14,26,.97) 100%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:28px;left:40px;right:40px;line-height:1.5;">
     <p style="font-size:13px;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,1);">QSense · Biophotonic sensor array · Measuring ultra-weak photon emissions from living tissue</p>
   </div>
 </div>
 
-<!-- ═══ THE CANCER CRISIS — 4 BEATS ═══ -->
-<section id="problem" style="background: linear-gradient(180deg, var(--bg) 0%, #071322 30%, #0A1A2E 55%, #071322 80%, var(--bg) 100%);">
+<div class="section-divider"></div>
 
-  <!-- ── HEADER ── -->
-  <div class="prob-beat1">
+<!-- ═══ THE PROBLEM ═══ -->
+<section id="problem" style="background: linear-gradient(180deg, var(--bg) 0%, #0D1525 50%, var(--bg) 100%);">
+
+  <div style="padding:100px 56px;text-align:center;max-width:900px;margin:0 auto;">
     <span class="prob-eyebrow2 reveal">The Problem</span>
-    <p class="prob-opener reveal">Every 60 seconds, the US loses one person to cancer.</p>
-    <div class="prob-glow-line reveal"></div>
-  </div>
 
-  <!-- ── SURVIVAL GAP ── -->
-  <div class="prob-beat2">
-    <p class="prob-beat2-head reveal">The Diagnostic Resolution Gap</p>
-    <p class="reveal" style="font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:300;color:rgba(255,255,255,.7);margin-bottom:32px;line-height:1.5;">Current imaging requires mass. HelioFlux detects metabolism.</p>
+    <p class="prob-opener reveal" style="margin-bottom:56px;">"Every two minutes, someone is told they have cancer that could have been caught sooner."</p>
 
-    <!-- Big numbers -->
-    <div class="prob-gap-grid reveal" id="survivalGapGrid">
+    <!-- Two big numbers -->
+    <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:48px;">
       <div class="prob-gap-col early">
         <div class="prob-gap-num" id="earlyNum">&gt;90%</div>
         <div class="prob-gap-survive">5-year survival</div>
@@ -920,41 +969,9 @@
       </div>
     </div>
 
-    <!-- Bar chart visualization -->
-    <div class="prob-bars reveal" id="survivalBars">
-      <div class="prob-bar-row">
-        <span class="prob-bar-label">Caught early</span>
-        <div class="prob-bar-track"><div class="prob-bar-fill prob-bar-early" id="barEarly" style="width:0%"></div></div>
-        <span class="prob-bar-pct" style="color:#00E0FF;text-shadow:0 0 12px rgba(0,224,255,.4);">&gt;90%</span>
-      </div>
-      <div class="prob-bar-row">
-        <span class="prob-bar-label">Caught late</span>
-        <div class="prob-bar-track"><div class="prob-bar-fill prob-bar-late" id="barLate" style="width:0%"></div></div>
-        <span class="prob-bar-pct" style="color:#FF6B6B;text-shadow:0 0 12px rgba(255,107,107,.4);">~30%</span>
-      </div>
-    </div>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;max-width:520px;margin:0 auto 32px;font-style:italic;">Routine screening exists for only 5 cancer types. More than 200 have none.</p>
 
-    <!-- Blind spot text -->
-    <p class="reveal" style="font-family:var(--serif);font-size:clamp(15px,1.8vw,19px);font-weight:300;font-style:italic;color:rgba(255,255,255,.55);max-width:620px;margin:36px auto 0;text-align:center;line-height:1.6;">Standard imaging (CT/MRI) requires roughly 1 billion cells to visualize a tumor. Between cellular onset and visible mass, there is a diagnostic blind spot — often lasting years.</p>
-
-    <!-- Resolution gap comparison -->
-    <div class="reveal" style="display:flex;justify-content:center;gap:0;margin:48px auto 0;max-width:560px;">
-      <div style="flex:1;padding:28px 24px;border:1px solid rgba(255,255,255,.08);border-radius:8px 0 0 8px;text-align:center;background:rgba(255,255,255,.02);">
-        <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;">Standard Imaging</p>
-        <p style="font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:300;color:rgba(255,255,255,.5);">~1B</p>
-        <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">cells · ~1 cm mass · Stage III/IV</p>
-      </div>
-      <div style="flex:1;padding:28px 24px;border:1px solid rgba(0,200,240,.15);border-radius:0 8px 8px 0;text-align:center;background:rgba(0,200,240,.03);">
-        <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">HelioFlux</p>
-        <p style="font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:300;color:#fff;">5-10M</p>
-        <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:8px;">cells · ~2-3 mm · Pre-symptomatic</p>
-      </div>
-    </div>
-    <p class="reveal" style="text-align:center;font-size:12px;color:var(--cyan);margin-top:16px;letter-spacing:.08em;">100× detection gap</p>
-
-    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:28px;text-align:center;">Sources: ACS 2026 · SEER 2015–2021</p>
-  </div>
-
+    <p class="reveal" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);">Sources: ACS 2026 · SEER 2015&ndash;2021</p>
   </div>
 
 </section>
@@ -962,10 +979,15 @@
 
 
 
-<!-- ═══ BRIDGE TO SOLUTION ═══ -->
-<div style="max-width:1200px;margin:0 auto;padding:0 56px;">
-  <p class="reveal" style="font-family:var(--serif);font-size:clamp(22px,2.8vw,38px);font-weight:300;font-style:italic;color:rgba(255,255,255,.75);line-height:1.4;max-width:720px;padding:64px 0 0;">What if we could detect cancer at the cellular level — <em style="color:var(--cyan);">before it becomes visible to any scan?</em></p>
+<!-- ═══ BRIDGE QUOTE ═══ -->
+<div class="section-divider"></div>
+<div class="quote-block reveal">
+  <div class="quote-block-inner">
+    <span class="quote-block-mark" aria-hidden="true">"</span>
+    <p class="quote-block-text">What if we could detect cancer at the cellular level — <em>before a tumor ever forms?</em></p>
+  </div>
 </div>
+<div class="section-divider"></div>
 
 <!-- ═══ THE SOLUTION ═══ -->
 <div class="section-bg" id="solution">
@@ -984,22 +1006,24 @@
     <div style="margin-top:80px;" class="reveal" id="science">
       <p class="eyebrow">How Our Technology Works</p>
       <h2 style="margin-bottom:24px;">AI-Driven Cancer<br><em>Detection Technology</em></h2>
+      <!-- H2 inherits global 36-42px/700 styling -->
       <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.7;max-width:680px;margin-bottom:56px;">All living cells emit faint light signals. But cancer cells emit distinct patterns and wavelengths — different from healthy cells. HelioFlux uses a proprietary combination of advanced hardware and AI to detect these unique signals.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);max-width:900px;">
         <div style="background:var(--bg);overflow:hidden;">
           <img src="qsense-product.jpg" alt="QSense — biophotonic cancer detection hardware" style="width:100%;display:block;">
           <div style="padding:32px 36px;">
             <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Hardware</p>
-            <h3 style="font-family:var(--serif);font-size:28px;font-weight:300;margin-bottom:16px;">QSense&#8482;</h3>
-            <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">Our devices capture ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation. Approximately 15 minutes.</p>
+            <h3 style="font-family:var(--serif);font-size:26px;font-weight:600;margin-bottom:16px;">QSense&#8482;</h3>
+            <p style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">Our devices capture ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation.</p>
+            <p style="font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cyan);margin-top:16px;">~15 minutes. That's it.</p>
           </div>
         </div>
         <div style="background:var(--bg);overflow:hidden;">
           <img src="luminal-product.jpg" alt="LuminAI — AI-powered biophotonic signal analysis software" style="width:100%;display:block;">
           <div style="padding:32px 36px;">
             <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Software</p>
-            <h3 style="font-family:var(--serif);font-size:28px;font-weight:300;margin-bottom:16px;">LuminAI&#8482;</h3>
-            <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">AI processes the captured signals instantly, analyzing photon patterns against a validated cancer signature database. Powered by NVIDIA computing.</p>
+            <h3 style="font-family:var(--serif);font-size:26px;font-weight:600;margin-bottom:16px;">LuminAI&#8482;</h3>
+            <p style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin:0;">AI processes the captured signals instantly, analyzing photon patterns against a validated cancer signature database. Powered by NVIDIA computing.</p>
           </div>
         </div>
       </div>
@@ -1075,6 +1099,32 @@
                 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="acc-pub-link">Cancers · MDPI · 2020 ↗</a>
                 <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="acc-pub-link">iScience · Cell Press · 2025 ↗</a>
               </div>
+              <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);">
+                <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;display:block;overflow:visible;" aria-label="Detection timeline: HelioFlux Day 1 vs palpable tumor Day 19">
+                  <rect x="65" y="55" width="495" height="14" fill="rgba(0,200,240,0.07)" rx="2"/>
+                  <rect x="40" y="63" width="520" height="2" fill="rgba(255,255,255,0.08)" rx="1"/>
+                  <circle cx="40" cy="64" r="5" fill="#0A1020" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                  <text x="40" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Day 0</text>
+                  <text x="40" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.15)">injection</text>
+                  <circle cx="65" cy="64" r="6" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
+                  <line x1="65" y1="55" x2="65" y2="30" stroke="rgba(0,200,240,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
+                  <text x="65" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#00C8F0" font-weight="500">HelioFlux detects</text>
+                  <text x="65" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.6)">Day 1</text>
+                  <text x="65" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(0,200,240,0.35)">24 hrs</text>
+                  <circle cx="213" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+                  <text x="213" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 7</text>
+                  <circle cx="288" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+                  <text x="288" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 10</text>
+                  <circle cx="362" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
+                  <text x="362" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 13</text>
+                  <circle cx="510" cy="64" r="6" fill="rgba(255,140,40,0.15)" stroke="rgba(255,140,40,0.55)" stroke-width="1.5"/>
+                  <line x1="510" y1="73" x2="510" y2="98" stroke="rgba(255,140,40,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+                  <text x="510" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,140,40,0.55)">first palpable tumor</text>
+                  <text x="510" y="117" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,140,40,0.35)">Day 19</text>
+                  <text x="287" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1">18 days earlier than standard detection</text>
+                </svg>
+                <p style="font-size:16px;color:rgba(255,255,255,.75);margin-top:20px;line-height:1.6;letter-spacing:.01em;">Non-invasive. No imaging. No contrast agent.<br>No biopsy. No blood draw.</p>
+              </div>
             </div></div>
           </div>
         </div>
@@ -1083,14 +1133,60 @@
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
             <span class="acc-num">04</span>
-            <span class="acc-label">The patient experience — what a scan actually looks like</span>
+            <span class="acc-label">How it compares — and what "early" actually means</span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-body">
             <div class="acc-body-inner"><div class="acc-body-pad">
-              <p>A HelioFlux scan requires no preparation, no blood draw, no contrast agent, and no radiation. The QSense sensor array is placed against the skin — the session takes approximately <strong>15 minutes</strong>.</p>
-              <p>There is no recovery time. No referral wait. No lab processing delay. Results are generated by LuminAI in real time and reviewed by a physician. The entire pathway from scan to result can happen in a single clinical visit.</p>
-              <p>This matters particularly for populations that currently avoid screening because of cost, anxiety about invasive procedures, or limited access to imaging centers. A non-invasive, low-cost, portable screening tool removes nearly every barrier the current system creates.</p>
+              <p>The critical difference is <strong>detection threshold</strong> — how many cells must be present before each method can find them.</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin:24px 0;max-width:640px;">
+                <div style="background:var(--bg);padding:20px 16px;">
+                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">HelioFlux</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;">5–10M</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · ≈ 2–3mm · pre-tumor</div>
+                </div>
+                <div style="background:var(--bg);padding:20px 16px;">
+                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;">Liquid Biopsy</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.25);line-height:1;">50–100M</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · cfDNA · Stage I–II</div>
+                </div>
+                <div style="background:var(--bg);padding:20px 16px;">
+                  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;">Standard Imaging</div>
+                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.15);line-height:1;">1B+</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:4px;">cells · MRI/CT · Stage III–IV</div>
+                </div>
+              </div>
+              <p>HelioFlux detects at 100–200× fewer cells than standard imaging, and 10–20× fewer than the leading liquid biopsy approaches — without a blood draw, radiation, or invasive procedure.</p>              <div style="margin-top:28px;padding:24px;background:rgba(0,200,240,.03);border-left:2px solid rgba(0,200,240,.15);border-radius:4px;">
+                <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:12px;">What "early" really means</p>
+                <p style="font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.5;margin-bottom:12px;color:rgba(255,255,255,.85);">A tumor at 5–10 million cells is 2–3 millimeters across — roughly the size of a peppercorn. Too small to feel. <em>Invisible on a scan.</em></p>
+                <p style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.8;">By the time that peppercorn becomes a pea, 1 billion cells, roughly 1 centimeter, medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.75);">1.5 to 2 years.</strong> HelioFlux doesn't wait for the pea. <strong style="color:rgba(255,255,255,.75);">We're built to find the peppercorn.</strong></p>
+              </div>
+              <!-- Why current screening fails — consolidated from Problem section -->
+              <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
+                <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px;">Why current screening falls short</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);max-width:640px;">
+                  <div style="background:var(--bg);padding:20px 16px;">
+                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">~1B</div>
+                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Cells before detection</div>
+                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">CT, MRI, and mammograms need roughly 1 billion cells before they can spot anything. Cancer has been growing silently for years.</div>
+                  </div>
+                  <div style="background:var(--bg);padding:20px 16px;">
+                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">5 <span style="font-size:.55em;color:rgba(255,255,255,.3);font-weight:400;">of 200+</span></div>
+                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Cancers with screening</div>
+                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">Only breast, cervical, colorectal, lung, and prostate have USPSTF-recommended screening. Over 200 types have none.</div>
+                  </div>
+                  <div style="background:var(--bg);padding:20px 16px;">
+                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">$10K+</div>
+                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Out-of-pocket cost</div>
+                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">High costs delay or prevent screening, especially in underserved communities.</div>
+                  </div>
+                  <div style="background:var(--bg);padding:20px 16px;">
+                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">6+ mo</div>
+                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Symptom to diagnosis</div>
+                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">Invasive tests, long waits, radiation exposure. For cancers like ovarian and pancreatic, diagnosis often exceeds six months.</div>
+                  </div>
+                </div>
+              </div>
             </div></div>
           </div>
         </div>
@@ -1100,6 +1196,113 @@
   </div>
 </div>
 
+
+<div class="section-divider"></div>
+
+<!-- ═══ SPECTRAL RIBBON WAVE — visual only ═══ -->
+<div style="background:#000000;">
+  <div style="position:relative;height:300px;overflow:hidden;">
+    <canvas id="ribbonCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+  </div>
+</div>
+
+<script>
+(function(){
+  var canvas = document.getElementById('ribbonCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var cssW = 0, cssH = 0, t = 0, animating = false, raf;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var LINES = 68;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    cssW = rect.width; cssH = rect.height;
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function lerpC(c1, c2, f) {
+    return [
+      c1[0] + (c2[0]-c1[0])*f | 0,
+      c1[1] + (c2[1]-c1[1])*f | 0,
+      c1[2] + (c2[2]-c1[2])*f | 0
+    ];
+  }
+
+  function drawRibbon(yRatio, phase, spreadAmp, c1, c2, baseAlpha) {
+    var cy = cssH * yRatio;
+    for (var i = 0; i < LINES; i++) {
+      var frac  = i / (LINES - 1);
+      var edge  = 1 - Math.pow(Math.abs(frac - 0.5) * 2, 1.6);
+      var alpha = baseAlpha * edge;
+      var col   = lerpC(c1, c2, frac);
+      ctx.strokeStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+','+alpha.toFixed(3)+')';
+      ctx.lineWidth = 0.85;
+      ctx.beginPath();
+      var first = true;
+      for (var px = 0; px <= cssW; px += 2) {
+        var nx = px / cssW;
+        var wave = Math.sin(nx * Math.PI * 2.7 + t + phase) * cssH * 0.12
+                 + Math.sin(nx * Math.PI * 1.2 + t * 0.6 + phase) * cssH * 0.045;
+        var env  = (Math.sin(nx * Math.PI * 2.3 + t * 0.42 + phase * 0.9) * 0.5 + 0.5) * spreadAmp;
+        var y    = cy + wave + (frac - 0.5) * env;
+        if (first) { ctx.moveTo(px, y); first = false; }
+        else          ctx.lineTo(px, y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, cssW, cssH);
+    // Warm ribbon — healthy tissue, near-infrared (amber → deep orange)
+    drawRibbon(0.33, 0,              cssH * 0.44, [255,158,48], [215,72,18],  0.72);
+    // Cool ribbon — malignant tissue, ultraviolet (cyan → violet)
+    drawRibbon(0.67, Math.PI * 0.72, cssH * 0.44, [0,200,240],  [108,28,196], 0.72);
+    t += 0.007;
+    if (animating) raf = requestAnimationFrame(draw);
+  }
+
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { animating = true; draw(); }
+    else { animating = false; cancelAnimationFrame(raf); }
+  }, { threshold: 0.05 });
+  obs.observe(canvas);
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){ resize(); }, 100);
+  });
+
+  resize();
+})();
+</script>
+
+
+
+<!-- ═══ THIRD-PARTY VALIDATION QUOTE ═══ -->
+<div class="quote-block reveal">
+  <div class="quote-block-inner">
+    <span class="quote-block-mark" aria-hidden="true">"</span>
+    <p class="quote-block-text">This is a very intriguing and potentially groundbreaking approach for measuring brain activity.</p>
+    <p class="quote-block-attr">Dr. Michael Gramlich, Biophysicist, Auburn University</p>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+<!-- ═══ DEVICE PHOTO — BEFORE PLATFORM ═══ -->
+<div style="position:relative;overflow:hidden;line-height:0;">
+  <img loading="lazy" src="helioflux-device.jpg"
+       alt="HelioFlux photonic sensor array worn by a study participant"
+       style="width:100%;height:520px;object-fit:cover;object-position:center 22%;display:block;filter:brightness(.82);">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(10,14,26,.85) 0%, rgba(10,14,26,.05) 50%);pointer-events:none;"></div>
+
+</div>
+
+<div class="section-divider"></div>
 
 <!-- ═══ HORIZONTAL SCROLL — PLATFORM ═══ -->
 <section id="platform">
@@ -1120,19 +1323,15 @@
           <div class="h-panel-status">Validated · Functional Prototype · Pilot Q3 2026</div>
           <h3>Skin Cancer<br><em>Detection</em></h3>
           <p class="h-panel-pub"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Biochemistry & Biophysics Reports (Elsevier), 2018</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">Cancers (MDPI), 2020</a></p>
-          <p>Validated in vivo: HelioFlux detected melanoma in <strong style="color:var(--cyan);font-weight:400">47 living mice within 24 hours of injection</strong> — 18 days before tumors became palpable. 92% discriminant accuracy across 13 cancer cell lines. 100% detection rate.</p>
-          <p style="font-size:13px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7;">Functional prototype devices in development for deployment in dermatology clinics with our Canadian manufacturing partner. <strong style="color:var(--cyan);font-weight:400;">Pilot launch: Q3 2026.</strong> Also being explored for real-time treatment response monitoring.</p>
-          <div class="h-stats">
-            <div><div class="h-stat-num">100%</div><div class="h-stat-label">Cancer samples identified · 2018 in vitro · n=30</div></div>
-            <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal Models</div></div>
-            <div><div class="h-stat-num">13</div><div class="h-stat-label">Cell Lines</div></div>
-          </div>
+          <p>Validated across three published studies — in cell cultures, living animal models, and human subjects. Full validation data in the science section above.</p>
+          <p style="font-size:16px;color:rgba(255,255,255,.6);margin-top:12px;line-height:1.7;">Functional prototype devices in development for deployment in dermatology clinics with our Canadian manufacturing partner. <strong style="color:var(--cyan);font-weight:400;">Pilot launch: Q3 2026.</strong> Also being explored for real-time treatment response monitoring.</p>
+
 
           <!-- SPECTRAL FINGERPRINT — removed pre-patent -->
           <div style="display:none;">
             <svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg">
               <!-- background -->
-              <rect width="520" height="210" fill="#04070E"/>
+              <rect width="520" height="210" fill="#0A0E1A"/>
               <!-- grid lines -->
               <line x1="60" y1="20" x2="60" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
               <line x1="500" y1="20" x2="500" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
@@ -1223,11 +1422,13 @@
           <h3>Brain<br><em>Health</em></h3>
           <p class="h-panel-pub"><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)">iScience (Cell Press), 2025</a> · 20 human subjects · EEG cross-validated</p>
           <p>The world's first photoencephalography — reading brain cellular activity through photon emission in living humans, without EEG gel, electrodes, or radiation. Cross-validated against EEG in 20 subjects and published in <strong style="color:var(--cyan);font-weight:400">iScience (Cell Press)</strong>.</p>
-          <p style="font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;margin-top:16px">The same sensor is now being used to track chemotherapy-induced cognitive impairment — chemo brain affects up to 75% of cancer patients, and no non-invasive detection method currently exists. Dr. Murugan is collaborating with a medical oncologist to monitor patients through a full treatment cycle.</p>
+
           <div class="h-stats">
-            <div><div class="h-stat-num">20</div><div class="h-stat-label">Human Subjects</div></div>
-            <div><div class="h-stat-num">First</div><div class="h-stat-label">Photoencephalography</div></div>
-            <div><div class="h-stat-num">75%</div><div class="h-stat-label">Chemo patients affected</div></div>
+            <div><div class="h-stat-num">20</div><div class="h-stat-label">Human subjects · EEG cross-validated</div></div>
+            <div><div class="h-stat-num">2025</div><div class="h-stat-label">Published · iScience · Cell Press</div></div>
+          </div>
+          <div style="margin-top:20px;padding:16px 20px;border-left:2px solid rgba(0,200,240,.2);background:rgba(0,200,240,.03);">
+            <p style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.7;margin:0;"><span style="color:rgba(0,200,240,.7);font-size:12px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:6px;">Next study</span>Monitoring chemo brain in cancer patients through a full treatment cycle, the first non-invasive tool to track chemotherapy-induced cognitive change.</p>
           </div>
         </div>
       </div>
@@ -1239,11 +1440,11 @@
           <div class="h-panel-num">03</div>
         </div>
         <div class="reveal">
-          <div class="h-panel-status" style="background:rgba(108,28,196,.15);color:rgba(160,100,240,.7);border:1px solid rgba(108,28,196,.3)">Research Frontier</div>
+          <div class="h-panel-status" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);letter-spacing:.12em;">Research Frontier</div>
           <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
-          <p>Ultra-weak photon emissions are a direct readout of cellular metabolism — driven by mitochondrial activity and reactive oxygen species. Disrupted UPE signatures are a known marker of oxidative stress, which underlies type 2 diabetes, cardiovascular disease, and autoimmune conditions.</p>
-          <p style="font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;margin-top:16px">The same non-invasive platform that reads cancer and brain signals may offer a window into systemic metabolic health — without blood draws, biopsies, or radiation. A research frontier still being mapped.</p>
-          <p style="font-size:13px;color:rgba(160,100,240,.5);margin-top:16px">Oxidative stress · Metabolic monitoring · Treatment response · Systemic inflammation</p>
+          <p style="color:rgba(255,255,255,.65);">Ultra-weak photon emissions are a direct readout of cellular metabolism. Disrupted UPE signatures are a known marker of oxidative stress, which underlies type 2 diabetes, cardiovascular disease, and autoimmune conditions.</p>
+          <p style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-top:16px">The same non-invasive platform that reads cancer and brain signals may offer a window into systemic metabolic health. A research frontier still being mapped.</p>
+          <p style="font-size:14px;color:rgba(255,255,255,.35);margin-top:16px;letter-spacing:.04em;">Oxidative stress · Metabolic monitoring · Treatment response · Systemic inflammation</p>
         </div>
       </div>
 
@@ -1262,23 +1463,31 @@
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <!-- TEAM PHOTO BREAK -->
 <div class="team-photo-break" style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
   <img loading="lazy" src="nirosha-lab-team.jpg"
        alt="Dr. Nirosha Murugan and research team at Wilfrid Laurier University lab"
        style="width:100%;height:520px;object-fit:cover;object-position:center 25%;display:block;filter:brightness(.78);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(4,7,14,.95) 0%, rgba(4,7,14,.6) 15%, rgba(4,7,14,.15) 35%, transparent 55%, rgba(4,7,14,.5) 80%, rgba(4,7,14,.97) 100%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,14,26,1) 0%, rgba(10,14,26,.8) 12%, rgba(10,14,26,.35) 32%, transparent 55%, rgba(10,14,26,.65) 82%, rgba(10,14,26,.97) 100%);pointer-events:none;"></div>
 </div>
 
 
 <!-- TEAM -->
-<section class="section" id="team">
+<section class="section" id="team" style="background:var(--bg-warm);">
   <p class="eyebrow reveal">The Team</p>
   <h2 class="reveal">The people<br>behind the <em>science.</em></h2>
 
 
   <!-- Nirosha mission quote -->
-<!-- quotes removed -->
+  <div class="quote-block reveal" style="margin:0 -56px 48px;width:calc(100% + 112px);">
+    <div class="quote-block-inner">
+      <span class="quote-block-mark" aria-hidden="true">"</span>
+      <p class="quote-block-text">Our goal is to develop a safe, inexpensive technique to detect cancer and treatment-related dysfunctions as early as possible, so survivors live longer with better quality of life.</p>
+      <p class="quote-block-attr">Dr. Nirosha Murugan, Canada Research Chair in Tissue Biophysics</p>
+    </div>
+  </div>
 
   <!-- Nirosha — prominent full profile -->
   <div class="nirosha-wrap reveal" style="margin-bottom:2px;">
@@ -1294,7 +1503,7 @@
     <div>
       <div class="team-name" style="font-size:clamp(28px,3.5vw,44px);font-family:var(--serif);font-weight:300;margin-bottom:8px;">Dr. Nirosha Murugan</div>
       <div class="team-title" style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:32px;">Chief Scientist &amp; Co-Founder</div>
-      <p class="lead" style="margin-bottom:20px">Dr. Nirosha J. Murugan is Canada Research Chair in Tissue Biophysics and a Faculty of Science Distinguished Research Chair at Wilfrid Laurier University, where she leads a multidisciplinary research program investigating the physical basis of life. As an applied biophysicist, her work explores how structured physical signals — light, voltage, and magnetism — govern cellular plasticity, tissue regeneration, and the reversal of disease states. Her approach reframes biology not solely as a molecular system, but as a dynamic network governed by first principles in physics. Through her Canada Research Chair, she has secured $1.6M in non-dilutive federal and academic grants covering the full R&amp;D team through 2027. Her research spans cancer biology, regenerative medicine, neuroscience, and quantum biology, with over 40 peer-reviewed publications in journals including <em>Science Advances</em> and <em>Nature Reviews Bioengineering</em>.</p>
+      <p class="lead" style="margin-bottom:20px">Dr. Nirosha J. Murugan is Canada Research Chair in Tissue Biophysics and a Faculty of Science Distinguished Research Chair at Wilfrid Laurier University, where she leads a multidisciplinary research program investigating the physical basis of life. As an applied biophysicist, her work explores how structured physical signals — light, voltage, and magnetism — govern cellular plasticity, tissue regeneration, and the reversal of disease states. Her approach reframes biology not solely as a molecular system, but as a dynamic network governed by first principles in physics. Through her Canada Research Chair, she has secured $1.3M+ in non-dilutive federal and academic grants covering the full R&amp;D team through 2027. Her research spans cancer biology, regenerative medicine, neuroscience, and quantum biology, with over 40 peer-reviewed publications in journals including <em>Science Advances</em> and <em>Nature Reviews Bioengineering</em>.</p>
       <p style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:20px">She earned her Ph.D. in Biomolecular Sciences at Laurentian University, where she pioneered the quantum-sensor-based cancer detection technology now commercialized through HelioFlux. As a Principal Investigator and postdoctoral fellow at the Allen Discovery Center at Tufts University — in Dr. Michael Levin's lab — she advanced ion-channel bioelectricity as a mechanism of tissue patterning and co-developed, with Dr. David Kaplan, a drug delivery system to induce limb regeneration in non-regenerative species. She later trained as a fellow at the Harvard Wyss Institute.</p>
       <p style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:28px">A dedicated mentor, Dr. Murugan is deeply committed to mentorship and to making biophysics accessible to the next generation of health innovators.</p>
       <div style="border-left:2px solid rgba(0,200,240,.2);padding-left:20px;margin-bottom:32px;">
@@ -1309,12 +1518,12 @@
         </ul>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;">
-        <span class="cancer-tag">Canada Research Chair</span>
-        <span class="cancer-tag">Wilfrid Laurier University</span>
-        <span class="cancer-tag">Tufts Postdoc (Levin Lab)</span>
-        <span class="cancer-tag">Harvard Wyss Fellow</span>
-        <span class="cancer-tag">3 HelioFlux Papers</span>
-        <span class="cancer-tag">47 Animal Models</span>
+        <span class="cancer-type-tag">Canada Research Chair</span>
+        <span class="cancer-type-tag">Wilfrid Laurier University</span>
+        <span class="cancer-type-tag">Tufts Postdoc (Levin Lab)</span>
+        <span class="cancer-type-tag">Harvard Wyss Fellow</span>
+        <span class="cancer-type-tag">3 HelioFlux Papers</span>
+        <span class="cancer-type-tag">47 Animal Models</span>
       </div>
 
     </div>
@@ -1386,6 +1595,8 @@
 
 
 
+
+<div class="section-divider"></div>
 
 <!-- PRESS -->
 <div id="press">
@@ -1477,104 +1688,10 @@
 </div>
 
 
-<!-- CREDIBILITY STACK -->
-<div class="creds-strip">
-  <div class="cred reveal">
-    <div class="cred-label">Canada Research Chair</div>
-    <div class="cred-value">CRC in Tissue Biophysics</div>
-  </div>
-  <div class="cred reveal">
-    <div class="cred-label">NVIDIA Inception</div>
-    <div class="cred-value">Accepted October 2024</div>
-  </div>
-  <div class="cred reveal">
-    <div class="cred-label">Patent Pending</div>
-    <div class="cred-value">Provisional filing in progress</div>
-  </div>
-  <div class="cred reveal">
-    <div class="cred-label">$1.6M in Non-Dilutive R&amp;D Grants</div>
-    <div class="cred-value">Full R&amp;D team costs covered through 2027</div>
-  </div>
-  <div class="cred reveal">
-    <div class="cred-label">Forbes Midas List Advisor</div>
-    <div class="cred-value">Jim Armstrong, CFO</div>
-  </div>
-</div>
 
 
 
-<!-- PATH TO MARKET -->
-<div style="padding:100px 56px;max-width:1200px;margin:0 auto;border-top:1px solid var(--border);">
-  <div class="reveal">
-    <p class="eyebrow">Getting to Market</p>
-    <h2 style="margin-bottom:48px">From published science<br>to <em>clinical reality.</em></h2>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);">
-      <div style="background:var(--bg);padding:36px 28px;">
-        <div style="font-family:var(--serif);font-size:32px;color:var(--cyan);opacity:.25;margin-bottom:16px;">01</div>
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;font-weight:500;">Completed</div>
-        <h4 style="font-size:15px;margin-bottom:10px;">Preclinical Validation</h4>
-        <p style="font-size:13px;color:var(--muted);line-height:1.75;">3 peer-reviewed papers. 47 animal models. 20 human subjects. 13 cancer cell lines. Published in Elsevier, MDPI, and Cell Press.</p>
-      </div>
-      <div style="background:var(--bg);padding:36px 28px;">
-        <div style="font-family:var(--serif);font-size:32px;color:var(--cyan);opacity:.25;margin-bottom:16px;">02</div>
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,180,40,.7);margin-bottom:8px;font-weight:500;">Current</div>
-        <h4 style="font-size:15px;margin-bottom:10px;">Human Pilot Studies</h4>
-        <p style="font-size:13px;color:var(--muted);line-height:1.75;">Bridge round funding human pilot data collection. Expanding from animal models to clinical human validation across multiple cancer types.</p>
-      </div>
-      <div style="background:var(--bg);padding:36px 28px;">
-        <div style="font-family:var(--serif);font-size:32px;color:rgba(255,255,255,.08);margin-bottom:16px;">03</div>
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:8px;">Next</div>
-        <h4 style="font-size:15px;margin-bottom:10px;opacity:.6;">Regulatory Submission</h4>
-        <p style="font-size:13px;color:rgba(255,255,255,.3);line-height:1.75;">FDA de novo pathway. Non-invasive diagnostic device classification. Patent pending.</p>
-      </div>
-      <div style="background:var(--bg);padding:36px 28px;">
-        <div style="font-family:var(--serif);font-size:32px;color:rgba(255,255,255,.08);margin-bottom:16px;">04</div>
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:8px;">Target</div>
-        <h4 style="font-size:15px;margin-bottom:10px;opacity:.6;">Clinical Deployment</h4>
-        <p style="font-size:13px;color:rgba(255,255,255,.3);line-height:1.75;">Point-of-care cancer screening in oncology, dermatology, and primary care settings. No infrastructure changes required.</p>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin-top:24px;line-height:1.6;">Global cancer screening and early detection market: $200B+ · HelioFlux targets the earliest possible point of intervention.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-top:32px;">
-      <div style="background:var(--bg2);padding:24px 28px;">
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">Business Model</div>
-        <p style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;">Per-test fee through clinical partnerships, with device placement in oncology, dermatology, and primary care settings. No radiation infrastructure required.</p>
-      </div>
-      <div style="background:var(--bg2);padding:24px 28px;">
-        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">Competitive Position</div>
-        <p style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;">Unlike liquid biopsy (blood draw, ~$950/test) or whole-body MRI ($1,200+), HelioFlux requires no biological sample, no radiation, and targets detection at a fraction of the cell count.</p>
-      </div>
-    </div>
-
-    <!-- Regulatory Strategy -->
-    <div style="margin-top:64px;border-top:1px solid var(--border);padding-top:56px;">
-      <p class="eyebrow">Regulatory Strategy</p>
-      <h2 style="margin-bottom:48px;">Launch skin cancer pilot.<br><em>Build toward FDA clearance.</em></h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);">
-        <div style="background:var(--bg);padding:40px 36px;">
-          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,180,40,.7);margin-bottom:16px;font-weight:500;">Phase 1 · Now</div>
-          <h3 style="font-size:20px;font-weight:500;margin-bottom:20px;">Physician-Directed Launch</h3>
-          <p style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:16px;">Launch as a physician-directed screening service — no FDA approval required. The same regulatory pathway successfully used by Grail, Prenuvo, and Viome.</p>
-          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-            <li style="font-size:13px;color:rgba(255,255,255,.5);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:var(--cyan);">·</span>Partner with dermatologists to validate efficacy using biopsy-confirmed cases</li>
-            <li style="font-size:13px;color:rgba(255,255,255,.5);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:var(--cyan);">·</span>Correlate photonic scan results with biopsy outcomes to establish real-world accuracy</li>
-            <li style="font-size:13px;color:rgba(255,255,255,.5);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:var(--cyan);">·</span>Track positive photonic scans with initially negative biopsies to demonstrate ultra-early detection</li>
-          </ul>
-        </div>
-        <div style="background:var(--bg);padding:40px 36px;opacity:.75;">
-          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;font-weight:500;">Phase 2 · 24–36 Months</div>
-          <h3 style="font-size:20px;font-weight:500;margin-bottom:20px;">FDA Breakthrough Pathway</h3>
-          <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:16px;">Collect real-world clinical data during the physician-exemption phase and apply for FDA Breakthrough Device designation (expedited review).</p>
-          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-            <li style="font-size:13px;color:rgba(255,255,255,.35);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:rgba(0,200,240,.3);">·</span>Secure 510(k) or De Novo clearance within 24–36 months</li>
-            <li style="font-size:13px;color:rgba(255,255,255,.35);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:rgba(0,200,240,.3);">·</span>Unlock broader market access including insurance reimbursement</li>
-            <li style="font-size:13px;color:rgba(255,255,255,.35);padding-left:16px;position:relative;line-height:1.6;"><span style="position:absolute;left:0;color:rgba(0,200,240,.3);">·</span>Commercialize skin cancer detection and launch breast cancer pilot</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="section-divider"></div>
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
