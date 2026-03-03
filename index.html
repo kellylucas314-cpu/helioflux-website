@@ -354,7 +354,7 @@
     .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; overflow: hidden; }
     .press-card { background: var(--bg2); padding: 44px; color: var(--white); }
     a.press-card, a.press-card:visited, a.press-card:link { color: var(--white); text-decoration: none; }
-    .press-outlet { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+    .press-outlet { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); font-weight: 500; margin-bottom: 14px; }
     .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; color: rgba(255,255,255,.9); }
     .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.75); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
     .press-quote cite { display: block; font-style: normal; font-size: 13px; color: rgba(255,255,255,.5); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
@@ -621,16 +621,14 @@
       pointer-events: none;
     }
     .prob-gap-num {
-      font-size: clamp(64px,9vw,104px); font-weight: 700; line-height: 1; margin-bottom: 10px;
-      position: relative;
+      font-family: var(--serif); font-size: clamp(56px,8vw,88px); font-weight: 300; line-height: 1; margin-bottom: 12px;
+      position: relative; letter-spacing: -0.02em;
     }
     .prob-gap-col.early .prob-gap-num {
-      color: #00E0FF;
-      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
+      color: var(--cyan);
     }
     .prob-gap-col.late .prob-gap-num {
       color: var(--coral);
-      text-shadow: 0 0 20px rgba(232,90,79,.4), 0 0 60px rgba(232,90,79,.15);
     }
     .prob-gap-survive { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 0; }
     .prob-gap-label { font-size: 15px; color: rgba(255,255,255,.7); margin-top: 4px; }
@@ -887,7 +885,7 @@
 
     /* ─── LATE-STAGE CORAL ─── */
     .stat-coral { color: var(--coral); }
-    .prob-gap-col.late .prob-gap-num { color: var(--coral); text-shadow: 0 0 20px rgba(232,90,79,.4), 0 0 60px rgba(232,90,79,.15); }
+    .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   </style>
 </head>
 <body>
@@ -1052,7 +1050,7 @@
         <!-- ITEM 1: The physics -->
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
-            <span class="acc-num">01</span>
+            
             <div class="acc-label-wrap"><span class="acc-label">How your cells reveal cancer — the physics of light</span>
             <span class="acc-preview">All living cells emit faint light. Cancer cells emit a different pattern, detectable at just 5-10 million cells.</span></div>
             <span class="acc-icon">+</span>
@@ -1071,7 +1069,7 @@
         <!-- ITEM 2: What LuminAI analyzes -->
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
-            <span class="acc-num">02</span>
+            
             <div class="acc-label-wrap"><span class="acc-label">What the AI sees — signal patterns and classification</span>
             <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan and compares it against a validated cancer signature database.</span></div>
             <span class="acc-icon">+</span>
@@ -1088,7 +1086,7 @@
         <!-- ITEM 3: Validation data -->
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
-            <span class="acc-num">03</span>
+            
             <div class="acc-label-wrap"><span class="acc-label">Published validation — what the research shows</span>
             <span class="acc-preview">Three peer-reviewed papers: 90-92% accuracy across 13 cancer types, detection within 24 hours in animal models.</span></div>
             <span class="acc-icon">+</span>
@@ -1152,7 +1150,7 @@
         <!-- ITEM 4: How it compares -->
         <div class="acc-item">
           <button class="acc-trigger" aria-expanded="false">
-            <span class="acc-num">04</span>
+            
             <div class="acc-label-wrap"><span class="acc-label">The patient experience — what a scan looks like</span>
             <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span></div>
             <span class="acc-icon">+</span>
@@ -1493,11 +1491,10 @@
     </div>
     <div>
       <div class="team-name" style="font-size:clamp(28px,3.5vw,44px);font-family:var(--serif);font-weight:300;margin-bottom:8px;">Dr. Nirosha Murugan</div>
-      <div class="team-title" style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:32px;">Chief Scientist &amp; Co-Founder</div>
-      <p class="lead" style="margin-bottom:20px">Dr. Nirosha J. Murugan is Canada Research Chair in Tissue Biophysics and a Faculty of Science Distinguished Research Chair at Wilfrid Laurier University, where she leads a multidisciplinary research program investigating the physical basis of life. As an applied biophysicist, her work explores how structured physical signals — light, voltage, and magnetism — govern cellular plasticity, tissue regeneration, and the reversal of disease states. Her approach reframes biology not solely as a molecular system, but as a dynamic network governed by first principles in physics. Through her Canada Research Chair, she has secured $1.3M+ in non-dilutive federal and academic grants covering the full R&amp;D team through 2027. Her research spans cancer biology, regenerative medicine, neuroscience, and quantum biology, with over 40 peer-reviewed publications in journals including <em>Science Advances</em> and <em>Nature Reviews Bioengineering</em>.</p>
-      <p style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:20px">She earned her Ph.D. in Biomolecular Sciences at Laurentian University, where she pioneered the quantum-sensor-based cancer detection technology now commercialized through HelioFlux. As a Principal Investigator and postdoctoral fellow at the Allen Discovery Center at Tufts University — in Dr. Michael Levin's lab — she advanced ion-channel bioelectricity as a mechanism of tissue patterning and co-developed, with Dr. David Kaplan, a drug delivery system to induce limb regeneration in non-regenerative species. She later trained as a fellow at the Harvard Wyss Institute.</p>
-      <p style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:28px">A dedicated mentor, Dr. Murugan is deeply committed to mentorship and to making biophysics accessible to the next generation of health innovators.</p>
-      <div style="border-left:2px solid rgba(0,200,240,.2);padding-left:20px;margin-bottom:32px;">
+      <div class="team-title" style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:24px;">Chief Scientist &amp; Co-Founder</div>
+
+      <!-- Awards first -->
+      <div style="border-left:2px solid rgba(0,200,240,.2);padding-left:20px;margin-bottom:28px;">
         <p style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">Awards &amp; Recognition</p>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
           <li style="font-size:13px;color:rgba(255,255,255,.6);">Optica Foundation Challenge Grant · 2023 — <em>"Capture Cancer in its Early Glow"</em></li>
@@ -1516,6 +1513,10 @@
         <span class="cancer-type-tag">3 HelioFlux Papers</span>
         <span class="cancer-type-tag">47 Animal Models</span>
       </div>
+
+      <!-- Full bio below credentials -->
+      <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:16px;margin-top:28px;border-top:1px solid var(--border);padding-top:24px;">Canada Research Chair in Tissue Biophysics at Wilfrid Laurier University. Her lab investigates how physical signals govern cellular plasticity, tissue regeneration, and disease reversal. She has secured $1.3M+ in non-dilutive grants through 2027, with 40+ publications in journals including <em>Science Advances</em> and <em>Nature Reviews Bioengineering</em>.</p>
+      <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:16px;">Ph.D. in Biomolecular Sciences (Laurentian), where she pioneered the cancer detection technology now commercialized through HelioFlux. Postdoc at the Allen Discovery Center at Tufts (Dr. Michael Levin's lab). Fellow at the Harvard Wyss Institute.</p>
 
     </div>
   </div>
