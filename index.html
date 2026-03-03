@@ -531,32 +531,104 @@
 
 
 
-    /* ─── PROBLEM ACCORDION CARDS ─── */
-    .prob-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 40px; max-width: 900px; }
-    .prob-card { background: var(--bg2); }
-    .prob-trigger {
-      width: 100%; display: flex; align-items: flex-start; gap: 16px;
-      padding: 24px 28px; background: none; border: none;
-      color: var(--white); cursor: pointer; text-align: left;
-      transition: background .2s;
+    /* ─── PROBLEM v2 — 4 BEATS ─── */
+    :root { --coral: #E55050; }
+
+    /* Beat 1 */
+    .prob-beat1 { padding: 120px 56px 80px; text-align: center; position: relative; overflow: hidden; }
+    .prob-beat1::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%); width: 700px; height: 480px;
+      background: radial-gradient(ellipse, rgba(10,30,60,.45) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .prob-trigger:hover { background: rgba(255,255,255,.02); }
-    .prob-trigger-text { flex: 1; }
-    .prob-card-tag { font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
-      color: rgba(220,70,50,.7); margin-bottom: 6px; display: block; }
-    .prob-card-title { font-size: 15px; font-weight: 400; line-height: 1.35; margin-bottom: 4px; }
-    .prob-card-oneliner { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .prob-card-icon { font-size: 16px; font-weight: 200; color: rgba(255,255,255,.25);
-      transition: transform .32s ease; flex-shrink: 0; margin-top: 2px; line-height: 1; }
-    .prob-card.open .prob-card-icon { transform: rotate(45deg); color: var(--cyan); }
-    .prob-card-body {
-      display: grid; grid-template-rows: 0fr;
-      transition: grid-template-rows .38s ease;
+    .prob-eyebrow2 {
+      font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 40px; display: block;
+      text-shadow: 0 0 14px rgba(0,200,240,.45);
     }
-    .prob-card.open .prob-card-body { grid-template-rows: 1fr; }
-    .prob-card-body-inner { overflow: hidden; }
-    .prob-card-detail { padding: 0 28px 24px; font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.8; }
-    @media(max-width:640px) { .prob-cards { grid-template-columns: 1fr; } }
+    .prob-opener {
+      font-family: Georgia, 'Playfair Display', serif;
+      font-size: clamp(24px,3.2vw,42px); font-weight: 400; font-style: italic;
+      color: #fff; line-height: 1.5; max-width: 700px; margin: 0 auto 52px;
+    }
+    .prob-glow-line {
+      width: 80px; height: 1px; background: rgba(0,200,240,.4);
+      box-shadow: 0 0 6px 1px rgba(0,200,240,.35); margin: 0 auto;
+    }
+
+    /* Beat 2 */
+    .prob-beat2 { padding: 88px 56px 72px; text-align: center; }
+    .prob-beat2-head {
+      font-size: clamp(20px,2.2vw,27px); font-weight: 600; color: #fff;
+      margin-bottom: 52px; display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .prob-beat2-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--cyan);
+      box-shadow: 0 0 8px rgba(0,200,240,.7); flex-shrink: 0;
+    }
+    .prob-gap-grid {
+      display: flex; align-items: center; justify-content: center;
+      max-width: 620px; margin: 0 auto 40px;
+    }
+    .prob-gap-col { flex: 1; padding: 12px 32px; }
+    .prob-gap-num {
+      font-size: clamp(60px,9vw,100px); font-weight: 700; line-height: 1; margin-bottom: 12px;
+    }
+    .prob-gap-col.early .prob-gap-num { color: var(--cyan); text-shadow: 0 0 24px rgba(0,200,240,.2); }
+    .prob-gap-col.late .prob-gap-num { color: var(--coral); text-shadow: 0 0 24px rgba(229,80,80,.2); }
+    .prob-gap-num.counting { text-shadow: 0 0 32px rgba(0,200,240,.5) !important; }
+    .prob-gap-col.late .prob-gap-num.counting { text-shadow: 0 0 32px rgba(229,80,80,.5) !important; }
+    .prob-gap-survive { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 8px; }
+    .prob-gap-label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: #666; }
+    .prob-gap-vline {
+      width: 1px; height: 180px; flex-shrink: 0;
+      background: linear-gradient(to bottom, transparent, rgba(0,200,240,.18) 30%, rgba(0,200,240,.18) 70%, transparent);
+    }
+    .prob-support { font-size: 16px; color: #777; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    /* Beat 3 — glass cards */
+    .prob-beat3 { padding: 72px 56px 100px; max-width: 1060px; margin: 0 auto; }
+    .prob-beat3-intro { font-size: clamp(17px,1.9vw,21px); color: rgba(255,255,255,.88); line-height: 1.65; max-width: 680px; margin-bottom: 10px; }
+    .prob-cyan { color: var(--cyan); font-weight: 700; text-shadow: 0 0 10px rgba(0,200,240,.35); }
+    .prob-subline { font-size: 13px; color: #555; margin-bottom: 40px; }
+    .prob-glass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .prob-glass-card {
+      background: #0F1827; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; padding: 32px; cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .prob-glass-card:hover {
+      border-color: rgba(255,255,255,.17); box-shadow: 0 0 20px rgba(0,200,240,.07);
+    }
+    .prob-glass-stat {
+      font-size: clamp(30px,3.5vw,42px); font-weight: 700; color: var(--cyan);
+      text-shadow: 0 0 14px rgba(0,200,240,.28); margin-bottom: 10px; line-height: 1;
+    }
+    .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.35); font-weight: 400; margin-left: 4px; vertical-align: middle; }
+    .prob-glass-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 9px; }
+    .prob-glass-summary { font-size: 13px; color: #999; line-height: 1.65; }
+    .prob-glass-expand { display: flex; justify-content: flex-end; margin-top: 14px; }
+    .prob-glass-chevron { font-size: 11px; color: #555; transition: transform .3s; display: block; line-height: 1; }
+    .prob-glass-card.open .prob-glass-chevron { transform: rotate(180deg); }
+    .prob-glass-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s ease; }
+    .prob-glass-card.open .prob-glass-body { grid-template-rows: 1fr; }
+    .prob-glass-body-inner { overflow: hidden; }
+    .prob-glass-detail {
+      padding: 16px 0 0; border-top: 1px solid rgba(255,255,255,.07); margin-top: 14px;
+      font-size: 13px; color: #666; line-height: 1.85;
+    }
+
+    @media(max-width:640px) {
+      .prob-beat1 { padding: 80px 24px 56px; }
+      .prob-beat2 { padding: 64px 24px 56px; }
+      .prob-beat3 { padding: 48px 24px 80px; }
+      .prob-gap-grid { flex-direction: column; }
+      .prob-gap-vline { width: 80px; height: 1px;
+        background: linear-gradient(to right, transparent, rgba(0,200,240,.18) 30%, rgba(0,200,240,.18) 70%, transparent);
+      }
+      .prob-glass-grid { grid-template-columns: 1fr; }
+    }
 
 
     /* ─── WARM COLOR BREAKS ─── */
@@ -761,111 +833,91 @@
   </div>
 </div>
 
-<!-- ═══ THE CANCER CRISIS ═══ -->
-<section class="section" id="problem">
-  <div class="reveal" style="margin-bottom:8px;">
-    <p class="eyebrow">The Problem</p>
-    <h2 style="margin-bottom:16px;">Cancer is winning<br><em>because we detect it too late.</em></h2>
-    <p style="font-size:18px;color:rgba(255,255,255,.6);line-height:1.6;max-width:520px;">Most cancers are only visible after years of silent growth, when treatment is harder and outcomes drop.</p>
+<!-- ═══ THE CANCER CRISIS — 4 BEATS ═══ -->
+<section id="problem">
+
+  <!-- ── BEAT 1: Cinematic opener ── -->
+  <div class="prob-beat1">
+    <span class="prob-eyebrow2 reveal">The Problem</span>
+    <p class="prob-opener reveal">"Every two minutes, someone is told they have cancer that could have been caught sooner."</p>
+    <div class="prob-glow-line reveal"></div>
   </div>
 
-  <div style="margin-top:48px;max-width:900px;">
-
-    <!-- 40% stat callout -->
-    <div class="crisis-callout reveal" style="margin-bottom:0;">
-      <div class="crisis-callout-pct">40%</div>
-      <div class="crisis-callout-text">of men and women will be diagnosed with cancer in their lifetime</div>
+  <!-- ── BEAT 2: The Survival Gap ── -->
+  <div class="prob-beat2">
+    <div class="prob-beat2-head reveal">
+      <span class="prob-beat2-dot"></span>
+      The Survival Gap
     </div>
-
-    <!-- Survival Gap -->
-    <div class="problem-rows reveal">
-      <div class="problem-row">
-        <div class="problem-dot"></div>
-        <div style="width:100%;">
-          <div class="problem-row-title">The Survival Gap</div>
-          <div class="survival-bars">
-            <div class="survival-bar-row">
-              <span class="survival-label">Early Stage</span>
-              <div class="survival-bar high"></div>
-              <span class="survival-pct high">&gt;90%</span>
-            </div>
-            <div class="survival-bar-row">
-              <span class="survival-label">Late Stage</span>
-              <div class="survival-bar low"></div>
-              <span class="survival-pct low">~30%</span>
-            </div>
-          </div>
-          <div style="display:flex;gap:32px;margin-top:20px;flex-wrap:wrap;">
-            <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;"><span style="color:rgba(220,70,50,.9);font-weight:500;">90%</span> of cancer deaths come from late-stage diagnoses.</p>
-            <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin:0;">Roughly <span style="color:rgba(220,70,50,.9);font-weight:500;">1 in 3</span> patients survive late-stage cancer.</p>
-          </div>
-        </div>
+    <div class="prob-gap-grid reveal" id="survivalGapGrid">
+      <div class="prob-gap-col early">
+        <div class="prob-gap-num" id="earlyNum">&gt;90%</div>
+        <div class="prob-gap-survive">survive</div>
+        <div class="prob-gap-label">5-year survival rate · caught early</div>
+      </div>
+      <div class="prob-gap-vline"></div>
+      <div class="prob-gap-col late">
+        <div class="prob-gap-num" id="lateNum">~30%</div>
+        <div class="prob-gap-survive">survive</div>
+        <div class="prob-gap-label">5-year survival rate · caught late</div>
       </div>
     </div>
-
-    <!-- 4 accordion cards -->
-    <div class="prob-cards reveal">
-
-      <div class="prob-card">
-        <button class="prob-trigger" aria-expanded="false">
-          <div class="prob-trigger-text">
-            <span class="prob-card-tag">Too Late</span>
-            <div class="prob-card-title">Detects tumors, not cancer cells</div>
-            <div class="prob-card-oneliner">Imaging only works after a billion cells have grown.</div>
-          </div>
-          <span class="prob-card-icon">+</span>
-        </button>
-        <div class="prob-card-body"><div class="prob-card-body-inner">
-          <p class="prob-card-detail">CT, MRI, and mammograms only detect tumors of ~1 billion cells — not the early cancer cells where intervention is most effective. By the time imaging finds it, cancer has had years to grow.</p>
-        </div></div>
-      </div>
-
-      <div class="prob-card">
-        <button class="prob-trigger" aria-expanded="false">
-          <div class="prob-trigger-text">
-            <span class="prob-card-tag">Too Few</span>
-            <div class="prob-card-title">Screening for only 5 of 200+ cancer types</div>
-            <div class="prob-card-oneliner">57% of all diagnosed cancers have no screening test.</div>
-          </div>
-          <span class="prob-card-icon">+</span>
-        </button>
-        <div class="prob-card-body"><div class="prob-card-body-inner">
-          <p class="prob-card-detail">The USPSTF recommends routine screening for just 4 cancers (breast, cervical, colorectal, lung) plus prostate with caveats. The other 200+ cancer types have no standard screening at all.</p>
-        </div></div>
-      </div>
-
-      <div class="prob-card">
-        <button class="prob-trigger" aria-expanded="false">
-          <div class="prob-trigger-text">
-            <span class="prob-card-tag">Too Expensive</span>
-            <div class="prob-card-title">High costs delay or prevent screening</div>
-            <div class="prob-card-oneliner">Financial barriers hit underserved communities hardest.</div>
-          </div>
-          <span class="prob-card-icon">+</span>
-        </button>
-        <div class="prob-card-body"><div class="prob-card-body-inner">
-          <p class="prob-card-detail">Not all tests are covered by insurers. High out-of-pocket costs create barriers, especially for underserved communities. Many patients face financial hardship even before treatment begins.</p>
-        </div></div>
-      </div>
-
-      <div class="prob-card">
-        <button class="prob-trigger" aria-expanded="false">
-          <div class="prob-trigger-text">
-            <span class="prob-card-tag">Too Invasive</span>
-            <div class="prob-card-title">Radiation, biopsies, and long waits</div>
-            <div class="prob-card-oneliner">Repeated screening is impractical when it causes harm.</div>
-          </div>
-          <span class="prob-card-icon">+</span>
-        </button>
-        <div class="prob-card-body"><div class="prob-card-body-inner">
-          <p class="prob-card-detail">Radiation exposure, invasive biopsies, and low accuracy make repeated screening impractical. Patients often face months-long waits for scans and specialist appointments.</p>
-        </div></div>
-      </div>
-
-    </div><!-- /prob-cards -->
-
-    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-top:20px;">Sources: American Cancer Society 2026 · USPSTF · NORC at University of Chicago 2024 · SEER 2015–2021</p>
+    <div class="prob-glow-line reveal" style="margin-bottom:28px;"></div>
+    <p class="prob-support reveal">The difference between life and death is when cancer is found.</p>
   </div>
+
+  <!-- ── BEAT 3: Why current screening fails ── -->
+  <div class="prob-beat3">
+    <span class="prob-eyebrow2 reveal">Why Current Screening Fails</span>
+    <p class="prob-beat3-intro reveal">Routine screening exists for only <span class="prob-cyan">5</span> cancer types.<br>More than <span class="prob-cyan">200</span> have none at all.</p>
+    <p class="prob-subline reveal">57% of all diagnosed cancers have no recommended screening test. &mdash; NORC, 2024</p>
+
+    <div class="prob-glass-grid">
+
+      <div class="prob-glass-card reveal">
+        <div class="prob-glass-stat">~1B</div>
+        <div class="prob-glass-title">Cells before detection</div>
+        <div class="prob-glass-summary">Imaging finds tumors, not cancer cells. By then, it has been growing for years.</div>
+        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
+        <div class="prob-glass-body"><div class="prob-glass-body-inner">
+          <div class="prob-glass-detail">CT, MRI, and mammograms require a mass of roughly 1 billion cells before they can detect anything. That means cancer has been silently multiplying — sometimes for a decade — before current tools can see it.</div>
+        </div></div>
+      </div>
+
+      <div class="prob-glass-card reveal">
+        <div class="prob-glass-stat">5 <span class="prob-glass-stat-suffix">of 200+</span></div>
+        <div class="prob-glass-title">Cancers with standard screening</div>
+        <div class="prob-glass-summary">The vast majority of cancer types have no routine screening test whatsoever.</div>
+        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
+        <div class="prob-glass-body"><div class="prob-glass-body-inner">
+          <div class="prob-glass-detail">Breast, cervical, colorectal, and lung cancer have USPSTF-recommended screening. Prostate screening exists but with caveats. Every other cancer type — over 200 of them — has no routine screening at all. Most people will not know they have cancer until symptoms appear, likely at stage III or IV.</div>
+        </div></div>
+      </div>
+
+      <div class="prob-glass-card reveal">
+        <div class="prob-glass-stat">$10K+</div>
+        <div class="prob-glass-title">Average patient out-of-pocket cost</div>
+        <div class="prob-glass-summary">High costs delay or prevent screening entirely, especially in underserved communities.</div>
+        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
+        <div class="prob-glass-body"><div class="prob-glass-body-inner">
+          <div class="prob-glass-detail">Even when screening exists, not all tests are covered. High deductibles and copays create real barriers. Many patients face financial hardship before treatment even begins — and for the uninsured, screening is often skipped entirely.</div>
+        </div></div>
+      </div>
+
+      <div class="prob-glass-card reveal">
+        <div class="prob-glass-stat">6+ mo</div>
+        <div class="prob-glass-title">From first symptom to diagnosis</div>
+        <div class="prob-glass-summary">Invasive tests, long waits, radiation exposure — and cancer keeps growing.</div>
+        <div class="prob-glass-expand"><span class="prob-glass-chevron">&#8964;</span></div>
+        <div class="prob-glass-body"><div class="prob-glass-body-inner">
+          <div class="prob-glass-detail">The current diagnostic pathway involves radiation exposure, invasive biopsies, and weeks or months of waiting between appointments and referrals. For cancers like ovarian and pancreatic, the average time from first symptoms to confirmed diagnosis often exceeds six months. Every week matters.</div>
+        </div></div>
+      </div>
+
+    </div><!-- /prob-glass-grid -->
+    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.15);margin-top:28px;">Sources: American Cancer Society 2026 · USPSTF · NORC at University of Chicago 2024 · SEER 2015&ndash;2021 · ACS Cancer Facts &amp; Figures 2025</p>
+  </div>
+
 </section>
 
 
@@ -2059,21 +2111,49 @@ document.querySelectorAll('.problem-rows .problem-row, .press-card').forEach((el
 
 
 
-// ─── PROBLEM ACCORDION CARDS ───
-document.querySelectorAll('.prob-trigger').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const card = btn.closest('.prob-card');
+// ─── PROBLEM GLASS CARDS — accordion ───
+document.querySelectorAll('.prob-glass-card').forEach(card => {
+  card.addEventListener('click', () => {
     const isOpen = card.classList.contains('open');
-    document.querySelectorAll('.prob-card.open').forEach(c => {
-      c.classList.remove('open');
-      c.querySelector('.prob-trigger').setAttribute('aria-expanded','false');
-    });
-    if (!isOpen) {
-      card.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-    }
+    document.querySelectorAll('.prob-glass-card.open').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
   });
 });
+
+// ─── SURVIVAL GAP COUNT-UP ───
+(function() {
+  const earlyEl = document.getElementById('earlyNum');
+  const lateEl  = document.getElementById('lateNum');
+  if (!earlyEl || !lateEl) return;
+
+  let fired = false;
+  function countUp(el, target, prefix, suffix, duration) {
+    const start = performance.now();
+    el.classList.add('counting');
+    function frame(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+      else { el.textContent = prefix + target + suffix; el.classList.remove('counting'); }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const grid = document.getElementById('survivalGapGrid');
+  if (grid && window.ScrollTrigger) {
+    ScrollTrigger.create({
+      trigger: grid,
+      start: 'top 75%',
+      once: true,
+      onEnter: () => {
+        if (fired) return; fired = true;
+        countUp(earlyEl, 90, '>', '%', 1500);
+        countUp(lateEl,  30, '~', '%', 1500);
+      }
+    });
+  }
+})();
 
 // ─── ACCORDION ───
 document.querySelectorAll('.acc-trigger').forEach(btn => {
