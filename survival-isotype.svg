@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280">
+  <style>
+    .heading { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; letter-spacing: 0.15em; fill: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .stat-num { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 44px; font-weight: 500; }
+    .stat-label { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 15px; fill: rgba(255,255,255,0.6); }
+    .caption { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 300; fill: rgba(255,255,255,0.85); font-style: italic; }
+  </style>
+  
+  <!-- Early Detection -->
+  <g transform="translate(100, 0)">
+    <text x="150" y="30" text-anchor="middle" class="heading">Early Detection</text>
+    
+    <!-- Human figures - elegant pill shapes -->
+    <g transform="translate(0, 50)">
+      <!-- Row of 10 figures -->
+      <g fill="#00C8F0">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(32,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(64,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(96,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(128,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(160,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(192,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(224,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(256,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <!-- 1 faded -->
+      <g fill="rgba(255,255,255,0.12)" transform="translate(288,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+    </g>
+    
+    <text x="150" y="145" text-anchor="middle" class="stat-num" fill="#00C8F0">9 out of 10</text>
+    <text x="150" y="170" text-anchor="middle" class="stat-label">survive 5 years</text>
+  </g>
+  
+  <!-- Divider -->
+  <line x1="450" y1="40" x2="450" y2="180" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  
+  <!-- Late Detection -->
+  <g transform="translate(500, 0)">
+    <text x="150" y="30" text-anchor="middle" class="heading">Late Detection</text>
+    
+    <!-- Human figures -->
+    <g transform="translate(0, 50)">
+      <!-- 3 alive -->
+      <g fill="#00C8F0">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(32,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="#00C8F0" transform="translate(64,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <!-- 7 faded/coral -->
+      <g fill="rgba(232,90,79,0.35)" transform="translate(96,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="rgba(232,90,79,0.35)" transform="translate(128,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="rgba(232,90,79,0.35)" transform="translate(160,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="rgba(232,90,79,0.35)" transform="translate(192,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="rgba(232,90,79,0.35)" transform="translate(224,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="rgba(232,90,79,0.35)" transform="translate(256,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+      <g fill="rgba(232,90,79,0.35)" transform="translate(288,0)">
+        <ellipse cx="15" cy="12" rx="8" ry="8"/>
+        <rect x="7" y="22" width="16" height="32" rx="8"/>
+      </g>
+    </g>
+    
+    <text x="150" y="145" text-anchor="middle" class="stat-num" fill="#E85A4F">3 out of 10</text>
+    <text x="150" y="170" text-anchor="middle" class="stat-label">survive 5 years</text>
+  </g>
+  
+  <!-- Bottom caption -->
+  <text x="450" y="235" text-anchor="middle" class="caption">The only difference? When it was found.</text>
+  <text x="450" y="265" text-anchor="middle" style="font-family: 'DM Sans', sans-serif; font-size: 12px; fill: rgba(255,255,255,0.4);">By the time traditional imaging finds cancer, it's been growing for nearly two years.</text>
+</svg>
