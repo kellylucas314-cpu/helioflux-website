@@ -37,7 +37,7 @@
       resize: vertical;
     }
     textarea:focus { outline: none; border-color: #00c8f0; }
-    .buttons { display: flex; gap: 12px; margin-top: 16px; }
+    .buttons { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
     button { 
       padding: 12px 24px; 
       border: none; 
@@ -50,8 +50,9 @@
     .btn-primary:hover { background: #20d6f8; }
     .btn-secondary { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
     .btn-secondary:hover { border-color: #00c8f0; color: #00c8f0; }
-    .status { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+    .status { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 12px; min-height: 20px; }
     .status.success { color: #00c8f0; }
+    .tips { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 16px; line-height: 1.6; }
     @media (max-width: 768px) {
       .container { grid-template-columns: 1fr; }
       body { padding: 20px; }
@@ -68,6 +69,9 @@
       <div class="buttons">
         <button class="btn-primary" onclick="convert()">Convert to Markdown</button>
         <button class="btn-secondary" onclick="clearAll()">Clear</button>
+      </div>
+      <div class="tips">
+        <strong>Tips:</strong> Paste articles, notes, or any text. The converter will detect headers, lists, quotes, and structure it as clean markdown.
       </div>
     </div>
     
@@ -87,34 +91,97 @@
       const input = document.getElementById('input').value;
       if (!input.trim()) return;
       
-      let md = input
-        // Normalize line breaks
+      // Split into paragraphs
+      let paragraphs = input
         .replace(/\r\n/g, '\n')
-        // Convert obvious headers (ALL CAPS lines or lines ending with :)
-        .replace(/^([A-Z][A-Z\s&]+)$/gm, '\n## $1\n')
-        // Convert bullet-like patterns
-        .replace(/^[•·◦‣⁃]\s*/gm, '- ')
-        .replace(/^[-–—]\s+/gm, '- ')
-        // Convert numbered lists
-        .replace(/^(\d+)[.)]\s+/gm, '$1. ')
-        // Bold text in asterisks or already bold
-        .replace(/\*\*([^*]+)\*\*/g, '**$1**')
-        // URLs become links
-        .replace(/(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g, '[$1]($1)')
-        // Email addresses
-        .replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '[$1](mailto:$1)')
-        // Clean up extra blank lines
-        .replace(/\n{3,}/g, '\n\n')
+        .split(/\n\n+/)
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
+      
+      let md = [];
+      let inList = false;
+      
+      for (let i = 0; i < paragraphs.length; i++) {
+        let p = paragraphs[i];
+        let lines = p.split('\n').map(l => l.trim()).filter(l => l);
+        
+        // Check if this looks like a header
+        // Short line (under 80 chars), no period at end, often title case or has quotes
+        let firstLine = lines[0];
+        
+        // Detect numbered headers like "1. Purpose sets the foundation"
+        if (/^\d+\.\s+[A-Z]/.test(firstLine) && firstLine.length < 100 && !firstLine.endsWith('.')) {
+          md.push('\n## ' + firstLine);
+          if (lines.length > 1) {
+            md.push(lines.slice(1).join(' '));
+          }
+          continue;
+        }
+        
+        // Detect quote-style lines (starts with quote or attribution)
+        if (firstLine.startsWith('"') || firstLine.startsWith('—') || firstLine.startsWith('– From') || firstLine.startsWith('- From')) {
+          md.push('\n> ' + lines.join(' '));
+          continue;
+        }
+        
+        // Detect short standalone headers (title-like)
+        if (lines.length === 1 && firstLine.length < 60 && !firstLine.endsWith('.') && !firstLine.endsWith(',')) {
+          // Check if next paragraph looks like body text
+          let nextP = paragraphs[i + 1];
+          if (nextP && nextP.length > 100) {
+            md.push('\n## ' + firstLine);
+            continue;
+          }
+        }
+        
+        // Detect ALL CAPS headers
+        if (/^[A-Z][A-Z\s&']+$/.test(firstLine) && firstLine.length < 60) {
+          // Title case it
+          let titleCased = firstLine.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+          md.push('\n## ' + titleCased);
+          if (lines.length > 1) {
+            md.push(lines.slice(1).join(' '));
+          }
+          continue;
+        }
+        
+        // Detect bullet lists
+        if (lines.every(l => /^[•·◦‣⁃\-–—]\s*/.test(l) || /^\d+[.)]\s+/.test(l))) {
+          for (let line of lines) {
+            let cleaned = line.replace(/^[•·◦‣⁃\-–—]\s*/, '').replace(/^\d+[.)]\s+/, '');
+            md.push('- ' + cleaned);
+          }
+          continue;
+        }
+        
+        // Regular paragraph - join lines and clean up
+        let joined = lines.join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        
+        // Convert URLs to links
+        joined = joined.replace(/(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g, '[$1]($1)');
+        
+        // Convert emails to links
+        joined = joined.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '[$1](mailto:$1)');
+        
+        md.push('\n' + joined);
+      }
+      
+      // Clean up output
+      let result = md.join('\n')
+        .replace(/\n{3,}/g, '\n\n')  // Max 2 newlines
+        .replace(/^\n+/, '')          // No leading newlines
         .trim();
       
-      document.getElementById('output').value = md;
-      showStatus('Converted!', true);
+      document.getElementById('output').value = result;
+      showStatus('Converted! ' + paragraphs.length + ' sections processed.', true);
     }
     
     function copyOutput() {
       const output = document.getElementById('output');
-      output.select();
-      document.execCommand('copy');
+      if (!output.value) return;
+      navigator.clipboard.writeText(output.value);
       showStatus('Copied to clipboard!', true);
     }
     
@@ -142,7 +209,6 @@
       const el = document.getElementById('status');
       el.textContent = msg;
       el.className = 'status' + (success ? ' success' : '');
-      setTimeout(() => el.textContent = '', 3000);
     }
   </script>
 </body>
