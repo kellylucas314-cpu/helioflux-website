@@ -67,7 +67,7 @@
     .logo { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--white); }
     .logo span { color: var(--cyan); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.72); text-decoration: none; transition: color .3s; }
+    .nav-links a { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.72); text-decoration: none; transition: color .3s; }
     .nav-links a:hover { color: var(--white); }
     .nav-cta { padding: 12px 32px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; }
     .nav-cta:hover { background: #20D6F8; transform: translateY(-1px); }
@@ -107,11 +107,11 @@
     .hero-eyebrow { font-size: 14px; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; opacity: 0; }
     .hero h1 { font-family: var(--serif); font-size: clamp(56px, 8vw, 108px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 32px; opacity: 0; }
     .hero h1 em { font-style: italic; color: var(--cyan); }
-    .hero-sub { font-size: 18px; color: rgba(255,255,255,.82); line-height: 1.8; max-width: 500px; margin-bottom: 48px; font-weight: 300; opacity: 0; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,.75); line-height: 1.8; max-width: 500px; margin-bottom: 48px; font-weight: 300; opacity: 0; }
     .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
     .btn-cyan { padding: 14px 40px; background: var(--cyan); color: var(--bg); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; display: inline-block; }
     .btn-cyan:hover { background: #20D6F8; transform: translateY(-1px); }
-    .btn-ghost { font-size: 16px; color: rgba(255,255,255,.82); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; letter-spacing: .04em; transition: all .3s; }
+    .btn-ghost { font-size: 16px; color: rgba(255,255,255,.78); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; letter-spacing: .04em; transition: all .3s; }
     .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
 
     /* Scroll indicator */
@@ -124,16 +124,16 @@
     .stat { padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.65; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.65; }
 
     /* ─── GENERIC SECTION ─── */
-    .section { padding: 180px 64px; max-width: 1200px; margin: 0 auto; }
+    .section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
     .section-bg { background: var(--bg-alt); max-width: 100%; }
     .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 72px 56px; }
     .eyebrow { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
-    h2 { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 28px; }
+    h2 { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
     h2 em { font-style: italic; }
-    .lead { font-size: 17px; color: rgba(255,255,255,.82); line-height: 1.9; font-weight: 300; }
+    .lead { font-size: 17px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; }
 
     /* ─── REVEAL — progressive enhancement (content visible without JS) ─── */
     .reveal { opacity: 1; transform: none; transition: opacity .9s ease, transform .9s ease; }
@@ -164,7 +164,7 @@
     .peppercorn h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
     .peppercorn p { font-size: 16px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
     .peppercorn p + p { margin-top: 16px; }
-    .peppercorn strong { color: rgba(255,255,255,.82); font-weight: 400; }
+    .peppercorn strong { color: rgba(255,255,255,.75); font-weight: 400; }
 
     /* ─── SCIENCE ─── */
     .science-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
@@ -227,11 +227,11 @@
     .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
     .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
     .h-panel h3 em { font-style: italic; }
-    .h-panel p { font-size: 16px; color: rgba(255,255,255,.82); line-height: 1.9; font-weight: 300; margin-bottom: 20px; }
+    .h-panel p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
     .h-panel-pub { font-size: 14px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,200,240,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
     .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
     .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
-    .h-stat-label { font-size: 14px; color: rgba(255,255,255,.72); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+    .h-stat-label { font-size: 14px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
 
     /* Scroll progress dots */
     .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
@@ -341,7 +341,7 @@
     a.press-card, a.press-card:visited, a.press-card:link { color: var(--white); text-decoration: none; }
     .press-outlet { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); font-weight: 500; margin-bottom: 14px; }
     .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; color: rgba(255,255,255,.9); }
-    .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.82); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
+    .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.75); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
     .press-quote cite { display: block; font-style: normal; font-size: 13px; color: rgba(255,255,255,.5); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
 
     /* ─── CREDS ─── */
@@ -391,7 +391,7 @@
     /* Cancer Crisis — callout + cards */
     .crisis-callout { border: 1px solid rgba(0,200,240,.25); background: rgba(0,200,240,.05); padding: 36px 52px; margin-bottom: 64px; display: flex; align-items: center; gap: 36px; max-width: 780px; }
     .crisis-callout-pct { font-family: var(--serif); font-size: clamp(56px,7vw,88px); font-weight: 300; color: var(--cyan); line-height: 1; flex-shrink: 0; }
-    .crisis-callout-text { font-family: var(--serif); font-size: clamp(17px,1.8vw,22px); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.82); }
+    .crisis-callout-text { font-family: var(--serif); font-size: clamp(17px,1.8vw,22px); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.75); }
     .crisis-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
     .crisis-card { background: var(--bg2); padding: 40px 44px; }
     .crisis-card-title { font-size: 18px; font-weight: 500; color: var(--cyan); margin-bottom: 20px; letter-spacing: .01em; }
@@ -616,7 +616,7 @@
       color: var(--coral);
     }
     .prob-gap-survive { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 0; }
-    .prob-gap-label { font-size: 15px; color: rgba(255,255,255,.75); margin-top: 4px; }
+    .prob-gap-label { font-size: 15px; color: rgba(255,255,255,.7); margin-top: 4px; }
     .prob-gap-vline {
       width: 1px; height: 160px; flex-shrink: 0;
       background: linear-gradient(to bottom, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
@@ -668,7 +668,7 @@
     .prob-glass-body-inner { overflow: hidden; }
     .prob-glass-detail {
       padding: 16px 0 0; border-top: 1px solid rgba(255,255,255,.07); margin-top: 14px;
-      font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.9;
+      font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.85;
     }
 
     @media(max-width:640px) {
@@ -737,7 +737,7 @@
     .acc-item.open .acc-body { grid-template-rows: 1fr; }
     .acc-body-inner { overflow: hidden; }
     .acc-body-pad { padding-bottom: 40px; }
-    .acc-body p { font-size: 16px; color: rgba(255,255,255,.82); line-height: 1.9; max-width: 680px; }
+    .acc-body p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; max-width: 680px; }
     .acc-body p + p { margin-top: 14px; }
     .acc-body strong { color: rgba(255,255,255,.8); font-weight: 400; }
     .acc-stat-row { display: flex; gap: 40px; margin: 28px 0; flex-wrap: wrap; }
@@ -817,7 +817,7 @@
     /* ─── VISITED LINK FIX ─── */
     a:visited { color: inherit; }
     a.btn-cyan:visited { color: var(--bg); }
-    a.btn-ghost:visited { color: rgba(255,255,255,.82); }
+    a.btn-ghost:visited { color: rgba(255,255,255,.78); }
     a.nav-cta, a.nav-cta:visited { color: var(--bg); }
     .nav-links a:visited { color: rgba(255,255,255,0.72); }
     .press-card:visited .press-headline { color: var(--white); }
@@ -872,33 +872,6 @@
     .stat-coral { color: var(--coral); }
     .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   
-  
-    /* ─── MOBILE FIXES FOR MULTI-PAGE ─── */
-    @media(max-width:900px) {
-      [style*="padding:120px 56px"], [style*="padding: 120px 56px"],
-      [style*="padding:100px 56px"], [style*="padding: 100px 56px"],
-      [style*="padding:80px 56px"], [style*="padding: 80px 56px"],
-      [style*="padding:180px 56px"], [style*="padding: 180px 56px"] {
-        padding-left: 24px !important;
-        padding-right: 24px !important;
-      }
-      [style*="padding:180px 56px"], [style*="padding: 180px 56px"] {
-        padding-top: 120px !important;
-      }
-      [style*="margin:48px -56px"], [style*="margin: 48px -56px"],
-      [style*="margin:36px -56px"], [style*="margin: 36px -56px"] {
-        margin-left: -24px !important;
-        margin-right: -24px !important;
-      }
-      .nirosha-wrap { grid-template-columns: 1fr !important; gap: 32px !important; }
-      .nirosha-photo-side { position: static !important; }
-      .h-panel { width: 92vw !important; padding: 48px 24px !important; grid-template-columns: 1fr !important; }
-      .h-section-label { padding: 60px 24px 0 !important; }
-      .cta-section .cta-type { padding: 24px !important; }
-      [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
-      [style*="grid-template-columns:1fr 1fr;gap:32px"] { grid-template-columns: 1fr !important; }
-    }
-
   </style>
 </head>
 <body>
@@ -906,13 +879,13 @@
 <nav id="nav">
   <div class="logo">Helio<span>Flux</span></div>
   <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
+    <li><a href="/">Home</a></li>
     <li><a href="science.html">Science</a></li>
     <li><a href="team.html">Team</a></li>
     <li><a href="press.html">Press</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="/#contact">Contact</a></li>
   </ul>
-  <a href="index.html#contact" class="nav-cta">Partner With Us</a>
+  <a href="/#contact" class="nav-cta">Partner With Us</a>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="background:none;border:none;"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
@@ -920,7 +893,7 @@
   <a href="science.html" class="mob-link">Science</a>
   <a href="team.html" class="mob-link">Team</a>
   <a href="press.html" class="mob-link">Press</a>
-  <a href="index.html#contact" class="mob-link">Contact</a>
+  <a href="/#contact" class="mob-link">Contact</a>
 </div>
 
 <div style="padding:180px 56px 60px;max-width:1200px;margin:0 auto;">
@@ -930,99 +903,8 @@
   <p class="reveal" style="font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-top:24px;">NVIDIA Inception Program Member</p>
 </div>
 
-<!-- Press logos -->
-<div class="press-logos">
-    <div class="press-marquee-track" aria-hidden="false">
-      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1;font-size:16px;">Scientific American</span></a>
-      <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link"><img src="logo-radiolab.jpg" alt="Radiolab" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;"></a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1;font-size:16px;">Cell Press / iScience</span></a>
-      <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CBC News</span></a>
-      <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">CTV News</span></a>
-      <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
-      <!-- duplicate for seamless loop -->
-      <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1;font-size:16px;">Scientific American</span></a>
-      <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><img src="logo-radiolab.jpg" alt="" style="height:36px;width:auto;border-radius:6px;opacity:.45;filter:grayscale(.3);display:block;"></a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1;font-size:16px;">Cell Press / iScience</span></a>
-      <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">CBC News</span></a>
-      <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">CTV News</span></a>
-      <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-logo-link" aria-hidden="true"><span class="press-name" style="opacity:1">LA Business Journal</span></a>
-    </div>
-  
-
-<!-- Press cards -->
-<div class="press-cards">
-    <a href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
-      <div class="press-outlet">Scientific American · June 2025</div>
-      <div class="press-headline">"Your Brain Is Glowing, and Scientists Can't Figure Out Why"</div>
-      <div class="press-quote">"This is a very intriguing and potentially groundbreaking approach for measuring brain activity."<cite>— Dr. Michael Gramlich, Biophysicist, Auburn University</cite></div>
-      <div style="font-size:13px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Read article ↗</div>
-    </a>
-    <a href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
-      <div class="press-outlet">NPR Radiolab · September 2025</div>
-      <div class="press-headline">"The Spark of Life — Are We... Glowing?"</div>
-      <div class="press-quote">"Plants give off light. Shrimp give off light. Literally everything that is alive emits light. And what about us humans?"<cite>— Dr. Nirosha Murugan, NPR Radiolab</cite></div>
-      <div style="font-size:13px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Listen to episode ↗</div>
-    </a>
-    <a href="https://www.cbc.ca/player/play/video/9.6954676" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
-      <div class="press-outlet">CBC News · October 2025</div>
-      <div class="press-headline">"Here's how your brain's glow could help detect cancer"</div>
-      <div class="press-quote">Canada's public broadcaster — the equivalent of the BBC — covered Nirosha Murugan's research on ultra-weak photon emissions and their direct application to cancer diagnosis. Dr. Murugan spoke with CBC Kitchener-Waterloo about how changes in the light emitted by brain cells can identify tumours.<cite>— CBC News · Aastha Shetty, October 2025</cite></div>
-      <div style="font-size:13px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Watch coverage ↗</div>
-    </a>
-    <a href="https://www.ctvnews.ca/kitchener/article/canadian-researchers-say-the-brains-glow-can-help-detect-cancer-cells/" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
-      <div class="press-outlet">CTV News · November 2025</div>
-      <div class="press-headline">"Canadian researchers say the brain's glow can help detect cancer cells"</div>
-      <div class="press-quote">Television feature by Canada's largest private broadcaster. Wilfrid Laurier University researchers covered for biophoton cancer detection research — the light the body already emits, used to find cancer before any scan can see it.<cite>— CTV News Kitchener · Spencer Turcotte</cite></div>
-      <div style="font-size:13px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Watch coverage ↗</div>
-    </a>
-    <a href="https://labusinessjournal.com/featured/firm-detects-cancer-early/" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
-      <div class="press-outlet">LA Business Journal · 2025</div>
-      <div class="press-headline">"Firm Detects Cancer Early"</div>
-      <div class="press-quote">"I wondered why this technology was not already out in the world. It is incredible technology that could save a lot of lives."<cite>— Kelly Lucas, President &amp; Co-Founder, HelioFlux · LA Business Journal</cite></div>
-      <div style="font-size:13px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Read article ↗</div>
-    </a>
-    <a href="https://www.wlu.ca/news/news-releases/2025/jan/laurier-researcher-explores-ultra-weak-photon-emissions-to-detect-cancer.html" target="_blank" rel="noopener" class="press-card reveal" style="text-decoration:none;display:block;transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background=''">
-      <div class="press-outlet">Wilfrid Laurier University · January 2025</div>
-      <div class="press-headline">"Laurier researcher explores ultra-weak photon emissions to detect cancer"</div>
-      <div class="press-quote">"Our goal is to develop a safe, inexpensive technique to detect cancer as early as possible so survivors live longer with better quality of life. This is frontier research with the potential to transform medicine."<cite>— Dr. Nirosha Murugan, Canada Research Chair in Tissue Biophysics</cite></div>
-      <div style="font-size:13px;color:rgba(0,200,240,.4);margin-top:20px;letter-spacing:.08em">Read feature ↗</div>
-    </a>
-  </div>
-</div>
-
-
-
 <div style="max-width:1200px;margin:0 auto;padding:0 56px 100px;">
   
-</div>
-
-
-<!-- Published Research -->
-<div style="background:var(--bg-alt);">
-  <div style="max-width:1200px;margin:0 auto;padding:100px 56px;text-align:center;">
-    <p class="eyebrow reveal">Published Research</p>
-    <h2 class="reveal" style="margin-bottom:48px;">Three peer-reviewed<br><em>publications.</em></h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:900px;margin:0 auto;" class="reveal">
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="background:var(--bg);padding:40px 28px;text-decoration:none;color:var(--white);transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);margin-bottom:16px;">92%</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">In Vitro Validation</div>
-        <div style="font-size:14px;color:var(--muted);line-height:1.6;">Biochemistry & Biophysics Reports · Elsevier · 2018</div>
-        <div style="font-size:13px;color:rgba(0,200,240,.5);margin-top:16px;">Read paper ↗</div>
-      </a>
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="background:var(--bg);padding:40px 28px;text-decoration:none;color:var(--white);transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);margin-bottom:16px;">90%</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">In Vivo Validation</div>
-        <div style="font-size:14px;color:var(--muted);line-height:1.6;">Cancers · MDPI · 2020</div>
-        <div style="font-size:13px;color:rgba(0,200,240,.5);margin-top:16px;">Read paper ↗</div>
-      </a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="background:var(--bg);padding:40px 28px;text-decoration:none;color:var(--white);transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);margin-bottom:16px;">20</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">Human Subjects</div>
-        <div style="font-size:14px;color:var(--muted);line-height:1.6;">iScience · Cell Press · 2025</div>
-        <div style="font-size:13px;color:rgba(0,200,240,.5);margin-top:16px;">Read paper ↗</div>
-      </a>
-    </div>
-  </div>
 </div>
 
 <footer>
