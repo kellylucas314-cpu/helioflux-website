@@ -463,8 +463,11 @@
       .mobile-menu a:hover { color: var(--cyan); }
       .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,200,240,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; }
       .nav-cta { display: none; }
-      .hero { height: auto !important; min-height: 88vh !important; padding: 132px 24px 72px; }
-      .hero-content { margin-top: 24px; }
+      .hero { height: auto !important; min-height: 100svh !important; padding: 120px 24px 72px !important; justify-content: center !important; }
+      .hero-content { margin-top: 0 !important; max-width: 100% !important; }
+      .hero h1 { font-size: clamp(42px, 12vw, 72px) !important; line-height: 1.04 !important; margin-bottom: 22px !important; }
+      .hero-sub { font-size: 16px !important; line-height: 1.6 !important; margin-bottom: 28px !important; }
+      .hero-actions { gap: 12px !important; flex-wrap: wrap; }
       .section { padding: 80px 24px; }
       .section-bg .section-inner { padding: 80px 24px; }
       .section { padding: 80px 24px; }
