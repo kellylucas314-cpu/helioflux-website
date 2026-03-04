@@ -885,6 +885,15 @@
     .stat-coral { color: var(--coral); }
     .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   
+  
+    /* Mobile hero spacing hotfix */
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .hero { min-height: 100svh; padding: 120px 20px 56px; }
+      .hero-content { margin-top: 0; }
+      .hero h1 { font-size: clamp(42px, 10.5vw, 56px); line-height: 1.12; letter-spacing: -0.01em; }
+    }
+
   </style>
 </head>
 <body>
