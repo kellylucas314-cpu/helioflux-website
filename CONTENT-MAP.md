@@ -1,0 +1,323 @@
+# HelioFlux Website Content Map
+
+_Current text on each page as of March 3, 2026_
+
+---
+
+## HOMEPAGE
+
+- HelioFlux — Biophotonic Disease Detection
+- Helio
+- Flux
+- HelioFlux
+- Non-Invasive
+- Cancer
+- Detection.
+- Your cells emit light. We learned to read it.
+- No blood draw. No biopsy. No radiation.
+- See How It Works
+- Partner with us →
+- QSense · Biophotonic sensor array · Measuring ultra-weak photon emissions from living tissue
+- The Problem
+- Someone in the U.S. dies from cancer approximately
+- every 60 seconds.
+- >90%
+- 5-year survival
+- when caught early
+- ~30%
+- 5-year survival
+- when caught late
+- When cancer is caught late,
+- 7 out of 10 patients won't survive 5 years.
+- What if we could find cancer at the cellular level —
+- before it becomes visible to any scan?
+- Our Solution
+- HelioFlux detects cancer
+- before tumors form.
+- Current imaging requires mass.
+- HelioFlux detects metabolism.
+- "Our goal is to develop a safe, inexpensive technique to detect cancer as early as possible, so survivors live longer with better quality of life."
+- Dr. Nirosha Murugan, Canada Research Chair
+- How It Works
+- Two systems.
+- One answer.
+- Proprietary hardware and AI that reads the light your cells already emit.
+- Hardware
+- QSense™
+- Single-photon sensitivity. Non-invasive. No radiation.
+- Software
+- LuminAI™
+- Classifies photon patterns against validated cancer signatures. Real-time.
+- Explore the full science →
+- What It Can Detect
+- One platform.
+- Three frontiers.
+- Validated · Pilot Q3 2026
+- Skin Cancer
+- Detection
+- 90-92% accuracy. 13 cancer types. Detection within 24 hours.
+- 92%
+- Accuracy · in vitro
+- Animal models validated
+- Published · 2025
+- Brain
+- Health
+- First published photoencephalography. Brain activity through photon emission, cross-validated against EEG.
+- Human subjects
+- 2025
+- Cell Press
+- Research Frontier
+- Metabolic &
+- Systemic Disease
+- UPE signatures mark oxidative stress in diabetes, cardiovascular disease, and autoimmune conditions.
+- 40+
+- Peer-reviewed UPE studies
+- Disease categories
+- Featured In
+- Scientific American
+- NPR Radiolab
+- Cell Press
+- CBC News
+- LA Business Journal
+- Read press coverage →
+- The Team
+- The people behind
+- the
+- science.
+- Dr. Nirosha Murugan
+- Chief Scientist & Co-Founder
+- Canada Research Chair in Tissue Biophysics. 40+ publications. Harvard Wyss Fellow. $1.3M+ in grants.
+- Pioneered the detection technology at Laurentian, trained in Michael Levin's lab at Tufts.
+- Meet the full team →
+- Kelly Lucas · President
+- Jim Armstrong · CFO
+- Glenn Lucas · CMO
+- Dr. Michael Levin · Advisor
+- Dr. David Kaplan · Advisor
+- Let's Talk
+- The future of cancer detection
+- starts here.
+- Pre-pilot round open. Human skin cancer trial Q3 2026.
+- Request Investor Deck
+- Schedule a conversation →
+- Investors
+- Bridge round open. Deck on request.
+- Clinical Partners
+- Pilot program launching Q3 2026.
+- Research
+- ARPA-H, SBIR, and co-investigator roles.
+- NVIDIA Inception Program Member
+- Helio
+- Flux
+- Your cells emit light. We learned to read it.
+- kelly.lucas@helioflux.co
+- Manhattan Beach, CA
+- Company
+- Connect
+- Email Kelly
+- Research
+- Biophysics Reports 2018 ↗
+- © 2026 HelioFlux Inc. All rights reserved.
+- HelioFlux is in research validation. Not FDA cleared. Not intended to diagnose or treat any disease.
+
+---
+
+## SCIENCE PAGE
+
+- The Science — HelioFlux
+- Helio
+- Flux
+- The Science
+- How HelioFlux
+- detects cancer.
+- All living cells emit faint light. Cancer cells emit a different pattern. HelioFlux reads that difference at the earliest detectable stage.
+- Hardware
+- QSense™
+- Captures ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation.
+- Software
+- LuminAI™
+- AI analyzes photon patterns against a validated cancer signature database, delivering a biomarker classification in real time.
+- Explore the science
+- How your cells reveal cancer — the physics of light
+- All living cells emit faint light. Cancer cells emit a different pattern, detectable at just 5-10 million cells.
+- All living cells continuously emit ultra-weak photon emissions (UPEs) — faint light produced as a byproduct of oxidative metabolism. The intensity and spectral pattern of these emissions is a direct readout of cellular metabolic state.
+- In cancer, metabolic stress produces a measurably different emission profile. Malignant cells emit a characteristic spectral signature — inverted relative to healthy tissue — detectable at as few as
+- 5–10 million cells
+- . That's before a tumor forms, before any imaging can see it, and before most liquid biopsies can detect circulating DNA.
+- What the AI sees — signal patterns and classification
+- LuminAI analyzes the spectral fingerprint of each scan and compares it against a validated cancer signature database.
+- QSense captures raw photon emission data at single-photon sensitivity. LuminAI then runs spectral power density analysis — decomposing the signal by wavelength and frequency to extract the emission fingerprint.
+- The AI compares that fingerprint against a validated database of cancer and healthy-tissue signatures, built from three peer-reviewed studies across
+- 13 cancer cell lines
+- and
+- 47 living animal models
+- . The output: a biomarker classification — positive or negative — with a confidence score. Powered by NVIDIA computing infrastructure.
+- The key insight is not the brightness of the signal, but its
+- spectral shape and directional profile
+- . Cancer cells invert the healthy-tissue emission pattern — a distinction detectable even at very early cell counts.
+- Published validation — what the research shows
+- Three peer-reviewed papers: 90-92% accuracy across 13 cancer types, detection within 24 hours in animal models.
+- 92%
+- Accuracy in vitro · 30 samples · 6 cell lines · 2018
+- 100%
+- Cancer detection rate · every malignant sample identified · 2018
+- 90%
+- Accuracy in vivo · 47 living mice · 13 cancer types · 2020
+- <24h
+- Detection after tumor cell injection · 18 days before palpable mass · 2020
+- Three peer-reviewed publications across two decades of work, with a fourth (human pilot) in active planning:
+- Biochemistry & Biophysics Reports · Elsevier · 2018 ↗
+- Cancers · MDPI · 2020 ↗
+- iScience · Cell Press · 2025 ↗
+- Non-invasive. No imaging. No contrast agent.
+- No biopsy. No blood draw.
+- The patient experience — what a scan looks like
+- No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.
+- The critical difference is
+- detection threshold
+- — how many cells must be present before each method can find them.
+- HelioFlux
+- 5–10M
+- cells · ≈ 2–3mm · pre-tumor
+- Liquid Biopsy
+- 50–100M
+- cells · cfDNA · Stage I–II
+- Standard Imaging
+- 1B+
+- cells · MRI/CT · Stage III–IV
+- HelioFlux detects at 100–200× fewer cells than standard imaging, and 10–20× fewer than the leading liquid biopsy approaches — without a blood draw, radiation, or invasive procedure.
+- What "early" really means
+- A tumor at 5–10 million cells is 2–3 millimeters across — roughly the size of a peppercorn. Too small to feel.
+- Invisible on a scan.
+- By the time that peppercorn becomes a pea, 1 billion cells, roughly 1 centimeter, medicine can finally see it. That growth took
+- 1.5 to 2 years.
+- HelioFlux doesn't wait for the pea.
+- We're built to find the peppercorn.
+- Why current screening falls short
+- ~1B
+- Cells before detection
+- CT, MRI, and mammograms need roughly 1 billion cells before they can spot anything. Cancer has been growing silently for years.
+- of 200+
+- Cancers with screening
+- Only breast, cervical, colorectal, lung, and prostate have USPSTF-recommended screening. Over 200 types have none.
+- $10K+
+- Out-of-pocket cost
+- High costs delay or prevent screening, especially in underserved communities.
+- 6+ mo
+- Symptom to diagnosis
+- Invasive tests, long waits, radiation exposure. For cancers like ovarian and pancreatic, diagnosis often exceeds six months.
+- Published Research
+- Three peer-reviewed
+- publications.
+- 92%
+- In Vitro Validation
+- Biochemistry & Biophysics Reports · Elsevier · 2018
+- Read paper ↗
+- 90%
+- In Vivo Validation
+- Cancers · MDPI · 2020
+- Read paper ↗
+- Human Subjects
+- iScience · Cell Press · 2025
+- Read paper ↗
+- Helio
+- Flux
+- Your cells emit light. We learned to read it.
+- kelly.lucas@helioflux.co
+- Manhattan Beach, CA
+- Company
+- Connect
+- Research
+
+---
+
+## TEAM PAGE
+
+- Team — HelioFlux
+- Helio
+- Flux
+- The Team
+- The people behind
+- the
+- science.
+- Canada Research Chair · Tissue Biophysics
+- 3 peer-reviewed publications · 40+ publications total · Harvard Wyss Fellow · Allen Discovery Center PI
+- Dr. Nirosha Murugan
+- Chief Scientist & Co-Founder
+- Awards & Recognition
+- Optica Foundation Challenge Grant · 2023 —
+- "Capture Cancer in its Early Glow"
+- Faculty of Science Tier 2 Distinguished Research Chair · 2023
+- Tier 2 Canada Research Chair, Tissue Biophysics · 2022
+- Minister of Colleges and Universities Award of Excellence · 2022
+- STRIVE Young Professional Visionary Award, Health Science · 2022
+- NSERC Science Exposed Jury Prize Winner · 2021
+- Canada Research Chair
+- Wilfrid Laurier University
+- Tufts Postdoc (Levin Lab)
+- Harvard Wyss Fellow
+- 3 HelioFlux Papers
+- 47 Animal Models
+- Dr. Nirosha J. Murugan is Canada Research Chair in Tissue Biophysics and a Faculty of Science Distinguished Research Chair at Wilfrid Laurier University, where she leads a multidisciplinary research program investigating the physical basis of life. As an applied biophysicist, her work explores how structured physical signals govern cellular plasticity, tissue regeneration, and the reversal of disease states. Through her Canada Research Chair, she has secured $1.3M+ in non-dilutive federal and academic grants covering the full R&D team through 2027. Her research spans cancer biology, regenerative medicine, neuroscience, and quantum biology, with over 40 peer-reviewed publications in journals including
+- Science Advances
+- and
+- Nature Reviews Bioengineering
+- She earned her Ph.D. in Biomolecular Sciences at Laurentian University, where she pioneered the quantum-sensor-based cancer detection technology now commercialized through HelioFlux. As a Principal Investigator and postdoctoral fellow at the Allen Discovery Center at Tufts University, in Dr. Michael Levin's lab, she advanced ion-channel bioelectricity as a mechanism of tissue patterning and co-developed, with Dr. David Kaplan, a drug delivery system to induce limb regeneration in non-regenerative species. She later trained as a fellow at the Harvard Wyss Institute.
+- A dedicated mentor, Dr. Murugan is deeply committed to making biophysics accessible to the next generation of health innovators.
+- Leadership
+- Kelly Lucas
+- President & Co-Founder
+- Co-founded HelioFlux after seeing the technology presented at a quantum biology conference. B.A. Biology (UNC Chapel Hill), MBA (Indiana University Kelley School). Former Research Associate at UNC Lineberger Cancer Center. Leads fundraising, investor relations, and go-to-market strategy.
+- Jim Armstrong
+- CFO
+- Multiple Forbes Midas List honoree. Pre-launch investor in PayPal, NetZero, and CarsDirect. Founding Partner of March Capital Partners, Managing Director of Clearstone Venture Partners and Composite Ventures. Advises HelioFlux on capital strategy, milestone execution, and investor relationships.
+- Glenn Lucas
+- Interim CMO
+- President of Lucas Telepictures, CSO at Escape AI Media. Executive Produced
+- Extract
+- (Miramax, dir. Mike Judge) as Head of Business Development at Ternion Pictures (HBO's
+- Silicon Valley
+- Idiocracy
+- ). Strategic Advisor at Composite Ventures. Leads commercial strategy and media partnerships at HelioFlux.
+- Scientific Advisory Board
+- Dr. Michael Levin
+- Scientific Advisor
+- Vannevar Bush Distinguished Professor at Tufts University. Director of the Allen Discovery Center and the Tufts Center for Regenerative and Developmental Biology. Pioneer in bioelectric control of cell behavior. Dr. Murugan's postdoctoral mentor and the scientific foundation HelioFlux is built on.
+- Dr. David Kaplan
+- Scientific Advisor
+- Stern Family Endowed Professor of Biomedical Engineering at Tufts University. Director of the Tufts Center for Cellular Agriculture. AIMBE Fellow. Collaborated directly with Dr. Murugan on bioengineered tissue systems during her Tufts postdoctoral work.
+- Dr. Nicolas Rouleau
+- Scientific Advisor
+- Assistant Professor of Health Sciences at Wilfrid Laurier University. Adjunct Professor of Biomedical Engineering at Tufts. Allen Discovery Center postdoctoral researcher. His Rouleau Lab develops 3D models of Alzheimer's and neurological disorders. Collaborates with Dr. Levin on cognitive systems research underlying HelioFlux's brain monitoring work.
+- Helio
+- Flux
+- Your cells emit light. We learned to read it.
+- kelly.lucas@helioflux.co
+- Manhattan Beach, CA
+- Company
+- Connect
+- Research
+
+---
+
+## PRESS PAGE
+
+- Press — HelioFlux
+- Helio
+- Flux
+- Press & Research
+- What the world
+- saying.
+- Scientific American, NPR Radiolab, Cell Press, CBC News, and others have covered HelioFlux's biophotonic cancer detection research.
+- NVIDIA Inception Program Member
+- Helio
+- Flux
+- Your cells emit light. We learned to read it.
+- kelly.lucas@helioflux.co
+- Manhattan Beach, CA
+- Company
+- Connect
+- Research
+
+---
+
