@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HelioFlux detects cancer at 5-10 million cells — 100x earlier than traditional imaging. Non-invasive. No radiation.">
+  <title>HelioFlux — Early Cancer Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg-dark: #0A0E1A;
+      --bg-light: #F8F9FC;
+      --bg-cream: #FAFAF8;
+      --text-dark: #1A1A2E;
+      --text-light: #FFFFFF;
+      --text-muted: #6B7280;
+      --cyan: #00B4D8;
+      --cyan-dark: #0077B6;
+      --coral: #E85A4F;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 48px;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    }
+    .logo {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav.scrolled .logo { color: var(--text-dark); }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-links a { color: var(--text-muted); }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      padding: 12px 28px;
+      background: var(--cyan);
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--cyan-dark); }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       HERO — Dark, lab photo background
+    ═══════════════════════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 48px;
+      background: var(--bg-dark);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('nirosha-microscope.jpg') center/cover;
+      opacity: 0.35;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.7) 50%, rgba(10,14,26,0.4) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--cyan);
+    }
+    .hero-sub {
+      font-size: 20px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      gap: 16px;
+    }
+    .btn-primary {
+      padding: 16px 36px;
+      background: var(--cyan);
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .btn-primary:hover { background: var(--cyan-dark); transform: translateY(-2px); }
+    .btn-secondary {
+      padding: 16px 36px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.9);
+      font-size: 15px;
+      font-weight: 400;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION — Light background (The Stakes)
+    ═══════════════════════════════════════════════════════════════ */
+    .section-light {
+      background: var(--bg-light);
+      padding: 140px 48px;
+    }
+    .section-light .inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .section-light h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 300;
+      color: var(--text-dark);
+      margin-bottom: 60px;
+      line-height: 1.3;
+    }
+    
+    /* Survival comparison */
+    .survival-compare {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 80px;
+      margin-bottom: 48px;
+    }
+    .survival-stat {
+      text-align: center;
+    }
+    .survival-num {
+      font-family: var(--sans);
+      font-size: clamp(64px, 10vw, 96px);
+      font-weight: 500;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .survival-num.early { color: var(--cyan); }
+    .survival-num.late { color: var(--coral); }
+    .survival-label {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .survival-vs {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .survival-caption {
+      font-size: 18px;
+      color: var(--text-dark);
+      font-weight: 400;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION — Dark background (Solution)
+    ═══════════════════════════════════════════════════════════════ */
+    .section-dark {
+      background: var(--bg-dark);
+      padding: 140px 48px;
+      color: var(--text-light);
+    }
+    .section-dark .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-dark h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 300;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+    .section-dark h2 em { font-style: italic; color: var(--cyan); }
+    .section-dark .lead {
+      font-size: 18px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 60px;
+    }
+    
+    /* Solution grid with helmet image */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .solution-text h3 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .solution-text p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .solution-image img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       CREDIBILITY STRIP — Light background
+    ═══════════════════════════════════════════════════════════════ */
+    .credibility {
+      background: var(--bg-cream);
+      padding: 100px 48px;
+    }
+    .credibility .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cred-label {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+    .press-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .press-logos span {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
+    .paper-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    .paper-stat {
+      text-align: center;
+    }
+    .paper-stat-num {
+      font-family: var(--sans);
+      font-size: 48px;
+      font-weight: 500;
+      color: var(--cyan-dark);
+      margin-bottom: 8px;
+    }
+    .paper-stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       TEAM — Dark background
+    ═══════════════════════════════════════════════════════════════ */
+    .team {
+      background: var(--bg-dark);
+      padding: 140px 48px;
+    }
+    .team .inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .team h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 300;
+      color: var(--text-light);
+      margin-bottom: 60px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      text-align: left;
+    }
+    .team-member img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .team-member h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+    .team-member .role {
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+    .team-member p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       CTA — Dark with accent
+    ═══════════════════════════════════════════════════════════════ */
+    .cta-section {
+      background: linear-gradient(135deg, #0A0E1A 0%, #0D1225 100%);
+      padding: 140px 48px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 300;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .cta-section p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════ */
+    footer {
+      background: #070B15;
+      padding: 80px 48px 40px;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+    footer .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--cyan); }
+    
+    /* ═══════════════════════════════════════════════════════════════
+       MOBILE
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px; }
+      .hero h1 { font-size: 32px; }
+      .section-light, .section-dark, .credibility, .team, .cta-section { padding: 80px 24px; }
+      .survival-compare { flex-direction: column; gap: 40px; }
+      .survival-vs { display: none; }
+      .solution-grid { grid-template-columns: 1fr; gap: 40px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .press-logos { gap: 30px; }
+      .paper-stats { flex-direction: column; gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="/" class="logo">Helio<span style="color:var(--cyan)">Flux</span></a>
+  <ul class="nav-links">
+    <li><a href="science.html">Science</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="press.html">Press</a></li>
+  </ul>
+  <a href="mailto:kelly.lucas@helioflux.co?subject=Investor%20Deck%20Request" class="nav-cta">Request Deck</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p style="font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;">Early Cancer Detection</p>
+    <h1>By the time a scan finds cancer, it's been growing for <em>two years.</em></h1>
+    <p class="hero-sub">What if you could detect it before the tumor even forms?<br>HelioFlux reads the light your cells emit — and catches cancer 100× earlier.</p>
+    <div class="hero-cta">
+      <a href="#solution" class="btn-primary">See How It Works</a>
+      <a href="mailto:kelly.lucas@helioflux.co?subject=Investor%20Deck%20Request" class="btn-secondary">Request Deck</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     THE STAKES — Survival gap
+═══════════════════════════════════════════════════════════════ -->
+<section class="section-light">
+  <div class="inner">
+    <h2>The only difference between surviving cancer<br>and not surviving it?</h2>
+    
+    <div class="survival-compare">
+      <div class="survival-stat">
+        <div class="survival-num early">&gt;90%</div>
+        <div class="survival-label">5-year survival<br><strong>when caught early</strong></div>
+      </div>
+      <div class="survival-vs">vs</div>
+      <div class="survival-stat">
+        <div class="survival-num late">~30%</div>
+        <div class="survival-label">5-year survival<br><strong>when caught late</strong></div>
+      </div>
+    </div>
+    
+    <p class="survival-caption">Early detection isn't just better. It's everything.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SOLUTION — How it works + helmet image
+═══════════════════════════════════════════════════════════════ -->
+<section class="section-dark" id="solution">
+  <div class="inner">
+    <h2>We detect cancer at the <em>cellular level.</em></h2>
+    <p class="lead">All living cells emit faint light. Cancer cells emit a different pattern. HelioFlux reads that pattern — detecting cancer at just 5-10 million cells, before any tumor forms.</p>
+    
+    <div class="solution-grid">
+      <div class="solution-text">
+        <h3>QSense™ Hardware</h3>
+        <p>Proprietary sensors capture ultra-weak photon emissions at single-photon sensitivity. Non-invasive. No radiation. No blood draw.</p>
+        
+        <h3>LuminAI™ Software</h3>
+        <p>AI analyzes photon patterns against a validated database of cancer signatures. Real-time classification with 90-92% accuracy.</p>
+      </div>
+      <div class="solution-image">
+        <img src="device-helmet.jpg" alt="HelioFlux detection device">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CREDIBILITY — Press + Papers + NVIDIA
+═══════════════════════════════════════════════════════════════ -->
+<section class="credibility">
+  <div class="inner">
+    <p class="cred-label">Featured In</p>
+    <div class="press-logos">
+      <span>Scientific American</span>
+      <span>NPR Radiolab</span>
+      <span>Cell Press</span>
+      <span>CBC News</span>
+    </div>
+    
+    <div class="paper-stats">
+      <div class="paper-stat">
+        <div class="paper-stat-num">3</div>
+        <div class="paper-stat-label">Peer-reviewed papers</div>
+      </div>
+      <div class="paper-stat">
+        <div class="paper-stat-num">92%</div>
+        <div class="paper-stat-label">Detection accuracy</div>
+      </div>
+      <div class="paper-stat">
+        <div class="paper-stat-num">$1.3M+</div>
+        <div class="paper-stat-label">In research grants</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TEAM
+═══════════════════════════════════════════════════════════════ -->
+<section class="team">
+  <div class="inner">
+    <h2>The team behind the science.</h2>
+    
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="nirosha-headshot.jpg" alt="Dr. Nirosha Murugan">
+        <h3>Dr. Nirosha Murugan</h3>
+        <p class="role">Chief Scientist & Co-Founder</p>
+        <p>Canada Research Chair in Tissue Biophysics. 40+ peer-reviewed publications. Harvard Wyss Fellow. Invented the core detection technology.</p>
+      </div>
+      <div class="team-member">
+        <img src="kelly-headshot.jpg" alt="Kelly Lucas">
+        <h3>Kelly Lucas</h3>
+        <p class="role">President & Co-Founder</p>
+        <p>Former cancer research associate. MBA from Indiana University Kelley School. Leads fundraising, partnerships, and go-to-market strategy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CTA
+═══════════════════════════════════════════════════════════════ -->
+<section class="cta-section">
+  <h2>Join the future of cancer detection.</h2>
+  <p>We're raising a pre-pilot round to fund our first human trial in Q3 2026.</p>
+  <a href="mailto:kelly.lucas@helioflux.co?subject=Investor%20Deck%20Request" class="btn-primary">Request Investor Deck</a>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="inner">
+    <span>© 2026 HelioFlux Inc.</span>
+    <span>kelly.lucas@helioflux.co</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
+
+</body>
+</html>
