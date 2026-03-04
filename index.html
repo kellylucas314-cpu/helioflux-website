@@ -881,6 +881,16 @@
     .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   
   
+    
+    /* Problem section mobile */
+    @media(max-width:900px) {
+      #problem [style*="grid-template-columns:1fr 2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+        text-align: center !important;
+      }
+    }
+
     /* ─── MOBILE FIXES FOR MULTI-PAGE ─── */
     @media(max-width:900px) {
       [style*="padding:120px 56px"], [style*="padding: 120px 56px"],
