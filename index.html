@@ -880,6 +880,33 @@
     .stat-coral { color: var(--coral); }
     .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   
+  
+    /* ─── MOBILE FIXES FOR MULTI-PAGE ─── */
+    @media(max-width:900px) {
+      [style*="padding:120px 56px"], [style*="padding: 120px 56px"],
+      [style*="padding:100px 56px"], [style*="padding: 100px 56px"],
+      [style*="padding:80px 56px"], [style*="padding: 80px 56px"],
+      [style*="padding:180px 56px"], [style*="padding: 180px 56px"] {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+      [style*="padding:180px 56px"], [style*="padding: 180px 56px"] {
+        padding-top: 120px !important;
+      }
+      [style*="margin:48px -56px"], [style*="margin: 48px -56px"],
+      [style*="margin:36px -56px"], [style*="margin: 36px -56px"] {
+        margin-left: -24px !important;
+        margin-right: -24px !important;
+      }
+      .nirosha-wrap { grid-template-columns: 1fr !important; gap: 32px !important; }
+      .nirosha-photo-side { position: static !important; }
+      .h-panel { width: 92vw !important; padding: 48px 24px !important; grid-template-columns: 1fr !important; }
+      .h-section-label { padding: 60px 24px 0 !important; }
+      .cta-section .cta-type { padding: 24px !important; }
+      [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+      [style*="grid-template-columns:1fr 1fr;gap:32px"] { grid-template-columns: 1fr !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -888,24 +915,24 @@
 <nav id="nav">
   <div class="logo">Helio<span>Flux</span></div>
   <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/science.html">Science</a></li>
-    <li><a href="/team.html">Team</a></li>
-    <li><a href="/press.html">Press</a></li>
-    <li><a href="/#contact">Contact</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="science.html">Science</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="press.html">Press</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="/#contact" class="nav-cta">Partner With Us</a>
+  <a href="index.html#contact" class="nav-cta">Partner With Us</a>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="background:none;border:none;">
     <span></span><span></span><span></span>
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="/" class="mob-link">Home</a>
-  <a href="/science.html" class="mob-link">Science</a>
-  <a href="/team.html" class="mob-link">Team</a>
-  <a href="/press.html" class="mob-link">Press</a>
-  <a href="/#contact" class="mob-link">Contact</a>
-  <a href="/#contact" class="mob-cta mob-link">Partner With Us</a>
+  <a href="science.html" class="mob-link">Science</a>
+  <a href="team.html" class="mob-link">Team</a>
+  <a href="press.html" class="mob-link">Press</a>
+  <a href="index.html#contact" class="mob-link">Contact</a>
+  <a href="index.html#contact" class="mob-cta mob-link">Partner With Us</a>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -1012,7 +1039,7 @@
       </div>
 
       <div style="text-align:center;margin-top:48px;">
-        <a href="/science.html" class="btn-ghost" style="font-size:15px;">Explore the full science →</a>
+        <a href="science.html" class="btn-ghost" style="font-size:15px;">Explore the full science →</a>
       </div>
     </div>
   </div>
@@ -1085,7 +1112,7 @@
       <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">LA Business Journal</span>
     </div>
     <div style="margin-top:32px;">
-      <a href="/press.html" class="btn-ghost" style="font-size:15px;">Read press coverage →</a>
+      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage →</a>
     </div>
   </div>
 </div>
@@ -1096,7 +1123,7 @@
     <p class="eyebrow reveal">The Team</p>
     <h2 class="reveal" style="margin-bottom:48px;">The people behind<br>the <em>science.</em></h2>
 
-    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;" class="reveal">
+    <div class="nirosha-wrap reveal">
       <div>
         <img loading="lazy" src="nirosha-lab-headshot.jpg" alt="Dr. Nirosha Murugan" style="width:100%;height:380px;object-fit:cover;object-position:center top;display:block;">
       </div>
@@ -1105,7 +1132,7 @@
         <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:24px;">Chief Scientist &amp; Co-Founder</div>
         <p style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:20px;">Canada Research Chair in Tissue Biophysics. 40+ peer-reviewed publications. Harvard Wyss Fellow. $1.3M+ in non-dilutive grants through 2027.</p>
         <p style="font-size:16px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:32px;">Pioneered the cancer detection technology at Laurentian University, then trained in Dr. Michael Levin's lab at Tufts and the Harvard Wyss Institute.</p>
-        <a href="/team.html" class="btn-ghost" style="font-size:15px;">Meet the full team →</a>
+        <a href="team.html" class="btn-ghost" style="font-size:15px;">Meet the full team →</a>
       </div>
     </div>
 
@@ -1155,9 +1182,9 @@
   <div class="f-col">
     <h4>Company</h4>
     <ul>
-      <li><a href="/science.html">Science</a></li>
-      <li><a href="/team.html">Team</a></li>
-      <li><a href="/press.html">Press</a></li>
+      <li><a href="science.html">Science</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="press.html">Press</a></li>
     </ul>
   </div>
   <div class="f-col">
@@ -1165,7 +1192,7 @@
     <ul>
       <li><a href="https://www.linkedin.com/company/helioflux" target="_blank" rel="noopener">LinkedIn ↗</a></li>
       <li><a href="mailto:kelly.lucas@helioflux.co">Email Kelly</a></li>
-      <li><a href="/#contact">Partner With Us</a></li>
+      <li><a href="index.html#contact">Partner With Us</a></li>
     </ul>
   </div>
   <div class="f-col">
