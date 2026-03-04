@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text → Markdown</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0e1a; 
+      color: #fff; 
+      min-height: 100vh;
+      padding: 40px;
+    }
+    h1 { font-size: 24px; font-weight: 300; margin-bottom: 24px; }
+    h1 span { color: #00c8f0; }
+    .container { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 24px; 
+      max-width: 1400px; 
+      margin: 0 auto;
+    }
+    .panel { background: #070b15; border-radius: 8px; padding: 24px; }
+    label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: #00c8f0; display: block; margin-bottom: 12px; }
+    textarea { 
+      width: 100%; 
+      height: 400px; 
+      background: #0a0e1a; 
+      border: 1px solid rgba(255,255,255,0.1); 
+      border-radius: 4px;
+      color: #fff; 
+      font-family: 'SF Mono', Monaco, monospace; 
+      font-size: 14px; 
+      padding: 16px;
+      resize: vertical;
+    }
+    textarea:focus { outline: none; border-color: #00c8f0; }
+    .buttons { display: flex; gap: 12px; margin-top: 16px; }
+    button { 
+      padding: 12px 24px; 
+      border: none; 
+      border-radius: 4px; 
+      font-size: 14px; 
+      cursor: pointer; 
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #00c8f0; color: #0a0e1a; font-weight: 600; }
+    .btn-primary:hover { background: #20d6f8; }
+    .btn-secondary { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+    .btn-secondary:hover { border-color: #00c8f0; color: #00c8f0; }
+    .status { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+    .status.success { color: #00c8f0; }
+    @media (max-width: 768px) {
+      .container { grid-template-columns: 1fr; }
+      body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Text → <span>Markdown</span></h1>
+  
+  <div class="container">
+    <div class="panel">
+      <label>Paste your text</label>
+      <textarea id="input" placeholder="Paste any text here..."></textarea>
+      <div class="buttons">
+        <button class="btn-primary" onclick="convert()">Convert to Markdown</button>
+        <button class="btn-secondary" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
+    
+    <div class="panel">
+      <label>Markdown output</label>
+      <textarea id="output" readonly placeholder="Markdown will appear here..."></textarea>
+      <div class="buttons">
+        <button class="btn-primary" onclick="copyOutput()">Copy to Clipboard</button>
+        <button class="btn-secondary" onclick="download()">Download .md</button>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <script>
+    function convert() {
+      const input = document.getElementById('input').value;
+      if (!input.trim()) return;
+      
+      let md = input
+        // Normalize line breaks
+        .replace(/\r\n/g, '\n')
+        // Convert obvious headers (ALL CAPS lines or lines ending with :)
+        .replace(/^([A-Z][A-Z\s&]+)$/gm, '\n## $1\n')
+        // Convert bullet-like patterns
+        .replace(/^[•·◦‣⁃]\s*/gm, '- ')
+        .replace(/^[-–—]\s+/gm, '- ')
+        // Convert numbered lists
+        .replace(/^(\d+)[.)]\s+/gm, '$1. ')
+        // Bold text in asterisks or already bold
+        .replace(/\*\*([^*]+)\*\*/g, '**$1**')
+        // URLs become links
+        .replace(/(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g, '[$1]($1)')
+        // Email addresses
+        .replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '[$1](mailto:$1)')
+        // Clean up extra blank lines
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+      
+      document.getElementById('output').value = md;
+      showStatus('Converted!', true);
+    }
+    
+    function copyOutput() {
+      const output = document.getElementById('output');
+      output.select();
+      document.execCommand('copy');
+      showStatus('Copied to clipboard!', true);
+    }
+    
+    function download() {
+      const output = document.getElementById('output').value;
+      if (!output) return;
+      
+      const blob = new Blob([output], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'converted.md';
+      a.click();
+      URL.revokeObjectURL(url);
+      showStatus('Downloaded!', true);
+    }
+    
+    function clearAll() {
+      document.getElementById('input').value = '';
+      document.getElementById('output').value = '';
+      document.getElementById('status').textContent = '';
+    }
+    
+    function showStatus(msg, success) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = 'status' + (success ? ' success' : '');
+      setTimeout(() => el.textContent = '', 3000);
+    }
+  </script>
+</body>
+</html>
