@@ -22,10 +22,10 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:      #121826;
-      --bg2:     #1A2436;
-      --bg-alt:  #22324A;
-      --bg-warm: #1C2A3D;
+      --bg:      #121a28;
+      --bg2:     #24334A;
+      --bg-alt:  #334761;
+      --bg-warm: #2f4460;
       --white:   #FFFFFF;
       --off-white: #ECF0FF;
       --muted:   #D0DEEA;
@@ -136,9 +136,9 @@
     .stat-label { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.65; }
 
     /* ─── GENERIC SECTION ─── */
-    .section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
+    .section { padding: 148px 56px; max-width: 1200px; margin: 0 auto; }
     .section-bg { background: var(--bg-alt); max-width: 100%; }
-    .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 72px 56px; }
+    .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 96px 56px; }
     .eyebrow { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
     h2 { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
     h2 em { font-style: italic; }
@@ -150,7 +150,7 @@
     .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
 
     /* ─── PROBLEM ─── */
-    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 124px; align-items: center; }
 
     /* Typographic threshold comparison — no tables, no boxes */
     .threshold-compare { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; align-items: start; }
@@ -339,7 +339,7 @@
     cite a { color: var(--cyan); text-decoration: none; }
 
     /* ─── PRESS ─── */
-    .press-logos { display: flex; justify-content: center; align-items: center; gap: 52px; flex-wrap: wrap; padding: 64px 56px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .press-logos { display: flex; justify-content: center; align-items: center; gap: 52px; flex-wrap: wrap; padding: 78px 56px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.04); }
     .press-logo-link { opacity: .55; transition: opacity .3s; display: flex; align-items: center; }
     .press-logo-link:hover { opacity: .85; }
     .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
@@ -950,7 +950,7 @@
 </div>
 
 <!-- ═══ PROBLEM ═══ -->
-<section id="problem" style="background:linear-gradient(180deg,#22324A 0%, #1A273B 100%);">
+<section id="problem" style="background:linear-gradient(180deg,#445a78 0%, #364c68 100%);">
   <div style="padding:120px 56px;text-align:center;max-width:900px;margin:0 auto;">
     <span class="prob-eyebrow2 reveal">The Problem</span>
     <p class="prob-opener reveal" style="margin-bottom:64px;">Someone in the U.S. dies from cancer approximately <span style="color:var(--cyan);font-weight:400;">every 60 seconds.</span></p>
@@ -975,7 +975,7 @@
 </section>
 
 <!-- ═══ BRIDGE QUOTE ═══ -->
-<div class="quote-block reveal" style="background:var(--bg);">
+<div class="quote-block reveal" style="background:#1e2c40;">
   <div class="quote-block-inner">
     <span class="quote-block-mark" aria-hidden="true">"</span>
     <p class="quote-block-text">What if we could find cancer at the cellular level — <em>before it becomes visible to any scan?</em></p>
@@ -983,7 +983,7 @@
 </div>
 
 <!-- ═══ SOLUTION ═══ -->
-<div id="solution" style="background:#162235;">
+<div id="solution" style="background:#2c3f59;">
   <div style="max-width:1200px;margin:0 auto;padding:120px 56px;">
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow">Our Solution</p>
@@ -1033,7 +1033,7 @@
 </div>
 
 <!-- ═══ PLATFORM ═══ -->
-<section id="platform" style="background:#1A273B;">
+<section id="platform" style="background:#4b6383;">
   <div class="h-section-label">
     <p class="eyebrow reveal">What It Can Detect</p>
     <h2 class="reveal">One platform. <em>Three frontiers.</em></h2>
@@ -1088,7 +1088,7 @@
 </section>
 
 <!-- ═══ PRESS STRIP ═══ -->
-<div style="background:var(--bg-alt);">
+<div style="background:#3a506d;">
   <div style="max-width:1200px;margin:0 auto;padding:80px 56px;text-align:center;">
     <p class="eyebrow reveal">Featured In</p>
     <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:40px;opacity:.7;" class="reveal">
@@ -1105,7 +1105,7 @@
 </div>
 
 <!-- ═══ TEAM PREVIEW ═══ -->
-<div style="background:var(--bg-warm);">
+<div style="background:#455f80;">
   <div style="max-width:1200px;margin:0 auto;padding:120px 56px;">
     <p class="eyebrow reveal">The Team</p>
     <h2 class="reveal" style="margin-bottom:48px;">The people behind<br>the <em>science.</em></h2>
