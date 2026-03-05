@@ -978,7 +978,15 @@
     border-color: rgba(28,53,80,.24) !important;
   }
 
-  /* Keep hero + final CTA dark */
+  
+  /* Ensure QSense/LuminAI card text stays high-contrast in light-canvas mode */
+  #solution .qs-card h3,
+  #solution .lum-card h3,
+  #solution .qs-card p,
+  #solution .lum-card p { color: #F4F8FF !important; }
+  #solution .qs-card p:first-child,
+  #solution .lum-card p:first-child { color: #9DE8FF !important; }
+/* Keep hero + final CTA dark */
   .hero,
   .cta-section,
   footer,
@@ -1101,7 +1109,7 @@
       <p style="font-size:18px;color:rgba(255,255,255,.75);line-height:1.7;max-width:640px;margin-bottom:48px;">HelioFlux combines proprietary hardware and AI to capture and classify the faint light your cells already emit.</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
-        <div style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
+        <div class="qs-card" style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
           <img src="qsense-product.jpg" alt="QSense" style="width:100%;max-height:220px;object-fit:cover;display:block;">
           <div style="padding:28px 32px;">
             <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9DE8FF;margin-bottom:8px;">Hardware</p>
@@ -1109,7 +1117,7 @@
             <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">Captures ultra-weak photon emissions at single-photon sensitivity. Non-invasive. No radiation.</p>
           </div>
         </div>
-        <div style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
+        <div class="lum-card" style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
           <img src="luminal-product.jpg" alt="LuminAI" style="width:100%;max-height:220px;object-fit:cover;display:block;">
           <div style="padding:28px 32px;">
             <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9DE8FF;margin-bottom:8px;">Software</p>
