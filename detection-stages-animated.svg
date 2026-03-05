@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" role="img" aria-labelledby="title desc">
+  <title id="title">Cancer progression timeline with early HelioFlux detection</title>
+  <desc id="desc">Four stages from normal cells to visible tumor. HelioFlux detects metabolic shifts before tumor formation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#15253A"/>
+      <stop offset="1" stop-color="#1D324C"/>
+    </linearGradient>
+    <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .bg{fill:url(#bg)}
+      .stage-title{font:600 22px 'DM Sans', Arial, sans-serif; fill:#F2F7FF; letter-spacing:.03em}
+      .stage-sub{font:400 15px 'DM Sans', Arial, sans-serif; fill:#BFD0E2}
+      .tag{font:700 12px 'DM Sans', Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase}
+      .arrow{stroke:#8FB0CC; stroke-width:2; fill:none; opacity:.45; stroke-dasharray:10 10}
+      .cluster-normal circle{fill:#86A8C6}
+      .cluster-shift circle{fill:#54C7E8}
+      .cluster-early circle{fill:#00C8F0}
+      .cluster-tumor circle{fill:#E55E56}
+      .pulse{animation:pulse 2.2s ease-in-out infinite}
+      .arrive{opacity:0; transform:translateY(20px) scale(.92); transform-origin:center; animation:arrive .8s cubic-bezier(.2,.8,.2,1) forwards}
+      .a1{animation-delay:.2s}.a2{animation-delay:.7s}.a3{animation-delay:1.2s}.a4{animation-delay:1.7s}
+      .arrowDraw{stroke-dasharray:180; stroke-dashoffset:180; animation:draw .7s ease forwards}
+      .d1{animation-delay:.55s}.d2{animation-delay:1.05s}.d3{animation-delay:1.55s}
+      .tumorFly{opacity:0; transform:translate(-35px,30px) scale(.55); transform-origin:center; animation:flyIn .9s cubic-bezier(.16,.84,.25,1) forwards}
+      .t1{animation-delay:1.9s}.t2{animation-delay:2.05s}.t3{animation-delay:2.2s}.t4{animation-delay:2.35s}
+      @keyframes arrive{to{opacity:1; transform:none}}
+      @keyframes draw{to{stroke-dashoffset:0; opacity:.75}}
+      @keyframes flyIn{to{opacity:1; transform:none}}
+      @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+      @media (prefers-reduced-motion: reduce){
+        .arrive,.arrowDraw,.tumorFly{animation:none; opacity:1; transform:none}
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="420" rx="18"/>
+
+  <!-- Stage containers -->
+  <g class="arrive a1" transform="translate(90,80)">
+    <text class="stage-title" x="130" y="0" text-anchor="middle">Healthy Tissue</text>
+    <text class="stage-sub" x="130" y="24" text-anchor="middle">Normal photon pattern</text>
+    <g class="cluster-normal" transform="translate(30,70)">
+      <circle cx="18" cy="20" r="12"/><circle cx="52" cy="18" r="11"/><circle cx="85" cy="20" r="12"/>
+      <circle cx="32" cy="50" r="12"/><circle cx="67" cy="52" r="12"/><circle cx="101" cy="50" r="12"/>
+      <circle cx="48" cy="82" r="12"/><circle cx="82" cy="82" r="12"/>
+    </g>
+    <text class="tag" x="130" y="205" text-anchor="middle" fill="#A7BDD3">BASELINE</text>
+  </g>
+
+  <path class="arrow arrowDraw d1" d="M390 190 L500 190"/>
+  <path class="arrow arrowDraw d1" d="M490 184 L500 190 L490 196"/>
+
+  <g class="arrive a2" transform="translate(500,80)">
+    <text class="stage-title" x="130" y="0" text-anchor="middle">Metabolic Shift</text>
+    <text class="stage-sub" x="130" y="24" text-anchor="middle">Signal starts changing</text>
+    <g class="cluster-shift" transform="translate(30,70)">
+      <circle cx="18" cy="20" r="12"/><circle cx="52" cy="18" r="11"/><circle cx="85" cy="20" r="12"/>
+      <circle cx="32" cy="50" r="12"/><circle cx="67" cy="52" r="12"/><circle cx="101" cy="50" r="12"/>
+      <circle cx="48" cy="82" r="12"/><circle cx="82" cy="82" r="12"/>
+      <circle class="pulse" cx="118" cy="36" r="9" fill="#00C8F0" filter="url(#glowCyan)"/>
+    </g>
+    <text class="tag" x="130" y="205" text-anchor="middle" fill="#6DD8F3">SUBTLE CHANGE</text>
+  </g>
+
+  <path class="arrow arrowDraw d2" d="M800 190 L910 190"/>
+  <path class="arrow arrowDraw d2" d="M900 184 L910 190 L900 196"/>
+
+  <g class="arrive a3" transform="translate(910,80)">
+    <text class="stage-title" x="130" y="0" text-anchor="middle">HelioFlux Window</text>
+    <text class="stage-sub" x="130" y="24" text-anchor="middle">Detectable before tumor</text>
+    <g class="cluster-early" transform="translate(30,70)">
+      <circle cx="18" cy="20" r="12"/><circle cx="52" cy="18" r="11"/><circle cx="85" cy="20" r="12"/>
+      <circle cx="32" cy="50" r="12"/><circle cx="67" cy="52" r="12"/><circle cx="101" cy="50" r="12"/>
+      <circle cx="48" cy="82" r="12"/><circle cx="82" cy="82" r="12"/>
+      <circle class="pulse" cx="118" cy="36" r="11" fill="#00E0FF" filter="url(#glowCyan)"/>
+      <circle class="pulse" cx="121" cy="67" r="8" fill="#00D3FA" filter="url(#glowCyan)" style="animation-delay:.4s"/>
+    </g>
+    <text class="tag" x="130" y="205" text-anchor="middle" fill="#7EE8FF">EARLY DETECTION</text>
+  </g>
+
+  <path class="arrow arrowDraw d3" d="M1210 190 L1320 190"/>
+  <path class="arrow arrowDraw d3" d="M1310 184 L1320 190 L1310 196"/>
+
+  <g class="arrive a4" transform="translate(1320,80)">
+    <text class="stage-title" x="130" y="0" text-anchor="middle">Visible Tumor</text>
+    <text class="stage-sub" x="130" y="24" text-anchor="middle">Traditional imaging stage</text>
+    <g class="cluster-tumor" transform="translate(30,70)">
+      <circle cx="18" cy="20" r="12"/><circle cx="52" cy="18" r="11"/><circle cx="85" cy="20" r="12"/>
+      <circle cx="32" cy="50" r="12"/><circle cx="67" cy="52" r="12"/><circle cx="101" cy="50" r="12"/>
+      <circle cx="48" cy="82" r="12"/><circle cx="82" cy="82" r="12"/>
+      <circle class="tumorFly t1" cx="117" cy="28" r="10"/>
+      <circle class="tumorFly t2" cx="132" cy="44" r="11"/>
+      <circle class="tumorFly t3" cx="118" cy="62" r="9"/>
+      <circle class="tumorFly t4" cx="137" cy="74" r="10"/>
+    </g>
+    <text class="tag" x="130" y="205" text-anchor="middle" fill="#F08A83">LATE STAGE</text>
+  </g>
+</svg>
