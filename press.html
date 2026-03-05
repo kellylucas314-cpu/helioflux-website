@@ -873,6 +873,23 @@
     .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   
   </style>
+
+<style id="light-canvas-pass-sub">
+  /* Shared light-canvas system for subpages */
+  body { background:#F7F6F2 !important; color:#1D334A !important; }
+  .section, .section-bg, .section-inner, .press-card, .team-card, .ncred, .acc-item, .acc-body {
+    background:#F7F6F2 !important;
+    color:#1D334A !important;
+    border-color: rgba(29,51,74,.14) !important;
+  }
+  h1,h2,h3,h4,.team-name,.press-headline,.acc-label { color:#14263C !important; }
+  p,li,span,.lead,.acc-preview,.f-contact,.f-tagline { color:#2A4058 !important; }
+  .eyebrow,.team-title,.press-outlet,.ncred-label,.acc-icon { color:#00A9D6 !important; }
+  nav.scrolled{ background:rgba(20,38,60,.9) !important; }
+  footer,.f-bottom{ background:#17263A !important; color:rgba(244,248,255,.85)!important; }
+  footer *,.f-bottom *{ color:rgba(244,248,255,.85)!important; }
+</style>
+
 </head>
 <body>
 <div class="cursor-dot" id="cdot"></div>
@@ -898,13 +915,34 @@
 
 <div style="padding:180px 56px 60px;max-width:1200px;margin:0 auto;">
   <p class="eyebrow reveal">Press &amp; Research</p>
-  <h2 class="reveal">What the world<br>is <em>saying.</em></h2>
+  <h2 class="reveal">Coverage, validation,<br>and published science.</h2>
   <p class="lead reveal" style="max-width:640px;margin-top:24px;">Scientific American, NPR Radiolab, Cell Press, CBC News, and others have covered HelioFlux's biophotonic cancer detection research.</p>
   <p class="reveal" style="font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-top:24px;">NVIDIA Inception Program Member</p>
 </div>
 
 <div style="max-width:1200px;margin:0 auto;padding:0 56px 100px;">
-  
+  <div class="press-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;background:transparent;">
+    <a class="press-card reveal" href="https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/" target="_blank" style="background:#F7F6F2;border:1px solid rgba(20,38,60,.16);padding:36px;text-decoration:none;">
+      <p class="press-outlet">Scientific American</p>
+      <h3 class="press-headline">Biophoton research highlighted as potentially groundbreaking</h3>
+      <p class="press-quote">Feature coverage on ultra-weak photon emissions and implications for disease detection.</p>
+    </a>
+    <a class="press-card reveal" href="https://radiolab.org/podcast/the-spark-of-life" target="_blank" style="background:#F7F6F2;border:1px solid rgba(20,38,60,.16);padding:36px;text-decoration:none;">
+      <p class="press-outlet">NPR Radiolab</p>
+      <h3 class="press-headline">The Spark of Life</h3>
+      <p class="press-quote">National audience feature exploring the science behind biophoton signaling.</p>
+    </a>
+    <a class="press-card reveal" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" style="background:#F7F6F2;border:1px solid rgba(20,38,60,.16);padding:36px;text-decoration:none;">
+      <p class="press-outlet">Cancers (2020)</p>
+      <h3 class="press-headline">Early-malignancy detection in vitro and in vivo</h3>
+      <p class="press-quote">90% discriminant accuracy with 24-hour detection signal in mouse models.</p>
+    </a>
+    <a class="press-card reveal" href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" style="background:#F7F6F2;border:1px solid rgba(20,38,60,.16);padding:36px;text-decoration:none;">
+      <p class="press-outlet">Cell Press iScience (2025)</p>
+      <h3 class="press-headline">First photoencephalography publication</h3>
+      <p class="press-quote">Human-subject evidence extending photon-based sensing into brain activity mapping.</p>
+    </a>
+  </div>
 </div>
 
 <footer>

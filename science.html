@@ -874,6 +874,23 @@
     .prob-gap-col.late .prob-gap-num { color: var(--coral); }
   
   </style>
+
+<style id="light-canvas-pass-sub">
+  /* Shared light-canvas system for subpages */
+  body { background:#F7F6F2 !important; color:#1D334A !important; }
+  .section, .section-bg, .section-inner, .press-card, .team-card, .ncred, .acc-item, .acc-body {
+    background:#F7F6F2 !important;
+    color:#1D334A !important;
+    border-color: rgba(29,51,74,.14) !important;
+  }
+  h1,h2,h3,h4,.team-name,.press-headline,.acc-label { color:#14263C !important; }
+  p,li,span,.lead,.acc-preview,.f-contact,.f-tagline { color:#2A4058 !important; }
+  .eyebrow,.team-title,.press-outlet,.ncred-label,.acc-icon { color:#00A9D6 !important; }
+  nav.scrolled{ background:rgba(20,38,60,.9) !important; }
+  footer,.f-bottom{ background:#17263A !important; color:rgba(244,248,255,.85)!important; }
+  footer *,.f-bottom *{ color:rgba(244,248,255,.85)!important; }
+</style>
+
 </head>
 <body>
 <div class="cursor-dot" id="cdot"></div>
@@ -903,14 +920,14 @@
 <!-- Page header -->
 <div style="padding:180px 56px 80px;max-width:1200px;margin:0 auto;">
   <p class="eyebrow reveal">The Science</p>
-  <h2 class="reveal">How HelioFlux<br><em>detects cancer.</em></h2>
-  <p class="lead reveal" style="max-width:640px;margin-top:24px;">All living cells emit faint light. Cancer cells emit a different pattern. HelioFlux reads that difference at the earliest detectable stage.</p>
+  <h2 class="reveal">How HelioFlux<br><em>detects earlier.</em></h2>
+  <p class="lead reveal" style="max-width:640px;margin-top:24px;">HelioFlux reads ultra-weak photon emission patterns to identify malignant metabolic signatures before tumors are visible on conventional imaging.</p>
 </div>
 
 <!-- Detection diagram -->
 <div style="max-width:1200px;margin:0 auto;padding:0 56px 80px;">
   <div class="reveal" style="overflow:hidden;">
-    <img src="detection-stages.png" alt="Cancer progression stages" style="width:100%;display:block;">
+    <object data="detection-stages-animated.svg" type="image/svg+xml" style="width:100%;display:block;" aria-label="Cancer progression stages with animated timeline"><img src="detection-stages.png" alt="Cancer progression stages" style="width:100%;display:block;"></object>
   </div>
 </div>
 
@@ -918,20 +935,20 @@
 <div style="background:#04070E;">
   <div style="max-width:1200px;margin:0 auto;padding:100px 56px;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;" class="reveal">
-      <div style="background:var(--bg);overflow:hidden;border:1px solid var(--border);border-radius:6px;">
+      <div style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
         <img src="qsense-product.jpg" alt="QSense" style="width:100%;max-height:220px;object-fit:cover;display:block;">
         <div style="padding:28px 32px;">
           <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Hardware</p>
-          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;">QSense&#8482;</h3>
-          <p style="font-size:16px;color:rgba(255,255,255,.78);line-height:1.75;margin:0;">Captures ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation.</p>
+          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">QSense&#8482;</h3>
+          <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">Captures ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation.</p>
         </div>
       </div>
-      <div style="background:var(--bg);overflow:hidden;border:1px solid var(--border);border-radius:6px;">
+      <div style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
         <img src="luminal-product.jpg" alt="LuminAI" style="width:100%;max-height:220px;object-fit:cover;display:block;">
         <div style="padding:28px 32px;">
           <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Software</p>
-          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;">LuminAI&#8482;</h3>
-          <p style="font-size:16px;color:rgba(255,255,255,.78);line-height:1.75;margin:0;">AI analyzes photon patterns against a validated cancer signature database, delivering a biomarker classification in real time.</p>
+          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">LuminAI&#8482;</h3>
+          <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">AI analyzes photon patterns against a validated cancer signature database, delivering a biomarker classification in real time.</p>
         </div>
       </div>
     </div>
