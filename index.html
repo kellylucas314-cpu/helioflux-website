@@ -112,7 +112,7 @@
     }
     .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,1) 0%, rgba(10,14,26,.85) 8%, rgba(10,14,26,.35) 55%, rgba(10,14,26,.12) 100%); }
 
-    .hero-content { position: relative; z-index: 3; max-width: 900px; margin-top: clamp(98px, 13vh, 156px); }
+    .hero-content { position: relative; z-index: 3; max-width: 900px; margin-top: clamp(132px, 16vh, 200px); }
     .hero-eyebrow { display: none; }
     .hero h1 { font-family: var(--serif); font-size: clamp(56px, 7.8vw, 102px); font-weight: 520; line-height: 1.03; color: var(--white); margin-bottom: 32px; opacity: 0; letter-spacing: -0.012em; }
     .hero h1 em { font-style: normal; color: inherit; font-weight: inherit; }
@@ -464,7 +464,7 @@
       .mobile-menu a:hover { color: var(--cyan); }
       .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,200,240,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; }
       .nav-cta { display: none; }
-      .hero { height: auto !important; min-height: 100svh !important; padding: 120px 24px 72px !important; justify-content: center !important; }
+      .hero { height: auto !important; min-height: 100svh !important; padding: 148px 24px 72px !important; justify-content: center !important; }
       .hero-content { margin-top: 0 !important; max-width: 100% !important; }
       .hero h1 { font-size: clamp(42px, 12vw, 72px) !important; line-height: 1.04 !important; margin-bottom: 22px !important; }
       .hero-sub { font-size: 16px !important; line-height: 1.6 !important; margin-bottom: 28px !important; }
@@ -890,7 +890,7 @@
     /* Mobile hero spacing hotfix */
     @media (max-width: 900px) {
       nav { padding: 14px 20px; }
-      .hero { min-height: 100svh; padding: 120px 20px 56px; }
+      .hero { min-height: 100svh; padding: 148px 20px 56px; }
       .hero-content { margin-top: 0; }
       .hero h1 { font-size: clamp(42px, 10.5vw, 56px); line-height: 1.12; letter-spacing: -0.01em; }
     }
@@ -1654,6 +1654,5 @@ if (hamburger && mobileMenu) {
 
 <a href="#" id="back-to-top" aria-label="Back to top">↑</a>
 
-<div style="position:fixed;right:12px;bottom:12px;z-index:9999;background:rgba(0,0,0,.55);color:#fff;padding:6px 10px;font:12px 'DM Sans',sans-serif;border:1px solid rgba(255,255,255,.2);">A Modern Clean</div>
 </body>
 </html>
