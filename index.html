@@ -1045,10 +1045,13 @@
 
 <style id="light-contrast-fix">
   /* Contrast guardrail: ONLY light cream sections get dark text */
-  #problem, #two-systems, #platform { color:#1F3650; }
+  #problem, #two-systems { color:#1F3650; }
   #problem p, #problem li, #problem span, #problem h2,
-  #two-systems p, #two-systems li, #two-systems span, #two-systems h2, #two-systems h3,
-  #platform p, #platform li, #platform span, #platform h2, #platform h3 { color:#1F3650 !important; }
+  #two-systems p, #two-systems li, #two-systems span, #two-systems h2, #two-systems h3 { color:#1F3650 !important; }
+  /* Platform section label = dark text on cream, but cards keep their own colors */
+  #platform > .h-section-label, #platform > .h-section-label * { color:#1F3650 !important; }
+  /* Carousel cards stay light text on dark */
+  .h-panel h3, .h-panel p, .h-stat-num, .h-stat-label { color: inherit !important; }
 </style>
 </head>
 <body>
@@ -1194,8 +1197,7 @@
   </div>
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
-      <div class="h-panel" style="background:#0f1c2e;border-left:4px solid var(--cyan);">
-        <div class="h-panel-img reveal"></div>
+      <div class="h-panel" style="background:#0f1c2e;border-left:4px solid var(--cyan);grid-template-columns:1fr !important;">
         <div class="reveal">
           <div class="h-panel-status">Featured · Validated · Human Study Q3 2026</div>
           <h3>Skin Cancer<br><em>Detection</em></h3>
@@ -1218,8 +1220,7 @@
           </div>
         </div>
       </div>
-      <div class="h-panel">
-        <div class="h-panel-img reveal"></div>
+      <div class="h-panel" style="grid-template-columns:1fr !important;">
         <div class="reveal">
           <div class="h-panel-status">Research Frontier</div>
           <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
@@ -1239,7 +1240,7 @@
       <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
-  <p class="reveal" style="text-align:center;font-size:clamp(24px,3vw,28px);font-weight:600;line-height:1.5;color:#14263C;max-width:680px;margin:60px auto 80px;padding:0 24px;">Metabolic disruption is the earliest sign of disease. It shows up in cancer. In diabetes. In neurodegeneration. HelioFlux reads that signal.</p>
+  <p class="reveal" style="text-align:center;font-size:21px;font-weight:600;line-height:1.5;color:#1a1a2e;max-width:680px;margin:0 auto;padding:40px 24px;">Metabolic disruption is the earliest sign of disease. It shows up in cancer. In diabetes. In neurodegeneration. HelioFlux reads that signal.</p>
 </section>
 
 <!-- ═══ TEAM PREVIEW ═══ -->
