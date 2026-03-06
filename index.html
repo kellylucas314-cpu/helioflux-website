@@ -192,7 +192,7 @@
     /* ─── HORIZONTAL SCROLL SECTION ─── */
     .h-section {
       overflow: hidden;
-      background: var(--bg);
+      background: #0a0e1a;
     }
     .h-section-label {
       padding: 80px 56px 0;
@@ -1041,10 +1041,15 @@
   #problem, #two-systems { color:#1F3650; }
   #problem p, #problem li, #problem span, #problem h2,
   #two-systems p, #two-systems li, #two-systems span, #two-systems h2, #two-systems h3 { color:#1F3650 !important; }
-  /* Platform section label = dark text on cream, but cards keep their own colors */
+  /* Platform section label = dark text on cream */
   #platform > .h-section-label, #platform > .h-section-label * { color:#1F3650 !important; }
-  /* Carousel cards stay light text on dark */
-  .h-panel h3, .h-panel p, .h-stat-num, .h-stat-label { color: inherit !important; }
+  /* Platform closing line = dark text on cream */
+  #platform > p { color:#1a1a2e !important; }
+  /* Carousel cards = light text on dark — force override */
+  .h-panel h3 { color: #ffffff !important; }
+  .h-panel p { color: #c8d0d8 !important; }
+  .h-stat-num { color: var(--cyan) !important; }
+  .h-stat-label { color: rgba(255,255,255,.65) !important; }
 </style>
 </head>
 <body>
@@ -1183,7 +1188,7 @@
 </div>
 
 <!-- ═══ PLATFORM ═══ -->
-<section id="platform" style="background:#f5f0eb;">
+<section id="platform" style="background:#f5f0eb;padding-bottom:0;">
   <div class="h-section-label">
     <p class="eyebrow reveal">What It Can Detect</p>
     <h2 class="reveal">Proven in the lab.<br><em>Heading to humans.</em></h2>
