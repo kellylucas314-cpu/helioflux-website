@@ -46,13 +46,14 @@
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      cursor: default;
+      cursor: auto;
     }
 
     /* ─── ENERGY BLOB (follows cursor) ─── */
 
     /* ─── CUSTOM CURSOR ─── */
-    .cursor-dot {
+    .cursor-dot { display: none !important; }
+    .cursor-dot-disabled {
       position: fixed; width: 5px; height: 5px;
       background: var(--cyan); border-radius: 50%;
       pointer-events: none; z-index: 9999;
@@ -1450,8 +1451,8 @@ function animateCanvas() {
 animateCanvas();
 
 // ─── ENERGY BLOB (follows cursor + scroll) ───
-// Only hide cursor after JS confirms it's running
-document.body.style.cursor = 'none';
+// Custom cursor disabled — was causing offset issues
+// document.body.style.cursor = 'none';
 const blob = document.getElementById('blob'); // removed
 const cdot = document.getElementById('cdot');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
