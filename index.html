@@ -895,7 +895,64 @@
       .hero h1 { font-size: clamp(42px, 10.5vw, 56px); line-height: 1.12; letter-spacing: -0.01em; }
     }
 
-  </style>
+  
+
+    /* Scientific progression figure (layered image animation) */
+    .prog-figure { position: relative; margin: 0; width: 100%; }
+    .prog-base { width: 100%; display: block; }
+    .prog-stage, .prog-arrow, .prog-highlight {
+      position: absolute;
+      opacity: 0;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+    .prog-stage.st1 { left: 9.2%; top: 4.8%; width: 7.8%; }
+    .prog-stage.st2 { left: 22.3%; top: 4.2%; width: 9.2%; }
+    .prog-stage.st3 { left: 35.2%; top: 2.6%; width: 8.8%; }
+    .prog-stage.st4 { left: 47.7%; top: 2.2%; width: 10.2%; }
+    .prog-stage.st5 { left: 61.7%; top: 3.1%; width: 11.7%; }
+    .prog-stage.st6 { left: 76.2%; top: 2.7%; width: 11.7%; }
+    .prog-arrow.a1 { left: 18.8%; top: 53.2%; width: 39%; }
+    .prog-arrow.a2 { left: 23.4%; top: 67%; width: 53%; }
+    .prog-arrow.a3 { left: 22.7%; top: 81%; width: 59%; }
+    .prog-highlight { left: 20.7%; top: 3.4%; width: 12.9%; }
+
+    @keyframes progIn {
+      from { opacity: 0; transform: translateY(10px) scale(.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes drawIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to   { opacity: .92; transform: translateX(0); }
+    }
+    .prog-stage.st1 { animation: progIn .55s ease-out .10s forwards; }
+    .prog-stage.st2 { animation: progIn .55s ease-out .45s forwards; }
+    .prog-stage.st3 { animation: progIn .55s ease-out .80s forwards; }
+    .prog-stage.st4 { animation: progIn .55s ease-out 1.15s forwards; }
+    .prog-stage.st5 { animation: progIn .55s ease-out 1.50s forwards; }
+    .prog-stage.st6 { animation: progIn .55s ease-out 1.85s forwards; }
+    .prog-arrow.a1 { animation: drawIn .65s ease-out 1.10s forwards; }
+    .prog-arrow.a2 { animation: drawIn .65s ease-out 1.55s forwards; }
+    .prog-arrow.a3 { animation: drawIn .65s ease-out 2.00s forwards; }
+    .prog-highlight { animation: progIn .55s ease-out 2.35s forwards; }
+
+    @media (max-width: 900px) {
+      .prog-stage.st1 { left: 8.9%; width: 9.8%; top: 5.5%; }
+      .prog-stage.st2 { left: 22.0%; width: 11.2%; top: 4.7%; }
+      .prog-stage.st3 { left: 35.2%; width: 10.8%; top: 3.6%; }
+      .prog-stage.st4 { left: 47.2%; width: 12.8%; top: 3.2%; }
+      .prog-stage.st5 { left: 61.4%; width: 13.9%; top: 3.8%; }
+      .prog-stage.st6 { left: 76.0%; width: 13.9%; top: 3.6%; }
+      .prog-arrow.a1 { left: 16.8%; top: 54.2%; width: 42%; }
+      .prog-arrow.a2 { left: 20.4%; top: 68.5%; width: 56%; }
+      .prog-arrow.a3 { left: 19.2%; top: 82.6%; width: 62%; }
+      .prog-highlight { left: 20.2%; top: 4.4%; width: 15.4%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .prog-stage, .prog-arrow, .prog-highlight { opacity: 1 !important; animation: none !important; transform: none !important; }
+    }
+</style>
 
 <style id="light-canvas-pass">
   /* Light-canvas experiment: Martin-like white rhythm + blue breaks */
@@ -1104,9 +1161,22 @@
     </div>
 
     <div class="reveal" style="margin:48px -56px 56px;overflow:hidden;">
-      <object data="detection-stages-animated.svg" type="image/svg+xml" style="width:100%;display:block;" aria-label="Cancer progression stages with animated timeline">
-        <img src="detection-stages.png" alt="Cancer progression stages timeline" style="width:100%;display:block;">
-      </object>
+      <figure class="prog-figure" aria-label="Cancer progression and detection thresholds">
+        <img src="assets/progression/base.jpg" alt="Cancer progression timeline" class="prog-base">
+
+        <img src="assets/progression/normal.png" class="prog-stage st1" alt="Normal">
+        <img src="assets/progression/pre.png" class="prog-stage st2" alt="Precancerous lesion">
+        <img src="assets/progression/s1.png" class="prog-stage st3" alt="Stage I localized tumor">
+        <img src="assets/progression/s2.png" class="prog-stage st4" alt="Stage II">
+        <img src="assets/progression/s3.png" class="prog-stage st5" alt="Stage III">
+        <img src="assets/progression/s4.png" class="prog-stage st6" alt="Stage IV">
+
+        <img src="assets/progression/arrow_helio.png" class="prog-arrow a1" alt="HelioFlux detection threshold">
+        <img src="assets/progression/arrow_liquid.png" class="prog-arrow a2" alt="Liquid biopsy threshold">
+        <img src="assets/progression/arrow_trad.png" class="prog-arrow a3" alt="Traditional imaging threshold">
+
+        <img src="assets/progression/highlight.png" class="prog-highlight" alt="Early-window highlight">
+      </figure>
     </div>
 
     <div class="reveal" style="border-left:3px solid var(--cyan);padding:28px 36px;margin:0 0 80px;max-width:760px;background:rgba(0,200,240,.02);">
