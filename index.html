@@ -1152,7 +1152,7 @@
       <div class="h-panel" style="background:rgba(0,200,240,.06);border-right:1px solid rgba(0,200,240,.26);">
         <div class="h-panel-img reveal"></div>
         <div class="reveal">
-          <div class="h-panel-status" style="background:rgba(0,200,240,.2);color:#BFEFFF;border:1px solid rgba(0,200,240,.4);">Featured · Validated · Human Study Q3 2026</div>
+          <div class="h-panel-status">Featured · Validated · Human Study Q3 2026</div>
           <h3>Skin Cancer<br><em>Detection</em></h3>
           <p>90-92% accuracy distinguishing cancerous from healthy biology across 13 cancer cell lines and 47 animal models. Detection within 24 hours of exposure. First IRB-approved human study launching Q3 2026 with a Beverly Hills dermatology partner.</p>
           <div class="h-stats">
@@ -1176,7 +1176,7 @@
       <div class="h-panel">
         <div class="h-panel-img reveal"></div>
         <div class="reveal">
-          <div class="h-panel-status" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);">Research Frontier</div>
+          <div class="h-panel-status">Research Frontier</div>
           <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
           <p>Ultra-weak photon emissions are a documented marker of oxidative stress, the mechanism underlying diabetes, cardiovascular disease, and autoimmune conditions. 40+ peer-reviewed studies point to a broader opportunity.</p>
           <div class="h-stats">
@@ -1190,7 +1190,6 @@
       <button class="h-arrow" id="hPrev" aria-label="Previous">&#8592;</button>
       <button class="h-arrow" id="hNext" aria-label="Next">&#8594;</button>
     </div>
-    <p style="text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(139,217,255,.75);margin:0 0 8px;">Use arrows to view each card</p>
     <div class="h-dots" id="hDots">
       <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
@@ -1434,13 +1433,33 @@ const hDots = document.querySelectorAll('.h-dot');
 const panels = document.querySelectorAll('.h-panel');
 const panelCount = panels.length;
 
-// Manual carousel mode only (no sticky/pinned scroll)
-if (window.innerWidth <= 1024) {
-  // Mobile swipe support: update dots on scroll
+if (window.innerWidth > 1024) {
+  // Desktop: GSAP pin + horizontal scroll
+  const totalScroll = () => hTrack.scrollWidth - hSection.offsetWidth;
+  gsap.to(hTrack, {
+    x: () => -totalScroll(),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hSection,
+      start: 'top 80px',
+      end: () => '+=' + (totalScroll() + window.innerHeight * 2),
+      pin: true,
+      scrub: 1.2,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: self => {
+        const idx = Math.round(self.progress * (panelCount - 1));
+        currentPanel = idx;
+        hDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    }
+  });
+} else {
+  // Mobile: native CSS scroll-snap
   hSection.addEventListener('scroll', () => {
     const idx = Math.round(hSection.scrollLeft / (window.innerWidth * 0.88));
-    hDots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, panelCount - 1)));
     currentPanel = Math.min(idx, panelCount - 1);
+    hDots.forEach((d, i) => d.classList.toggle('active', i === currentPanel));
   }, { passive: true });
 }
 
