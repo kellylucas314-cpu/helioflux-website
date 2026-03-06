@@ -46,15 +46,22 @@
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      cursor: auto;
+      cursor: default;
     }
 
     /* ─── ENERGY BLOB (follows cursor) ─── */
 
     /* ─── CUSTOM CURSOR ─── */
     .cursor-dot {
-      display: none !important;
+      position: fixed; width: 5px; height: 5px;
+      background: var(--cyan); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      box-shadow: 0 0 8px var(--cyan);
+      transition: width .2s, height .2s;
     }
+    .cursor-dot.big { width: 12px; height: 12px; }
+    @media (pointer: coarse) { .cursor-dot { display: none; } body { cursor: auto; } }
 
     /* ─── NAV ─── */
     nav {
@@ -1443,8 +1450,8 @@ function animateCanvas() {
 animateCanvas();
 
 // ─── ENERGY BLOB (follows cursor + scroll) ───
-// Custom cursor disabled — was causing offset issues
-// document.body.style.cursor = 'none';
+// Hide default cursor when custom dot is active
+document.body.style.cursor = 'none';
 const blob = document.getElementById('blob'); // removed
 const cdot = document.getElementById('cdot');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
@@ -1452,9 +1459,10 @@ let bx = mx, by = my;
 
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-// Custom cursor
+// Custom cursor — use left/top to avoid transform conflict with translate(-50%,-50%)
 document.addEventListener('mousemove', e => {
-  gsap.to(cdot, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'none' });
+  cdot.style.left = e.clientX + 'px';
+  cdot.style.top = e.clientY + 'px';
 });
 document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('mouseenter', () => cdot.classList.add('big'));
