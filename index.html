@@ -193,8 +193,6 @@
     .h-section {
       overflow: hidden;
       background: var(--bg);
-      max-width: 1200px;
-      margin: 0 auto;
     }
     .h-section-label {
       padding: 80px 56px 0;
@@ -206,11 +204,11 @@
     .h-track {
       display: flex;
       will-change: transform;
-      width: 100%;
+      width: max-content;
     }
     .h-panel {
-      width: 100%;
-      padding: 42px 36px;
+      width: 85vw;
+      padding: 60px 48px;
       display: grid;
       grid-template-columns: 1fr 1.2fr;
       gap: 40px;
@@ -709,15 +707,16 @@
     .quote-warm .quote-attr { color: var(--cyan); opacity: .7; }
 
     /* Carousel arrows */
-    .h-arrows { display: flex; justify-content: center; gap: 14px; padding-bottom: 8px; }
+    .h-arrows { display: flex; justify-content: center; gap: 20px; padding-bottom: 10px; }
     .h-arrow {
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.88); font-size: 20px; cursor: pointer;
+      width: 58px; height: 58px; border-radius: 50%;
+      border: 1px solid rgba(0,200,240,.55); background: rgba(0,200,240,.12);
+      color: rgba(255,255,255,.92); font-size: 24px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
       transition: border-color .25s, color .25s, background .25s, transform .2s;
     }
-    .h-arrow:hover { border-color: var(--cyan); color: #fff; background: rgba(0,200,240,.16); transform: translateY(-1px); }
+    .h-arrow:hover { border-color: var(--cyan); color: #fff; background: rgba(0,200,240,.24); transform: translateY(-1px); }
     .h-arrow:disabled { opacity: .35; cursor: default; }
 
     /* Team section warm accent */
@@ -899,6 +898,116 @@
 
   </style>
 
+<style id="light-canvas-pass">
+  /* Light-canvas experiment: Martin-like white rhythm + blue breaks */
+  #problem,
+  #solution,
+  #platform,
+  #team,
+  .section-bg,
+  .section-bg .section-inner,
+  .press-logos,
+  .press-card,
+  .team-card,
+  .cred,
+  .ncred,
+  .acc-item,
+  .acc-body,
+  .acc-body-pad,
+  .h-panel,
+  .h-panel-inner,
+  .h-panel-content,
+  .h-panel-img,
+  .h-panel-bio,
+  .h-track,
+  .h-section {
+    background: #F7F6F2 !important;
+    color: #16263A !important;
+    border-color: rgba(22,38,58,.14) !important;
+  }
+
+  /* Keep quote as a blue break */
+  .quote-block {
+    background: #2F4562 !important;
+    border-color: rgba(255,255,255,.14) !important;
+  }
+  .quote-block *, .quote-block-text, .quote-block-attr { color: #EEF4FF !important; }
+  .quote-block em { color: #8BD9FF !important; }
+
+  /* Dark text in light sections */
+  #problem p, #problem span, #problem div, #problem li,
+  #solution p, #solution span, #solution div, #solution li,
+  #platform p, #platform span, #platform div, #platform li,
+  #team p, #team span, #team div, #team li,
+  .press-card p, .press-card span, .press-card div,
+  .cred p, .cred span, .cred div,
+  .acc-body p, .acc-preview, .acc-label, .acc-num,
+  .prob-opener, .prob-support, .prob-gap-survive, .prob-gap-label,
+  .prob-subline, .prob-glass-summary, .threshold-sub, .lead {
+    color: #22364D !important;
+  }
+
+  /* Headings in light sections */
+  #problem h2, #solution h2, #platform h2, #team h2,
+  #problem .prob-gap-num, #problem .threshold-num,
+  .press-headline, .acc-stat-n, .stat-num {
+    color: #14263C !important;
+  }
+
+  /* Keep cyan/coral accents */
+  #problem .prob-gap-col.early .prob-gap-num,
+  #problem .threshold-num.lit,
+  #problem .prob-cyan,
+  #solution .solution-badge.hardware,
+  #solution .solution-badge.software,
+  .acc-icon,
+  .press-outlet,
+  .ncred-label,
+  .h-panel-status {
+    color: #00A9D6 !important;
+    border-color: rgba(0,169,214,.28) !important;
+  }
+
+  #problem .prob-gap-col.late .prob-gap-num { color: #C95A4B !important; }
+
+  /* Buttons/links in light sections */
+  #solution .btn-ghost,
+  #platform .btn-ghost,
+  #team .btn-ghost,
+  .press-card,
+  .acc-pub-link {
+    color: #1C3550 !important;
+    border-color: rgba(28,53,80,.24) !important;
+  }
+
+  
+  /* Ensure QSense/LuminAI card text stays high-contrast in light-canvas mode */
+  #solution .qs-card h3,
+  #solution .lum-card h3,
+  #solution .qs-card p,
+  #solution .lum-card p { color: #F4F8FF !important; }
+  #solution .qs-card p:first-child,
+  #solution .lum-card p:first-child { color: #9DE8FF !important; }
+/* Keep hero + final CTA dark */
+  .hero,
+  .cta-section,
+  footer,
+  .f-bottom {
+    color: #F7FBFF;
+  }
+</style>
+
+
+<style id="light-contrast-fix">
+  /* Contrast guardrail: light sections => dark text */
+  #problem, #solution, #platform, #team, [style*="background:#3a506d"], [style*="background:#4b6383"], [style*="background:#2c3f59"] { color:#1F3650; }
+  #problem p, #problem li, #problem span, #problem h2,
+  #platform p, #platform li, #platform span, #platform h2, #platform h3,
+  #team p, #team li, #team span, #team h2, #team h3,
+  .press-card, .press-card p, .press-card h3 { color:#1F3650 !important; }
+  /* keep dark sections readable */
+  .hero, .hero *, .quote-block, .quote-block *, .cta-section, .cta-section *, footer, footer * { color: inherit; }
+</style>
 </head>
 <body>
 <div class="cursor-dot" id="cdot"></div>
@@ -1090,6 +1199,24 @@
   <p class="reveal" style="text-align:center;font-size:22px;font-weight:600;line-height:1.5;color:rgba(255,255,255,.9);max-width:920px;margin:0 auto 80px;">Metabolic disruption is the earliest sign of disease. It shows up in cancer. In diabetes. In neurodegeneration. HelioFlux reads that signal.</p>
 </section>
 
+<!-- ═══ PRESS STRIP ═══ -->
+<div style="background:#3a506d;">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 56px;text-align:center;">
+    <p class="eyebrow reveal">Featured In</p>
+    <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:40px;opacity:.7;" class="reveal">
+      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">Scientific American</span>
+      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">NPR Radiolab</span>
+      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">Cell Press</span>
+      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">CBC News</span>
+      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">LA Business Journal</span>
+    </div>
+    <div style="margin-top:32px;">
+      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage →</a>
+    </div>
+    <p class="reveal" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-top:28px;opacity:.7;">NVIDIA Inception Program Member</p>
+  </div>
+</div>
+
 <!-- ═══ CREDIBILITY ANCHOR ═══ -->
 <div style="background:#455f80;">
   <div style="max-width:1200px;margin:0 auto;padding:120px 56px;">
@@ -1106,25 +1233,6 @@
         <a href="team.html" class="btn-ghost" style="font-size:15px;">Meet the full team →</a>
       </div>
     </div>
-  </div>
-</div>
-
-
-<!-- ═══ PRESS STRIP ═══ -->
-<div style="background:#3a506d;">
-  <div style="max-width:1200px;margin:0 auto;padding:80px 56px;text-align:center;">
-    <p class="eyebrow reveal">Featured In</p>
-    <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:40px;opacity:.7;" class="reveal">
-      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">Scientific American</span>
-      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">NPR Radiolab</span>
-      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">Cell Press</span>
-      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">CBC News</span>
-      <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">LA Business Journal</span>
-    </div>
-    <div style="margin-top:32px;">
-      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage →</a>
-    </div>
-    <p class="reveal" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-top:28px;opacity:.7;">NVIDIA Inception Program Member</p>
   </div>
 </div>
 
