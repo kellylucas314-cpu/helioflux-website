@@ -218,7 +218,7 @@
     }
     .h-panel:last-child { border-right: none; }
     .h-panel-img { position: relative; }
-    .h-panel-img img { display: none; }
+    .h-panel-img img { display: block; width: 100%; height: 240px; object-fit: cover; opacity: .88; }
     .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; overflow: hidden; }
     .h-panel-img::after {
       content: '';
@@ -1144,31 +1144,31 @@
 <section id="platform" style="background:#4b6383;">
   <div class="h-section-label">
     <p class="eyebrow reveal">What It Can Detect</p>
-    <h2 class="reveal">One platform. <em>Three frontiers.</em></h2>
+    <h2 class="reveal">Proven in the lab.<br><em>Heading to humans.</em></h2>
   </div>
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
-      <div class="h-panel">
+      <div class="h-panel" style="background:rgba(0,200,240,.06);border-right:1px solid rgba(0,200,240,.26);">
         <div class="h-panel-img reveal"></div>
         <div class="reveal">
-          <div class="h-panel-status">Validated · Pilot Q3 2026</div>
+          <div class="h-panel-status" style="background:rgba(0,200,240,.2);color:#BFEFFF;border:1px solid rgba(0,200,240,.4);">Featured · Validated · Human Study Q3 2026</div>
           <h3>Skin Cancer<br><em>Detection</em></h3>
-          <p>90-92% accuracy across 13 cancer cell lines and 47 animal models. Detection within 24 hours.</p>
+          <p>90-92% accuracy distinguishing cancerous from healthy biology across 13 cancer cell lines and 47 animal models. Detection within 24 hours of exposure. First IRB-approved human study launching Q3 2026 with a Beverly Hills dermatology partner.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">92%</div><div class="h-stat-label">Accuracy · in vitro</div></div>
-            <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal models validated</div></div>
+            <div><div class="h-stat-num">47</div><div class="h-stat-label">Animal models</div></div>
           </div>
         </div>
       </div>
       <div class="h-panel">
-        <div class="h-panel-img reveal"></div>
+        <div class="h-panel-img reveal"><img src="helmet-closeup.jpg" alt="Brain helmet photon sensing setup"></div>
         <div class="reveal">
-          <div class="h-panel-status">Published · 2025</div>
+          <div class="h-panel-status">Published · 2025 · Cell Press</div>
           <h3>Brain<br><em>Health</em></h3>
-          <p>First published photoencephalography study. Reading brain activity through photon emission in 20 living humans, cross-validated against EEG.</p>
+          <p>First-ever photoencephalography study published in Cell Press. Photon emissions from the human scalp track brain activity, cross-validated against EEG in 20 living subjects. A new window into neuroscience.</p>
           <div class="h-stats">
             <div><div class="h-stat-num">20</div><div class="h-stat-label">Human subjects</div></div>
-            <div><div class="h-stat-num">2025</div><div class="h-stat-label">Cell Press</div></div>
+            <div><div class="h-stat-num">Cell Press</div><div class="h-stat-label">Published</div></div>
           </div>
         </div>
       </div>
@@ -1177,9 +1177,9 @@
         <div class="reveal">
           <div class="h-panel-status" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);">Research Frontier</div>
           <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
-          <p>UPE signatures are a known marker of oxidative stress underlying diabetes, cardiovascular disease, and autoimmune conditions.</p>
+          <p>Ultra-weak photon emissions are a documented marker of oxidative stress, the mechanism underlying diabetes, cardiovascular disease, and autoimmune conditions. 40+ peer-reviewed studies point to a broader opportunity.</p>
           <div class="h-stats">
-            <div><div class="h-stat-num">40+</div><div class="h-stat-label">Peer-reviewed UPE studies</div></div>
+            <div><div class="h-stat-num">40+</div><div class="h-stat-label">Peer-reviewed studies</div></div>
             <div><div class="h-stat-num">3</div><div class="h-stat-label">Disease categories</div></div>
           </div>
         </div>
@@ -1193,6 +1193,7 @@
       <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
+  <p class="reveal" style="text-align:center;font-size:22px;font-weight:600;line-height:1.5;color:rgba(255,255,255,.9);max-width:920px;margin:0 auto 80px;">Metabolic disruption is the earliest sign of disease. It shows up in cancer. In diabetes. In neurodegeneration. HelioFlux reads that signal.</p>
 </section>
 
 <!-- ═══ PRESS STRIP ═══ -->
