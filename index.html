@@ -1043,7 +1043,6 @@
     <p class="hero-eyebrow" id="he">HelioFlux</p>
     <h1 id="hh">Your cells emit <span class="hero-accent">light.</span></h1>
     <p style="font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);font-weight:280;font-style:italic;color:rgba(255,255,255,.82);margin-bottom:22px;line-height:1.4;opacity:0;" id="hpoetic">HelioFlux reads that signal to detect cancer before it becomes visible.</p>
-    <p class="hero-sub" id="hs">No blood draw. No biopsy. No radiation.</p>
     <div class="hero-actions" id="ha">
       <a href="#solution" class="btn-cyan">See the Science</a>
       <a href="team.html" class="btn-ghost">Meet the Team →</a>
@@ -1052,21 +1051,14 @@
   <div class="scroll-cue"><div class="scroll-line"></div></div>
 </section>
 
-<!-- ═══ LAB PHOTO ═══ -->
-<div class="lab-break" style="position:relative;overflow:hidden;line-height:0;margin-top:-2px;">
-  <img loading="lazy" src="nirosha-lab-v2.jpg" alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant" class="lab-photo-img" style="width:100%;height:clamp(480px,60vw,820px);object-fit:cover;object-position:center 15%;display:block;filter:brightness(.88);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,14,26,.96) 0%, rgba(10,14,26,.55) 10%, rgba(10,14,26,.1) 22%, transparent 38%, rgba(10,14,26,.55) 82%, rgba(10,14,26,.97) 100%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:28px;left:40px;right:40px;line-height:1.5;">
-    <p style="font-size:13px;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,1);">QSense · Biophotonic sensor array · Measuring ultra-weak photon emissions from living tissue</p>
-  </div>
-</div>
-
 <!-- ═══ PROBLEM ═══ -->
 <section id="problem" style="background:linear-gradient(180deg,#445a78 0%, #364c68 100%);">
   <div style="padding:120px 56px;text-align:center;max-width:900px;margin:0 auto;">
-    <span class="prob-eyebrow2 reveal">The Problem</span>
-    <p class="prob-opener reveal" style="margin-bottom:32px;">Cancer often develops silently for years before it becomes visible on medical scans.<br>Most imaging technologies detect tumors only after they have grown to large cell counts.<br>HelioFlux measures earlier metabolic signals.</p>
-    <p class="reveal" style="font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.04em;margin-bottom:20px;">Sources listed at the bottom of this page.</p>
+    <span class="prob-eyebrow2 reveal">The Detection Gap</span>
+    <p class="prob-opener reveal" style="margin-bottom:22px;">The detection gap.</p>
+    <p class="reveal" style="font-size:18px;color:rgba(255,255,255,.82);line-height:1.75;max-width:760px;margin:0 auto 28px;">Cancer develops silently, sometimes for years, before it becomes visible on a scan. Our best tools are waiting for anatomy to change, for a mass to form, for a lesion to grow, for a lump to become large enough to see.</p>
+    <p class="reveal" style="font-size:18px;color:rgba(255,255,255,.88);line-height:1.75;max-width:760px;margin:0 auto 20px;">But biology changes first.</p>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.72);line-height:1.7;max-width:700px;margin:0 auto 20px;">Between the moment cancer begins and the moment we can detect it, there is a gap. That gap is where outcomes are decided.</p>
 
     <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:40px;">
       <div class="prob-gap-col early">
@@ -1264,6 +1256,19 @@
   </div>
 </div>
 
+<!-- ═══ LAB PHOTO ═══ -->
+<div class="lab-break" style="position:relative;overflow:hidden;line-height:0;margin-top:0;">
+  <img loading="lazy" src="nirosha-lab-v2.jpg" alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant" class="lab-photo-img" style="width:100%;height:clamp(420px,56vw,760px);object-fit:cover;object-position:center 15%;display:block;filter:brightness(.88);">
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,14,26,.88) 0%, rgba(10,14,26,.4) 14%, rgba(10,14,26,.08) 28%, transparent 44%, rgba(10,14,26,.45) 84%, rgba(10,14,26,.9) 100%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:22px;left:34px;right:34px;line-height:1.5;">
+    <p style="font-size:13px;color:rgba(255,255,255,.66);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,1);">QSense · Biophotonic sensor array · Measuring ultra-weak photon emissions from living tissue</p>
+  </div>
+</div>
+
+<div style="background:#172338;padding:34px 56px;text-align:center;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);">
+  <p style="font-size:20px;letter-spacing:.02em;color:rgba(255,255,255,.88);">No blood draw. No biopsy. No radiation.</p>
+</div>
+
 <!-- ═══ CTA ═══ -->
 <section class="cta-section" id="contact" style="background:#162235;">
   <div class="cta-glow"></div>
@@ -1426,8 +1431,7 @@ const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 tl.to('#he', { opacity: 1, y: 0, duration: .8 }, .4)
   .to('#hh', { opacity: 1, y: 0, duration: 1.1 }, .65)
   .to('#hpoetic', { opacity: 1, y: 0, duration: .9 }, 1.1)
-  .to('#hs', { opacity: 1, y: 0, duration: .9 }, 1.35)
-  .to('#ha', { opacity: 1, y: 0, duration: .7 }, 1.6);
+  .to('#ha', { opacity: 1, y: 0, duration: .7 }, 1.45);
 
 // ─── SCROLL REVEALS ───
 document.querySelectorAll('.reveal').forEach((el, i) => {
