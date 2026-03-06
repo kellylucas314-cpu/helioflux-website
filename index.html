@@ -88,7 +88,7 @@
       position: relative;
       height: 100vh; min-height: 640px;
       display: flex; flex-direction: column;
-      justify-content: flex-end;
+      justify-content: center;
       padding: 80px 56px;
       overflow: hidden;
     }
@@ -112,7 +112,7 @@
     }
     .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,1) 0%, rgba(10,14,26,.85) 8%, rgba(10,14,26,.35) 55%, rgba(10,14,26,.12) 100%); }
 
-    .hero-content { position: relative; z-index: 3; max-width: 900px; margin-top: clamp(132px, 16vh, 200px); }
+    .hero-content { position: relative; z-index: 3; max-width: 900px; }
     .hero-eyebrow { display: none; }
     .hero h1 { font-family: var(--serif); font-size: clamp(56px, 7.8vw, 102px); font-weight: 520; line-height: 1.03; color: var(--white); margin-bottom: 32px; opacity: 0; letter-spacing: -0.012em; }
     .hero h1 em { font-style: normal; color: inherit; font-weight: inherit; }
@@ -1053,14 +1053,14 @@
 
 <!-- ═══ PROBLEM ═══ -->
 <section id="problem" style="background:linear-gradient(180deg,#445a78 0%, #364c68 100%);">
-  <div style="padding:120px 56px;text-align:center;max-width:900px;margin:0 auto;">
+  <div style="padding:140px 56px;text-align:center;max-width:900px;margin:0 auto;">
     <span class="prob-eyebrow2 reveal">The Detection Gap</span>
     <p class="prob-opener reveal" style="margin-bottom:22px;">The detection gap.</p>
-    <p class="reveal" style="font-size:18px;color:rgba(255,255,255,.82);line-height:1.75;max-width:760px;margin:0 auto 28px;">Cancer develops silently, sometimes for years, before it becomes visible on a scan. Our best tools are waiting for anatomy to change. A mass to form. A lesion to grow. A lump to become large enough to see.</p>
-    <p class="reveal" style="font-size:18px;color:rgba(255,255,255,.88);line-height:1.75;max-width:760px;margin:0 auto 20px;">But biology changes first.</p>
-    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.72);line-height:1.7;max-width:700px;margin:0 auto 20px;">Between the moment cancer begins and the moment we can detect it, there is a gap. That gap is where outcomes are decided.</p>
+    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.82);line-height:1.75;max-width:660px;margin:0 auto 36px;text-align:left;">Cancer develops silently, sometimes for years, before it becomes visible on a scan. Our best tools are waiting for anatomy to change. A mass to form. A lesion to grow. A lump to become large enough to see.</p>
+    <p class="reveal" style="font-size:clamp(28px,3.5vw,42px);font-family:var(--serif);font-weight:500;color:rgba(255,255,255,.95);line-height:1.3;max-width:760px;margin:0 auto 40px;padding-top:16px;">But biology changes first.</p>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.72);line-height:1.7;max-width:660px;margin:0 auto 48px;text-align:left;">Between the moment cancer begins and the moment we can detect it, there is a gap. That gap is where outcomes are decided.</p>
 
-    <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:40px;">
+    <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:48px;margin-top:12px;">
       <div class="prob-gap-col early">
         <div class="prob-gap-num" id="earlyNum">&gt;90%</div>
         <div class="prob-gap-survive">5-year survival</div>
@@ -1074,22 +1074,22 @@
       </div>
     </div>
 
-    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.72);line-height:1.7;max-width:620px;margin:8px auto 0;">Early detection changes outcomes.</p>
+    <p class="reveal" style="font-size:20px;font-weight:500;color:rgba(255,255,255,.85);line-height:1.7;max-width:620px;margin:16px auto 0;">Early detection changes outcomes.</p>
   </div>
 </section>
 
 
 <!-- ═══ SOLUTION ═══ -->
-<div id="solution" style="background:#2c3f59;">
-  <div style="max-width:1200px;margin:0 auto;padding:120px 56px;">
+<div id="solution" style="background:#1e3048;">
+  <div style="max-width:1200px;margin:0 auto;padding:140px 56px;">
     <div class="reveal" style="margin-bottom:16px;">
       <h2>HelioFlux closes<br><em>that gap.</em></h2>
-      <p style="font-size:18px;color:rgba(255,255,255,.82);margin-top:20px;line-height:1.7;max-width:760px;">An ultra-sensitive sensor captures the faint light emitted by living tissue. AI analyzes the patterns. Abnormal biology gets flagged before a tumor ever becomes visible.</p>
+      <p style="font-size:19px;color:rgba(255,255,255,.84);margin-top:24px;line-height:1.75;max-width:680px;">An ultra-sensitive sensor captures the faint light emitted by living tissue. AI analyzes the patterns. Abnormal biology gets flagged before a tumor ever becomes visible.</p>
     </div>
 
-    <p class="reveal" style="font-size:22px;font-weight:700;letter-spacing:.01em;color:rgba(255,255,255,.92);margin:8px 0 28px;">No blood draw. No biopsy. No radiation.</p>
+    <p class="reveal" style="font-size:clamp(24px,3vw,32px);font-weight:600;letter-spacing:.02em;color:rgba(255,255,255,.95);margin:28px 0 44px;">No blood draw. No biopsy. No radiation.</p>
 
-    <div class="reveal" style="margin:36px -56px 22px;overflow:hidden;">
+    <div class="reveal" style="margin:36px 0 28px;overflow:hidden;">
       <img src="detection-stages-static.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;">
     </div>
 
@@ -1104,7 +1104,7 @@
       </div>
     </div>
 
-    <div class="reveal" style="border-left:3px solid var(--cyan);padding:28px 36px;margin:0 0 80px;max-width:760px;background:rgba(0,200,240,.02);">
+    <div class="reveal" style="border-left:3px solid var(--cyan);padding:32px 40px;margin:20px 0 100px;max-width:680px;background:rgba(0,200,240,.02);">
       <p style="font-family:var(--serif);font-size:clamp(18px,2.2vw,24px);font-weight:300;font-style:italic;color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:14px;">"We are building a safe, inexpensive way to detect cancer earlier—so people live longer, better lives."</p>
       <p style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);opacity:.7;">Dr. Nirosha Murugan, Canada Research Chair</p>
     </div>
@@ -1113,7 +1113,7 @@
     <div class="reveal">
       <p class="eyebrow">How It Works</p>
       <h2 style="margin-bottom:24px;font-size:clamp(36px,4.5vw,56px);">Two systems. <em>One signal.</em></h2>
-      <p style="font-size:18px;color:rgba(255,255,255,.75);line-height:1.7;max-width:640px;margin-bottom:48px;">HelioFlux combines proprietary hardware and AI to capture and classify the faint light your cells already emit.</p>
+      <p style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.7;max-width:660px;margin-bottom:48px;">HelioFlux combines proprietary hardware and AI to capture and classify the faint light your cells already emit.</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
         <div class="qs-card" style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
@@ -1194,7 +1194,7 @@
       <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
-  <p class="reveal" style="text-align:center;font-size:22px;font-weight:600;line-height:1.5;color:rgba(255,255,255,.9);max-width:920px;margin:0 auto 80px;">Metabolic disruption is the earliest sign of disease. It shows up in cancer. In diabetes. In neurodegeneration. HelioFlux reads that signal.</p>
+  <p class="reveal" style="text-align:center;font-size:22px;font-weight:600;line-height:1.5;color:rgba(255,255,255,.9);max-width:680px;margin:40px auto 80px;">Metabolic disruption is the earliest sign of disease. It shows up in cancer. In diabetes. In neurodegeneration. HelioFlux reads that signal.</p>
 </section>
 
 <!-- ═══ CREDIBILITY ANCHOR ═══ -->
@@ -1238,21 +1238,43 @@
 <section class="cta-section" id="contact" style="background:#162235;">
   <div class="cta-glow"></div>
   <h2 class="reveal">The science works.<br><em>The next step is human data.</em></h2>
-  <p class="lead reveal" style="max-width:860px;margin:0 auto 36px;color:rgba(255,255,255,.94);">HelioFlux is raising a pre-pilot round to fund our first IRB-approved human study, collecting biophotonic data from skin cancer patients and healthy controls with a Beverly Hills dermatology partner.</p>
+  <p class="lead reveal" style="max-width:680px;margin:0 auto 36px;color:rgba(255,255,255,.94);">HelioFlux is raising a pre-pilot round to fund our first IRB-approved human study, collecting biophotonic data from skin cancer patients and healthy controls with a Beverly Hills dermatology partner.</p>
 
-  <p class="reveal" style="max-width:980px;margin:0 auto 52px;font-size:24px;line-height:1.5;font-weight:600;color:rgba(255,255,255,.93);">Skin cancer is the first application. But what we're really building is a platform that gets smarter with every dataset we collect.</p>
+  <p class="reveal" style="max-width:780px;margin:0 auto 56px;font-size:clamp(22px,2.8vw,28px);line-height:1.5;font-weight:600;color:rgba(255,255,255,.93);">Skin cancer is the first application. But what we're really building is a platform that gets smarter with every dataset we collect.</p>
 
-  <div class="reveal" style="max-width:900px;margin:0 auto 18px;">
-    <div style="aspect-ratio:1/1;max-width:560px;margin:0 auto;border:1px dashed rgba(255,255,255,.32);background:rgba(255,255,255,.03);border-radius:10px;display:flex;align-items:center;justify-content:center;">
-      <div style="text-align:center;padding:24px;">
-        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(139,217,255,.78);margin-bottom:10px;">Training the Platform</div>
-        <div style="font-size:16px;line-height:1.6;color:rgba(255,255,255,.78);">Diagram placeholder</div>
+  <div class="reveal" style="max-width:640px;margin:0 auto 18px;">
+    <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(139,217,255,.6);margin-bottom:20px;text-align:center;">Training the Platform</p>
+    <div style="display:grid;gap:0;">
+      <!-- Layer 1 -->
+      <div style="background:rgba(0,200,240,.12);border:1px solid rgba(0,200,240,.3);padding:22px 28px;border-radius:8px 8px 0 0;">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;font-weight:600;">Layer 1</div>
+        <div style="font-size:16px;color:rgba(255,255,255,.92);font-weight:400;">First Human Dataset — skin cancer vs. healthy tissue</div>
+      </div>
+      <!-- Arrow 1 -->
+      <div style="text-align:center;padding:6px 0;position:relative;">
+        <svg width="24" height="28" viewBox="0 0 24 28" style="display:block;margin:0 auto;"><path d="M12 0 L12 20 M6 16 L12 24 L18 16" stroke="rgba(0,200,240,.5)" stroke-width="1.5" fill="none"/></svg>
+        <span style="position:absolute;top:4px;left:50%;transform:translateX(20px);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(139,217,255,.55);">trains</span>
+      </div>
+      <!-- Layer 2 -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);padding:22px 28px;">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;font-weight:600;">Layer 2</div>
+        <div style="font-size:16px;color:rgba(255,255,255,.85);font-weight:400;">The AI learns what abnormal metabolism looks like</div>
+      </div>
+      <!-- Arrow 2 -->
+      <div style="text-align:center;padding:6px 0;position:relative;">
+        <svg width="24" height="28" viewBox="0 0 24 28" style="display:block;margin:0 auto;"><path d="M12 0 L12 20 M6 16 L12 24 L18 16" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg>
+        <span style="position:absolute;top:4px;left:50%;transform:translateX(20px);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">enables</span>
+      </div>
+      <!-- Layer 3 -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);padding:22px 28px;border-radius:0 0 8px 8px;">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;font-weight:600;">Layer 3</div>
+        <div style="font-size:16px;color:rgba(255,255,255,.85);font-weight:400;">Platform expands — new cancer types, metabolic disease, neurodegeneration</div>
       </div>
     </div>
   </div>
 
-  <p class="reveal" style="font-size:22px;font-weight:700;letter-spacing:.01em;color:rgba(255,255,255,.92);margin:0 auto 28px;">Every dataset makes the platform smarter.</p>
-  <p class="reveal" style="max-width:860px;margin:0 auto 46px;font-size:17px;line-height:1.7;color:rgba(255,255,255,.76);">A decade of peer-reviewed research, a world-class team, and a clear path from the lab to the clinic.</p>
+  <p class="reveal" style="font-size:24px;font-weight:600;letter-spacing:.01em;color:rgba(255,255,255,.95);margin:18px auto 36px;">Every dataset makes the platform smarter.</p>
+  <p class="reveal" style="max-width:680px;margin:0 auto 46px;font-size:17px;line-height:1.7;color:rgba(255,255,255,.76);font-weight:300;">A decade of peer-reviewed research, a world-class team, and a clear path from the lab to the clinic.</p>
 
   <div class="cta-actions reveal" style="margin-bottom:58px;">
     <a href="mailto:kelly.lucas@helioflux.co?subject=Investor Deck Request — HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A" class="btn-cyan">Request Investor Deck</a>
