@@ -958,14 +958,7 @@
   .ncred,
   .acc-item,
   .acc-body,
-  .acc-body-pad,
-  .h-panel,
-  .h-panel-inner,
-  .h-panel-content,
-  .h-panel-img,
-  .h-panel-bio,
-  .h-track,
-  .h-section {
+  .acc-body-pad {
     background: #f5f0eb !important;
     color: #16263A !important;
     border-color: rgba(22,38,58,.14) !important;
@@ -1509,7 +1502,7 @@ if (window.innerWidth > 1024) {
     scrollTrigger: {
       trigger: hSection,
       start: 'top top',
-      end: () => '+=' + (totalScroll() + window.innerHeight * 0.5),
+      end: () => '+=' + totalScroll(),
       pin: true,
       scrub: 1,
       anticipatePin: 1,
