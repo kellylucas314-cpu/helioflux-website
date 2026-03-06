@@ -1112,10 +1112,7 @@
     </div>
 
     <div class="reveal" style="margin:36px -56px 22px;overflow:hidden;">
-      <video id="detectionRevealVideo" poster="detection-stages-static.jpg" muted playsinline preload="metadata" style="width:100%;display:block;">
-        <source src="detection-reveal.mp4" type="video/mp4">
-        <img src="detection-stages-static.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;">
-      </video>
+      <img src="detection-stages-static.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;">
     </div>
 
     <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:820px;margin:0 auto 56px;">
@@ -1431,27 +1428,6 @@ tl.to('#he', { opacity: 1, y: 0, duration: .8 }, .4)
   .to('#hpoetic', { opacity: 1, y: 0, duration: .9 }, 1.1)
   .to('#hs', { opacity: 1, y: 0, duration: .9 }, 1.35)
   .to('#ha', { opacity: 1, y: 0, duration: .7 }, 1.6);
-
-// ─── DETECTION REVEAL VIDEO (play once on first scroll into view) ───
-const detectionRevealVideo = document.getElementById('detectionRevealVideo');
-if (detectionRevealVideo) {
-  let hasPlayedDetectionReveal = false;
-  const detectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !hasPlayedDetectionReveal) {
-        hasPlayedDetectionReveal = true;
-        detectionRevealVideo.play().catch(() => {});
-        detectionObserver.disconnect();
-      }
-    });
-  }, { threshold: 0.55 });
-  detectionObserver.observe(detectionRevealVideo);
-
-  detectionRevealVideo.addEventListener('ended', () => {
-    detectionRevealVideo.currentTime = detectionRevealVideo.duration || detectionRevealVideo.currentTime;
-    detectionRevealVideo.pause();
-  });
-}
 
 // ─── SCROLL REVEALS ───
 document.querySelectorAll('.reveal').forEach((el, i) => {
