@@ -890,9 +890,113 @@
     /* Mobile hero spacing hotfix */
     @media (max-width: 900px) {
       nav { padding: 14px 20px; }
-      .hero { min-height: 100svh; padding: 148px 20px 56px; }
+      .hero { min-height: 100svh; padding: 148px 20px 56px; justify-content: center !important; }
       .hero-content { margin-top: 0; }
-      .hero h1 { font-size: clamp(42px, 10.5vw, 56px); line-height: 1.12; letter-spacing: -0.01em; }
+      .hero h1 { font-size: clamp(38px, 10.5vw, 56px); line-height: 1.08; letter-spacing: -0.01em; }
+    }
+
+    /* ═══ COMPREHENSIVE MOBILE RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      /* Global: reduce section padding, prevent overflow */
+      body { overflow-x: hidden; }
+      
+      /* Detection Gap */
+      #problem > div { padding: 80px 24px !important; }
+      #problem p[style*="max-width:650px"] { max-width: 90% !important; }
+      #problem p[style*="font-size:clamp(28px"] { font-size: 26px !important; padding-top: 8px !important; }
+      
+      /* Stats — keep side by side but smaller */
+      .prob-gap-num { font-size: clamp(44px, 14vw, 64px) !important; }
+      .prob-gap-col { padding: 8px 16px !important; }
+      .prob-gap-survive { font-size: 15px !important; }
+      .prob-gap-label { font-size: 13px !important; }
+
+      /* Bridge */
+      #solution > div { padding: 80px 24px !important; }
+      #solution p[style*="max-width:650px"] { max-width: 100% !important; }
+      #solution p[style*="font-size:clamp(24px"] { font-size: 22px !important; }
+      
+      /* Timeline graphic — contain it */
+      #solution div[style*="overflow:hidden"] { margin: 24px -8px 20px !important; }
+      #solution img[alt*="Cancer progression"] { max-width: 100%; height: auto; }
+      
+      /* Timeline detection labels — stack */
+      #solution div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
+
+      /* Nirosha quote band */
+      .nirosha-quote-band { padding: 60px 24px !important; }
+      .nirosha-quote-band p[style*="font-size:clamp"] { font-size: 22px !important; }
+
+      /* Two Systems — stack cards */
+      #two-systems > div { padding: 80px 24px !important; }
+      #two-systems div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; gap: 24px !important; }
+      #two-systems h2 { font-size: clamp(30px, 8vw, 42px) !important; }
+      #two-systems p[style*="max-width:650px"] { max-width: 100% !important; }
+
+      /* Carousel — stack cards vertically on mobile */
+      .h-section { overflow: visible !important; }
+      .h-track {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        transform: none !important;
+      }
+      .h-panel {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        padding: 32px 24px !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(22,38,58,.12);
+        scroll-snap-align: none !important;
+      }
+      .h-panel:last-child { border-bottom: none; }
+      .h-panel-img { display: none; } /* hide empty image placeholders on mobile */
+      .h-panel-img:has(img) { display: block; } /* show if has actual image */
+      .h-panel h3 { font-size: 28px !important; }
+      .h-panel p { font-size: 16px !important; }
+      .h-panel-status { font-size: 11px !important; }
+      .h-stats { flex-wrap: wrap; gap: 20px !important; }
+      .h-stat-num { font-size: 26px !important; }
+      .h-arrows { display: none !important; } /* hide arrows on mobile — cards are stacked */
+      .h-dots { display: none !important; } /* hide dots on mobile */
+      .h-section-label { padding: 60px 24px 20px !important; }
+
+      /* Carousel closing line */
+      p[style*="margin:60px auto 80px"] { margin: 40px 24px 60px !important; padding: 0 !important; max-width: 100% !important; font-size: 20px !important; }
+
+      /* Nirosha bio — stack */
+      div[style*="grid-template-columns:1fr 1.2fr"][style*="gap:56px"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+      div[style*="grid-template-columns:1fr 1.2fr"] img { height: 280px !important; }
+
+      /* Credibility anchor padding */
+      div[style*="background:#455f80"] > div { padding: 80px 24px !important; }
+
+      /* Press strip */
+      div[style*="background:#3a506d"] > div { padding: 60px 24px !important; }
+      div[style*="background:#3a506d"] div[style*="gap:48px"] { gap: 24px !important; }
+      div[style*="background:#3a506d"] span { font-size: 15px !important; }
+
+      /* The Ask */
+      .cta-section { padding: 80px 24px !important; }
+      .cta-section h2 { font-size: clamp(30px, 8vw, 42px) !important; }
+      .cta-section p[style*="max-width:680px"],
+      .cta-section p[style*="max-width:780px"] { max-width: 100% !important; }
+      .cta-section p[style*="font-size:clamp(22px"] { font-size: 20px !important; }
+
+      /* Training diagram */
+      .cta-section div[style*="max-width:640px"] { max-width: 100% !important; }
+
+      /* CTA buttons — stack */
+      .cta-actions { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+      .cta-actions a { text-align: center; width: 100%; }
+
+      /* Three audience blocks — stack */
+      div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; gap: 16px !important; }
+
+      /* Footer */
+      footer { padding: 48px 24px !important; }
+      footer div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+      footer a { min-height: 44px; display: inline-flex; align-items: center; }
     }
 
   </style>
@@ -1167,7 +1271,7 @@
   </div>
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
-      <div class="h-panel" style="background:rgba(0,200,240,.06);border-right:1px solid rgba(0,200,240,.26);">
+      <div class="h-panel" style="background:rgba(0,200,240,.06);border-left:4px solid #00A9D6;border-right:1px solid rgba(0,200,240,.26);">
         <div class="h-panel-img reveal"></div>
         <div class="reveal">
           <div class="h-panel-status">Featured · Validated · Human Study Q3 2026</div>
