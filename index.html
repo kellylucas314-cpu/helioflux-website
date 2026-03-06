@@ -1087,6 +1087,7 @@
       <p style="font-size:18px;color:rgba(255,255,255,.82);margin-top:20px;line-height:1.7;max-width:760px;">An ultra-sensitive sensor captures the faint light emitted by living tissue. AI analyzes those patterns. Abnormal biology is flagged before a tumor becomes visible.</p>
     </div>
 
+    <p class="reveal" style="font-size:22px;font-weight:700;letter-spacing:.01em;color:rgba(255,255,255,.92);margin:8px 0 28px;">No blood draw. No biopsy. No radiation.</p>
 
     <div class="reveal" style="margin:36px -56px 22px;overflow:hidden;">
       <img src="detection-stages-static.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;">
@@ -1232,23 +1233,6 @@
   </div>
 </div>
 
-<!-- ═══ LAB PHOTO ═══ -->
-<div class="lab-break" style="position:relative;overflow:hidden;line-height:0;margin-top:0;">
-  <img loading="lazy" src="nirosha-lab-v2.jpg" alt="Dr. Nirosha Murugan fitting the HelioFlux photonic sensor array on a study participant" class="lab-photo-img" style="width:100%;height:clamp(420px,56vw,760px);object-fit:cover;object-position:center 15%;display:block;filter:brightness(.88);">
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(10,14,26,.88) 0%, rgba(10,14,26,.4) 14%, rgba(10,14,26,.08) 28%, transparent 44%, rgba(10,14,26,.45) 84%, rgba(10,14,26,.9) 100%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:22px;left:34px;right:34px;line-height:1.5;">
-    <p style="font-size:13px;color:rgba(255,255,255,.66);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,1);">QSense · Biophotonic sensor array · Measuring ultra-weak photon emissions from living tissue</p>
-  </div>
-</div>
-
-<div style="background:#1b2a3f;padding:48px 56px;text-align:center;border-top:1px solid rgba(255,255,255,.08);">
-  <p style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8BD9FF;margin-bottom:14px;">Hidden Signals Inside Living Cells</p>
-  <p style="font-size:20px;line-height:1.65;color:rgba(255,255,255,.88);max-width:900px;margin:0 auto;">All living cells emit extremely faint light as a by-product of metabolism. HelioFlux measures these ultra-weak photon patterns to identify abnormal biology earlier.</p>
-</div>
-
-<div style="background:#172338;padding:34px 56px;text-align:center;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);">
-  <p style="font-size:20px;letter-spacing:.02em;color:rgba(255,255,255,.88);">No blood draw. No biopsy. No radiation.</p>
-</div>
 
 <!-- ═══ SECTION 7 — THE ASK ═══ -->
 <section class="cta-section" id="contact" style="background:#162235;">
@@ -1519,22 +1503,6 @@ if (hPrev && hNext) {
   hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
 }
 
-// ─── PHOTO BREAK FADE-IN + KEN BURNS ───
-gsap.utils.toArray('.lab-break, .team-photo-break').forEach(el => {
-  const img = el.querySelector('img');
-  // Fade in the whole section
-  gsap.fromTo(el, { opacity: 0 }, {
-    opacity: 1, duration: 1.6, ease: 'power2.inOut',
-    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-  });
-  // Ken Burns: subtle scale-out as photo reveals
-  if (img) {
-    gsap.fromTo(img, { scale: 1.06 }, {
-      scale: 1, duration: 3.5, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-    });
-  }
-});
 
 // ─── STAT COUNT-UP ───
 function animateCount(el, target, suffix, decimals) {
