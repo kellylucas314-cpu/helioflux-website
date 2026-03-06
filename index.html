@@ -1044,15 +1044,10 @@
 
 
 <style id="light-contrast-fix">
-  /* Contrast guardrail: light sections => dark text */
-  #problem, #solution, #two-systems, #platform, #team, [style*="background:#3a506d"], [style*="background:#4b6383"], [style*="background:#2c3f59"] { color:#1F3650; }
+  /* Contrast guardrail: ONLY light cream sections get dark text */
+  #problem, #two-systems { color:#1F3650; }
   #problem p, #problem li, #problem span, #problem h2,
-  #two-systems p, #two-systems li, #two-systems span, #two-systems h2, #two-systems h3,
-  #platform p, #platform li, #platform span, #platform h2, #platform h3,
-  #team p, #team li, #team span, #team h2, #team h3,
-  .press-card, .press-card p, .press-card h3 { color:#1F3650 !important; }
-  /* keep dark sections readable */
-  .hero, .hero *, .quote-block, .quote-block *, .cta-section, .cta-section *, footer, footer * { color: inherit; }
+  #two-systems p, #two-systems li, #two-systems span, #two-systems h2, #two-systems h3 { color:#1F3650 !important; }
 </style>
 </head>
 <body>
