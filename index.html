@@ -89,8 +89,8 @@
       position: relative;
       height: 100vh; min-height: 640px;
       display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 100px 56px 140px;
+      justify-content: center;
+      padding: 120px 56px 100px;
       overflow: hidden;
     }
     .hero::after {
@@ -114,11 +114,11 @@
     .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,.95) 0%, rgba(10,14,26,.7) 12%, rgba(15,28,50,.45) 50%, rgba(15,28,50,.3) 100%); }
 
     .hero-content { position: relative; z-index: 3; max-width: 900px; }
-    .hero-eyebrow { display: none; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 96px); font-weight: 480; line-height: 1.05; color: var(--white); margin-bottom: 36px; opacity: 0; letter-spacing: -0.01em; }
+    .hero-eyebrow { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 18px; opacity: 0; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 96px); font-weight: 520; line-height: 1.05; color: var(--white); margin-bottom: 18px; opacity: 0; letter-spacing: -0.01em; }
     .hero h1 em { font-style: normal; color: inherit; font-weight: inherit; }
-    .hero-accent { color: var(--cyan) !important; font-style: normal; font-family: inherit; font-weight: inherit; }
-    .hero-sub { font-size: 19px; color: rgba(255,255,255,.78); line-height: 1.8; max-width: 520px; margin-bottom: 52px; font-weight: 300; opacity: 0; }
+    .hero-accent { color: var(--cyan) !important; font-style: italic; font-family: inherit; font-weight: inherit; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 580px; margin-bottom: 28px; font-weight: 300; opacity: 0; }
     .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
     .btn-cyan { padding: 16px 44px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; display: inline-block; border-radius: 4px; }
     .btn-cyan:hover { background: #20D6F8; transform: translateY(-1px); }
@@ -467,8 +467,9 @@
       .nav-cta { display: none; }
       .hero { height: auto !important; min-height: 100svh !important; padding: 148px 24px 72px !important; justify-content: center !important; }
       .hero-content { margin-top: 0 !important; max-width: 100% !important; }
-      .hero h1 { font-size: clamp(42px, 12vw, 72px) !important; line-height: 1.04 !important; margin-bottom: 22px !important; }
-      .hero-sub { font-size: 16px !important; line-height: 1.6 !important; margin-bottom: 28px !important; }
+      .hero h1 { font-size: clamp(36px, 10vw, 56px) !important; line-height: 1.08 !important; margin-bottom: 16px !important; }
+      .hero-eyebrow { font-size: 11px !important; letter-spacing: .18em !important; margin-bottom: 14px !important; }
+      .hero-sub { font-size: 15px !important; line-height: 1.6 !important; margin-bottom: 24px !important; }
       .hero-actions { gap: 12px !important; flex-wrap: wrap; }
       .section { padding: 72px 24px; }
       .section-bg .section-inner { padding: 80px 24px; }
@@ -1138,9 +1139,9 @@
   <div class="hero-photo"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow" id="he">HelioFlux</p>
-    <h1 id="hh">Your cells emit <span class="hero-accent">light.</span></h1>
-    <p style="font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);font-weight:280;font-style:italic;color:rgba(255,255,255,.82);margin-bottom:22px;line-height:1.4;opacity:0;" id="hpoetic">HelioFlux reads that signal to detect cancer before it becomes visible.</p>
+    <p class="hero-eyebrow" id="he">NON-INVASIVE CANCER DETECTION</p>
+    <h1 id="hh">Your cells emit light.<br>We learned to <span class="hero-accent">read it.</span></h1>
+    <p class="hero-sub" id="hpoetic">Non-invasive early cancer detection. No blood draw. No biopsy. No radiation.</p>
     <div class="hero-actions" id="ha">
       <a href="#solution" class="btn-cyan">See the Science</a>
       <a href="team.html" class="btn-ghost">Meet the Team →</a>
