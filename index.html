@@ -193,6 +193,7 @@
     .h-section {
       overflow: hidden;
       background: #0a0e1a;
+      position: relative;
     }
     .h-section-label {
       padding: 80px 56px 0;
@@ -1498,28 +1499,31 @@ const hDots = document.querySelectorAll('.h-dot');
 const panels = document.querySelectorAll('.h-panel');
 const panelCount = panels.length;
 
-if (window.innerWidth > 1024) {
-  // Desktop: GSAP pin + horizontal scroll
-  const totalScroll = () => hTrack.scrollWidth - window.innerWidth;
-  gsap.to(hTrack, {
-    x: () => -totalScroll(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: hSection,
-      start: 'top top',
-      end: () => '+=' + totalScroll(),
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: self => {
-        const idx = Math.round(self.progress * (panelCount - 1));
-        hDots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      }
+// Simple carousel: no GSAP pin, just arrow-based navigation
+{
+  let currentIdx = 0;
+  const updateCarousel = () => {
+    if (window.innerWidth > 768) {
+      // Desktop: slide track
+      const panelW = panels[0]?.offsetWidth || 0;
+      gsap.to(hTrack, { x: -(panelW * currentIdx), duration: 0.5, ease: 'power2.out' });
+    } else {
+      // Mobile: scroll snap
+      const panelW = window.innerWidth * 0.88;
+      hSection.scrollTo({ left: panelW * currentIdx, behavior: 'smooth' });
     }
+    hDots.forEach((d, i) => d.classList.toggle('active', i === currentIdx));
+  };
+  document.getElementById('hNext')?.addEventListener('click', () => {
+    currentIdx = Math.min(currentIdx + 1, panelCount - 1);
+    updateCarousel();
   });
-} else {
-  // Mobile: native CSS scroll-snap — update dots on scroll
+  document.getElementById('hPrev')?.addEventListener('click', () => {
+    currentIdx = Math.max(currentIdx - 1, 0);
+    updateCarousel();
+  });
+  hDots.forEach((d, i) => d.addEventListener('click', () => { currentIdx = i; updateCarousel(); }));
+  // Mobile scroll listener
   hSection.addEventListener('scroll', () => {
     const idx = Math.round(hSection.scrollLeft / (window.innerWidth * 0.88));
     hDots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, panelCount - 1)));
@@ -1540,34 +1544,7 @@ gsap.to('#hero-canvas', {
 
 
 
-// ─── CAROUSEL ARROWS ───
-const hPrev = document.getElementById('hPrev');
-const hNext = document.getElementById('hNext');
-let currentPanel = 0;
-const totalPanels = document.querySelectorAll('.h-panel').length;
-
-function goToPanel(idx) {
-  idx = Math.max(0, Math.min(idx, totalPanels - 1));
-  currentPanel = idx;
-  if (window.innerWidth > 1024) {
-    // Desktop: use GSAP to scroll to panel position
-    const panelW = document.querySelector('.h-panel').offsetWidth;
-    gsap.to(hTrack, { x: -(panelW * idx), duration: .65, ease: 'power2.inOut' });
-  } else {
-    // Mobile: native scroll
-    const panelW = window.innerWidth * 0.88;
-    hSection.scrollTo({ left: panelW * idx, behavior: 'smooth' });
-  }
-  hDots.forEach((d, i) => d.classList.toggle('active', i === idx));
-  if (hPrev) hPrev.disabled = idx === 0;
-  if (hNext) hNext.disabled = idx === totalPanels - 1;
-}
-
-if (hPrev && hNext) {
-  hPrev.disabled = true;
-  hPrev.addEventListener('click', () => goToPanel(currentPanel - 1));
-  hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
-}
+// (carousel arrows handled above)
 
 // ─── PHOTO BREAK FADE-IN + KEN BURNS ───
 gsap.utils.toArray('.lab-break, .team-photo-break').forEach(el => {
