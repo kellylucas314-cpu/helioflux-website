@@ -203,21 +203,24 @@
     .h-section-label h2 { max-width: 600px; }
 
     .h-track {
-      display: flex;
-      will-change: transform;
-      width: max-content;
+      position: relative;
+      width: 100%;
+      min-height: 420px;
     }
     .h-panel {
-      width: 85vw;
+      position: absolute;
+      top: 0; left: 0; right: 0;
       padding: 60px 48px;
       display: grid;
       grid-template-columns: 1fr 1.2fr;
       gap: 40px;
       align-items: start;
-      border-right: 1px solid var(--border);
-      flex-shrink: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
     }
     .h-panel:last-child { border-right: none; }
+    .h-panel.active { opacity: 1; pointer-events: auto; position: relative; }
     .h-panel-img { position: relative; }
     .h-panel-img img { display: none; }
     .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; overflow: hidden; }
@@ -429,16 +432,10 @@
     @media (max-width: 1024px) {
       /* Native scroll-snap horizontal scroller on mobile */
       .h-section {
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
+        overflow: hidden;
       }
-      .h-section::-webkit-scrollbar { display: none; }
       .h-track {
-        transform: none !important; /* override any GSAP x transforms */
-        display: flex;
-        width: max-content;
+        width: 100%;
       }
       .h-panel {
         width: 88vw;
@@ -909,12 +906,14 @@
         transform: none !important;
       }
       .h-panel {
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
         width: 100% !important;
         grid-template-columns: 1fr !important;
         padding: 32px 24px !important;
         border-right: none !important;
         border-bottom: 1px solid rgba(255,255,255,.08);
-        scroll-snap-align: none !important;
       }
       .h-panel:last-child { border-bottom: none; }
       .h-panel-img:not(:has(img)) { display: none; }
@@ -1499,20 +1498,19 @@ const hDots = document.querySelectorAll('.h-dot');
 const panels = document.querySelectorAll('.h-panel');
 const panelCount = panels.length;
 
-// Simple carousel: no GSAP pin, just arrow-based navigation
+// Simple fade carousel
 {
   let currentIdx = 0;
+  // Show first panel
+  panels[0]?.classList.add('active');
+  
   const updateCarousel = () => {
-    if (window.innerWidth > 768) {
-      // Desktop: slide track
-      const panelW = panels[0]?.offsetWidth || 0;
-      gsap.to(hTrack, { x: -(panelW * currentIdx), duration: 0.5, ease: 'power2.out' });
-    } else {
-      // Mobile: scroll snap
-      const panelW = window.innerWidth * 0.88;
-      hSection.scrollTo({ left: panelW * currentIdx, behavior: 'smooth' });
-    }
+    panels.forEach((p, i) => p.classList.toggle('active', i === currentIdx));
     hDots.forEach((d, i) => d.classList.toggle('active', i === currentIdx));
+    const hPrev = document.getElementById('hPrev');
+    const hNext = document.getElementById('hNext');
+    if (hPrev) hPrev.disabled = currentIdx === 0;
+    if (hNext) hNext.disabled = currentIdx === panelCount - 1;
   };
   document.getElementById('hNext')?.addEventListener('click', () => {
     currentIdx = Math.min(currentIdx + 1, panelCount - 1);
@@ -1523,11 +1521,7 @@ const panelCount = panels.length;
     updateCarousel();
   });
   hDots.forEach((d, i) => d.addEventListener('click', () => { currentIdx = i; updateCarousel(); }));
-  // Mobile scroll listener
-  hSection.addEventListener('scroll', () => {
-    const idx = Math.round(hSection.scrollLeft / (window.innerWidth * 0.88));
-    hDots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, panelCount - 1)));
-  }, { passive: true });
+  updateCarousel();
 }
 
 // ─── PARALLAX HERO CANVAS ───
