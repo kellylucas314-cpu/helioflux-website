@@ -552,7 +552,7 @@
     /* Beat 1 */
     .prob-beat1 { padding: 100px 56px 48px; text-align: center; position: relative; overflow: hidden; }
     .prob-h2 {
-      font-size: clamp(36px,4.5vw,42px); font-weight: 700; line-height: 1.15;
+      font-size: clamp(32px, 4.5vw, 46px); font-weight: 300; line-height: 1.15;
       margin: 16px auto 28px; max-width: 700px;
     }
     .prob-h2 em { color: #00E0FF; font-style: italic; }
@@ -587,10 +587,10 @@
       color: rgba(139,217,255,.68); margin-bottom: 18px; display: block;
       font-weight: 500;
     }
-    .prob-opener { color: #14263C;
-      font-family: Georgia, 'Playfair Display', serif;
-      font-size: clamp(22px,2.8vw,38px); font-weight: 400; font-style: italic;
-      color: #14263C; line-height: 1.5; max-width: 700px; margin: 0 auto 48px;
+    .prob-opener { 
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.5vw, 46px); font-weight: 300; font-style: normal;
+      color: #14263C; line-height: 1.15; max-width: 700px; margin: 0 auto 36px;
     }
     .prob-glow-line {
       width: 80px; height: 1px; background: rgba(0,200,240,.4);
@@ -609,18 +609,8 @@
     }
     .prob-gap-col { flex: 1; padding: 12px 40px; position: relative; }
     /* Radial bloom behind each big number */
-    .prob-gap-col.early::before {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%); width: 220px; height: 160px;
-      background: radial-gradient(ellipse, rgba(0,224,255,.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .prob-gap-col.late::before {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%); width: 220px; height: 160px;
-      background: radial-gradient(ellipse, rgba(255,107,107,.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    .prob-gap-col.early::before { display: none; }
+    .prob-gap-col.late::before { display: none; }
     .prob-gap-num {
       font-family: var(--sans); font-size: clamp(56px,8vw,88px); font-weight: 400; line-height: 1; margin-bottom: 12px;
       position: relative; letter-spacing: -0.03em;
@@ -631,8 +621,8 @@
     .prob-gap-col.late .prob-gap-num {
       color: var(--coral);
     }
-    .prob-gap-survive { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 0; }
-    .prob-gap-label { font-size: 15px; color: rgba(255,255,255,.7); margin-top: 4px; }
+    .prob-gap-survive { font-size: 16px; color: #2A3F56; margin-bottom: 2px; }
+    .prob-gap-label { font-size: 14px; color: #5a6b7e; margin-top: 2px; }
     .prob-gap-vline {
       width: 1px; height: 160px; flex-shrink: 0;
       background: linear-gradient(to bottom, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
@@ -1003,7 +993,18 @@
 
   </style>
 
-<style id="section-theme">
+<style id="transition-gradients">
+    /* Cream→dark gradient transition before bridge */
+    #solution::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(to bottom, #f5f0eb, #0f1c2e);
+      pointer-events: none;
+    }
+</style>
+    <style id="section-theme">
     /* ─── HYBRID: Dark hero, cream body, dark accent breaks ─── */
 
     /* === CREAM CONTENT SECTIONS === */
@@ -1153,11 +1154,11 @@
 <!-- ═══ PROBLEM ═══ -->
 <section id="problem" style="background:#f5f0eb;">
   <div style="padding:140px 56px;text-align:center;max-width:900px;margin:0 auto;">
-    <span class="prob-eyebrow2 reveal">The Detection Gap</span>
+    <!-- label removed: duplicated header -->
     <p class="prob-opener reveal" style="margin-bottom:22px;">The detection gap.</p>
-    <p class="reveal" style="font-size:17px;color:#2A3F56;line-height:1.75;max-width:650px;margin:0 auto 36px;text-align:left;">Cancer develops silently, sometimes for years, before it becomes visible on a scan. Our best tools are waiting for anatomy to change. A mass to form. A lesion to grow. A lump to become large enough to see.</p>
+    <p class="reveal" style="font-size:17px;color:#2A3F56;line-height:1.75;max-width:650px;margin:0 auto 36px;text-align:center;">Cancer develops silently, sometimes for years, before it becomes visible on a scan. Our best tools are waiting for anatomy to change. A mass to form. A lesion to grow. A lump to become large enough to see.</p>
     <p class="reveal" style="font-size:clamp(28px,3.5vw,42px);font-family:var(--serif);font-weight:500;color:#14263C;line-height:1.3;max-width:760px;margin:0 auto 40px;padding-top:16px;">But biology changes first.</p>
-    <p class="reveal" style="font-size:16px;color:#3A5068;line-height:1.7;max-width:650px;margin:0 auto 48px;text-align:left;">Between the moment cancer begins and the moment we can detect it, there is a gap. That gap is where outcomes are decided.</p>
+    <p class="reveal" style="font-size:16px;color:#3A5068;line-height:1.7;max-width:650px;margin:0 auto 48px;text-align:center;">Between the moment cancer begins and the moment we can detect it, there is a gap. That gap is where outcomes are decided.</p>
 
     <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:48px;margin-top:12px;">
       <div class="prob-gap-col early">
@@ -1179,14 +1180,14 @@
 
 
 <!-- ═══ SOLUTION ═══ -->
-<div id="solution">
-  <div style="max-width:1200px;margin:0 auto;padding:140px 56px;">
+<div id="solution" style="background:#0f1c2e;position:relative;">
+  <div style="max-width:1200px;margin:0 auto;padding:160px 56px 140px;">
     <div class="reveal" style="margin-bottom:16px;">
       <h2>HelioFlux closes<br><em>that gap.</em></h2>
-      <p style="font-size:19px;color:#2A3F56;margin-top:24px;line-height:1.75;max-width:650px;">An ultra-sensitive sensor captures the faint light emitted by living tissue. AI analyzes the patterns. Abnormal biology gets flagged before a tumor ever becomes visible.</p>
+      <p style="font-size:19px;color:#b8c7d4;margin-top:24px;line-height:1.75;max-width:650px;">An ultra-sensitive sensor captures the faint light emitted by living tissue. AI analyzes the patterns. Abnormal biology gets flagged before a tumor ever becomes visible.</p>
     </div>
 
-    <p class="reveal" style="font-size:clamp(24px,3vw,32px);font-weight:600;letter-spacing:.02em;color:#14263C;margin:28px 0 44px;">No blood draw. No biopsy. No radiation.</p>
+    <p class="reveal" style="font-size:clamp(28px,3.5vw,38px);font-weight:500;letter-spacing:.02em;color:#00A9D6;margin:32px 0 48px;">No blood draw. No biopsy. No radiation.</p>
 
     <div class="reveal" style="margin:36px 0 28px;overflow:hidden;">
       <img src="detection-stages-static.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;">
