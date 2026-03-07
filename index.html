@@ -1536,7 +1536,7 @@ document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; })
 
 // Custom cursor
 document.addEventListener('mousemove', e => {
-  gsap.to(cdot, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'none' });
+  cdot.style.left = e.clientX + 'px'; cdot.style.top = e.clientY + 'px';
 });
 document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('mouseenter', () => cdot.classList.add('big'));
