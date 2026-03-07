@@ -1003,55 +1003,107 @@
   </style>
 
 <style id="section-theme">
-    /* ─── SECTION THEME: Alternating light/dark backgrounds ─── */
-    /* Cream/light sections */
-    #problem { background: #f5f0eb !important; }
-    #problem, #problem h2, #problem h3, #problem p, #problem .lead,
-    #problem .crisis-callout-text, #problem .crisis-card-title,
-    #problem .crisis-bullets li { color: #16263A !important; }
-    #problem .eyebrow { color: #00A9D6 !important; opacity: 0.9 !important; }
-    #problem .crisis-callout { border-color: rgba(0,169,214,.35) !important; background: rgba(0,169,214,.06) !important; }
-    #problem .crisis-callout-pct { color: #00A9D6 !important; }
-    #problem .crisis-card { background: rgba(255,255,255,.7) !important; }
-    #problem .crisis-bullets li::before { background: rgba(0,169,214,.5) !important; }
-    #problem .crisis-bullets li { color: #2d3e52 !important; }
+    /* ─── HYBRID: Dark hero, cream body, dark accent breaks ─── */
 
-    #two-systems { background: #F7F6F2 !important; }
-    #two-systems, #two-systems h2, #two-systems h3, #two-systems p, #two-systems .lead,
-    #two-systems .solution-name, #two-systems .solution-sub { color: #16263A !important; }
-    #two-systems .eyebrow { color: #00A9D6 !important; opacity: 0.9 !important; }
-    #two-systems .solution-col { background: rgba(255,255,255,.65) !important; }
-    #two-systems .solution-features li { color: #2d3e52 !important; border-color: rgba(22,38,58,.1) !important; }
-    #two-systems .solution-features li span { color: #00A9D6 !important; }
-    #two-systems .solution-badge { color: #00A9D6 !important; }
-    #two-systems .solution-status { color: #5a6b7d !important; }
-    #two-systems .solution-status strong { color: #00A9D6 !important; }
+    /* === CREAM CONTENT SECTIONS === */
+    #problem {
+      background: #f5f0eb;
+      color: #16263A;
+    }
+    #problem h2, #problem h3, #problem .lead { color: #16263A; }
+    #problem .eyebrow { color: #00A9D6; opacity: 0.9; }
+    #problem .crisis-callout { border-color: rgba(0,169,214,.3); background: rgba(0,169,214,.05); }
+    #problem .crisis-callout-pct { color: #00A9D6; }
+    #problem .crisis-callout-text { color: #16263A; }
+    #problem .crisis-card { background: rgba(255,255,255,.6); }
+    #problem .crisis-card-title { color: #16263A; }
+    #problem .crisis-bullets li { color: #4a5b6e; }
+    #problem .crisis-bullets li::before { background: rgba(0,169,214,.5); }
 
-    /* Dark cards inside light sections */
-    .qs-card, .lum-card { background: #0f1c2e !important; color: #fff !important; }
+    /* Peppercorn — cream */
+    .peppercorn {
+      background: #f5f0eb;
+      color: #16263A;
+    }
+    .peppercorn h3 { color: #16263A; }
+    .peppercorn p { color: #4a5b6e; }
+    .peppercorn strong { color: #16263A; }
+    .peppercorn-tag { color: rgba(0,169,214,.7); }
+    .peppercorn-inner { border-left-color: rgba(0,169,214,.3); }
 
-    /* Carousel — MUST stay dark */
-    .h-section { background: var(--bg) !important; }
-    .h-track { background: transparent !important; }
-    .h-panel { background: transparent !important; }
-    .h-panel, .h-panel h3, .h-panel p, .h-panel .h-panel-pub { color: rgba(255,255,255,.88) !important; }
-    .h-panel h3 { color: #fff !important; }
-    .h-stat-num { color: var(--cyan) !important; }
-    .h-stat-label { color: rgba(255,255,255,.65) !important; }
+    /* Two Systems — cream */
+    #two-systems {
+      background: #F7F6F2;
+      color: #16263A;
+    }
+    #two-systems h2, #two-systems h3, #two-systems .lead { color: #16263A; }
+    #two-systems .eyebrow { color: #00A9D6; opacity: 0.9; }
+    #two-systems .solution-col { background: rgba(255,255,255,.55); }
+    #two-systems .solution-name { color: #16263A; }
+    #two-systems .solution-sub { color: #4a5b6e; }
+    #two-systems .solution-features li { color: #4a5b6e; border-color: rgba(22,38,58,.08); }
+    #two-systems .solution-features li span { color: #00A9D6; }
+    #two-systems .solution-badge { color: #00A9D6; }
+    #two-systems .solution-status { color: #6a7b8e; }
+    #two-systems .solution-status strong { color: #00A9D6; }
+    #two-systems .solution-grid { background: rgba(22,38,58,.06); }
+
+    /* Science/Nirosha section — cream */
+    .science-2col { color: #16263A; }
+    .nirosha-wrap { color: #16263A; }
+    .nirosha-wrap .ncred { background: rgba(22,38,58,.04); }
+    .nirosha-wrap .ncred-label { color: #4a5b6e; }
+    .nirosha-wrap .ncred-value { color: #16263A; }
+    .nirosha-wrap .ncred-value strong { color: #00A9D6; }
+    .cancer-type-tag { background: rgba(0,169,214,.06); border-color: rgba(0,169,214,.15); color: #4a5b6e; }
+
+    /* Step blocks on cream */
+    .step-block { background: rgba(255,255,255,.5); border-color: rgba(22,38,58,.06); }
+    .step-block h3 { color: #16263A; }
+    .step-block p { color: #4a5b6e; }
+
+    /* Threshold on cream */
+    .threshold-label { color: #4a5b6e; }
+    .threshold-num.dim { color: rgba(22,38,58,.3); text-decoration-color: rgba(22,38,58,.08); }
+    .threshold-unit { color: #4a5b6e; }
+    .threshold-sub { color: #4a5b6e; }
+    .threshold-divider { background: rgba(22,38,58,.1); }
+
+    /* === DARK ACCENT BREAKS (navy, like Picard's green) === */
 
     /* Quote band */
     .quote-section { background: #0f1c2e !important; }
 
-    /* Stats strip */
-    .stats-strip { background: rgba(15,28,46,.95) !important; }
-    .stat-num { color: var(--cyan) !important; }
+    /* Spectral split */
+    .spectral-split { background: #0f1c2e; color: #fff; }
+    .ss-side { background: #0f1c2e; }
+    .ss-spectrum-row { background: rgba(255,255,255,0.04); }
 
-    /* Problem → Two Systems transition: dark divider */
-    .spectral-split { background: var(--bg) !important; }
-    .ss-side { background: var(--bg) !important; }
+    /* Carousel */
+    .h-section { background: #0f1c2e; }
+    .h-section-label { color: #fff; }
+    .h-section-label h2 { color: #fff; }
+    .h-panel h3 { color: #fff; }
+    .h-panel p { color: rgba(255,255,255,.78); }
+    .h-stat-num { color: var(--cyan); }
+    .h-stat-label { color: rgba(255,255,255,.65); }
 
-    /* Detection threshold section stays dark-on-dark */
-    .threshold-compare { color: rgba(255,255,255,.88) !important; }
+    /* Press */
+    .press-logos { background: #0f1c2e; }
+
+    /* Team */
+    .team-grid { background: rgba(255,255,255,0.04); }
+
+    /* Creds */
+    .creds-strip { background: #0f1c2e; }
+
+    /* CTA */
+    .cta-section { background: #0f1c2e; }
+    .cta-section h2 { color: #fff; }
+    .cta-section .lead { color: rgba(255,255,255,.78); }
+
+    /* QSense/LuminAI cards stay dark */
+    .qs-card, .lum-card { background: #0f1c2e; color: #fff; }
     </style>
 </head>
 <body>
