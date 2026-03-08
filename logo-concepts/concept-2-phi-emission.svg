@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Concept 2: Φ with emission lines — cell radiating light waves -->
+
+  <!-- Outer mon ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#0a1628" stroke-width="5"/>
+
+  <!-- Emission wave lines radiating outward from center circle — left side -->
+  <path d="M 52 100 Q 45 85 52 70" fill="none" stroke="#0a1628" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 44 100 Q 34 78 44 56" fill="none" stroke="#0a1628" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Emission wave lines — right side (mirror) -->
+  <path d="M 148 100 Q 155 85 148 70" fill="none" stroke="#0a1628" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 156 100 Q 166 78 156 56" fill="none" stroke="#0a1628" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Inner circle of Φ (the cell) -->
+  <circle cx="100" cy="100" r="38" fill="none" stroke="#0a1628" stroke-width="5"/>
+
+  <!-- Vertical stroke -->
+  <line x1="100" y1="14" x2="100" y2="186" stroke="#0a1628" stroke-width="5" stroke-linecap="round"/>
+
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Concept 3: Φ in negative space — filled dark circle, Φ cut out in white -->
+
+  <!-- Filled outer circle -->
+  <circle cx="100" cy="100" r="90" fill="#0a1628"/>
+
+  <!-- White Φ cut out via negative space technique -->
+
+  <!-- White inner circle of Φ -->
+  <circle cx="100" cy="100" r="38" fill="none" stroke="white" stroke-width="7"/>
+
+  <!-- White vertical stroke -->
+  <line x1="100" y1="14" x2="100" y2="186" stroke="white" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Subtle radiating dots — emission pattern, like a spectrum -->
+  <circle cx="100" cy="28" r="3" fill="#00c9c8" opacity="0.9"/>
+  <circle cx="100" cy="172" r="3" fill="#00c9c8" opacity="0.9"/>
+  <circle cx="68" cy="36" r="2" fill="#00c9c8" opacity="0.6"/>
+  <circle cx="132" cy="36" r="2" fill="#00c9c8" opacity="0.6"/>
+  <circle cx="68" cy="164" r="2" fill="#00c9c8" opacity="0.6"/>
+  <circle cx="132" cy="164" r="2" fill="#00c9c8" opacity="0.6"/>
+
+</svg>

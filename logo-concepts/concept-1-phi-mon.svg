@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Concept 1: Pure Φ as Mon — geometric, minimal, contained -->
+  
+  <!-- Outer circle (mon containment ring) -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#0a1628" stroke-width="6"/>
+  
+  <!-- Inner circle of Φ -->
+  <circle cx="100" cy="100" r="44" fill="none" stroke="#0a1628" stroke-width="6"/>
+  
+  <!-- Vertical stroke of Φ — extends beyond inner circle, stopped by outer ring -->
+  <line x1="100" y1="12" x2="100" y2="188" stroke="#0a1628" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Thin decorative ring — gap between outer and inner, classic mon detail -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#0a1628" stroke-width="1.5" opacity="0.4"/>
+</svg>
