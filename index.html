@@ -22,18 +22,18 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:      #121a28;
-      --bg2:     #24334A;
-      --bg-alt:  #334761;
-      --bg-warm: #2f4460;
+      --bg:      #0f1c2e;
+      --bg2:     #16263A;
+      --bg-alt:  #2F4562;
+      --bg-warm: #2F4562;
       --white:   #FFFFFF;
       --off-white: #ECF0FF;
       --muted:   #D0DEEA;
-      --cyan:    #00C8F0;
+      --cyan:    #00A9D6;
       --amber:   #E8A838;
       --coral:   #E85A4F;
-      --body:    rgba(255,255,255,0.85);
-      --caption: rgba(255,255,255,0.5);
+      --body:    rgba(255,255,255,0.88);
+      --caption: rgba(255,255,255,0.55);
       --border:  rgba(255,255,255,0.06);
       --divider: rgba(255,255,255,0.1);
       --serif:   'Plus Jakarta Sans', system-ui, sans-serif;
@@ -79,8 +79,8 @@
     .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; transition: color .3s; font-weight: 400; }
     .nav-links a:hover { color: var(--white); }
-    .nav-cta { padding: 10px 28px; background: transparent; color: var(--cyan); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; border: 1px solid rgba(0,200,240,.35); }
-    .nav-cta:hover { background: rgba(0,200,240,.1); border-color: var(--cyan); }
+    .nav-cta { padding: 10px 28px; background: transparent; color: var(--cyan); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; border: 1px solid rgba(0,169,214,.35); border-radius: 50px; }
+    .nav-cta:hover { background: rgba(0,169,214,.1); border-color: var(--cyan); }
     .nav-hamburger { display: none; }
     .mobile-menu { display: none; }
 
@@ -120,10 +120,10 @@
     .hero-accent { color: var(--cyan) !important; font-style: normal; font-family: inherit; font-weight: inherit; }
     .hero-sub { font-size: 17px; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 580px; margin-bottom: 28px; font-weight: 300; opacity: 0; }
     .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
-    .btn-cyan { padding: 16px 44px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; display: inline-block; border-radius: 4px; }
-    .btn-cyan:hover { background: #20D6F8; transform: translateY(-1px); }
-    .btn-ghost { font-size: 16px; color: rgba(255,255,255,.78); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; letter-spacing: .04em; transition: all .3s; }
-    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
+    .btn-cyan { padding: 16px 40px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; display: inline-block; border-radius: 50px; }
+    .btn-cyan:hover { background: #2CBFE6; transform: translateY(-1px); }
+    .btn-ghost { font-size: 16px; color: rgba(255,255,255,.78); text-decoration: none; border: none; padding: 0; letter-spacing: .04em; transition: color .3s; display: inline-block; }
+    .btn-ghost:hover { color: var(--white); }
 
     /* Scroll indicator */
     .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.55); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
@@ -167,12 +167,12 @@
     .threshold-num.lit { color: var(--cyan); }
     .threshold-unit { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
     .threshold-sub { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.65; }
-    .threshold-sub.bright { color: rgba(0,200,240,.6); }
+    .threshold-sub.bright { color: rgba(0,169,214,.6); }
 
     /* Peppercorn section */
     .peppercorn { padding: 0 56px 140px; max-width: 1200px; margin: 0 auto; }
-    .peppercorn-inner { border-left: 2px solid rgba(0,200,240,.18); padding-left: 48px; }
-    .peppercorn-tag { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 20px; display: block; }
+    .peppercorn-inner { border-left: 2px solid rgba(0,169,214,.18); padding-left: 48px; }
+    .peppercorn-tag { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,169,214,.5); margin-bottom: 20px; display: block; }
     .peppercorn h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
     .peppercorn p { font-size: 16px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
     .peppercorn p + p { margin-top: 16px; }
@@ -182,7 +182,7 @@
     .science-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
     .sci-img { position: relative; }
     .sci-img img { width: 100%; height: 440px; object-fit: cover; display: block; border-radius: 8px; }
-    .sci-caption { padding: 16px 20px; border-left: 2px solid rgba(0,200,240,.2); margin-top: 0; }
+    .sci-caption { padding: 16px 20px; border-left: 2px solid rgba(0,169,214,.2); margin-top: 0; }
     .sci-caption p { font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.65; }
 
     .steps3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
@@ -226,7 +226,7 @@
       content: '';
       position: absolute; top: 30%; left: 35%;
       width: 180px; height: 180px;
-      background: radial-gradient(circle, rgba(0,200,240,.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0,169,214,.12) 0%, transparent 70%);
       border-radius: 50%;
       animation: panelPulse 4s ease-in-out infinite;
       pointer-events: none;
@@ -240,7 +240,7 @@
     .h-panel h3 { font-family: var(--serif); font-size: clamp(26px,3vw,36px); font-weight: 500; margin-bottom: 20px; line-height: 1.15; }
     .h-panel h3 em { font-style: italic; }
     .h-panel p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
-    .h-panel-pub { font-size: 14px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,200,240,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
+    .h-panel-pub { font-size: 14px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,169,214,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
     .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
     .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
     .h-stat-label { font-size: 14px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
@@ -261,13 +261,13 @@
     .ss-cancer .ss-heading  { color: var(--cyan); }
     .ss-wavelength { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 20px; }
     .ss-healthy .ss-wavelength { color: rgba(255,160,70,.45); }
-    .ss-cancer  .ss-wavelength { color: rgba(0,200,240,.45); }
+    .ss-cancer  .ss-wavelength { color: rgba(0,169,214,.45); }
     .ss-body { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; margin: 0 auto; }
     .ss-spectrum-row { display: flex; align-items: center; gap: 0; margin-top: 2px; background: var(--border); }
     .ss-spectrum-label { padding: 20px 40px; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
     .ss-spectrum-label.warm { color: rgba(255,150,60,.5); }
-    .ss-spectrum-label.cool { color: rgba(0,200,240,.5); }
-    .ss-spectrum-bar { flex: 1; height: 3px; background: linear-gradient(to right, #CC3300, #FF8040, #FFCC00, #00DDAA, #00C8F0, #7722CC); opacity: .4; border-radius: 1px; }
+    .ss-spectrum-label.cool { color: rgba(0,169,214,.5); }
+    .ss-spectrum-bar { flex: 1; height: 3px; background: linear-gradient(to right, #CC3300, #FF8040, #FFCC00, #00DDAA, #00A9D6, #7722CC); opacity: .4; border-radius: 1px; }
     @keyframes ssWarm { 0%,100%{opacity:.75;transform:scale(1)} 50%{opacity:1;transform:scale(1.07)} }
     @keyframes ssCool { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:.95;transform:scale(1.09)} }
     .ss-pulse-w { animation: ssWarm 3.8s ease-in-out infinite; transform-origin: center; }
@@ -305,7 +305,7 @@
     .ncred-value { font-size: 13px; color: var(--white); line-height: 1.55; }
     .ncred-value strong { color: var(--cyan); font-weight: 400; }
     .cancer-types { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
-    .cancer-type-tag { font-size: 13px; padding: 4px 12px; background: rgba(0,200,240,.06); border: none; color: rgba(255,255,255,.55); letter-spacing: .04em; }
+    .cancer-type-tag { font-size: 13px; padding: 4px 12px; background: rgba(0,169,214,.06); border: none; color: rgba(255,255,255,.55); letter-spacing: .04em; }
     @media(max-width:900px) { .nirosha-wrap { grid-template-columns: 1fr; gap: 48px; } .nirosha-photo-side { position: static; } .nirosha-credentials { grid-template-columns: 1fr 1fr; } }
 
     /* ─── QUOTE ─── */
@@ -317,12 +317,12 @@
       content: '';
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       width: 80vw; height: 80vw; max-width: 900px; max-height: 900px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.04) 0%, transparent 65%);
+      background: radial-gradient(ellipse, rgba(0,169,214,.04) 0%, transparent 65%);
       pointer-events: none;
     }
     .quote-mark {
       font-family: var(--serif); font-size: 120px; line-height: .7;
-      color: rgba(0,200,240,.12); display: block; margin-bottom: 8px;
+      color: rgba(0,169,214,.12); display: block; margin-bottom: 8px;
     }
     .quote-body {
       font-family: var(--serif); font-size: clamp(22px, 2.8vw, 36px);
@@ -353,7 +353,7 @@
     a.press-card, a.press-card:visited, a.press-card:link { color: var(--white); text-decoration: none; }
     .press-outlet { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); font-weight: 500; margin-bottom: 14px; }
     .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; color: rgba(255,255,255,.9); }
-    .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.75); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
+    .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.75); line-height: 1.75; border-left: 2px solid rgba(0,169,214,.2); padding-left: 16px; }
     .press-quote cite { display: block; font-style: normal; font-size: 13px; color: rgba(255,255,255,.5); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
 
     /* ─── CREDS ─── */
@@ -368,8 +368,8 @@
     .team-grid-3 { grid-template-columns: repeat(3, 1fr); }
     .team-grid-3 { grid-template-columns: repeat(3, 1fr); }
     .team-card { display: grid; grid-template-columns: 76px 1fr; gap: 28px; padding: 48px; background: var(--bg2); align-items: start; transition: background .3s; }
-    .team-card:hover { background: rgba(0,200,240,.03); }
-    .team-init { width: 76px; height: 76px; border: none; background: rgba(0,200,240,.06); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
+    .team-card:hover { background: rgba(0,169,214,.03); }
+    .team-init { width: 76px; height: 76px; border: none; background: rgba(0,169,214,.06); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
     .team-photo { width: 76px; height: 76px; object-fit: cover; object-position: center top; flex-shrink: 0; border-radius: 2px; filter: grayscale(.08); }
     .team-name { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
     .team-title { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
@@ -377,7 +377,7 @@
 
     /* ─── CTA ─── */
     .cta-section { padding: 180px 56px; text-align: center; position: relative; overflow: hidden; }
-    .cta-glow { position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(0,200,240,.06) 0%, transparent 70%); pointer-events: none; }
+    .cta-glow { position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(0,169,214,.06) 0%, transparent 70%); pointer-events: none; }
     .cta-section h2 { margin-bottom: 24px; }
     .cta-section .lead { max-width: 480px; margin: 0 auto 52px; }
     .cta-actions { display: flex; gap: 16px; justify-content: center; margin-bottom: 72px; }
@@ -401,7 +401,7 @@
 
     /* ─── CANCER CRISIS ─── */
     /* Cancer Crisis — callout + cards */
-    .crisis-callout { border: none; background: rgba(0,200,240,.04); padding: 36px 52px; margin-bottom: 64px; display: flex; align-items: center; gap: 36px; max-width: 780px; }
+    .crisis-callout { border: none; background: rgba(0,169,214,.04); padding: 36px 52px; margin-bottom: 64px; display: flex; align-items: center; gap: 36px; max-width: 780px; }
     .crisis-callout-pct { font-family: var(--serif); font-size: clamp(56px,7vw,88px); font-weight: 300; color: var(--cyan); line-height: 1; flex-shrink: 0; }
     .crisis-callout-text { font-family: var(--serif); font-size: clamp(17px,1.8vw,22px); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.75); }
     .crisis-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
@@ -409,14 +409,14 @@
     .crisis-card-title { font-size: 18px; font-weight: 500; color: var(--cyan); margin-bottom: 20px; letter-spacing: .01em; }
     .crisis-bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
     .crisis-bullets li { font-size: 16px; color: var(--muted); line-height: 1.7; padding-left: 20px; position: relative; }
-    .crisis-bullets li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; background: rgba(0,200,240,.4); border-radius: 50%; }
+    .crisis-bullets li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; background: rgba(0,169,214,.4); border-radius: 50%; }
 
     /* ─── SOLUTION ─── */
     .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
     .solution-col { background: var(--bg2); padding: 64px 52px; }
     .solution-badge { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; display: inline-block; margin-bottom: 24px; font-weight: 500; }
-    .solution-badge.hardware { background: rgba(0,200,240,.1); color: rgba(0,200,240,.8); border: none; }
-    .solution-badge.software { background: rgba(0,200,240,.06); color: rgba(0,200,240,.6); border: none; }
+    .solution-badge.hardware { background: rgba(0,169,214,.1); color: rgba(0,169,214,.8); border: none; }
+    .solution-badge.software { background: rgba(0,169,214,.06); color: rgba(0,169,214,.6); border: none; }
     .solution-name { font-family: var(--serif); font-size: clamp(24px, 3vw, 32px); font-weight: 600; margin-bottom: 8px; }
     .solution-sub { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
     .solution-features { list-style: none; }
@@ -464,7 +464,7 @@
       .mobile-menu.open { display: flex; }
       .mobile-menu a { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 300; color: var(--white); text-decoration: none; letter-spacing: .04em; transition: color .2s; }
       .mobile-menu a:hover { color: var(--cyan); }
-      .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,200,240,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; }
+      .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,169,214,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; border-radius: 50px; }
       .nav-cta { display: none; }
       .hero { height: auto !important; min-height: 100svh !important; padding: 148px 24px 72px !important; justify-content: center !important; }
       .hero-content { margin-top: 0 !important; max-width: 100% !important; }
@@ -526,7 +526,7 @@
     .problem-rows { display: flex; flex-direction: column; gap: 0; margin: 36px 0; }
     .problem-row { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
     .problem-row:last-child { border-bottom: none; }
-    .problem-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; box-shadow: 0 0 8px rgba(0,200,240,.5); }
+    .problem-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; box-shadow: 0 0 8px rgba(0,169,214,.5); }
     .problem-row-title { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; font-weight: 500; }
     .problem-row p { font-size: 16px; color: var(--body); line-height: 1.6; margin: 0; }
     .survival-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
@@ -538,8 +538,8 @@
     .survival-pct { font-size: 13px; font-weight: 500; }
     .survival-pct.high { color: var(--cyan); }
     .survival-pct.low { color: var(--coral); }
-    .problem-diagram { border: none; background: rgba(0,200,240,.03); min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; }
-    .detection-diagram { width: 100%; border: none; background: rgba(0,200,240,.03); min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; margin-top: 48px; }
+    .problem-diagram { border: none; background: rgba(0,169,214,.03); min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; }
+    .detection-diagram { width: 100%; border: none; background: rgba(0,169,214,.03); min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; margin-top: 48px; }
     @media (max-width: 768px) {
       .problem-layout { grid-template-columns: 1fr; gap: 40px; }
       .survival-bar.high { width: 120px; }
@@ -556,7 +556,7 @@
       font-size: clamp(36px, 4.5vw, 56px); font-weight: 500; line-height: 1.12;
       margin: 16px auto 28px; max-width: 700px; letter-spacing: -0.01em;
     }
-    .prob-h2 em { color: #00E0FF; font-style: italic; }
+    .prob-h2 em { color: #00A9D6; font-style: italic; }
 
     /* Survival bars */
     .prob-bars { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
@@ -567,7 +567,7 @@
       border-radius: 3px; overflow: hidden;
     }
     .prob-bar-fill { height: 100%; border-radius: 3px; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
-    .prob-bar-early { background: linear-gradient(to right, rgba(0,200,240,.6), #00E0FF); box-shadow: 0 0 8px rgba(0,224,255,.4); }
+    .prob-bar-early { background: linear-gradient(to right, rgba(0,169,214,.6), #00A9D6); box-shadow: 0 0 8px rgba(0,169,214,.4); }
     .prob-bar-late  { background: linear-gradient(to right, rgba(232,90,79,.5), var(--coral));  box-shadow: 0 0 8px rgba(232,90,79,.4); }
     .prob-bar-pct { font-size: 15px; font-weight: 600; width: 40px; flex-shrink: 0; }
 
@@ -595,8 +595,8 @@
       letter-spacing: -0.01em;
     }
     .prob-glow-line {
-      width: 80px; height: 1px; background: rgba(0,200,240,.4);
-      box-shadow: 0 0 6px 1px rgba(0,200,240,.35); margin: 0 auto;
+      width: 80px; height: 1px; background: rgba(0,169,214,.4);
+      box-shadow: 0 0 6px 1px rgba(0,169,214,.35); margin: 0 auto;
     }
 
     /* Beat 2 */
@@ -627,7 +627,7 @@
     .prob-gap-label { font-size: 14px; color: #5a6b7e; margin-top: 2px; }
     .prob-gap-vline {
       width: 1px; height: 160px; flex-shrink: 0;
-      background: linear-gradient(to bottom, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
+      background: linear-gradient(to bottom, transparent, rgba(0,169,214,.2) 30%, rgba(0,169,214,.2) 70%, transparent);
     }
     .prob-support {
       font-family: Georgia,'Playfair Display',serif; font-style: italic;
@@ -642,8 +642,8 @@
       line-height: 1.55; max-width: 680px; margin-bottom: 10px; font-weight: 400;
     }
     .prob-cyan {
-      color: #00E0FF; font-weight: 700;
-      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
+      color: #00A9D6; font-weight: 700;
+      text-shadow: 0 0 20px rgba(0,169,214,.4), 0 0 60px rgba(0,169,214,.15);
     }
     .prob-subline { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 36px; }
     .prob-glass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -656,12 +656,12 @@
     }
     .prob-glass-card:hover {
       background: rgba(255,255,255,.055);
-      box-shadow: 0 0 30px rgba(0,224,255,.08);
+      box-shadow: 0 0 30px rgba(0,169,214,.08);
       transform: translateY(-2px);
     }
     .prob-glass-stat {
-      font-size: clamp(30px,3.5vw,42px); font-weight: 700; color: #00E0FF;
-      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
+      font-size: clamp(30px,3.5vw,42px); font-weight: 700; color: #00A9D6;
+      text-shadow: 0 0 20px rgba(0,169,214,.4), 0 0 60px rgba(0,169,214,.15);
       margin-bottom: 10px; line-height: 1;
     }
     .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.55); font-weight: 400; margin-left: 4px; vertical-align: middle; }
@@ -686,7 +686,7 @@
       .prob-bars { padding: 0 4px; }
       .prob-bar-label { width: 80px; font-size: 13px; }
       .prob-gap-vline { width: 80px; height: 1px;
-        background: linear-gradient(to right, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
+        background: linear-gradient(to right, transparent, rgba(0,169,214,.2) 30%, rgba(0,169,214,.2) 70%, transparent);
       }
       .prob-glass-grid { grid-template-columns: 1fr; }
     }
@@ -696,7 +696,7 @@
     .quote-warm {
       background: var(--bg-alt) !important;
     }
-    .quote-warm .quote-mark { color: rgba(0,200,240,.12); }
+    .quote-warm .quote-mark { color: rgba(0,169,214,.12); }
     .quote-warm .quote-attr { color: var(--cyan); opacity: .7; }
 
     /* Carousel arrows */
@@ -708,7 +708,7 @@
       display: flex; align-items: center; justify-content: center;
       transition: color .25s, background .25s, transform .2s;
     }
-    .h-arrow:hover { color: #fff; background: rgba(0,200,240,.15); transform: translateY(-1px); }
+    .h-arrow:hover { color: #fff; background: rgba(0,169,214,.15); transform: translateY(-1px); }
     .h-arrow:disabled { opacity: .35; cursor: default; }
 
     /* Team section warm accent */
@@ -717,7 +717,7 @@
 
     /* ─── ACCORDION ─── */
     .acc-stack { margin-top: 64px; max-width: 860px; }
-    .acc-intro { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 32px; }
+    .acc-intro { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,169,214,.5); margin-bottom: 32px; }
     .acc-item { border-top: 1px solid var(--border); }
     .acc-item:last-child { border-bottom: 1px solid var(--border); }
     .acc-trigger {
@@ -728,7 +728,7 @@
     }
     .acc-trigger:hover .acc-label { color: var(--cyan); }
     .acc-num { font-family: var(--serif); font-size: 14px; font-style: italic;
-      color: rgba(0,200,240,.5); min-width: 28px; flex-shrink: 0; padding-top: 4px; }
+      color: rgba(0,169,214,.5); min-width: 28px; flex-shrink: 0; padding-top: 4px; }
     .acc-label-wrap { flex: 1; }
     .acc-preview { display: block; font-size: 15px; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.6; margin-top: 8px; }
     .acc-label { font-size: clamp(18px,2vw,22px); font-weight: 500; letter-spacing: .01em;
@@ -752,7 +752,7 @@
     .acc-stat-n { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--cyan); line-height: 1; }
     .acc-stat-l { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; max-width: 160px; }
     .acc-pub-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; margin-right: 24px;
-      font-size: 14px; color: rgba(0,200,240,.6); text-decoration: none; border-bottom: 1px solid rgba(0,200,240,.2);
+      font-size: 14px; color: rgba(0,169,214,.6); text-decoration: none; border-bottom: 1px solid rgba(0,169,214,.2);
       padding-bottom: 2px; transition: color .2s; letter-spacing: .06em; }
     .acc-pub-link:hover { color: var(--cyan); }
 
@@ -760,7 +760,7 @@
     #back-to-top {
       position: fixed; bottom: 36px; right: 36px; z-index: 500;
       width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(0,200,240,.12); border: none;
+      background: rgba(0,169,214,.12); border: none;
       color: var(--cyan); font-size: 18px; line-height: 1;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; opacity: 0; pointer-events: none;
@@ -768,7 +768,7 @@
       text-decoration: none;
     }
     #back-to-top.visible { opacity: 1; pointer-events: auto; }
-    #back-to-top:hover { background: rgba(0,200,240,.22); transform: translateY(-3px); }
+    #back-to-top:hover { background: rgba(0,169,214,.22); transform: translateY(-3px); }
     @media (pointer: coarse) { #back-to-top { bottom: 24px; right: 20px; } }
 
     /* ─── PHOTO BREAK FADE-IN ─── */
@@ -804,7 +804,7 @@
       content: '';
       position: absolute; top: -30%; left: -15%;
       width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.045) 0%, transparent 68%);
+      background: radial-gradient(ellipse, rgba(0,169,214,.045) 0%, transparent 68%);
       pointer-events: none; z-index: 0;
     }
     .glow-left > * { position: relative; z-index: 1; }
@@ -812,7 +812,7 @@
       content: '';
       position: absolute; top: -20%; right: -15%;
       width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.04) 0%, transparent 68%);
+      background: radial-gradient(ellipse, rgba(0,169,214,.04) 0%, transparent 68%);
       pointer-events: none; z-index: 0;
     }
     .glow-right { position: relative; overflow: hidden; }
@@ -824,13 +824,13 @@
     /* ─── VISITED LINK FIX ─── */
     a:visited { color: inherit; }
     a.btn-cyan:visited { color: var(--bg); }
-    a.btn-ghost:visited { color: rgba(255,255,255,.78); }
+    a.btn-ghost, a.btn-ghost:visited { color: rgba(255,255,255,.78); }
     a.nav-cta, a.nav-cta:visited { color: var(--cyan); }
     .nav-links a:visited { color: rgba(255,255,255,0.72); }
     .press-card:visited .press-headline { color: var(--white); }
     .press-card:visited .press-outlet { color: var(--cyan); }
     .press-card:visited .press-quote { color: rgba(255,255,255,.8); }
-    .acc-pub-link:visited { color: rgba(0,200,240,.6); }
+    .acc-pub-link:visited { color: rgba(0,169,214,.6); }
     .f-col a:visited { color: var(--muted); }
     .press-logo-link:visited { color: inherit; }
 
@@ -850,13 +850,13 @@
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%);
       width: 80vw; height: 80vw; max-width: 800px; max-height: 800px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.03) 0%, transparent 65%);
+      background: radial-gradient(ellipse, rgba(0,169,214,.03) 0%, transparent 65%);
       pointer-events: none;
     }
     .quote-block-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
     .quote-block-mark {
       font-family: var(--serif); font-size: 120px; line-height: .7;
-      color: rgba(0,200,240,.35); display: block; margin-bottom: 16px;
+      color: rgba(0,169,214,.35); display: block; margin-bottom: 16px;
     }
     .quote-block-text {
       font-family: var(--serif); font-size: clamp(24px, 3vw, 36px);
@@ -895,7 +895,7 @@
       
       /* Detection Gap */
       #problem > div { padding: 80px 24px !important; }
-      #problem p[style*="max-width:650px"] { max-width: 90% !important; }
+      #problem p[style*="max-width:720px"] { max-width: 90% !important; }
       #problem p[style*="font-size:clamp(28px"] { font-size: 26px !important; padding-top: 8px !important; }
       
       /* Stats — keep side by side but smaller */
@@ -906,7 +906,7 @@
 
       /* Bridge */
       #solution > div { padding: 80px 24px !important; }
-      #solution p[style*="max-width:650px"] { max-width: 100% !important; }
+      #solution p[style*="max-width:720px"] { max-width: 100% !important; }
       #solution p[style*="font-size:clamp(24px"] { font-size: 22px !important; }
       
       /* Timeline graphic — contain it */
@@ -917,14 +917,14 @@
       #solution div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
 
       /* Nirosha quote band */
-      .nirosha-quote-band { padding: 60px 24px !important; }
+      .nirosha-quote-band { padding: 72px 24px !important; }
       .nirosha-quote-band p[style*="font-size:clamp"] { font-size: 22px !important; }
 
       /* Two Systems — stack cards */
       #two-systems > div { padding: 80px 24px !important; }
       #two-systems div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; gap: 24px !important; }
       #two-systems h2 { font-size: clamp(30px, 8vw, 42px) !important; }
-      #two-systems p[style*="max-width:650px"] { max-width: 100% !important; }
+      #two-systems p[style*="max-width:720px"] { max-width: 100% !important; }
 
       /* Carousel — stack cards vertically on mobile */
       .h-section { overflow: visible !important; }
@@ -965,14 +965,14 @@
       div[style*="background:#0f1c2e"] > div { padding: 80px 24px !important; }
 
       /* Press strip */
-      div[style*="background:#3a506d"] > div { padding: 60px 24px !important; }
-      div[style*="background:#3a506d"] div[style*="gap:48px"] { gap: 24px !important; }
-      div[style*="background:#3a506d"] span { font-size: 15px !important; }
+      div[style*="background:#2F4562"] > div { padding: 60px 24px !important; }
+      div[style*="background:#2F4562"] div[style*="gap:48px"] { gap: 24px !important; }
+      div[style*="background:#2F4562"] span { font-size: 15px !important; }
 
       /* The Ask */
       .cta-section { padding: 80px 24px !important; }
       .cta-section h2 { font-size: clamp(30px, 8vw, 42px) !important; }
-      .cta-section p[style*="max-width:680px"],
+      .cta-section p[style*="max-width:720px"],
       .cta-section p[style*="max-width:780px"] { max-width: 100% !important; }
       .cta-section p[style*="font-size:clamp(22px"] { font-size: 20px !important; }
 
@@ -1142,7 +1142,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow" id="he">ULTRA-EARLY CANCER DETECTION</p>
-    <h1 id="hh">Your cells emit <span class="hero-accent">light.</span><br>We learned to <span style="white-space:nowrap;">read it.</span></h1>
+    <h1 id="hh">Your cells emit <span class="hero-accent">light.</span><br>We learned to <span style="white-space:nowrap;">read&nbsp;it.</span></h1>
     <p class="hero-sub" id="hpoetic">No blood draw. No biopsy. No radiation. Detects cancer 100-200x earlier than standard imaging.</p>
     <div class="hero-actions" id="ha">
       <a href="#solution" class="btn-cyan">See the Science</a>
@@ -1176,7 +1176,7 @@
 </section>
 
 <!-- ═══ BRIDGE ═══ -->
-<div style="background:#0f1c2e;padding:80px 56px;text-align:center;">
+<div style="background:#0f1c2e;padding:120px 56px;text-align:center;">
   <p class="reveal" style="font-family:var(--serif);font-size:clamp(24px,3.5vw,40px);font-weight:300;font-style:italic;color:rgba(255,255,255,.88);max-width:720px;margin:0 auto;line-height:1.45;">The signal exists. It always has.</p>
 </div>
 
@@ -1185,11 +1185,11 @@
   <div style="max-width:1200px;margin:0 auto;padding:160px 56px 140px;">
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow" style="color:#00A9D6;">The Science</p>
-      <h2 style="color:#fff;">Cancer has a <em style="color:#00E0FF;font-style:italic;">light signature.</em></h2>
-      <p style="font-size:19px;color:#b8c7d4;margin-top:24px;line-height:1.75;max-width:680px;">Every cell in your body emits faint light as a byproduct of metabolism. These light signals, known scientifically as ultra-weak photon emissions, are invisible to the eye, but they are real, measurable, and have been scientifically documented for over a century.</p>
-      <p style="font-size:19px;color:#b8c7d4;margin-top:20px;line-height:1.75;max-width:680px;">Cancer cells process energy differently than healthy cells, and the light they produce reflects that: shifted wavelengths, altered patterns, changed intensity.</p>
-      <p style="font-size:19px;color:#b8c7d4;margin-top:20px;line-height:1.75;max-width:680px;">Because this shift happens at the metabolic level, it's one of the earliest possible signals of cancer. No mass has to form. No molecules have to accumulate in the blood. The cells themselves change how they release energy, and that change shows up in their light.</p>
-      <p style="font-size:19px;color:#b8c7d4;margin-top:20px;line-height:1.75;max-width:680px;">Dr. Nirosha Murugan built a technology that reads these signals with enough precision to identify cancer at 100 to 200x fewer cells than standard imaging requires, before any tumor is physically present.</p>
+      <h2 style="color:#fff;">Cancer has a <em style="color:#00A9D6;font-style:italic;">light signature.</em></h2>
+      <p style="font-size:19px;color:#b8c7d4;margin-top:24px;line-height:1.75;max-width:720px;">Every cell in your body emits faint light as a byproduct of metabolism. These light signals, known scientifically as ultra-weak photon emissions, are invisible to the eye, but they are real, measurable, and have been scientifically documented for over a century.</p>
+      <p style="font-size:19px;color:#b8c7d4;margin-top:20px;line-height:1.75;max-width:720px;">Cancer cells process energy differently than healthy cells, and the light they produce reflects that: shifted wavelengths, altered patterns, changed intensity.</p>
+      <p style="font-size:19px;color:#b8c7d4;margin-top:20px;line-height:1.75;max-width:720px;">Because this shift happens at the metabolic level, it's one of the earliest possible signals of cancer. No mass has to form. No molecules have to accumulate in the blood. The cells themselves change how they release energy, and that change shows up in their light.</p>
+      <p style="font-size:19px;color:#b8c7d4;margin-top:20px;line-height:1.75;max-width:720px;">Dr. Nirosha Murugan built a technology that reads these signals with enough precision to identify cancer at 100 to 200x fewer cells than standard imaging requires, before any tumor is physically present.</p>
     </div>
 
     <div class="reveal" style="margin:36px 0 28px;overflow:hidden;">
@@ -1211,8 +1211,8 @@
 </div>
 
 <!-- ═══ NIROSHA QUOTE BAND ═══ -->
-<div class="nirosha-quote-band" style="background:#1a2a40;padding:80px 56px;">
-  <div style="max-width:800px;margin:0 auto;text-align:center;">
+<div class="nirosha-quote-band" style="background:#16263A;padding:120px 56px;">
+  <div style="max-width:820px;margin:0 auto;text-align:center;">
     <p style="font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:300;font-style:italic;color:rgba(255,255,255,.9);line-height:1.5;margin-bottom:20px;">"The goal is not just to tell whether there's cancer in the body. It's to find it at very, very low densities."</p>
     <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);opacity:.8;">Dr. Nirosha Murugan, Chief Scientist &amp; Co-Founder</p>
   </div>
@@ -1224,32 +1224,32 @@
     <div class="reveal">
       <p class="eyebrow" style="color:#00A9D6;">The Scan</p>
       <h2 style="margin-bottom:24px;color:#14263C;">We built the tool <em>to read it.</em></h2>
-      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:650px;margin-bottom:16px;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
-      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:650px;margin-bottom:16px;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
-      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:650px;margin-bottom:48px;font-weight:500;">No blood draw. No biopsy. No radiation.</p>
+      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:720px;margin-bottom:16px;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
+      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:720px;margin-bottom:16px;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
+      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:720px;margin-bottom:48px;font-weight:500;">No blood draw. No biopsy. No radiation.</p>
 
       <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);font-weight:400;color:#14263C;margin-bottom:32px;">Two systems. <em>One signal.</em></h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
-        <div class="qs-card" style="background:#2B4363;overflow:hidden;border:none;border-radius:6px;">
+        <div class="qs-card" style="background:#16263A;overflow:hidden;border:none;border-radius:6px;">
           <img src="qsense-product.jpg" alt="QSense" style="width:100%;max-height:220px;object-fit:cover;display:block;">
           <div style="padding:28px 32px;">
-            <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9DE8FF;margin-bottom:8px;">Hardware</p>
+            <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7DD4F0;margin-bottom:8px;">Hardware</p>
             <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">QSense&#8482;</h3>
-            <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">A sensor array sensitive enough to count individual photons from living tissue. Non-invasive, radiation-free, and designed to detect cancer signals before a tumor forms. Dark, controlled environment. No contact with the body. Fifteen minutes.<br><br><span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#9DE8FF;opacity:.7;">Current Status: Functional prototype built and ready for human studies.</span></p>
+            <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">A sensor array sensitive enough to count individual photons from living tissue. Non-invasive, radiation-free, and designed to detect cancer signals before a tumor forms. Dark, controlled environment. No contact with the body. Fifteen minutes.<br><br><span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7DD4F0;opacity:.7;">Current Status: Functional prototype built and ready for human studies.</span></p>
           </div>
         </div>
-        <div class="lum-card" style="background:#2B4363;overflow:hidden;border:none;border-radius:6px;">
+        <div class="lum-card" style="background:#16263A;overflow:hidden;border:none;border-radius:6px;">
           <img src="luminal-product.jpg" alt="LuminAI" style="width:100%;max-height:220px;object-fit:cover;display:block;">
           <div style="padding:28px 32px;">
-            <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9DE8FF;margin-bottom:8px;">Software</p>
+            <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7DD4F0;margin-bottom:8px;">Software</p>
             <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">LuminAI&#8482;</h3>
-            <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">AI trained on 10 years of data from cell and animal models. It processes roughly a million data points per scan, analyzing photon counts, wavelength ratios, and emission timing to distinguish healthy tissue from cancer. Real-time results. The system refines its accuracy with every dataset it processes.<br><br><span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#9DE8FF;opacity:.7;">Current Status: Fully developed code, integrated with hardware.</span></p>
+            <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">AI trained on 10 years of data from cell and animal models. It processes roughly a million data points per scan, analyzing photon counts, wavelength ratios, and emission timing to distinguish healthy tissue from cancer. Real-time results. The system refines its accuracy with every dataset it processes.<br><br><span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7DD4F0;opacity:.7;">Current Status: Fully developed code, integrated with hardware.</span></p>
           </div>
         </div>
       </div>
 
       <!-- Nirosha quote -->
-      <div class="nirosha-quote-band" style="background:#1a2a40;padding:56px 48px;margin-top:48px;border-radius:6px;">
+      <div class="nirosha-quote-band" style="background:#16263A;padding:56px 48px;margin-top:48px;border-radius:6px;">
         <div style="max-width:800px;margin:0 auto;text-align:center;">
           <p style="font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:300;font-style:italic;color:rgba(255,255,255,.9);line-height:1.5;margin-bottom:20px;">"These sensors were built to detect faint light from distant stars. We pointed them at the faint light coming off the human body, and built an AI that uses it to read the state of your cells and tell healthy tissue from cancer."</p>
           <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);opacity:.8;">Dr. Nirosha Murugan, Chief Scientist &amp; Co-Founder</p>
@@ -1271,7 +1271,7 @@
   </div>
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
-      <div class="h-panel" style="background:rgba(0,200,240,.04);border-left:3px solid #00A9D6;border-right:none;">
+      <div class="h-panel" style="background:rgba(0,169,214,.04);border-left:3px solid #00A9D6;border-right:none;">
         <div class="h-panel-img reveal"></div>
         <div class="reveal">
           <div class="h-panel-status">Featured · Human Study In Preparation</div>
@@ -1339,8 +1339,8 @@
 </div>
 
 <!-- ═══ PRESS STRIP ═══ -->
-<div style="background:#3a506d;">
-  <div style="max-width:1200px;margin:0 auto;padding:80px 56px;text-align:center;">
+<div style="background:#2F4562;">
+  <div style="max-width:1200px;margin:0 auto;padding:120px 56px;text-align:center;">
     <p class="eyebrow reveal">Featured In</p>
     <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:40px;opacity:.7;" class="reveal">
       <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">Scientific American</span>
@@ -1357,10 +1357,10 @@
 </div>
 
 <!-- ═══ SECTION 7 — THE ASK ═══ -->
-<section class="cta-section" id="contact" style="background:#162235;">
+<section class="cta-section" id="contact" style="background:#0f1c2e;">
   <div class="cta-glow"></div>
   <h2 class="reveal">The science works.<br><em>The next step is human data.</em></h2>
-  <p class="lead reveal" style="max-width:680px;margin:0 auto 48px;color:rgba(255,255,255,.78);">Ten years of published research. Three peer-reviewed papers. Validated across cancer cell lines, animal models, and living human subjects. We're raising a pre-pilot round to fund our first IRB-approved human study: the step that takes this from published science to a clinical product.</p>
+  <p class="lead reveal" style="max-width:720px;margin:0 auto 48px;color:rgba(255,255,255,.78);">Ten years of published research. Three peer-reviewed papers. Validated across cancer cell lines, animal models, and living human subjects. We're raising a pre-pilot round to fund our first IRB-approved human study: the step that takes this from published science to a clinical product.</p>
 
   <div class="cta-actions reveal" style="margin-bottom:0;">
     <a href="mailto:kelly.lucas@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A" class="btn-cyan">Request Investor Deck</a>
@@ -1455,8 +1455,8 @@ class Photon {
   draw() {
     ctx.save();
     ctx.globalAlpha = this.life * (this.cyan ? 0.7 : 0.4);
-    if (this.glow) { ctx.shadowBlur = 6; ctx.shadowColor = '#00C8F0'; }
-    ctx.fillStyle = this.cyan ? '#00C8F0' : 'rgba(180,210,255,0.9)';
+    if (this.glow) { ctx.shadowBlur = 6; ctx.shadowColor = '#00A9D6'; }
+    ctx.fillStyle = this.cyan ? '#00A9D6' : 'rgba(180,210,255,0.9)';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
