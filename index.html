@@ -1265,7 +1265,7 @@
       <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
-  <p class="reveal" style="text-align:center;font-size:22px;font-weight:600;line-height:1.5;color:#fff;max-width:720px;margin:60px auto 80px;padding:0 56px;">If you can read metabolism through light, cancer is just the beginning.</p>
+  <p class="reveal" style="text-align:center;font-size:20px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.7);max-width:720px;margin:20px auto 48px;padding:0 56px;">If you can read metabolism through light, cancer is just the beginning.</p>
 </section>
 
 <!-- ═══ CREDIBILITY ANCHOR ═══ -->
@@ -1483,54 +1483,24 @@ function updateDots(idx) {
   if (hNext) hNext.disabled = idx === panelCount - 1;
 }
 
-let carouselST = null;
-if (window.innerWidth > 1024) {
-  // Desktop: GSAP pin + horizontal scroll
-  const getMaxScroll = () => hTrack.scrollWidth - hSection.offsetWidth;
-  gsap.to(hTrack, {
-    x: () => -getMaxScroll(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: hSection,
-      start: 'top 80px',
-      end: () => '+=' + (getMaxScroll() + window.innerHeight * 0.5),
-      pin: true,
-      scrub: 0.6,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: self => {
-        carouselST = self;
-        const idx = Math.round(self.progress * (panelCount - 1));
-        if (idx !== currentPanel) { currentPanel = idx; updateDots(idx); }
-      }
-    }
-  });
+// Simple arrow click-through — no scroll trigger, no pinning
+function goToPanel(idx) {
+  idx = Math.max(0, Math.min(idx, panelCount - 1));
+  currentPanel = idx;
+  updateDots(idx);
+  // Slide track to show current panel
+  const panelWidth = panels[0].offsetWidth;
+  hTrack.style.transition = 'transform 0.4s ease';
+  hTrack.style.transform = 'translateX(' + (-idx * panelWidth) + 'px)';
+}
 
-  // Arrows scroll the window to the right scroll position
-  function goToPanel(idx) {
-    idx = Math.max(0, Math.min(idx, panelCount - 1));
-    currentPanel = idx;
-    updateDots(idx);
-    // Find the carousel ScrollTrigger
-    const st = carouselST || ScrollTrigger.getAll().find(t => t.trigger === hSection);
-    if (!st) return;
-    const progress = idx / (panelCount - 1);
-    const scrollTarget = st.start + progress * (st.end - st.start);
-    lenis.scrollTo(scrollTarget, { duration: 0.8 });
-  }
+if (hPrev && hNext) {
+  hPrev.disabled = true;
+  hPrev.addEventListener('click', () => goToPanel(currentPanel - 1));
+  hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
+}
 
-  if (hPrev && hNext) {
-    hPrev.disabled = true;
-    hPrev.addEventListener('click', () => goToPanel(currentPanel - 1));
-    hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
-  }
-} else {
-  // Mobile: native CSS scroll-snap
-  hSection.addEventListener('scroll', () => {
-    const idx = Math.round(hSection.scrollLeft / (window.innerWidth * 0.88));
-    currentPanel = Math.min(idx, panelCount - 1);
-    updateDots(currentPanel);
-  }, { passive: true });
+if (false) { // disabled mobile scroll-snap
 }
 
 // ─── PARALLAX HERO CANVAS ───
