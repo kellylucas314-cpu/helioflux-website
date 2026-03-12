@@ -930,25 +930,8 @@
       #two-systems h2 { font-size: clamp(30px, 8vw, 42px) !important; }
       #two-systems p[style*="max-width:720px"] { max-width: 100% !important; }
 
-      /* Carousel — stack cards vertically on mobile */
-      .h-section { overflow: visible !important; }
-      .h-track {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        transform: none !important;
-      }
-      .h-panel {
-        width: 100% !important;
-        grid-template-columns: 1fr !important;
-        padding: 32px 24px !important;
-        border-right: none !important;
-        border-bottom: 1px solid rgba(22,38,58,.12);
-        scroll-snap-align: none !important;
-      }
-      .h-panel:last-child { border-bottom: none; }
-      .h-panel-img { display: none; } /* hide empty image placeholders on mobile */
-      .h-panel-img:has(img) { display: block; } /* show if has actual image */
+      /* Carousel — stack cards vertically on small mobile only */
+      /* Stacking now handled at 480px instead of 768px */
       .h-panel h3 { font-size: 28px !important; }
       .h-panel p { font-size: 16px !important; }
       .h-panel-status { font-size: 11px !important; }
@@ -1256,7 +1239,7 @@
           <h3>Skin Cancer<br><em>Detection</em></h3>
           <p>90-92% accuracy across multiple cancer cell lines in cell cultures and animal studies. Detected cancer within 24 hours of exposure. Tumors weren't physically detectable for another 18 days. First human study targeting Q3 2026 with a Beverly Hills dermatology partner.</p>
         </div>
-      </div>
+      </div><!-- /h-panel 1 -->
       <div class="h-panel">
         <div class="h-panel-img reveal"><img src="helmet-closeup.jpg" alt="Brain helmet photon sensing setup"></div>
         <div class="reveal">
