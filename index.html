@@ -205,12 +205,13 @@
     .h-section-label h2 { max-width: 600px; }
 
     .h-track {
-      display: flex;
-      will-change: transform;
-      width: max-content;
+      display: block;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
     }
     .h-panel {
-      width: 82vw;
+      width: 100%;
       padding: 44px 36px;
       display: grid;
       grid-template-columns: 1fr 1.2fr;
@@ -1520,54 +1521,27 @@ function updateDots(idx) {
   if (hNext) hNext.disabled = idx === panelCount - 1;
 }
 
-let carouselST = null;
-if (window.innerWidth > 1024) {
-  // Desktop: GSAP pin + horizontal scroll
-  const getMaxScroll = () => hTrack.scrollWidth - hSection.offsetWidth;
-  gsap.to(hTrack, {
-    x: () => -getMaxScroll(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: hSection,
-      start: 'top 80px',
-      end: () => '+=' + (getMaxScroll() + window.innerHeight * 0.5),
-      pin: true,
-      scrub: 0.6,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: self => {
-        carouselST = self;
-        const idx = Math.round(self.progress * (panelCount - 1));
-        if (idx !== currentPanel) { currentPanel = idx; updateDots(idx); }
-      }
-    }
+// Simple click-through carousel — no GSAP scroll trigger
+function goToPanel(idx) {
+  idx = Math.max(0, Math.min(idx, panelCount - 1));
+  currentPanel = idx;
+  updateDots(idx);
+  panels.forEach((p, i) => {
+    p.style.display = i === idx ? 'block' : 'none';
   });
+}
 
-  // Arrows scroll the window to the right scroll position
-  function goToPanel(idx) {
-    idx = Math.max(0, Math.min(idx, panelCount - 1));
-    currentPanel = idx;
-    updateDots(idx);
-    // Find the carousel ScrollTrigger
-    const st = carouselST || ScrollTrigger.getAll().find(t => t.trigger === hSection);
-    if (!st) return;
-    const progress = idx / (panelCount - 1);
-    const scrollTarget = st.start + progress * (st.end - st.start);
-    lenis.scrollTo(scrollTarget, { duration: 0.8 });
-  }
+// Initialize: show first panel only
+panels.forEach((p, i) => { p.style.display = i === 0 ? 'block' : 'none'; });
 
-  if (hPrev && hNext) {
-    hPrev.disabled = true;
-    hPrev.addEventListener('click', () => goToPanel(currentPanel - 1));
-    hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
-  }
-} else {
-  // Mobile: native CSS scroll-snap
-  hSection.addEventListener('scroll', () => {
-    const idx = Math.round(hSection.scrollLeft / (window.innerWidth * 0.88));
-    currentPanel = Math.min(idx, panelCount - 1);
-    updateDots(currentPanel);
-  }, { passive: true });
+if (hPrev && hNext) {
+  hPrev.disabled = true;
+  hPrev.addEventListener('click', () => goToPanel(currentPanel - 1));
+  hNext.addEventListener('click', () => goToPanel(currentPanel + 1));
+}
+
+// Mobile: same arrow behavior
+if (false) {
 }
 
 // ─── PARALLAX HERO CANVAS ───
