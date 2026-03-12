@@ -912,8 +912,14 @@
       #solution div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; gap: 10px !important; }
       #solution div[style*="margin:0 auto 72px"] { margin-bottom: 32px !important; }
 
+      /* ── Nirosha quote photo overlay ── */
+      .nirosha-quote-photo { height: 360px !important; }
+      .nirosha-quote-photo img { object-position: 70% center !important; }
+      .nirosha-quote-photo .nirosha-overlay { background: rgba(9,39,67,0.72) !important; }
+      .nirosha-quote-photo .nirosha-quote-text { padding: 0 24px !important; }
+
       /* ── Photo break ── */
-      .photo-break { height: 180px !important; }
+      .photo-break { height: 280px !important; }
 
       /* ── Nirosha quote bands ── */
       .nirosha-quote-band { padding: 56px 24px !important; }
@@ -1243,11 +1249,24 @@
   </div>
 </div>
 
+<!-- ═══ NIROSHA QUOTE + PHOTO BREAK ═══ -->
+<div style="position:relative;overflow:hidden;">
+  <div class="nirosha-quote-photo" style="position:relative;height:500px;overflow:hidden;">
+    <img src="nirosha-microscope.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;display:block;">
+    <div class="nirosha-overlay" style="position:absolute;inset:0;background:linear-gradient(to right, rgba(9,39,67,0.92) 0%, rgba(9,39,67,0.7) 40%, rgba(9,39,67,0.4) 100%);"></div>
+    <div class="reveal nirosha-quote-text" style="position:absolute;inset:0;display:flex;align-items:center;padding:0 56px;z-index:1;">
+      <div style="max-width:520px;">
+        <p style="font-family:var(--serif);font-size:clamp(22px,3vw,32px);font-weight:300;font-style:italic;color:rgba(255,255,255,.92);line-height:1.5;margin-bottom:20px;">"The goal is not just to tell whether there's cancer in the body. It's to find it at very, very low densities."</p>
+        <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);opacity:.8;">Dr. Nirosha Murugan, Chief Scientist &amp; Co-Founder</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ PHOTO BREAK ═══ -->
-<div style="background:#092743;height:40px;"></div>
-<div class="photo-break" style="position:relative;height:650px;overflow:hidden;">
+<div class="photo-break" style="position:relative;height:500px;overflow:hidden;">
   <img src="team-lab.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;">
-  <div style="position:absolute;inset:0;background:rgba(10,22,40,0.6);"></div>
+  <div style="position:absolute;inset:0;background:rgba(10,22,40,0.5);"></div>
 </div>
 
 <!-- ═══ PLATFORM ═══ -->
