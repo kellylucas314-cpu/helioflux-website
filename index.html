@@ -430,25 +430,12 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
       /* Native scroll-snap horizontal scroller on mobile */
-      .h-section {
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-      }
-      .h-section::-webkit-scrollbar { display: none; }
-      .h-track {
-        transform: none !important; /* override any GSAP x transforms */
-        display: flex;
-        width: max-content;
-      }
+      /* tablet: keep arrow click-through, just adjust sizing */
       .h-panel {
-        width: 88vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
+        width: 82vw;
         grid-template-columns: 1fr;
-        padding: 52px 28px;
-        gap: 32px;
+        padding: 44px 28px;
+        gap: 28px;
       }
       .h-panel-img img { height: 240px; }
       .h-dots { padding: 20px 0 40px; }
