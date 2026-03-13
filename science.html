@@ -211,25 +211,48 @@
 <div style="background:#092743;padding:100px 56px;">
   <div style="max-width:860px;margin:0 auto;">
     <p class="eyebrow reveal">Detection Threshold</p>
-    <h2 class="reveal">Finding the <em>peppercorn.</em></h2>
-    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-bottom:40px;">
-      <div style="background:#092743;padding:32px 24px;">
-        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">HelioFlux</div>
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);line-height:1;">5-10M</div>
-        <div style="font-size:14px;color:var(--muted);margin-top:6px;">cells · pre-tumor · ~2mm</div>
-      </div>
-      <div style="background:#092743;padding:32px 24px;">
-        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;">Liquid Biopsy</div>
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:rgba(255,255,255,.45);line-height:1;">50-100M</div>
-        <div style="font-size:14px;color:var(--muted);margin-top:6px;">cells · cfDNA · Stage I-II</div>
-      </div>
-      <div style="background:#092743;padding:32px 24px;">
-        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;">Standard Imaging</div>
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:rgba(255,255,255,.45);line-height:1;">1B+</div>
-        <div style="font-size:14px;color:var(--muted);margin-top:6px;">cells · MRI/CT · Stage III-IV</div>
-      </div>
+    <h2 class="reveal">What "early" <em>actually means.</em></h2>
+
+    <!-- Size comparison visual -->
+    <div class="reveal" style="margin-bottom:56px;">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;display:block;" aria-label="Size comparison: HelioFlux detects at peppercorn size, imaging detects at marble size">
+        <!-- Baseline -->
+        <line x1="60" y1="220" x2="740" y2="220" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+
+        <!-- HelioFlux detection: peppercorn (~2mm) -->
+        <circle cx="160" cy="195" r="8" fill="none" stroke="#00A9D6" stroke-width="2"/>
+        <circle cx="160" cy="195" r="8" fill="rgba(0,169,214,.15)"/>
+        <!-- Pulse ring -->
+        <circle cx="160" cy="195" r="16" fill="none" stroke="rgba(0,169,214,.15)" stroke-width="1"/>
+        <circle cx="160" cy="195" r="24" fill="none" stroke="rgba(0,169,214,.06)" stroke-width="1"/>
+        <text x="160" y="250" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" letter-spacing="1.5" fill="#00A9D6" text-transform="uppercase">HELIOFLUX</text>
+        <text x="160" y="268" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="22" fill="#00A9D6" font-weight="300">5-10M cells</text>
+        <text x="160" y="288" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="rgba(255,255,255,.4)">~2mm · peppercorn</text>
+
+        <!-- Liquid biopsy detection -->
+        <circle cx="400" cy="185" r="22" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+        <circle cx="400" cy="185" r="22" fill="rgba(255,255,255,.03)"/>
+        <text x="400" y="250" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" letter-spacing="1.5" fill="rgba(255,255,255,.35)">LIQUID BIOPSY</text>
+        <text x="400" y="268" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="22" fill="rgba(255,255,255,.4)" font-weight="300">50-100M cells</text>
+        <text x="400" y="288" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="rgba(255,255,255,.25)">~5mm · sesame seed</text>
+
+        <!-- Standard imaging detection -->
+        <circle cx="620" cy="155" r="55" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
+        <circle cx="620" cy="155" r="55" fill="rgba(255,255,255,.02)"/>
+        <text x="620" y="250" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" letter-spacing="1.5" fill="rgba(255,255,255,.35)">STANDARD IMAGING</text>
+        <text x="620" y="268" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="22" fill="rgba(255,255,255,.4)" font-weight="300">1B+ cells</text>
+        <text x="620" y="288" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="rgba(255,255,255,.25)">~1cm · marble</text>
+
+        <!-- Arrow showing the gap -->
+        <line x1="185" y1="195" x2="355" y2="185" stroke="rgba(0,169,214,.12)" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="425" y1="185" x2="560" y2="165" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>
+
+        <!-- Time label -->
+        <text x="400" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="rgba(255,255,255,.2)" letter-spacing="2">← 1.5 TO 2 YEARS OF SILENT GROWTH →</text>
+      </svg>
     </div>
-    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.8;max-width:720px;">A tumor at 5-10 million cells is about 2 millimeters across, roughly the size of a peppercorn. Too small to feel. Invisible on a scan. By the time it becomes a pea (1 billion cells, ~1 centimeter), medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.8);">1.5 to 2 years.</strong> HelioFlux doesn't wait for the pea.</p>
+
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.8;max-width:720px;">A tumor at 5-10 million cells is about 2 millimeters across. Too small to feel. Invisible on a scan. By the time it reaches 1 billion cells, roughly a centimeter, medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.8);">1.5 to 2 years.</strong> HelioFlux is built to find it first.</p>
   </div>
 </div>
 
