@@ -5,6 +5,7 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The science behind HelioFlux — ultra-weak photon emission detection for ultra-early cancer screening. 90-92% accuracy across peer-reviewed studies.">
   <title>The Science — HelioFlux</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..600&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
@@ -12,21 +13,18 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <style>
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:      #0A0E1A;
-      --bg2:     #070B15;
-      --bg-alt:  #0D1225;
-      --bg-warm: #0E1218;
+      --bg:      #092743;
+      --bg2:     #092743;
+      --bg-alt:  #2F4562;
       --white:   #FFFFFF;
       --off-white: #ECF0FF;
-      --muted:   #C4D4E0;
-      --cyan:    #00C8F0;
+      --muted:   #D0DEEA;
+      --cyan:    #00A9D6;
       --amber:   #E8A838;
-      --coral:   #E85A4F;
-      --body:    rgba(255,255,255,0.85);
-      --caption: rgba(255,255,255,0.5);
+      --body:    rgba(255,255,255,0.88);
+      --caption: rgba(255,255,255,0.55);
       --border:  rgba(255,255,255,0.06);
       --divider: rgba(255,255,255,0.1);
       --serif:   'Plus Jakarta Sans', system-ui, sans-serif;
@@ -37,14 +35,12 @@
       background: var(--bg);
       color: var(--white);
       font-family: var(--sans);
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       cursor: default;
     }
 
-    /* ─── ENERGY BLOB (follows cursor) ─── */
-
-    /* ─── CUSTOM CURSOR ─── */
     .cursor-dot {
       position: fixed; width: 5px; height: 5px;
       background: var(--cyan); border-radius: 50%;
@@ -56,7 +52,6 @@
     .cursor-dot.big { width: 12px; height: 12px; }
     @media (pointer: coarse) { .cursor-dot { display: none; } body { cursor: auto; } }
 
-    /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
@@ -64,320 +59,72 @@
       transition: background .5s, padding .4s, border-color .5s;
       border-bottom: 1px solid transparent;
     }
-    nav.scrolled { background: rgba(10,14,26,0.9); backdrop-filter: blur(24px); padding: 18px 56px; border-bottom-color: var(--border); }
-    .logo { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--white); }
+    nav.scrolled { background: rgba(10,14,26,0.92); backdrop-filter: blur(28px); padding: 18px 56px; border-bottom-color: var(--border); }
+    .logo { font-family: var(--serif); font-size: 24px; font-weight: 420; color: rgba(255,255,255,.88); text-decoration: none !important; border-bottom: 0 !important; }
     .logo span { color: var(--cyan); }
-    .logo, .logo:link, .logo:visited, .logo:hover, .logo:active { text-decoration: none !important; border-bottom: 0 !important; }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.72); text-decoration: none; transition: color .3s; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; transition: color .3s; font-weight: 400; }
     .nav-links a:hover { color: var(--white); }
-    .nav-cta { padding: 12px 32px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; }
-    .nav-cta:hover { background: #20D6F8; transform: translateY(-1px); }
+    .nav-cta { padding: 10px 28px; background: transparent; color: var(--cyan); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; border: 1px solid rgba(0,169,214,.35); border-radius: 50px; }
+    .nav-cta:hover { background: rgba(0,169,214,.1); border-color: var(--cyan); }
     .nav-hamburger { display: none; }
     .mobile-menu { display: none; }
 
-    /* ─── HERO ─── */
-    .hero {
-      position: relative;
-      height: 100vh; min-height: 640px;
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 80px 56px;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 160px;
-      background: linear-gradient(to bottom, rgba(10,14,26,0) 0%, rgba(10,14,26,1) 100%);
-      pointer-events: none;
-      z-index: 2;
-    }
-    /* Canvas lives behind everything */
-    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
-    /* Hero background — nirosha-microscope.jpg */
-    .hero-photo {
-      position: absolute; inset: 0; z-index: 1;
-      background-image: url('nirosha-microscope.jpg');
-      background-size: cover; background-position: center 20%;
-      opacity: 0.42;
-    }
-    .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,1) 0%, rgba(10,14,26,.85) 8%, rgba(10,14,26,.35) 55%, rgba(10,14,26,.12) 100%); }
+    .eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; opacity: 0.7; font-weight: 500; }
+    .eyebrow::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(0,169,214,.3); margin-top: 20px; }
+    h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 300; line-height: 1.12; margin-bottom: 44px; letter-spacing: -0.01em; }
+    h2 em { font-style: italic; font-weight: 300; }
+    h3 { font-family: var(--serif); font-size: clamp(20px, 2.5vw, 28px); font-weight: 500; line-height: 1.25; }
+    .lead { font-size: 17px; color: rgba(255,255,255,.72); line-height: 1.8; font-weight: 300; }
 
-    .hero-content { position: relative; z-index: 3; max-width: 900px; }
-    .hero-eyebrow { font-size: 14px; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; opacity: 0; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(56px, 8vw, 108px); font-weight: 500; line-height: 1.05; color: var(--white); margin-bottom: 32px; opacity: 0; }
-    .hero h1 em { font-style: italic; color: var(--cyan); }
-    .hero-sub { font-size: 18px; color: rgba(255,255,255,.75); line-height: 1.8; max-width: 500px; margin-bottom: 48px; font-weight: 300; opacity: 0; }
-    .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
-    .btn-cyan { padding: 14px 40px; background: var(--cyan); color: var(--bg); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; display: inline-block; }
-    .btn-cyan:hover { background: #20D6F8; transform: translateY(-1px); }
-    .btn-ghost { font-size: 16px; color: rgba(255,255,255,.78); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; letter-spacing: .04em; transition: all .3s; }
-    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
-
-    /* Scroll indicator */
-    .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.55); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
-    .scroll-line { width: 48px; height: 1px; background: linear-gradient(to right, var(--cyan), transparent); }
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* ─── STATS ─── */
-    .stats-strip { display: grid; grid-template-columns: repeat(5,1fr); background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .stat { padding: 40px 32px; border-right: 1px solid var(--border); }
-    .stat:last-child { border-right: none; }
-    .stat-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.65; }
-
-    /* ─── GENERIC SECTION ─── */
-    .section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
-    .section-bg { background: var(--bg-alt); max-width: 100%; }
-    .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 72px 56px; }
-    .eyebrow { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
-    h2 { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1.1; margin-bottom: 28px; }
-    h2 em { font-style: italic; }
-    .lead { font-size: 17px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; }
-
-    /* ─── REVEAL — progressive enhancement (content visible without JS) ─── */
     .reveal { opacity: 1; transform: none; transition: opacity .9s ease, transform .9s ease; }
-    .js-ready .reveal { opacity: 0; transform: translateY(28px); }
+    .js-ready .reveal { opacity: 0; transform: translateY(20px); }
     .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ─── PROBLEM ─── */
-    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; }
-
-    /* Typographic threshold comparison — no tables, no boxes */
-    .threshold-compare { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; align-items: start; }
-    .threshold-divider { background: var(--border); height: 100%; min-height: 180px; }
-    .threshold-col { padding: 0 40px; }
-    .threshold-col:first-child { padding-left: 0; }
-    .threshold-col:last-child { padding-right: 0; }
-    .threshold-label { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
-    .threshold-num { font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px); font-weight: 300; line-height: 1; margin-bottom: 10px; }
-    .threshold-num.dim { color: rgba(255,255,255,.6); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.08); }
-    .threshold-num.lit { color: var(--cyan); }
-    .threshold-unit { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-    .threshold-sub { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.65; }
-    .threshold-sub.bright { color: rgba(0,200,240,.6); }
-
-    /* Peppercorn section */
-    .peppercorn { padding: 0 56px 120px; max-width: 1200px; margin: 0 auto; }
-    .peppercorn-inner { border-left: 2px solid rgba(0,200,240,.18); padding-left: 48px; }
-    .peppercorn-tag { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 20px; display: block; }
-    .peppercorn h3 { font-family: var(--serif); font-size: clamp(26px, 3vw, 36px); font-weight: 300; line-height: 1.2; margin-bottom: 24px; }
-    .peppercorn p { font-size: 16px; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 680px; }
-    .peppercorn p + p { margin-top: 16px; }
-    .peppercorn strong { color: rgba(255,255,255,.75); font-weight: 400; }
-
-    /* ─── SCIENCE ─── */
-    .science-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
-    .sci-img { position: relative; }
-    .sci-img img { width: 100%; height: 440px; object-fit: cover; display: block; }
-    .sci-caption { padding: 16px 20px; border-left: 2px solid rgba(0,200,240,.2); margin-top: 0; }
-    .sci-caption p { font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.65; }
-
-    .steps3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
-    .step-block { padding: 44px 32px; background: rgba(255,255,255,.02); border: 1px solid var(--border); }
-    .step-block .step-n { font-family: var(--serif); font-size: 60px; font-weight: 300; color: var(--cyan); opacity: .13; line-height: 1; margin-bottom: 24px; }
-    .step-block h3 { font-size: 16px; font-weight: 500; margin-bottom: 12px; }
-    .step-block p { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; }
-
-    /* ─── HORIZONTAL SCROLL SECTION ─── */
-    .h-section {
-      overflow: hidden;
-      background: var(--bg);
+    /* ─── ACCORDION ─── */
+    .acc-stack { max-width: 860px; }
+    .acc-item { border-bottom: 1px solid var(--border); }
+    .acc-trigger {
+      width: 100%; background: none; border: none; color: var(--white);
+      padding: 28px 0; display: flex; justify-content: space-between; align-items: flex-start;
+      cursor: pointer; text-align: left; gap: 24px;
     }
-    .h-section-label {
-      padding: 80px 56px 0;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .h-section-label .eyebrow { margin-bottom: 12px; }
-    .h-section-label h2 { max-width: 600px; }
+    .acc-label { font-family: var(--serif); font-size: 20px; font-weight: 400; display: block; margin-bottom: 6px; }
+    .acc-preview { font-size: 15px; color: rgba(255,255,255,.5); display: block; line-height: 1.6; }
+    .acc-icon { font-size: 24px; color: var(--cyan); flex-shrink: 0; transition: transform .3s; }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .5s ease; }
+    .acc-body-pad { padding: 0 0 32px; }
+    .acc-body p { font-size: 16px; color: rgba(255,255,255,.7); line-height: 1.8; margin-bottom: 16px; }
+    .acc-body p:last-child { margin-bottom: 0; }
+    .acc-item.open .acc-icon { transform: rotate(45deg); }
+    .acc-item.open .acc-body { max-height: 2000px; }
+    .acc-pub-link { display: block; padding: 12px 0; font-size: 14px; color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--border); transition: color .2s; }
+    .acc-pub-link:hover { color: var(--white); }
+    .acc-stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 28px; }
+    .acc-stat { background: rgba(255,255,255,.02); padding: 24px 16px; }
+    .acc-stat-n { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); margin-bottom: 6px; }
+    .acc-stat-l { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.5; }
 
-    .h-track {
-      display: flex;
-      will-change: transform;
-      width: max-content;
+    /* ─── PRODUCT CARDS ─── */
+    .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin: 0 auto; }
+    .product-card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+      overflow: hidden; transition: background .3s;
     }
-    .h-panel {
-      width: 85vw;
-      padding: 60px 48px;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 40px;
-      align-items: start;
-      border-right: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .h-panel:last-child { border-right: none; }
-    .h-panel-img { position: relative; }
-    .h-panel-img img { display: none; }
-    .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; overflow: hidden; }
-    .h-panel-img::after {
-      content: '';
-      position: absolute; top: 30%; left: 35%;
-      width: 180px; height: 180px;
-      background: radial-gradient(circle, rgba(0,200,240,.12) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: panelPulse 4s ease-in-out infinite;
-      pointer-events: none;
-    }
-    @keyframes panelPulse {
-      0%,100% { transform: scale(1); opacity: .5; }
-      50% { transform: scale(1.3); opacity: 1; }
-    }
-    .h-panel-status { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 6px 16px; display: inline-block; margin-bottom: 20px; font-weight: 500; }
-    .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
-    .h-panel h3 { font-family: var(--serif); font-size: clamp(32px,4vw,48px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
-    .h-panel h3 em { font-style: italic; }
-    .h-panel p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
-    .h-panel-pub { font-size: 14px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,200,240,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
-    .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
-    .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
-    .h-stat-label { font-size: 14px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+    .product-card:hover { background: rgba(255,255,255,.05); }
+    .product-card img { width: 100%; max-height: 220px; object-fit: cover; display: block; }
+    .product-card-body { padding: 28px 32px; }
 
-    /* Scroll progress dots */
-    .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
-    .h-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .3s, transform .3s; }
-    .h-dot.active { background: var(--cyan); transform: scale(1.3); }
-
-    /* ─── SPECTRAL SPLIT ─── */
-    .spectral-split { padding: 100px 56px 80px; max-width: 1200px; margin: 0 auto; }
-    .ss-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 56px 0 0; background: var(--border); }
-    .ss-side { background: var(--bg); padding: 64px 56px 48px; text-align: center; position: relative; }
-    .ss-orb { width: 180px; height: 180px; margin: 0 auto 36px; display: block; }
-    .ss-type { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-    .ss-heading { font-family: var(--serif); font-size: clamp(22px,2.5vw,26px); font-weight: 600; line-height: 1.2; margin-bottom: 10px; }
-    .ss-healthy .ss-heading { color: #FFBB7A; }
-    .ss-cancer .ss-heading  { color: var(--cyan); }
-    .ss-wavelength { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 20px; }
-    .ss-healthy .ss-wavelength { color: rgba(255,160,70,.45); }
-    .ss-cancer  .ss-wavelength { color: rgba(0,200,240,.45); }
-    .ss-body { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; margin: 0 auto; }
-    .ss-spectrum-row { display: flex; align-items: center; gap: 0; margin-top: 2px; background: var(--border); }
-    .ss-spectrum-label { padding: 20px 40px; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-    .ss-spectrum-label.warm { color: rgba(255,150,60,.5); }
-    .ss-spectrum-label.cool { color: rgba(0,200,240,.5); }
-    .ss-spectrum-bar { flex: 1; height: 3px; background: linear-gradient(to right, #CC3300, #FF8040, #FFCC00, #00DDAA, #00C8F0, #7722CC); opacity: .4; border-radius: 1px; }
-    @keyframes ssWarm { 0%,100%{opacity:.75;transform:scale(1)} 50%{opacity:1;transform:scale(1.07)} }
-    @keyframes ssCool { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:.95;transform:scale(1.09)} }
-    .ss-pulse-w { animation: ssWarm 3.8s ease-in-out infinite; transform-origin: center; }
-    .ss-pulse-c { animation: ssCool 4.2s ease-in-out infinite; transform-origin: center; }
-    @keyframes pepCore { 0%,100%{opacity:.85;r:6px} 50%{opacity:1;r:7.5px} }
-    @keyframes pepGlow1 { 0%,100%{opacity:.22} 50%{opacity:.42} }
-    @keyframes pepGlow2 { 0%,100%{opacity:.09} 50%{opacity:.2} }
-    @keyframes pepGlow3 { 0%,100%{opacity:.04} 50%{opacity:.1} }
-    .pep-core  { animation: pepCore  3s ease-in-out infinite; }
-    .pep-g1    { animation: pepGlow1 3s ease-in-out infinite; }
-    .pep-g2    { animation: pepGlow2 3.4s ease-in-out infinite; }
-    .pep-g3    { animation: pepGlow3 4s ease-in-out infinite; }
-    .size-compare-svg { width:100%; max-width:460px; display:block; margin:0 auto; overflow:visible; }
-    .size-caption { text-align:center; margin-top:20px; }
-    .size-caption p { font-family:var(--serif); font-size:clamp(15px,1.8vw,20px); font-weight:300; line-height:1.5; color:rgba(255,255,255,.7); }
-    .size-caption strong { color:var(--cyan); font-weight:400; }
-    .size-caption em { color:rgba(255,130,50,.7); font-style:normal; }
-    @media(max-width:860px){ .ss-grid { grid-template-columns:1fr; } .spectral-split { padding:80px 24px 60px; } .ss-side { padding: 48px 32px 40px; } .ss-spectrum-row { flex-direction:column; gap:8px; padding: 20px 24px; } .ss-spectrum-bar { width:100%; height:3px; } }
-
-    /* ─── NIROSHA SECTION ─── */
-    .nirosha-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: start; }
-    .nirosha-photo-side { position: sticky; top: 120px; }
-    .nirosha-img-frame { position: relative; overflow: hidden; }
-    .nirosha-img-frame img { width: 100%; height: 420px; object-fit: cover; object-position: center top; display: block; filter: grayscale(.1); }
-    .nirosha-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,8,14,.7) 0%, transparent 50%); }
-    .nirosha-img-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; }
-    .nirosha-img-caption .name { font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--white); }
-    .nirosha-img-caption .title { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-top: 4px; }
-    .nirosha-placeholder { height: 520px; background: linear-gradient(135deg, #07101C 0%, #0A1828 100%); border: 1px dashed rgba(0,200,240,.2); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
-    .nirosha-placeholder-icon { font-size: 48px; margin-bottom: 16px; opacity: .25; }
-    .nirosha-placeholder p { font-size: 14px; color: var(--muted); line-height: 1.75; max-width: 260px; }
-    .nirosha-credentials { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 32px 0; }
-    .ncred { background: var(--bg2); padding: 20px 22px; }
-    .ncred-label { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .ncred-value { font-size: 13px; color: var(--white); line-height: 1.55; }
-    .ncred-value strong { color: var(--cyan); font-weight: 400; }
-    .cancer-types { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
-    .cancer-type-tag { font-size: 13px; padding: 4px 12px; background: rgba(0,200,240,.06); border: 1px solid rgba(0,200,240,.15); color: rgba(255,255,255,.55); letter-spacing: .04em; }
-    @media(max-width:900px) { .nirosha-wrap { grid-template-columns: 1fr; gap: 48px; } .nirosha-photo-side { position: static; } .nirosha-credentials { grid-template-columns: 1fr 1fr; } }
-
-    /* ─── QUOTE ─── */
-    .quote-section {
-      padding: 120px 56px; text-align: center; position: relative; overflow: hidden;
-      background: linear-gradient(180deg, var(--bg) 0%, #050E1C 50%, var(--bg) 100%);
+    /* ─── RESEARCH CARDS ─── */
+    .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 900px; margin: 0 auto; }
+    .research-card {
+      background: rgba(28,53,80,.04); padding: 40px 28px; text-decoration: none; color: #14263C;
+      transition: background .3s; display: block;
     }
-    .quote-section::before {
-      content: '';
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      width: 80vw; height: 80vw; max-width: 900px; max-height: 900px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.04) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .quote-mark {
-      font-family: var(--serif); font-size: 120px; line-height: .7;
-      color: rgba(0,200,240,.12); display: block; margin-bottom: 8px;
-    }
-    .quote-body {
-      font-family: var(--serif); font-size: clamp(22px, 2.8vw, 36px);
-      font-weight: 300; font-style: italic; line-height: 1.5;
-      color: rgba(255,255,255,.88); max-width: 820px; margin: 0 auto 28px;
-    }
-    .quote-attr {
-      font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--cyan); opacity: .7;
-    }
-    .q-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #070B15 0%, #0A1828 50%, #0A0E1A 100%); }
-    .q-overlay { position: absolute; inset: 0; background: rgba(10,14,26,.88); }
-    .quote-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
-    .q-mark { font-family: var(--serif); font-size: 140px; font-weight: 300; color: var(--cyan); opacity: .1; line-height: .8; margin-bottom: 40px; }
-    blockquote { font-family: var(--serif); font-size: clamp(22px,3.2vw,40px); font-weight: 300; font-style: italic; line-height: 1.42; color: var(--white); margin-bottom: 36px; }
-    cite { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-style: normal; }
-    cite a { color: var(--cyan); text-decoration: none; }
-
-    /* ─── PRESS ─── */
-    .press-logos { display: flex; justify-content: center; align-items: center; gap: 52px; flex-wrap: wrap; padding: 64px 56px; border-bottom: 1px solid var(--border); background: var(--bg2); }
-    .press-logo-link { opacity: .55; transition: opacity .3s; display: flex; align-items: center; }
-    .press-logo-link:hover { opacity: .85; }
-    .press-logo-img { height: 22px; width: auto; filter: brightness(0) invert(1); display: block; }
-    .press-name { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--white); opacity: .65; transition: opacity .3s; white-space: nowrap; }
-    .press-name:hover { opacity: .9; }
-    .press-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; overflow: hidden; }
-    .press-card { background: var(--bg2); padding: 44px; color: var(--white); }
-    a.press-card, a.press-card:visited, a.press-card:link { color: var(--white); text-decoration: none; }
-    .press-outlet { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); font-weight: 500; margin-bottom: 14px; }
-    .press-headline { font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.35; margin-bottom: 20px; color: rgba(255,255,255,.9); }
-    .press-quote { font-size: 16px; font-style: italic; color: rgba(255,255,255,.75); line-height: 1.75; border-left: 2px solid rgba(0,200,240,.2); padding-left: 16px; }
-    .press-quote cite { display: block; font-style: normal; font-size: 13px; color: rgba(255,255,255,.5); margin-top: 10px; letter-spacing: .04em; text-transform: none; }
-
-    /* ─── CREDS ─── */
-    .creds-strip { display: grid; grid-template-columns: repeat(5,1fr); border-bottom: 1px solid var(--border); }
-    .cred { padding: 32px 24px; text-align: center; border-right: 1px solid var(--border); background: var(--bg2); }
-    .cred:last-child { border-right: none; }
-    .cred-label { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .cred-value { font-size: 14px; color: var(--white); line-height: 1.5; }
-
-    /* ─── TEAM ─── */
-    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 40px; }
-    .team-grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .team-grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .team-card { display: grid; grid-template-columns: 76px 1fr; gap: 24px; padding: 40px; background: var(--bg2); align-items: start; transition: background .3s; }
-    .team-card:hover { background: rgba(0,200,240,.03); }
-    .team-init { width: 76px; height: 76px; border: 1px solid rgba(0,200,240,.18); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--cyan); flex-shrink: 0; }
-    .team-photo { width: 76px; height: 76px; object-fit: cover; object-position: center top; flex-shrink: 0; border-radius: 2px; filter: grayscale(.08); }
-    .team-name { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
-    .team-title { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
-    .team-bio { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; }
-
-    /* ─── CTA ─── */
-    .cta-section { padding: 160px 56px; text-align: center; position: relative; overflow: hidden; }
-    .cta-glow { position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(0,200,240,.06) 0%, transparent 70%); pointer-events: none; }
-    .cta-section h2 { margin-bottom: 24px; }
-    .cta-section .lead { max-width: 480px; margin: 0 auto 52px; }
-    .cta-actions { display: flex; gap: 16px; justify-content: center; margin-bottom: 72px; }
-    .cta-types { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; background: var(--border); max-width: 1000px; margin: 0 auto; }
-    .cta-type { background: var(--bg2); padding: 28px 24px; }
-    .cta-type h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-    .cta-type p { font-size: 16px; color: var(--body); line-height: 1.7; }
+    .research-card:hover { background: rgba(28,53,80,.08); }
 
     /* ─── FOOTER ─── */
-    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 56px; }
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 72px 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 56px; }
     .f-logo { font-family: var(--serif); font-size: 22px; margin-bottom: 12px; }
     .f-logo span { color: var(--cyan); }
     .f-tagline { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--muted); margin-bottom: 20px; }
@@ -388,510 +135,28 @@
     .f-col a:hover { color: var(--white); }
     .f-bottom { background: var(--bg2); border-top: 1px solid var(--border); padding: 20px 56px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,.18); flex-wrap: wrap; gap: 8px; }
 
-
-    /* ─── CANCER CRISIS ─── */
-    /* Cancer Crisis — callout + cards */
-    .crisis-callout { border: 1px solid rgba(0,200,240,.25); background: rgba(0,200,240,.05); padding: 36px 52px; margin-bottom: 64px; display: flex; align-items: center; gap: 36px; max-width: 780px; }
-    .crisis-callout-pct { font-family: var(--serif); font-size: clamp(56px,7vw,88px); font-weight: 300; color: var(--cyan); line-height: 1; flex-shrink: 0; }
-    .crisis-callout-text { font-family: var(--serif); font-size: clamp(17px,1.8vw,22px); font-weight: 300; line-height: 1.5; color: rgba(255,255,255,.75); }
-    .crisis-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border); margin-top: 0; }
-    .crisis-card { background: var(--bg2); padding: 40px 44px; }
-    .crisis-card-title { font-size: 18px; font-weight: 500; color: var(--cyan); margin-bottom: 20px; letter-spacing: .01em; }
-    .crisis-bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-    .crisis-bullets li { font-size: 16px; color: var(--muted); line-height: 1.7; padding-left: 20px; position: relative; }
-    .crisis-bullets li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; background: rgba(0,200,240,.4); border-radius: 50%; }
-
-    /* ─── SOLUTION ─── */
-    .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
-    .solution-col { background: var(--bg2); padding: 56px 48px; }
-    .solution-badge { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; display: inline-block; margin-bottom: 24px; font-weight: 500; }
-    .solution-badge.hardware { background: rgba(0,200,240,.1); color: rgba(0,200,240,.8); border: 1px solid rgba(0,200,240,.2); }
-    .solution-badge.software { background: rgba(0,200,240,.06); color: rgba(0,200,240,.6); border: 1px solid rgba(0,200,240,.15); }
-    .solution-name { font-family: var(--serif); font-size: clamp(24px, 3vw, 32px); font-weight: 600; margin-bottom: 8px; }
-    .solution-sub { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
-    .solution-features { list-style: none; }
-    .solution-features li { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; padding: 6px 0; border-bottom: 1px solid var(--border); }
-    .solution-features li:last-child { border-bottom: none; }
-    .solution-features li span { color: var(--cyan); margin-right: 8px; font-size: 13px; }
-    .solution-status { font-size: 16px; color: var(--caption); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
-    .solution-status strong { color: var(--cyan); font-weight: 400; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      /* Native scroll-snap horizontal scroller on mobile */
-      .h-section {
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-      }
-      .h-section::-webkit-scrollbar { display: none; }
-      .h-track {
-        transform: none !important; /* override any GSAP x transforms */
-        display: flex;
-        width: max-content;
-      }
-      .h-panel {
-        width: 88vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-        grid-template-columns: 1fr;
-        padding: 52px 28px;
-        gap: 32px;
-      }
-      .h-panel-img img { height: 240px; }
-      .h-dots { padding: 20px 0 40px; }
-    }
+    /* ─── MOBILE ─── */
     @media (max-width: 900px) {
       nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
       .nav-links { display: none; }
-      .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 201; }
+      .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 201; background: none; border: none; }
       .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.7); transition: all .3s; }
-      .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+      .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px,4px); }
       .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-      .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-      .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(10,14,26,.97); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
-      .mobile-menu.open { display: flex; }
-      .mobile-menu a { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 300; color: var(--white); text-decoration: none; letter-spacing: .04em; transition: color .2s; }
-      .mobile-menu a:hover { color: var(--cyan); }
-      .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,200,240,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; }
+      .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px,-4px); }
       .nav-cta { display: none; }
-      .hero { height: auto !important; min-height: 0 !important; padding: 120px 24px 64px; }
-      .section { padding: 80px 24px; }
-      .section-bg .section-inner { padding: 80px 24px; }
-      .section { padding: 80px 24px; }
-      .acc-body { padding-left: 0; }
-      .acc-body-pad { padding-bottom: 32px; }
-      .prob-card-detail { padding: 0 20px 20px; }
-      .problem-grid, .science-2col { grid-template-columns: 1fr; gap: 48px; }
-      .steps3 { grid-template-columns: 1fr; }
-      .h-section-label { padding: 60px 24px 0; }
-      .h-panel { padding: 48px 24px; }
-      .stats-strip { grid-template-columns: repeat(2,1fr); }
-      .press-cards { grid-template-columns: 1fr; }
-      .press-logos { padding: 48px 24px; gap: 32px; overflow: visible !important; }
-      .press-marquee-track { animation: none !important; width: auto !important; flex-wrap: wrap; justify-content: center; gap: 28px; }
-      .press-logo-link[aria-hidden="true"] { display: none; }
-      .creds-strip { grid-template-columns: repeat(2,1fr); }
-      /* Path to market responsive */
-      [style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr 1fr !important; }
-      .quotes-grid { grid-template-columns: 1fr !important; }
-      .team-grid { grid-template-columns: 1fr; }
-      .team-grid-3 { grid-template-columns: 1fr; }
-      .team-grid-3 { grid-template-columns: 1fr; }
-      .cta-section { padding: 100px 24px; }
-      .cta-types { grid-template-columns: repeat(2,1fr); }
+      .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9,39,67,.98); backdrop-filter: blur(20px); z-index: 199; padding: 100px 32px 40px; gap: 16px; transform: translateX(100%); transition: transform .4s ease; }
+      .mobile-menu.open { transform: translateX(0); }
+      .mob-link { font-size: 20px; color: rgba(255,255,255,.8); text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    }
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .research-grid { grid-template-columns: 1fr; }
+      .acc-stat-row { grid-template-columns: 1fr 1fr; }
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
-      .quote-section { padding: 100px 24px; }
-      .crisis-callout { flex-direction: column; padding: 28px 24px; gap: 16px; text-align: center; }
-      .crisis-cards { grid-template-columns: 1fr; }
-      .crisis-card { padding: 32px 24px; }
-
-      /* Hero mobile gap fix */
-      .hero { padding-bottom: 48px !important; }
-      .scroll-cue { display: none; }
-
-      /* Tighten hero→lab gap on mobile */
-      .lab-photo-wrap { margin-top: -48px !important; }
-      /* Lab photo mobile */
-      .lab-photo-img { height: clamp(320px, 75vw, 480px) !important; object-position: center 18% !important; }
-      div[style*='margin-top:-2px'] { margin-top: -48px !important; }
-      .lab-break { margin-top: -48px !important; }
-      .solution-grid { grid-template-columns: 1fr; }
-      .solution-col { padding: 40px 24px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      .reveal { opacity: 1; transform: none; }
-    }
-
-    /* ── Problem section — Mockup 2 layout ── */
-    .problem-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 48px; }
-    .problem-rows { display: flex; flex-direction: column; gap: 0; margin: 36px 0; }
-    .problem-row { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
-    .problem-row:last-child { border-bottom: none; }
-    .problem-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; box-shadow: 0 0 8px rgba(0,200,240,.5); }
-    .problem-row-title { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; font-weight: 500; }
-    .problem-row p { font-size: 16px; color: var(--body); line-height: 1.6; margin: 0; }
-    .survival-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-    .survival-bar-row { display: flex; align-items: center; gap: 12px; }
-    .survival-label { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); width: 80px; flex-shrink: 0; }
-    .survival-bar { height: 6px; border-radius: 3px; }
-    .survival-bar.high { width: 160px; background: var(--cyan); }
-    .survival-bar.low { width: 40px; background: var(--coral); }
-    .survival-pct { font-size: 13px; font-weight: 500; }
-    .survival-pct.high { color: var(--cyan); }
-    .survival-pct.low { color: var(--coral); }
-    .problem-diagram { border: 1px dashed rgba(0,200,240,.25); background: rgba(0,200,240,.03); min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; }
-    .detection-diagram { width: 100%; border: 1px dashed rgba(0,200,240,.25); background: rgba(0,200,240,.03); min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; margin-top: 48px; }
-    @media (max-width: 768px) {
-      .problem-layout { grid-template-columns: 1fr; gap: 40px; }
-      .survival-bar.high { width: 120px; }
-    }
-  
-
-
-
-    /* ─── PROBLEM v2 — 4 BEATS ─── */
-
-    /* Beat 1 */
-    .prob-beat1 { padding: 100px 56px 48px; text-align: center; position: relative; overflow: hidden; }
-    .prob-h2 {
-      font-size: clamp(36px,4.5vw,42px); font-weight: 700; line-height: 1.15;
-      margin: 16px auto 28px; max-width: 700px;
-    }
-    .prob-h2 em { color: #00E0FF; font-style: italic; }
-
-    /* Survival bars */
-    .prob-bars { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
-    .prob-bar-row { display: flex; align-items: center; gap: 14px; }
-    .prob-bar-label { font-size: 15px; color: rgba(255,255,255,.8); width: 90px; text-align: right; flex-shrink: 0; }
-    .prob-bar-track {
-      flex: 1; height: 6px; background: rgba(255,255,255,.06);
-      border-radius: 3px; overflow: hidden;
-    }
-    .prob-bar-fill { height: 100%; border-radius: 3px; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
-    .prob-bar-early { background: linear-gradient(to right, rgba(0,200,240,.6), #00E0FF); box-shadow: 0 0 8px rgba(0,224,255,.4); }
-    .prob-bar-late  { background: linear-gradient(to right, rgba(232,90,79,.5), var(--coral));  box-shadow: 0 0 8px rgba(232,90,79,.4); }
-    .prob-bar-pct { font-size: 15px; font-weight: 600; width: 40px; flex-shrink: 0; }
-
-    /* 1-in-3 callout */
-    .prob-1in3 {
-      font-size: 15px; color: rgba(255,255,255,.6); max-width: 480px;
-      margin: 16px auto 0; line-height: 1.65;
-    }
-    .prob-1in3 strong { color: rgba(255,255,255,.9); }
-    .prob-beat1::before {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%); width: 700px; height: 480px;
-      background: radial-gradient(ellipse, rgba(10,30,60,.45) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .prob-eyebrow2 {
-      font-size: 14px; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 40px; display: block;
-      font-weight: 600;
-    }
-    .prob-opener { color: rgba(255,255,255,.88);
-      font-family: Georgia, 'Playfair Display', serif;
-      font-size: clamp(22px,2.8vw,38px); font-weight: 400; font-style: italic;
-      color: rgba(255,255,255,.9); line-height: 1.5; max-width: 700px; margin: 0 auto 48px;
-    }
-    .prob-glow-line {
-      width: 80px; height: 1px; background: rgba(0,200,240,.4);
-      box-shadow: 0 0 6px 1px rgba(0,200,240,.35); margin: 0 auto;
-    }
-
-    /* Beat 2 */
-    .prob-beat2 { padding: 56px 56px 48px; text-align: center; }
-    .prob-beat2-head {
-      font-size: clamp(18px,2vw,24px); font-weight: 600; color: #fff;
-      margin-bottom: 40px; justify-content: center;
-    }
-    .prob-gap-grid {
-      display: flex; align-items: center; justify-content: center;
-      max-width: 640px; margin: 0 auto 32px; position: relative;
-    }
-    .prob-gap-col { flex: 1; padding: 12px 40px; position: relative; }
-    /* Radial bloom behind each big number */
-    .prob-gap-col.early::before {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%); width: 220px; height: 160px;
-      background: radial-gradient(ellipse, rgba(0,224,255,.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .prob-gap-col.late::before {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%); width: 220px; height: 160px;
-      background: radial-gradient(ellipse, rgba(255,107,107,.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .prob-gap-num {
-      font-family: var(--sans); font-size: clamp(56px,8vw,88px); font-weight: 400; line-height: 1; margin-bottom: 12px;
-      position: relative; letter-spacing: -0.03em;
-    }
-    .prob-gap-col.early .prob-gap-num {
-      color: var(--cyan);
-    }
-    .prob-gap-col.late .prob-gap-num {
-      color: var(--coral);
-    }
-    .prob-gap-survive { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 0; }
-    .prob-gap-label { font-size: 15px; color: rgba(255,255,255,.7); margin-top: 4px; }
-    .prob-gap-vline {
-      width: 1px; height: 160px; flex-shrink: 0;
-      background: linear-gradient(to bottom, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
-    }
-    .prob-support {
-      font-family: Georgia,'Playfair Display',serif; font-style: italic;
-      font-size: clamp(18px,2vw,22px); color: rgba(255,255,255,.82);
-      max-width: 540px; margin: 0 auto; line-height: 1.65;
-    }
-
-    /* Beat 3 — glass cards */
-    .prob-beat3 { padding: 56px 56px 100px; max-width: 1060px; margin: 0 auto; }
-    .prob-beat3-intro {
-      font-size: clamp(20px,2.2vw,26px); color: rgba(255,255,255,.9);
-      line-height: 1.55; max-width: 680px; margin-bottom: 10px; font-weight: 400;
-    }
-    .prob-cyan {
-      color: #00E0FF; font-weight: 700;
-      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
-    }
-    .prob-subline { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 36px; }
-    .prob-glass-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .prob-glass-card {
-      background: rgba(255,255,255,.03);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,224,255,.12);
-      border-top: 2px solid rgba(0,224,255,.3);
-      border-radius: 10px; padding: 32px; cursor: pointer;
-      transition: background .22s, box-shadow .22s, transform .22s;
-    }
-    .prob-glass-card:hover {
-      background: rgba(255,255,255,.055);
-      box-shadow: 0 0 30px rgba(0,224,255,.08);
-      transform: translateY(-2px);
-    }
-    .prob-glass-stat {
-      font-size: clamp(30px,3.5vw,42px); font-weight: 700; color: #00E0FF;
-      text-shadow: 0 0 20px rgba(0,224,255,.4), 0 0 60px rgba(0,224,255,.15);
-      margin-bottom: 10px; line-height: 1;
-    }
-    .prob-glass-stat-suffix { font-size: .55em; color: rgba(255,255,255,.55); font-weight: 400; margin-left: 4px; vertical-align: middle; }
-    .prob-glass-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 9px; }
-    .prob-glass-summary { font-size: 13px; color: rgba(255,255,255,.62); line-height: 1.65; }
-    .prob-glass-expand { display: flex; justify-content: flex-end; margin-top: 14px; }
-    .prob-glass-chevron { font-size: 13px; color: #555; transition: transform .3s; display: block; line-height: 1; }
-    .prob-glass-card.open .prob-glass-chevron { transform: rotate(180deg); }
-    .prob-glass-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s ease; }
-    .prob-glass-card.open .prob-glass-body { grid-template-rows: 1fr; }
-    .prob-glass-body-inner { overflow: hidden; }
-    .prob-glass-detail {
-      padding: 16px 0 0; border-top: 1px solid rgba(255,255,255,.07); margin-top: 14px;
-      font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.85;
-    }
-
-    @media(max-width:640px) {
-      .prob-beat1 { padding: 72px 24px 40px; }
-      .prob-beat2 { padding: 36px 24px 36px; }
-      .prob-beat3 { padding: 36px 24px 72px; }
-      .prob-gap-grid { flex-direction: column; }
-      .prob-bars { padding: 0 4px; }
-      .prob-bar-label { width: 80px; font-size: 13px; }
-      .prob-gap-vline { width: 80px; height: 1px;
-        background: linear-gradient(to right, transparent, rgba(0,200,240,.2) 30%, rgba(0,200,240,.2) 70%, transparent);
-      }
-      .prob-glass-grid { grid-template-columns: 1fr; }
-    }
-
-
-    /* ─── WARM COLOR BREAKS ─── */
-    .quote-warm {
-      background: var(--bg-alt) !important;
-    }
-    .quote-warm .quote-mark { color: rgba(0,200,240,.12); }
-    .quote-warm .quote-attr { color: var(--cyan); opacity: .7; }
-
-    /* Carousel arrows */
-    .h-arrows { display: flex; justify-content: center; gap: 16px; padding-bottom: 20px; }
-    .h-arrow {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.15); background: none;
-      color: rgba(255,255,255,.6); font-size: 18px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color .25s, color .25s, background .25s;
-    }
-    .h-arrow:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,200,240,.06); }
-    .h-arrow:disabled { opacity: .25; cursor: default; }
-
-    /* Team section warm accent */
-    #team { position: relative; background: var(--bg-warm); }
-    #team > * { position: relative; z-index: 1; }
-
-    /* ─── ACCORDION ─── */
-    .acc-stack { margin-top: 64px; max-width: 860px; }
-    .acc-intro { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,200,240,.5); margin-bottom: 32px; }
-    .acc-item { border-top: 1px solid var(--border); }
-    .acc-item:last-child { border-bottom: 1px solid var(--border); }
-    .acc-trigger {
-      width: 100%; display: flex; align-items: flex-start; gap: 16px;
-      padding: 28px 0; background: none; border: none;
-      color: var(--white); cursor: pointer; text-align: left;
-      transition: color .2s;
-    }
-    .acc-trigger:hover .acc-label { color: var(--cyan); }
-    .acc-num { font-family: var(--serif); font-size: 14px; font-style: italic;
-      color: rgba(0,200,240,.5); min-width: 28px; flex-shrink: 0; padding-top: 4px; }
-    .acc-label-wrap { flex: 1; }
-    .acc-preview { display: block; font-size: 15px; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.6; margin-top: 8px; }
-    .acc-label { font-size: clamp(18px,2vw,22px); font-weight: 500; letter-spacing: .01em;
-      line-height: 1.4; transition: color .2s; }
-    .acc-icon { font-size: 28px; font-weight: 300; color: var(--cyan);
-      transition: transform .38s ease; flex-shrink: 0; line-height: 1; }
-    .acc-item.open .acc-icon { transform: rotate(45deg); color: var(--cyan); }
-    .acc-body {
-      display: grid; grid-template-rows: 0fr;
-      transition: grid-template-rows .42s ease;
-      padding-left: 52px;
-    }
-    .acc-item.open .acc-body { grid-template-rows: 1fr; }
-    .acc-body-inner { overflow: hidden; }
-    .acc-body-pad { padding-bottom: 40px; }
-    .acc-body p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; max-width: 680px; }
-    .acc-body p + p { margin-top: 14px; }
-    .acc-body strong { color: rgba(255,255,255,.8); font-weight: 400; }
-    .acc-stat-row { display: flex; gap: 40px; margin: 28px 0; flex-wrap: wrap; }
-    .acc-stat { }
-    .acc-stat-n { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--cyan); line-height: 1; }
-    .acc-stat-l { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; max-width: 160px; }
-    .acc-pub-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; margin-right: 24px;
-      font-size: 14px; color: rgba(0,200,240,.6); text-decoration: none; border-bottom: 1px solid rgba(0,200,240,.2);
-      padding-bottom: 2px; transition: color .2s; letter-spacing: .06em; }
-    .acc-pub-link:hover { color: var(--cyan); }
-
-    /* ─── BACK TO TOP ─── */
-    #back-to-top {
-      position: fixed; bottom: 36px; right: 36px; z-index: 500;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(0,200,240,.12); border: 1px solid rgba(0,200,240,.25);
-      color: var(--cyan); font-size: 18px; line-height: 1;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; opacity: 0; pointer-events: none;
-      transition: opacity .4s, background .3s, transform .3s;
-      text-decoration: none;
-    }
-    #back-to-top.visible { opacity: 1; pointer-events: auto; }
-    #back-to-top:hover { background: rgba(0,200,240,.22); transform: translateY(-3px); }
-    @media (pointer: coarse) { #back-to-top { bottom: 24px; right: 20px; } }
-
-    /* ─── PHOTO BREAK FADE-IN ─── */
-    .lab-break, .team-photo-break {
-      opacity: 0;
-      will-change: opacity, transform;
-    }
-    .lab-break img, .team-photo-break img {
-      will-change: transform;
-    }
-
-
-    /* ─── PRESS MARQUEE ─── */
-    .press-logos { overflow: hidden; padding: 52px 0 !important; }
-    .press-marquee-track {
-      display: flex; align-items: center; gap: 72px;
-      width: max-content;
-      animation: marqueeScroll 28s linear infinite;
-    }
-    .press-marquee-track:hover { animation-play-state: paused; }
-    @keyframes marqueeScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ─── STAT COUNT-UP ─── */
-    .stat-num { transition: color .3s; }
-    .stat-num.counting { color: var(--cyan); }
-
-    /* ─── SECTION GLOW ACCENTS ─── */
-    .glow-left  { position: relative; overflow: hidden; }
-    .glow-left::before {
-      content: '';
-      position: absolute; top: -30%; left: -15%;
-      width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.045) 0%, transparent 68%);
-      pointer-events: none; z-index: 0;
-    }
-    .glow-left > * { position: relative; z-index: 1; }
-    .glow-right::before {
-      content: '';
-      position: absolute; top: -20%; right: -15%;
-      width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.04) 0%, transparent 68%);
-      pointer-events: none; z-index: 0;
-    }
-    .glow-right { position: relative; overflow: hidden; }
-    .glow-right > * { position: relative; z-index: 1; }
-
-    /* ─── SECTION COLOR BREAKS ─── */
-    .section-accent { background: linear-gradient(180deg, var(--bg) 0%, #050D1A 50%, var(--bg) 100%); }
-
-    /* ─── VISITED LINK FIX ─── */
-    a:visited { color: inherit; }
-    a.btn-cyan:visited { color: var(--bg); }
-    a.btn-ghost:visited { color: rgba(255,255,255,.78); }
-    a.nav-cta, a.nav-cta:visited { color: var(--bg); }
-    .nav-links a:visited { color: rgba(255,255,255,0.72); }
-    .press-card:visited .press-headline { color: var(--white); }
-    .press-card:visited .press-outlet { color: var(--cyan); }
-    .press-card:visited .press-quote { color: rgba(255,255,255,.8); }
-    .acc-pub-link:visited { color: rgba(0,200,240,.6); }
-    .f-col a:visited { color: var(--muted); }
-    .press-logo-link:visited { color: inherit; }
-
-    /* ─── SECTION DIVIDERS ─── */
-    .section-divider { width: 100%; height: 1px; background: var(--divider); }
-
-    /* ─── FULL-WIDTH QUOTE BLOCKS ─── */
-    .quote-block { 
-      background: var(--bg);
-      padding: 64px 56px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .quote-block::before {
-      content: '';
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 80vw; height: 80vw; max-width: 800px; max-height: 800px;
-      background: radial-gradient(ellipse, rgba(0,200,240,.03) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .quote-block-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
-    .quote-block-mark {
-      font-family: var(--serif); font-size: 120px; line-height: .7;
-      color: rgba(0,200,240,.35); display: block; margin-bottom: 16px;
-    }
-    .quote-block-text {
-      font-family: var(--serif); font-size: clamp(24px, 3vw, 36px);
-      font-weight: 300; font-style: italic; line-height: 1.45;
-      color: rgba(255,255,255,.88); margin-bottom: 24px;
-    }
-    .quote-block-text em { font-style: italic; color: var(--cyan); }
-    .quote-block-attr {
-      font-family: var(--sans); font-size: 14px; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--cyan); opacity: .7;
-    }
-    @media(max-width:900px) {
-      .quote-block {  padding: 48px 24px; }
-    }
-
-    /* ─── STAT POP ─── */
-    .stat-pop { color: var(--cyan); font-family: var(--serif); }
-
-    /* ─── LATE-STAGE CORAL ─── */
-    .stat-coral { color: var(--coral); }
-    .prob-gap-col.late .prob-gap-num { color: var(--coral); }
-  
   </style>
-
-<style id="light-canvas-pass-sub">
-  /* Shared light-canvas system for subpages */
-  body { background:#F7F6F2 !important; color:#1D334A !important; }
-  .section, .section-bg, .section-inner, .press-card, .team-card, .ncred, .acc-item, .acc-body {
-    background:#F7F6F2 !important;
-    color:#1D334A !important;
-    border-color: rgba(29,51,74,.14) !important;
-  }
-  h1,h2,h3,h4,.team-name,.press-headline,.acc-label { color:#14263C !important; }
-  p,li,span,.lead,.acc-preview,.f-contact,.f-tagline { color:#2A4058 !important; }
-  .eyebrow,.team-title,.press-outlet,.ncred-label,.acc-icon { color:#00A9D6 !important; }
-  nav.scrolled{ background:rgba(20,38,60,.9) !important; }
-  footer,.f-bottom{ background:#17263A !important; color:rgba(244,248,255,.85)!important; }
-  footer *,.f-bottom *{ color:rgba(244,248,255,.85)!important; }
-</style>
-
 </head>
 <body>
 <div class="cursor-dot" id="cdot"></div>
@@ -906,9 +171,7 @@
     <li><a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
   </ul>
   <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" class="nav-cta">Request Deck</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="background:none;border:none;">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html" class="mob-link">Home</a>
@@ -918,258 +181,184 @@
   <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact" class="mob-link">Contact</a>
 </div>
 
-<!-- Page header -->
+<!-- ═══ PAGE HEADER (dark) ═══ -->
 <div style="padding:180px 56px 80px;max-width:1200px;margin:0 auto;">
   <p class="eyebrow reveal">The Science</p>
-  <h2 class="reveal">How HelioFlux<br><em>detects earlier.</em></h2>
-  <p class="lead reveal" style="max-width:640px;margin-top:24px;">HelioFlux reads ultra-weak photon emission patterns to identify malignant metabolic signatures before tumors are visible on conventional imaging.</p>
+  <h2 class="reveal">How HelioFlux<br>detects <em>earlier.</em></h2>
+  <p class="lead reveal" style="max-width:640px;margin-top:24px;">Every living cell emits light. Cancer changes the pattern. HelioFlux reads that change at 5-10 million cells, long before imaging, blood tests, or symptoms.</p>
 </div>
 
-<!-- Detection diagram -->
-<div style="max-width:1200px;margin:0 auto;padding:0 56px 80px;">
-  <div class="reveal" style="overflow:hidden;">
-    <object data="detection-stages-animated.svg" type="image/svg+xml" style="width:100%;display:block;" aria-label="Cancer progression stages with animated timeline"><img src="detection-stages.png" alt="Cancer progression stages" style="width:100%;display:block;"></object>
+<!-- ═══ DETECTION DIAGRAM (dark) ═══ -->
+<div style="max-width:1000px;margin:0 auto;padding:0 56px 80px;">
+  <div class="reveal" style="position:relative;">
+    <img src="detection-stages-v3.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;image-rendering:auto;">
+    <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom, transparent, #092743);pointer-events:none;"></div>
   </div>
 </div>
 
-<!-- QSense + LuminAI -->
-<div style="background:#04070E;">
-  <div style="max-width:1200px;margin:0 auto;padding:100px 56px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;" class="reveal">
-      <div style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
-        <img src="qsense-product.jpg" alt="QSense" style="width:100%;max-height:220px;object-fit:cover;display:block;">
-        <div style="padding:28px 32px;">
-          <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Hardware</p>
-          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">QSense&#8482;</h3>
-          <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">Captures ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation.</p>
+<!-- ═══ THE PHYSICS (cream) ═══ -->
+<div style="background:#f5f0eb;padding:100px 56px;">
+  <div style="max-width:860px;margin:0 auto;">
+    <p class="eyebrow reveal" style="color:#00A9D6;">The Physics</p>
+    <h2 class="reveal" style="color:#14263C;">Your cells emit <em>light.</em></h2>
+    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">All living cells continuously emit ultra-weak photon emissions (UPEs), faint light produced as a byproduct of oxidative metabolism. The intensity and spectral pattern of these emissions is a direct readout of cellular metabolic state.</p>
+    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">In cancer, metabolic stress produces a measurably different emission profile. Malignant cells emit a characteristic spectral signature, inverted relative to healthy tissue, detectable at as few as <strong style="color:#14263C;">5-10 million cells</strong>. That's before a tumor forms, before any imaging can see it, and before most liquid biopsies can detect circulating DNA.</p>
+    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;">The key insight is not the brightness of the signal, but its <strong style="color:#14263C;">spectral shape and directional profile</strong>. Cancer cells invert the healthy-tissue emission pattern, a distinction detectable even at very early cell counts.</p>
+  </div>
+</div>
+
+<!-- ═══ DETECTION THRESHOLD (dark) ═══ -->
+<div style="background:#092743;padding:100px 56px;">
+  <div style="max-width:860px;margin:0 auto;">
+    <p class="eyebrow reveal">Detection Threshold</p>
+    <h2 class="reveal">Finding the <em>peppercorn.</em></h2>
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-bottom:40px;">
+      <div style="background:#092743;padding:32px 24px;">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">HelioFlux</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);line-height:1;">5-10M</div>
+        <div style="font-size:14px;color:var(--muted);margin-top:6px;">cells · pre-tumor · ~2mm</div>
+      </div>
+      <div style="background:#092743;padding:32px 24px;">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;">Liquid Biopsy</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:rgba(255,255,255,.45);line-height:1;">50-100M</div>
+        <div style="font-size:14px;color:var(--muted);margin-top:6px;">cells · cfDNA · Stage I-II</div>
+      </div>
+      <div style="background:#092743;padding:32px 24px;">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;">Standard Imaging</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:rgba(255,255,255,.45);line-height:1;">1B+</div>
+        <div style="font-size:14px;color:var(--muted);margin-top:6px;">cells · MRI/CT · Stage III-IV</div>
+      </div>
+    </div>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.8;max-width:720px;">A tumor at 5-10 million cells is about 2 millimeters across, roughly the size of a peppercorn. Too small to feel. Invisible on a scan. By the time it becomes a pea (1 billion cells, ~1 centimeter), medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.8);">1.5 to 2 years.</strong> HelioFlux doesn't wait for the pea.</p>
+  </div>
+</div>
+
+<!-- ═══ THE PLATFORM (cream) ═══ -->
+<div style="background:#f5f0eb;padding:100px 56px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="eyebrow reveal" style="color:#00A9D6;">The Platform</p>
+    <h2 class="reveal" style="color:#14263C;">Two systems, <em>one scan.</em></h2>
+    <div class="product-grid reveal">
+      <div class="product-card" style="background:rgba(28,53,80,.04);border-color:rgba(28,53,80,.08);">
+        <img src="qsense-product.jpg" alt="QSense device" style="width:100%;max-height:220px;object-fit:cover;display:block;">
+        <div class="product-card-body">
+          <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#00A9D6;margin-bottom:8px;">Hardware</p>
+          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#14263C;">QSense&#8482;</h3>
+          <p style="font-size:16px;color:#5a6b7e;line-height:1.75;margin:0;">Captures ultra-weak photon emissions from living cells at single-photon sensitivity. Non-invasive. No radiation. ~15 minutes per scan.</p>
         </div>
       </div>
-      <div style="background:#2B4363;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:6px;">
-        <img src="luminal-product.jpg" alt="LuminAI" style="width:100%;max-height:220px;object-fit:cover;display:block;">
-        <div style="padding:28px 32px;">
-          <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Software</p>
-          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">LuminAI&#8482;</h3>
-          <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">AI analyzes photon patterns against a validated cancer signature database, delivering a biomarker classification in real time.</p>
+      <div class="product-card" style="background:rgba(28,53,80,.04);border-color:rgba(28,53,80,.08);">
+        <img src="luminal-product.jpg" alt="LuminAI software" style="width:100%;max-height:220px;object-fit:cover;display:block;">
+        <div class="product-card-body">
+          <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#00A9D6;margin-bottom:8px;">Software</p>
+          <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#14263C;">LuminAI&#8482;</h3>
+          <p style="font-size:16px;color:#5a6b7e;line-height:1.75;margin:0;">AI analyzes photon patterns against a validated cancer signature database, delivering a biomarker classification in real time.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Deep Science Accordions -->
-<div style="max-width:1200px;margin:0 auto;padding:100px 56px;">
-  <!-- ─── ACCORDION: EXPLORE THE SCIENCE ─── -->
-      <div class="acc-stack reveal">
-        <p class="acc-intro">Explore the science</p>
+<!-- ═══ DEEP DIVE ACCORDIONS (dark) ═══ -->
+<div style="background:#092743;padding:100px 56px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="eyebrow reveal">Deep Dive</p>
+    <h2 class="reveal">Explore the <em>science.</em></h2>
 
-        <!-- ITEM 1: The physics -->
-        <div class="acc-item">
-          <button class="acc-trigger" aria-expanded="false">
-            
-            <div class="acc-label-wrap"><span class="acc-label">How your cells reveal cancer — the physics of light</span>
-            <span class="acc-preview">All living cells emit faint light. Cancer cells emit a different pattern, detectable at just 5-10 million cells.</span></div>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <div class="acc-body-inner"><div class="acc-body-pad">
-              <p>All living cells continuously emit ultra-weak photon emissions (UPEs) — faint light produced as a byproduct of oxidative metabolism. The intensity and spectral pattern of these emissions is a direct readout of cellular metabolic state.</p>
-              <p>In cancer, metabolic stress produces a measurably different emission profile. Malignant cells emit a characteristic spectral signature — inverted relative to healthy tissue — detectable at as few as <strong>5–10 million cells</strong>. That's before a tumor forms, before any imaging can see it, and before most liquid biopsies can detect circulating DNA.</p>
-              <div style="margin-top:32px;overflow:hidden;border-radius:4px;border:1px solid rgba(0,200,240,.08);">
-                <img src="science-diagram.jpg" alt="Biophotonic detection pipeline: Metabolic Stress → UPE → High-Sensitivity Optics → Spectral Power Density Analysis → Biomarker Classification" style="width:100%;display:block;">
-              </div>
-            </div></div>
+    <div class="acc-stack reveal">
+      <!-- ITEM 1 -->
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <div><span class="acc-label">What the AI sees</span>
+          <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan against a validated cancer signature database.</span></div>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-pad">
+            <p>QSense captures raw photon emission data at single-photon sensitivity. LuminAI then runs spectral power density analysis, decomposing the signal by wavelength and frequency to extract the emission fingerprint.</p>
+            <p>The AI compares that fingerprint against a validated database of cancer and healthy-tissue signatures, built from three peer-reviewed studies across <strong>13 cancer cell lines</strong> and <strong>47 living animal models</strong>. The output: a biomarker classification with a confidence score. Powered by NVIDIA computing infrastructure.</p>
           </div>
         </div>
+      </div>
 
-        <!-- ITEM 2: What LuminAI analyzes -->
-        <div class="acc-item">
-          <button class="acc-trigger" aria-expanded="false">
-            
-            <div class="acc-label-wrap"><span class="acc-label">What the AI sees — signal patterns and classification</span>
-            <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan and compares it against a validated cancer signature database.</span></div>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <div class="acc-body-inner"><div class="acc-body-pad">
-              <p>QSense captures raw photon emission data at single-photon sensitivity. LuminAI then runs spectral power density analysis — decomposing the signal by wavelength and frequency to extract the emission fingerprint.</p>
-              <p>The AI compares that fingerprint against a validated database of cancer and healthy-tissue signatures, built from three peer-reviewed studies across <strong>13 cancer cell lines</strong> and <strong>47 living animal models</strong>. The output: a biomarker classification — positive or negative — with a confidence score. Powered by NVIDIA computing infrastructure.</p>
-              <p>The key insight is not the brightness of the signal, but its <strong>spectral shape and directional profile</strong>. Cancer cells invert the healthy-tissue emission pattern — a distinction detectable even at very early cell counts.</p>
-            </div></div>
+      <!-- ITEM 2 -->
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <div><span class="acc-label">The patient experience</span>
+          <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span></div>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-pad">
+            <p>A HelioFlux scan takes approximately 15 minutes. The patient sits comfortably while QSense reads photon emissions from the target area. No needles. No contrast agents. No ionizing radiation. No preparation required.</p>
+            <p>LuminAI processes the data in real time. The clinician receives a biomarker classification during the same visit, not weeks later. For patients, it feels closer to having your temperature taken than getting a biopsy.</p>
           </div>
         </div>
+      </div>
 
-        <!-- ITEM 3: Validation data -->
-        <div class="acc-item">
-          <button class="acc-trigger" aria-expanded="false">
-            
-            <div class="acc-label-wrap"><span class="acc-label">Published validation — what the research shows</span>
-            <span class="acc-preview">Three peer-reviewed papers: 90-92% accuracy across 13 cancer types, detection within 24 hours in animal models.</span></div>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <div class="acc-body-inner"><div class="acc-body-pad">
-              <div class="acc-stat-row">
-                <div class="acc-stat">
-                  <div class="acc-stat-n">92%</div>
-                  <div class="acc-stat-l">Accuracy in vitro · 30 samples · 6 cell lines · 2018</div>
-                </div>
-                <div class="acc-stat">
-                  <div class="acc-stat-n">100%</div>
-                  <div class="acc-stat-l">Cancer detection rate · every malignant sample identified · 2018</div>
-                </div>
-                <div class="acc-stat">
-                  <div class="acc-stat-n">90%</div>
-                  <div class="acc-stat-l">Accuracy in vivo · 47 living mice · 13 cancer types · 2020</div>
-                </div>
-                <div class="acc-stat">
-                  <div class="acc-stat-n">&lt;24h</div>
-                  <div class="acc-stat-l">Detection after tumor cell injection · 18 days before palpable mass · 2020</div>
-                </div>
-              </div>
-              <p>Three peer-reviewed publications across two decades of work, with a fourth (human pilot) in active planning:</p>
-              <div>
-                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" class="acc-pub-link">Biochemistry &amp; Biophysics Reports · Elsevier · 2018 ↗</a>
-                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="acc-pub-link">Cancers · MDPI · 2020 ↗</a>
-                <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="acc-pub-link">iScience · Cell Press · 2025 ↗</a>
-              </div>
-              <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);">
-                <svg viewBox="0 0 600 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;display:block;overflow:visible;" aria-label="Detection timeline: HelioFlux Day 1 vs palpable tumor Day 19">
-                  <rect x="65" y="55" width="495" height="14" fill="rgba(0,200,240,0.07)" rx="2"/>
-                  <rect x="40" y="63" width="520" height="2" fill="rgba(255,255,255,0.08)" rx="1"/>
-                  <circle cx="40" cy="64" r="5" fill="#0A1020" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-                  <text x="40" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Day 0</text>
-                  <text x="40" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,255,255,0.15)">injection</text>
-                  <circle cx="65" cy="64" r="6" fill="#00C8F0" stroke="#00C8F0" stroke-width="1"/>
-                  <line x1="65" y1="55" x2="65" y2="30" stroke="rgba(0,200,240,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
-                  <text x="65" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#00C8F0" font-weight="500">HelioFlux detects</text>
-                  <text x="65" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(0,200,240,0.6)">Day 1</text>
-                  <text x="65" y="101" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(0,200,240,0.35)">24 hrs</text>
-                  <circle cx="213" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-                  <text x="213" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 7</text>
-                  <circle cx="288" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-                  <text x="288" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 10</text>
-                  <circle cx="362" cy="64" r="4.5" fill="rgba(0,200,240,0.15)" stroke="rgba(0,200,240,0.4)" stroke-width="1.5"/>
-                  <text x="362" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Day 13</text>
-                  <circle cx="510" cy="64" r="6" fill="rgba(255,140,40,0.15)" stroke="rgba(255,140,40,0.55)" stroke-width="1.5"/>
-                  <line x1="510" y1="73" x2="510" y2="98" stroke="rgba(255,140,40,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
-                  <text x="510" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,140,40,0.55)">first palpable tumor</text>
-                  <text x="510" y="117" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="rgba(255,140,40,0.35)">Day 19</text>
-                  <text x="287" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1">18 days earlier than standard detection</text>
-                </svg>
-                <p style="font-size:16px;color:rgba(255,255,255,.75);margin-top:20px;line-height:1.6;letter-spacing:.01em;">Non-invasive. No imaging. No contrast agent.<br>No biopsy. No blood draw.</p>
-              </div>
-            </div></div>
+      <!-- ITEM 3 -->
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <div><span class="acc-label">Why current screening falls short</span>
+          <span class="acc-preview">Only 5 of 200+ cancer types have recommended screening. Most cancers are found too late.</span></div>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-pad">
+            <p>Standard imaging (CT, MRI, mammography) requires roughly 1 billion cells before it can detect a tumor. By that point, cancer has been growing silently for years.</p>
+            <p>Only breast, cervical, colorectal, lung, and prostate cancers have USPSTF-recommended screening. Over 200 types have none. High costs ($10K+ out-of-pocket for multi-cancer panels) delay or prevent screening, especially in underserved communities.</p>
+            <p>For cancers like ovarian and pancreatic, the average time from symptom to diagnosis exceeds six months. HelioFlux is designed to change that math entirely.</p>
           </div>
         </div>
-
-        <!-- ITEM 4: How it compares -->
-        <div class="acc-item">
-          <button class="acc-trigger" aria-expanded="false">
-            
-            <div class="acc-label-wrap"><span class="acc-label">The patient experience — what a scan looks like</span>
-            <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span></div>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <div class="acc-body-inner"><div class="acc-body-pad">
-              <p>The critical difference is <strong>detection threshold</strong> — how many cells must be present before each method can find them.</p>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin:24px 0;max-width:640px;">
-                <div style="background:var(--bg);padding:20px 16px;">
-                  <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">HelioFlux</div>
-                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;">5–10M</div>
-                  <div style="font-size:13px;color:var(--muted);margin-top:4px;">cells · ≈ 2–3mm · pre-tumor</div>
-                </div>
-                <div style="background:var(--bg);padding:20px 16px;">
-                  <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Liquid Biopsy</div>
-                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.5);line-height:1;">50–100M</div>
-                  <div style="font-size:13px;color:var(--muted);margin-top:4px;">cells · cfDNA · Stage I–II</div>
-                </div>
-                <div style="background:var(--bg);padding:20px 16px;">
-                  <div style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;">Standard Imaging</div>
-                  <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:rgba(255,255,255,.6);line-height:1;">1B+</div>
-                  <div style="font-size:13px;color:var(--muted);margin-top:4px;">cells · MRI/CT · Stage III–IV</div>
-                </div>
-              </div>
-              <p>HelioFlux detects at 100–200× fewer cells than standard imaging, and 10–20× fewer than the leading liquid biopsy approaches — without a blood draw, radiation, or invasive procedure.</p>              <div style="margin-top:28px;padding:24px;background:rgba(0,200,240,.03);border-left:2px solid rgba(0,200,240,.15);border-radius:4px;">
-                <p style="font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:12px;">What "early" really means</p>
-                <p style="font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.5;margin-bottom:12px;color:rgba(255,255,255,.85);">A tumor at 5–10 million cells is 2–3 millimeters across — roughly the size of a peppercorn. Too small to feel. <em>Invisible on a scan.</em></p>
-                <p style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.8;">By the time that peppercorn becomes a pea, 1 billion cells, roughly 1 centimeter, medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.75);">1.5 to 2 years.</strong> HelioFlux doesn't wait for the pea. <strong style="color:rgba(255,255,255,.75);">We're built to find the peppercorn.</strong></p>
-              </div>
-              <!-- Why current screening fails — consolidated from Problem section -->
-              <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
-                <p style="font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,240,.5);margin-bottom:20px;">Why current screening falls short</p>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);max-width:640px;">
-                  <div style="background:var(--bg);padding:20px 16px;">
-                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">~1B</div>
-                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Cells before detection</div>
-                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">CT, MRI, and mammograms need roughly 1 billion cells before they can spot anything. Cancer has been growing silently for years.</div>
-                  </div>
-                  <div style="background:var(--bg);padding:20px 16px;">
-                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">5 <span style="font-size:.55em;color:rgba(255,255,255,.55);font-weight:400;">of 200+</span></div>
-                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Cancers with screening</div>
-                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">Only breast, cervical, colorectal, lung, and prostate have USPSTF-recommended screening. Over 200 types have none.</div>
-                  </div>
-                  <div style="background:var(--bg);padding:20px 16px;">
-                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">$10K+</div>
-                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Out-of-pocket cost</div>
-                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">High costs delay or prevent screening, especially in underserved communities.</div>
-                  </div>
-                  <div style="background:var(--bg);padding:20px 16px;">
-                    <div style="font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cyan);line-height:1;margin-bottom:6px;">6+ mo</div>
-                    <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:6px;">Symptom to diagnosis</div>
-                    <div style="font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;">Invasive tests, long waits, radiation exposure. For cancers like ovarian and pancreatic, diagnosis often exceeds six months.</div>
-                  </div>
-                </div>
-              </div>
-            </div></div>
-          </div>
-        </div>
-
-      </div><!-- /acc-stack -->
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Published Research -->
-<div style="background:var(--bg-alt);">
-  <div style="max-width:1200px;margin:0 auto;padding:100px 56px;text-align:center;">
-    <p class="eyebrow reveal">Published Research</p>
-    <h2 class="reveal" style="margin-bottom:48px;">Three peer-reviewed<br><em>publications.</em></h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:900px;margin:0 auto;" class="reveal">
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" style="background:var(--bg);padding:40px 28px;text-decoration:none;color:var(--white);transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);margin-bottom:16px;">92%</div>
+<!-- ═══ PUBLISHED RESEARCH (cream) ═══ -->
+<div style="background:#f5f0eb;padding:100px 56px;">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <p class="eyebrow reveal" style="color:#00A9D6;">Published Research</p>
+    <h2 class="reveal" style="color:#14263C;">Three peer-reviewed<br><em>publications.</em></h2>
+    <div class="research-grid reveal">
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" class="research-card">
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">92%</div>
         <div style="font-size:16px;font-weight:500;margin-bottom:8px;">In Vitro Validation</div>
-        <div style="font-size:14px;color:var(--muted);line-height:1.6;">Biochemistry &amp; Biophysics Reports · Elsevier · 2018</div>
-        <div style="font-size:13px;color:rgba(0,200,240,.5);margin-top:16px;">Read paper ↗</div>
+        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;">Biochemistry &amp; Biophysics Reports · Elsevier · 2018</div>
+        <div style="font-size:13px;color:#00A9D6;margin-top:16px;">Read paper ↗</div>
       </a>
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" style="background:var(--bg);padding:40px 28px;text-decoration:none;color:var(--white);transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);margin-bottom:16px;">90%</div>
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="research-card">
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">90%</div>
         <div style="font-size:16px;font-weight:500;margin-bottom:8px;">In Vivo Validation</div>
-        <div style="font-size:14px;color:var(--muted);line-height:1.6;">Cancers · MDPI · 2020</div>
-        <div style="font-size:13px;color:rgba(0,200,240,.5);margin-top:16px;">Read paper ↗</div>
+        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;">Cancers · MDPI · 2020</div>
+        <div style="font-size:13px;color:#00A9D6;margin-top:16px;">Read paper ↗</div>
       </a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" style="background:var(--bg);padding:40px 28px;text-decoration:none;color:var(--white);transition:background .3s;" onmouseover="this.style.background='rgba(0,200,240,.03)'" onmouseout="this.style.background='var(--bg)'">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--cyan);margin-bottom:16px;">20</div>
+      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="research-card">
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">20</div>
         <div style="font-size:16px;font-weight:500;margin-bottom:8px;">Human Subjects</div>
-        <div style="font-size:14px;color:var(--muted);line-height:1.6;">iScience · Cell Press · 2025</div>
-        <div style="font-size:13px;color:rgba(0,200,240,.5);margin-top:16px;">Read paper ↗</div>
+        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;">iScience · Cell Press · 2025</div>
+        <div style="font-size:13px;color:#00A9D6;margin-top:16px;">Read paper ↗</div>
       </a>
     </div>
   </div>
 </div>
 
-<footer>
-  <div>
-    <div class="f-logo">Helio<span>Flux</span></div>
-    <div class="f-tagline">Your cells emit light. We learned to read it.</div>
-    <div class="f-contact">kelly.lucas@helioflux.co<br>Manhattan Beach, CA</div>
+<!-- ═══ CTA (dark) ═══ -->
+<div style="background:#092743;padding:100px 56px;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;" class="reveal">
+    <h2 style="margin-bottom:20px;">See the <em>data.</em></h2>
+    <p style="font-size:17px;color:rgba(255,255,255,.65);margin-bottom:36px;">Request our full deck with study data, clinical roadmap, and technical specifications.</p>
+    <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" style="padding:16px 40px;background:#00A9D6;color:#092743;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:600;border-radius:50px;display:inline-block;transition:all .3s;">Request Deck</a>
   </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div><div class="f-logo">Helio<span>Flux</span></div><div class="f-tagline">Your cells emit light. We learned to read it.</div><div class="f-contact">kelly.lucas@helioflux.co<br>Manhattan Beach, CA</div></div>
   <div class="f-col"><h4>Company</h4><ul><li><a href="science.html">Science</a></li><li><a href="team.html">Team</a></li><li><a href="press.html">Press</a></li></ul></div>
   <div class="f-col"><h4>Connect</h4><ul><li><a href="https://www.linkedin.com/company/helioflux" target="_blank">LinkedIn ↗</a></li><li><a href="mailto:kelly.lucas@helioflux.co">Email</a></li></ul></div>
-  <div class="f-col"><h4>Research</h4><ul><li><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank">iScience 2025 ↗</a></li><li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank">Cancers 2020 ↗</a></li></ul></div>
 </footer>
-<div class="f-bottom">
-  <span>© 2026 HelioFlux Inc.</span>
-  <span>Not FDA cleared. Not intended to diagnose or treat any disease.</span>
-</div>
+<div class="f-bottom"><span>© 2026 HelioFlux Inc.</span><span>Not FDA cleared. Not intended to diagnose or treat any disease.</span></div>
 
 <script>document.body.classList.add("js-ready");</script>
 <script>
@@ -1178,27 +367,20 @@ function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 gsap.registerPlugin(ScrollTrigger);
 lenis.on('scroll', ScrollTrigger.update);
-
-// Nav
 const nav = document.getElementById('nav');
 nav.classList.add('scrolled');
-
-// Cursor
 const cdot = document.getElementById('cdot');
 document.addEventListener('mousemove', e => { gsap.to(cdot, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'none' }); });
 document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('mouseenter', () => cdot.classList.add('big'));
   el.addEventListener('mouseleave', () => cdot.classList.remove('big'));
 });
-
-// Reveals
 document.querySelectorAll('.reveal').forEach(el => {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { el.classList.add('in'); obs.unobserve(el); } });
   }, { threshold: 0.12 });
   obs.observe(el);
 });
-
 // Accordion
 document.querySelectorAll('.acc-trigger').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1211,19 +393,12 @@ document.querySelectorAll('.acc-trigger').forEach(btn => {
     if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
   });
 });
-
 // Hamburger
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 if (hamburger) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-  }));
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
 }
 </script>
 </body>
