@@ -156,7 +156,7 @@
       .acc-stat-row { grid-template-columns: 1fr 1fr; }
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
-      .hiw-text { padding: 0 24px 80px !important; }
+      .hiw-section-v2 { padding: 60px 24px 0 !important; min-height: 500px !important; background-size: cover !important; }
     }
   </style>
 </head>
@@ -190,17 +190,14 @@
   <p class="lead reveal" style="max-width:640px;margin-top:24px;">Every living cell emits light. Cancer changes the pattern. HelioFlux reads that change at 5-10 million cells, long before imaging, blood tests, or symptoms.</p>
 </div>
 
-<!-- ═══ HOW IT WORKS (image + text below) ═══ -->
-<div style="background:#060610;padding:0;margin:0;">
-  <img src="science-hero.jpg" alt="Biophotonic detection: skin cells emit light captured by a sensor and analyzed as data" style="width:100%;display:block;" class="reveal">
-</div>
-<div style="background:#060610;padding:0 56px 100px;">
-  <div style="max-width:860px;margin:0 auto;padding-top:56px;">
+<!-- ═══ HOW IT WORKS (text overlaid on image) ═══ -->
+<div class="hiw-section-v2" style="background:#060610 url('science-hero.jpg') center bottom/contain no-repeat;padding:80px 56px 0;position:relative;min-height:700px;">
+  <div style="max-width:860px;margin:0 auto;position:relative;z-index:1;">
     <p class="eyebrow reveal">How It Works</p>
     <h2 class="reveal" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:28px;">Cancer cells emit<br>a different light.</h2>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:20px;">All living cells continuously emit ultra-weak photons as a byproduct of metabolism. The wavelength pattern and intensity of these emissions is a direct readout of cellular state.</p>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:20px;">In malignant cells, metabolic stress produces a measurably <strong style="color:var(--cyan);">inverted spectral signature</strong> compared to healthy tissue. HelioFlux's sensor captures these photon emissions and our AI analyzes the pattern in real time.</p>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;">The result: detection at <strong style="color:#fff;">5-10 million cells</strong>, before a tumor forms, before imaging can see it, and before most liquid biopsies can find circulating DNA.</p>
+    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;margin-bottom:20px;">Every cell in your body emits faint light as a byproduct of metabolism. These signals are invisible to the eye, but real and measurable.</p>
+    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;margin-bottom:20px;">Cancer cells process energy differently. The light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
+    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;">HelioFlux's sensor captures these photon emissions and our AI reads the pattern, identifying an <strong style="color:var(--cyan);">inverted spectral signature</strong> unique to malignant cells. Detection at <strong style="color:#fff;">5-10 million cells</strong>, 100-200x earlier than standard imaging.</p>
   </div>
 </div>
 
