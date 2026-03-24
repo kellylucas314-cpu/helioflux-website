@@ -156,6 +156,10 @@
       .acc-stat-row { grid-template-columns: 1fr 1fr; }
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
+      .hiw-flex { flex-direction: column !important; }
+      .hiw-flex > div:last-child { display: none !important; }
+      .hiw-section { padding: 80px 24px !important; background-position: center right !important; }
+      .hiw-section .hiw-overlay { background: linear-gradient(180deg, rgba(6,6,16,0.9) 0%, rgba(6,6,16,0.7) 100%) !important; }
     }
   </style>
 </head>
@@ -189,9 +193,21 @@
   <p class="lead reveal" style="max-width:640px;margin-top:24px;">Every living cell emits light. Cancer changes the pattern. HelioFlux reads that change at 5-10 million cells, long before imaging, blood tests, or symptoms.</p>
 </div>
 
-<!-- ═══ SCIENCE HERO IMAGE (seamless divider) ═══ -->
-<div style="background:#05040e;padding:0;margin:0;">
-  <img src="science-hero.jpg" alt="Biophotonic detection: skin cells emit light captured by a sensor and analyzed as data" style="width:100%;display:block;margin:0;padding:0;" class="reveal">
+<!-- ═══ HOW IT WORKS (image bg + text overlay) ═══ -->
+<div class="hiw-section" style="background:#060610 url('science-hero.jpg') center/cover no-repeat;padding:120px 56px;position:relative;">
+  <div class="hiw-overlay" style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(6,6,16,0.85) 0%, rgba(6,6,16,0.4) 50%, rgba(6,6,16,0.85) 100%);"></div>
+  <div class="hiw-flex" style="position:relative;z-index:1;max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:80px;">
+    <!-- Left side: text -->
+    <div style="flex:1;min-width:300px;">
+      <p class="eyebrow reveal">How It Works</p>
+      <h2 class="reveal" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:28px;">Cancer cells emit<br>a different light.</h2>
+      <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:20px;">All living cells continuously emit ultra-weak photons as a byproduct of metabolism. The wavelength pattern and intensity of these emissions is a direct readout of cellular state.</p>
+      <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:20px;">In malignant cells, metabolic stress produces a measurably <strong style="color:var(--cyan);">inverted spectral signature</strong> compared to healthy tissue. HelioFlux's sensor captures these photon emissions and our AI analyzes the pattern in real time.</p>
+      <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;">The result: detection at <strong style="color:#fff;">5-10 million cells</strong>, before a tumor forms, before imaging can see it, and before most liquid biopsies can find circulating DNA.</p>
+    </div>
+    <!-- Right side: stays open to show the image -->
+    <div style="flex:1;min-width:300px;"></div>
+  </div>
 </div>
 
 <!-- ═══ THE PHYSICS (cream) ═══ -->
