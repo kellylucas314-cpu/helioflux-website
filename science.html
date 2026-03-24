@@ -156,7 +156,8 @@
       .acc-stat-row { grid-template-columns: 1fr 1fr; }
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
-      .hiw-section-v2 { padding: 60px 24px 0 !important; min-height: 500px !important; background-size: cover !important; }
+      .hiw-text-overlay { position:relative !important; width:100% !important; padding:40px 24px !important; background:#060610; text-align:left !important; }
+      .hiw-text-overlay p, .hiw-text-overlay h2, .hiw-text-overlay .eyebrow { text-align:left !important; }
     }
   </style>
 </head>
@@ -190,18 +191,16 @@
   <p class="lead reveal" style="max-width:640px;margin-top:24px;">Every living cell emits light. Cancer changes the pattern. HelioFlux reads that change at 5-10 million cells, long before imaging, blood tests, or symptoms.</p>
 </div>
 
-<!-- ═══ HOW IT WORKS (text above, image below, same section) ═══ -->
-<div style="background:#060610;padding:80px 56px 0;">
-  <div style="max-width:860px;margin:0 auto;">
-    <p class="eyebrow reveal">How It Works</p>
-    <h2 class="reveal" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:28px;">Cancer cells emit<br>a different light.</h2>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;margin-bottom:20px;">Every cell in your body emits faint light as a byproduct of metabolism. These signals are invisible to the eye, but real and measurable.</p>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;margin-bottom:20px;">Cancer cells process energy differently. The light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;">HelioFlux's sensor captures these photon emissions and our AI reads the pattern, identifying an <strong style="color:var(--cyan);">inverted spectral signature</strong> unique to malignant cells. Detection at <strong style="color:#fff;">5-10 million cells</strong>, 100-200x earlier than standard imaging.</p>
+<!-- ═══ HOW IT WORKS (text overlaid on image, right-aligned) ═══ -->
+<div style="background:#060610;position:relative;min-height:600px;">
+  <img src="science-hero.jpg" alt="Biophotonic detection process" style="width:100%;display:block;position:relative;" class="reveal">
+  <div class="hiw-text-overlay" style="position:absolute;top:0;right:0;width:50%;padding:60px 56px 60px 40px;z-index:1;">
+    <p class="eyebrow reveal" style="text-align:right;">How It Works</p>
+    <h2 class="reveal" style="font-size:clamp(24px,3vw,40px);margin-bottom:24px;text-align:right;">Cancer cells emit<br>a different light.</h2>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:16px;text-align:right;">Every cell in your body emits faint light as a byproduct of metabolism. These signals are invisible to the eye, but real and measurable.</p>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:16px;text-align:right;">Cancer cells process energy differently. The light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
+    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.8);line-height:1.8;text-align:right;">HelioFlux's sensor captures these emissions and our AI identifies an <strong style="color:var(--cyan);">inverted spectral signature</strong> unique to malignant cells. Detection at <strong style="color:#fff;">5-10 million cells</strong>.</p>
   </div>
-</div>
-<div style="background:#060610;padding:0;margin:0;">
-  <img src="science-hero.jpg" alt="Biophotonic detection process" style="width:100%;display:block;" class="reveal">
 </div>
 
 <!-- ═══ THE PHYSICS (cream) ═══ -->
