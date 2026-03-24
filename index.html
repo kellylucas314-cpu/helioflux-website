@@ -115,11 +115,11 @@
     .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,.95) 0%, rgba(10,14,26,.7) 12%, rgba(15,28,50,.45) 50%, rgba(15,28,50,.3) 100%); }
 
     .hero-content { position: relative; z-index: 3; max-width: 900px; }
-    .hero-eyebrow { font-size: 15px; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 18px; opacity: 0; }
+    .hero-eyebrow { font-size: 15px; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 18px; opacity: 0; text-shadow: 0 0 12px rgba(0,169,214,0.3); }
     .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 96px); font-weight: 520; line-height: 1.05; color: var(--white); margin-bottom: 18px; opacity: 0; letter-spacing: -0.01em; }
     .hero h1 em { font-style: normal; color: inherit; font-weight: inherit; }
     .hero-accent { color: var(--cyan) !important; font-style: normal; font-family: inherit; font-weight: inherit; }
-    .hero-sub { font-size: 17px; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 580px; margin-bottom: 28px; font-weight: 300; opacity: 0; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,.8); line-height: 1.7; max-width: 580px; margin-bottom: 28px; font-weight: 300; opacity: 0; }
     .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
     .btn-cyan { padding: 16px 40px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; display: inline-block; border-radius: 50px; }
     .btn-cyan:hover { background: #2CBFE6; transform: translateY(-1px); }
@@ -459,7 +459,7 @@
       .hero-content { margin-top: 0 !important; max-width: 100% !important; }
       .hero h1 { font-size: clamp(36px, 10vw, 56px) !important; line-height: 1.08 !important; margin-bottom: 16px !important; }
       .hero-eyebrow { font-size: 11px !important; letter-spacing: .18em !important; margin-bottom: 14px !important; }
-      .hero-sub { font-size: 15px !important; line-height: 1.6 !important; margin-bottom: 24px !important; }
+      .hero-sub { font-size: 16px !important; line-height: 1.6 !important; margin-bottom: 24px !important; }
       .hero-actions { gap: 12px !important; flex-wrap: wrap; }
       .section { padding: 72px 24px; }
       .section-bg .section-inner { padding: 80px 24px; }
@@ -1429,7 +1429,7 @@ class Photon {
     const speed = 0.12 + Math.random() * 0.28;
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
-    this.size = Math.random() * 1.4 + 0.3;
+    this.size = Math.random() * 1.8 + 0.5;
     this.life = 1;
     this.decay = 0.003 + Math.random() * 0.004;
     this.cyan = Math.random() > 0.55;
@@ -1443,8 +1443,8 @@ class Photon {
   }
   draw() {
     ctx.save();
-    ctx.globalAlpha = this.life * (this.cyan ? 0.7 : 0.4);
-    if (this.glow) { ctx.shadowBlur = 6; ctx.shadowColor = '#00A9D6'; }
+    ctx.globalAlpha = this.life * (this.cyan ? 0.85 : 0.55);
+    if (this.glow) { ctx.shadowBlur = 10; ctx.shadowColor = '#00A9D6'; }
     ctx.fillStyle = this.cyan ? '#00A9D6' : 'rgba(180,210,255,0.9)';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
