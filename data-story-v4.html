@@ -9,6 +9,8 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3/umd/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -131,7 +133,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
 /* FAINT SIGNAL */
 .faint-row{display:grid;grid-template-columns:160px 1fr 120px;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--light-border)}
 .faint-row:last-child{border-bottom:none}
-.faint-row-lbl{font-family:var(--mono);font-size:11px;color:var(--text-mid);text-align:right}
+.faint-row-lbl{font-family:var(--mono);font-size:11px;color:var(--text-mid);text-align:right;line-height:1.4}
 .faint-track{height:20px;background:rgba(26,36,52,.05);border-radius:4px;overflow:hidden}
 .faint-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
 .faint-row-val{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
@@ -206,7 +208,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
 @media(max-width:480px){
   .faint-row{grid-template-columns:90px 1fr;gap:8px}
   .faint-row-val{display:none}
+  .stat-strip{grid-template-columns:1fr}
+  .sc{border-right:none!important;border-bottom:1px solid var(--light-border)}
+  .sc:last-child{border-bottom:none}
+  .big-type-section .left-num{font-size:clamp(88px,24vw,130px)}
 }
+/* Bar chart mobile scroll */
+.bar-chart-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bar-chart-scroll svg{min-width:520px}
+/* Step opacity mobile override */
+@media(max-width:900px){
+  .step{opacity:1!important;filter:none!important}
+}
+/* Magnetic btn */
+.btn{position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(0,200,130,.06);transform:scale(0);border-radius:50px;transition:transform .4s ease}
+.btn:hover::after{transform:scale(1)}
+/* Char animation */
+.char{display:inline-block;will-change:transform,opacity}
 </style>
 </head>
 <body>
@@ -295,7 +314,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
         <div class="li li-dark"><div class="ld" style="background:#00e5a0"></div>Malignant</div>
         <div class="li li-dark"><div class="ld" style="background:#9b6dff"></div>Non-malignant</div>
       </div>
-      <div id="barChart"></div>
+      <div class="bar-chart-scroll"><div id="barChart"></div></div>
       <p class="chart-note chart-note-dark">Data based on published results — Murugan et al., Cancers 2020</p>
     </div>
   </div>
@@ -442,6 +461,53 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
+
+// ── LENIS SMOOTH SCROLL ────────────────────────────────────────────
+const lenis = new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),orientation:'vertical',smoothWheel:true});
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(time=>lenis.raf(time*1000));
+gsap.ticker.lagSmoothing(0);
+
+// ── SPLIT TYPE HERO ────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  const heroTitle = document.querySelector('.hero-h1');
+  if(!heroTitle) return;
+  const split = new SplitType(heroTitle, {types:'lines,words,chars'});
+  gsap.from(split.chars,{
+    opacity:0,
+    y:40,
+    rotateX:-60,
+    stagger:0.018,
+    duration:.7,
+    ease:'back.out(1.4)',
+    delay:.6,
+    onComplete:()=>split.revert()
+  });
+
+  // Section headings — word by word
+  document.querySelectorAll('.editorial h2, .editorial-dark h2, .green-section h2, .big-type-section h2').forEach(el=>{
+    const s = new SplitType(el,{types:'words'});
+    gsap.from(s.words,{
+      opacity:0,y:28,
+      stagger:.06,
+      duration:.7,
+      ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 85%',once:true},
+      onComplete:()=>s.revert()
+    });
+  });
+});
+
+// ── MAGNETIC BUTTONS ───────────────────────────────────────────────
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const x=e.clientX-r.left-r.width/2;
+    const y=e.clientY-r.top-r.height/2;
+    gsap.to(btn,{x:x*.25,y:y*.25,duration:.3,ease:'power2.out'});
+  });
+  btn.addEventListener('mouseleave',()=>gsap.to(btn,{x:0,y:0,duration:.5,ease:'elastic.out(1,.4)'}));
+});
 
 // ── CURSOR ──────────────────────────────────────────────────────────
 const cursor=document.getElementById('cursor');
