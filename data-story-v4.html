@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Light, Cancer & 100 Seconds — Murugan et al., Cancers 2020</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Cormorant:ital,wght@0,300;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f5f2ed;
+  --cream2:#ece8e0;
+  --ink:#0d1a28;
+  --ink2:#1a2d42;
+  --green:#00c882;
+  --green-pale:rgba(0,200,130,.1);
+  --green-mid:rgba(0,200,130,.25);
+  --white:#fafaf8;
+  --text:#1a2434;
+  --text-mid:rgba(26,36,52,.55);
+  --text-dim:rgba(26,36,52,.3);
+  --light-border:rgba(26,36,52,.09);
+  --dark-border:rgba(255,255,255,.08);
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Cormorant',serif;
+  --display:'Bricolage Grotesque',sans-serif;
+}
+html{scroll-behavior:smooth;cursor:none}
+body{font-family:var(--display);background:var(--cream);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* CURSOR */
+#cursor{position:fixed;width:12px;height:12px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s ease,width .3s ease,height .3s ease,opacity .3s ease;mix-blend-mode:multiply}
+#cursor.dark{mix-blend-mode:screen}
+#cursor.grow{width:32px;height:32px}
+
+/* GRAIN */
+.grain::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+.nav-logo{font-family:var(--mono);font-size:10px;color:#fff;letter-spacing:.12em;text-transform:uppercase}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:11px;color:rgba(255,255,255,.5);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;padding:0 56px 80px;position:relative;overflow:hidden}
+.hero canvas{position:absolute;inset:0;pointer-events:none}
+.hero-tag{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:32px;position:relative;z-index:2}
+.hero-h1{font-family:var(--display);font-weight:200;font-size:clamp(56px,10vw,130px);line-height:.92;letter-spacing:-.04em;color:#fff;max-width:1100px;position:relative;z-index:2;margin-bottom:0}
+.hero-h1 .italic{font-family:var(--serif);font-style:italic;color:var(--green);font-weight:300;font-size:1.08em;letter-spacing:-.02em}
+.hero-h1 .light{opacity:.35}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:64px;position:relative;z-index:2;padding-top:40px;border-top:1px solid rgba(255,255,255,.07)}
+.hero-sub{font-family:'Inter',sans-serif;font-size:16px;color:rgba(255,255,255,.42);max-width:420px;line-height:1.8;font-weight:300}
+.hero-meta{display:flex;gap:40px}
+.hm-item{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.25);line-height:1.8}
+.hm-item strong{display:block;color:rgba(255,255,255,.45);font-weight:400;margin-bottom:2px}
+
+/* STAT STRIP — editorial */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--white);border-bottom:1px solid var(--light-border)}
+.sc{padding:60px 48px 56px;border-right:1px solid var(--light-border);position:relative;overflow:hidden;cursor:none}
+.sc:last-child{border-right:none}
+.sc-bg{position:absolute;bottom:-20px;right:16px;font-family:var(--display);font-size:120px;font-weight:800;color:var(--cream2);line-height:1;pointer-events:none;transition:color .3s}
+.sc:hover .sc-bg{color:rgba(0,200,130,.1)}
+.sc-n{font-family:var(--display);font-size:clamp(48px,5vw,72px);font-weight:300;color:var(--text);line-height:1;margin-bottom:12px;position:relative;z-index:1}
+.sc-n span{color:var(--green)}
+.sc-l{font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.6;max-width:160px;position:relative;z-index:1}
+
+/* BIG TYPE MOMENT — 90% */
+.big-type-section{background:var(--ink);padding:120px 56px;position:relative;overflow:hidden}
+.big-type-section .sec-num{font-family:var(--display);font-size:clamp(160px,28vw,320px);font-weight:800;line-height:.85;color:rgba(255,255,255,.04);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;letter-spacing:-.05em}
+.big-type-section .content{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
+.big-type-section .left-num{font-family:var(--display);font-size:clamp(140px,22vw,240px);font-weight:200;color:var(--green);line-height:.9;letter-spacing:-.04em}
+.big-type-section .right-text{}
+.big-type-section .label{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px}
+.big-type-section h2{font-family:var(--display);font-size:clamp(28px,3vw,40px);font-weight:300;color:#fff;line-height:1.2;margin-bottom:20px;letter-spacing:-.02em}
+.big-type-section p{font-family:'Inter',sans-serif;font-size:16px;color:rgba(255,255,255,.5);line-height:1.8}
+
+/* GREEN MOMENT — 20Hz */
+.green-section{background:var(--green);padding:100px 56px;position:relative;overflow:hidden}
+.green-section .big-hz{font-family:var(--display);font-size:clamp(100px,20vw,220px);font-weight:800;line-height:.85;color:rgba(0,0,0,.08);position:absolute;right:-20px;bottom:-20px;letter-spacing:-.05em;pointer-events:none}
+.green-section .content{position:relative;z-index:2;max-width:900px}
+.green-section .label{font-family:var(--mono);font-size:10px;color:rgba(0,0,0,.4);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;display:block}
+.green-section h2{font-family:var(--display);font-size:clamp(36px,6vw,72px);font-weight:300;color:var(--ink);line-height:1.05;margin-bottom:24px;letter-spacing:-.03em}
+.green-section p{font-family:'Inter',sans-serif;font-size:17px;color:rgba(13,26,40,.65);line-height:1.8;max-width:620px}
+
+/* EDITORIAL SECTIONS */
+.editorial{padding:120px 56px;max-width:1300px;margin:0 auto}
+.editorial .sec-label{font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;display:block}
+.editorial .sec-num-bg{font-family:var(--display);font-size:200px;font-weight:800;color:rgba(26,36,52,.03);line-height:1;margin-bottom:-100px;letter-spacing:-.04em;pointer-events:none;user-select:none}
+.editorial h2{font-family:var(--display);font-size:clamp(36px,5vw,62px);font-weight:300;line-height:1.08;letter-spacing:-.025em;color:var(--text);margin-bottom:28px}
+.editorial h2 em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--text)}
+.editorial .body{font-family:'Inter',sans-serif;font-size:17px;color:var(--text-mid);line-height:1.85;margin-bottom:20px;max-width:680px}
+.editorial .body strong{color:var(--text);font-weight:500}
+.two-col{display:grid;grid-template-columns:5fr 4fr;gap:80px;align-items:start}
+
+/* DARK EDITORIAL */
+.editorial-dark{background:var(--ink2);padding:120px 56px}
+.editorial-dark-inner{max-width:1300px;margin:0 auto}
+.editorial-dark .sec-label{color:rgba(0,200,130,.7)}
+.editorial-dark .sec-num-bg{color:rgba(255,255,255,.025)}
+.editorial-dark h2{color:#fff}
+.editorial-dark h2 em{color:rgba(255,255,255,.6)}
+.editorial-dark .body{color:rgba(255,255,255,.5)}
+.editorial-dark .body strong{color:#fff}
+
+/* PULL QUOTES */
+.pq{margin:48px 0;padding-left:32px;border-left:2px solid var(--green)}
+.pq p{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,32px);font-weight:300;color:var(--text);line-height:1.4;letter-spacing:-.01em}
+.pq cite{font-family:var(--mono);font-size:10px;color:var(--text-dim);font-style:normal;letter-spacing:.08em;display:block;margin-top:12px;text-transform:uppercase}
+.pq-dark .pq p{color:rgba(255,255,255,.85)}
+.pq-dark .pq cite{color:rgba(255,255,255,.25)}
+
+/* CHART STYLES */
+.chart-wrap{margin:40px 0}
+.chart-label{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.chart-label-dark{color:rgba(255,255,255,.25)}
+.chart-sub{font-family:'Inter',sans-serif;font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:24px;max-width:600px}
+.chart-sub-dark{color:rgba(255,255,255,.3)}
+.chart-note{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:16px;letter-spacing:.02em}
+.chart-note-dark{color:rgba(255,255,255,.2)}
+.leg{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.li{display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-mid)}
+.li-dark{color:rgba(255,255,255,.4)}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* FAINT SIGNAL */
+.faint-row{display:grid;grid-template-columns:160px 1fr 120px;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--light-border)}
+.faint-row:last-child{border-bottom:none}
+.faint-row-lbl{font-family:var(--mono);font-size:11px;color:var(--text-mid);text-align:right}
+.faint-track{height:20px;background:rgba(26,36,52,.05);border-radius:4px;overflow:hidden}
+.faint-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.faint-row-val{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+.faint-highlight .faint-fill{box-shadow:0 0 24px rgba(0,200,130,.35)}
+.faint-highlight .faint-row-lbl{color:var(--green)}
+.faint-highlight .faint-row-val{color:var(--green)}
+
+/* SCROLLYTELL */
+.sticky-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.sticky-panel{position:sticky;top:80px;height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;padding:40px 48px 40px 56px;background:var(--cream)}
+.steps-panel{padding:100px 56px 100px 48px;background:var(--white)}
+.step{padding:48px 0;border-bottom:1px solid var(--light-border);opacity:.25;filter:blur(.5px);transition:opacity .5s ease,filter .5s ease}
+.step.active{opacity:1;filter:none}
+.step:last-child{border-bottom:none}
+.step-tag{font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;display:block}
+.step-h{font-family:var(--display);font-size:clamp(20px,2.2vw,26px);font-weight:400;color:var(--text);margin-bottom:12px;line-height:1.25;letter-spacing:-.01em}
+.step-p{font-family:'Inter',sans-serif;font-size:15px;color:var(--text-mid);line-height:1.8}
+
+/* 3-COL CALLOUT */
+.callout3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:48px 0}
+.callout3-cell{background:var(--cream2);padding:56px 40px;text-align:center}
+.callout3-n{font-family:var(--display);font-size:clamp(44px,6vw,80px);font-weight:200;color:var(--text);line-height:1;margin-bottom:12px;letter-spacing:-.03em}
+.callout3-n sup{font-size:.5em;vertical-align:super}
+.callout3-l{font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* CITE BOX */
+.cite-box{background:var(--ink);padding:64px;margin-top:80px;border-radius:0}
+.cite-box h4{font-family:var(--mono);font-size:10px;color:rgba(0,200,130,.6);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px}
+.cite-box p{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.4);line-height:1.9}
+.cite-box a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(0,200,130,.25)}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 32px;border:1px solid rgba(0,200,130,.3);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:all .25s}
+.btn:hover{background:rgba(0,200,130,.08);border-color:var(--green)}
+
+/* SEP */
+.sep{height:1px;background:var(--light-border)}
+
+/* TOOLTIP */
+#tip{position:fixed;background:var(--ink);padding:12px 16px;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.65);pointer-events:none;opacity:0;transition:opacity .15s;z-index:9998;line-height:1.6;border-left:2px solid var(--green);max-width:200px}
+#tip strong{font-family:var(--mono);color:var(--green);display:block;margin-bottom:3px;font-size:10px;letter-spacing:.06em}
+
+/* MOBILE */
+@media(max-width:900px){
+  html,body{cursor:auto}#cursor{display:none}
+  nav{padding:16px 24px;mix-blend-mode:normal;background:rgba(13,26,40,.9)}
+  .nav-links{display:none}
+  .hero{padding:80px 24px 56px}
+  .hero-bottom{flex-direction:column;gap:32px;align-items:flex-start}
+  .hero-meta{display:none}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .sc{padding:36px 24px;border-right:none;border-bottom:1px solid var(--light-border)}
+  .sc:nth-child(odd){border-right:1px solid var(--light-border)}
+  .editorial,.editorial-dark{padding:80px 24px}
+  .editorial-dark{padding:80px 24px}
+  .editorial .sec-num-bg{font-size:120px;margin-bottom:-60px}
+  .editorial h2{font-size:clamp(28px,8vw,48px)}
+  .two-col{grid-template-columns:1fr}
+  .big-type-section{padding:80px 24px}
+  .big-type-section .content{grid-template-columns:1fr;gap:32px}
+  .big-type-section .left-num{font-size:clamp(100px,28vw,160px)}
+  .green-section{padding:80px 24px}
+  .green-section h2{font-size:clamp(36px,10vw,60px)}
+  .sticky-wrap{display:block}
+  .sticky-panel{position:static;height:auto;padding:40px 24px}
+  .steps-panel{padding:40px 24px}
+  .step{opacity:1;filter:none}
+  .callout3{grid-template-columns:1fr}
+  .callout3-cell{padding:36px 24px}
+  .cite-box{padding:40px 24px}
+  .faint-row{grid-template-columns:120px 1fr 90px;gap:10px}
+}
+@media(max-width:480px){
+  .faint-row{grid-template-columns:90px 1fr;gap:8px}
+  .faint-row-val{display:none}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="tip"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">UPE Study · 2020</span>
+  <div class="nav-links">
+    <a href="#signal">Signal</a>
+    <a href="#celllines">Cell Lines</a>
+    <a href="#frequency">Frequency</a>
+    <a href="#mice">In Vivo</a>
+    <a href="#context">Context</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero grain">
+  <canvas id="heroCanvas"></canvas>
+  <p class="hero-tag">Cancers · MDPI · Peer-Reviewed · April 18, 2020</p>
+  <h1 class="hero-h1">
+    <span class="light">Cancer</span><br>
+    changes<br>
+    the <span class="italic">light</span><br>
+    <span class="light">you emit.</span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-sub">A 2020 peer-reviewed study proved it across 13 cancer cell lines and 47 living mice. The signal is measurable. The test takes 100 seconds.</p>
+    <div class="hero-meta">
+      <div class="hm-item"><strong>Lead Author</strong>Dr. Nirosha J. Murugan</div>
+      <div class="hm-item"><strong>Journal</strong>Cancers (MDPI), Vol. 12</div>
+      <div class="hm-item"><strong>DOI</strong>10.3390/cancers12041001</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stat-strip">
+  <div class="sc"><div class="sc-bg">13</div><div class="sc-n" data-count="13">0</div><div class="sc-l">cancer cell lines tested in vitro</div></div>
+  <div class="sc"><div class="sc-bg">47</div><div class="sc-n" data-count="47">0</div><div class="sc-l">living mice in the in vivo experiments</div></div>
+  <div class="sc"><div class="sc-bg">90</div><div class="sc-n" data-count="90"><span id="cnt90">0</span><span>%</span></div><div class="sc-l">discriminant accuracy across all conditions</div></div>
+  <div class="sc"><div class="sc-bg">100</div><div class="sc-n">100<span>s</span></div><div class="sc-l">measurement window. No blood. No biopsy.</div></div>
+</div>
+
+<!-- SECTION 1: PHYSICS -->
+<section id="signal">
+  <div class="editorial">
+    <div class="sec-num-bg">01</div>
+    <span class="sec-label">The Physics</span>
+    <div class="two-col">
+      <div>
+        <h2>Every living cell<br><em>emits light.</em></h2>
+        <p class="body">Not metaphorically. The chemical reactions powering cellular metabolism produce a continuous, faint stream of photons. These ultraweak photon emissions have been documented for decades. They are real and measurable — but only just barely.</p>
+        <p class="body">The signal from melanoma cells measures approximately <strong>10⁻¹¹ to 10⁻¹⁰ W/m²</strong>. To read it, you need one of the most sensitive light detectors ever built: a photomultiplier tube capable of counting single photons in complete darkness. That's the instrument that makes this study possible.</p>
+        <div class="pq">
+          <p>"Changes in photon emissions reflect the integrity of the plasma membrane and mitochondria — the core machinery of cellular life."</p>
+          <cite>Murugan et al., Cancers 2020</cite>
+        </div>
+      </div>
+      <div>
+        <div class="chart-wrap" id="faintBox">
+          <div class="chart-label">Signal Intensity Comparison</div>
+          <div class="chart-sub">How bright is 10⁻¹⁰ W/m²? Proportional bars.</div>
+          <div id="faintChart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- SECTION 2: CELL LINES — dark -->
+<section id="celllines" class="editorial-dark">
+  <div class="editorial-dark-inner">
+    <div class="sec-num-bg">02</div>
+    <span class="sec-label">In Vitro Study</span>
+    <h2>13 different cancers.<br><em style="color:rgba(255,255,255,.45)">Same signal.</em></h2>
+    <p class="body">13 human and mouse cell lines — pancreatic, melanoma, cervical, breast, kidney — measured for exactly 100 seconds each. Malignant cells emitted <strong>significantly more photons</strong> than non-malignant counterparts across every single line tested. No exceptions.</p>
+    <div class="chart-wrap">
+      <div class="chart-label chart-label-dark">Relative Photon Emission by Cell Line</div>
+      <div class="chart-sub chart-sub-dark">Normalized values. Hover any bar for detail.</div>
+      <div class="leg">
+        <div class="li li-dark"><div class="ld" style="background:#00e5a0"></div>Malignant</div>
+        <div class="li li-dark"><div class="ld" style="background:#9b6dff"></div>Non-malignant</div>
+      </div>
+      <div id="barChart"></div>
+      <p class="chart-note chart-note-dark">Data based on published results — Murugan et al., Cancers 2020</p>
+    </div>
+  </div>
+</section>
+
+<!-- GREEN MOMENT: 20 Hz -->
+<section class="green-section" id="frequency">
+  <div class="big-hz">20Hz</div>
+  <div class="content">
+    <span class="label">The Discovery</span>
+    <h2>Cancer has<br>a frequency.</h2>
+    <p>Spectral Power Density analysis broke the emissions into frequency components from 0.1 to 25 Hz. One signal emerged consistently across every malignant cell line: a pronounced peak at <strong>approximately 20 Hz</strong>. Non-malignant cells never showed it. The spectral shape — not the brightness — is the fingerprint.</p>
+  </div>
+</section>
+
+<!-- SPD SCROLLYTELL -->
+<div class="sticky-wrap" id="spdWrap">
+  <div class="sticky-panel">
+    <div id="spdChartWrap" style="width:100%;max-width:460px"></div>
+  </div>
+  <div class="steps-panel" id="spdSteps">
+    <div class="step active" data-step="0">
+      <span class="step-tag">Step 01</span>
+      <div class="step-h">Non-malignant: flat and quiet</div>
+      <p class="step-p">Non-malignant cells produce a flat spectral profile. Power is distributed evenly across the measured frequency range. No distinguishing features. It's quiet.</p>
+    </div>
+    <div class="step" data-step="1">
+      <span class="step-tag">Step 02</span>
+      <div class="step-h">Malignant cells show structure</div>
+      <p class="step-p">Add malignant cell data and the picture changes immediately. The profile is no longer flat. Power accumulates at a specific region. The two curves diverge.</p>
+    </div>
+    <div class="step" data-step="2">
+      <span class="step-tag">Step 03</span>
+      <div class="step-h">The 20 Hz peak</div>
+      <p class="step-p">Every malignant cell line — regardless of cancer type or species — showed a pronounced peak around <strong>20 Hz</strong>. Non-malignant cells never showed this. That spectral shape is the diagnostic fingerprint.</p>
+    </div>
+    <div class="step" data-step="3">
+      <span class="step-tag">Step 04</span>
+      <div class="step-h">Why 20 Hz?</div>
+      <p class="step-p">Prior research found that weak magnetic field pulsations at approximately 20 Hz inhibit malignant cell growth in culture. The emission frequency and the biological vulnerability may share a common mechanism — a window into what defines cancer at the cellular level.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- BIG TYPE: 90% -->
+<section class="big-type-section grain">
+  <div class="sec-num">ACCURACY</div>
+  <div class="content">
+    <div class="left-num">90<span style="font-size:.5em;color:rgba(0,200,130,.7)">%</span></div>
+    <div class="right-text">
+      <div class="label">04 — The Result</div>
+      <h2>Correct.<br>Every time.</h2>
+      <p>Step-wise linear discriminant analysis of the SPD profiles yielded 90% accuracy distinguishing malignant from non-malignant across all 13 cell lines and animal conditions. The feature driving the classification: the spectral shape of the 20 Hz band.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACCURACY + SCATTER -->
+<section>
+  <div class="editorial">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start">
+      <div>
+        <div class="chart-label">Classification — 90 of 100</div>
+        <div class="chart-sub">Each circle = one outcome.</div>
+        <div class="leg" style="margin-bottom:16px">
+          <div class="li"><div class="ld" style="background:var(--green);border-radius:50%"></div>Correct (90)</div>
+          <div class="li"><div class="ld" style="background:var(--cream2);border:1px solid var(--light-border);border-radius:50%"></div>Error (10)</div>
+        </div>
+        <div id="accGrid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:300px"></div>
+      </div>
+      <div>
+        <div class="chart-label">Cluster Separation</div>
+        <div class="chart-sub">Malignant vs. non-malignant in SPD feature space. Hover a point.</div>
+        <div id="scatterChart"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- SECTION 5: MICE — dark -->
+<section id="mice" class="editorial-dark">
+  <div class="editorial-dark-inner">
+    <div class="sec-num-bg">05</div>
+    <span class="sec-label">In Vivo Study</span>
+    <h2>47 mice.<br><em style="color:rgba(255,255,255,.4)">One diverging line.</em></h2>
+    <p class="body">23 mice injected with live melanoma cells. 16 controls. 8 procedural controls (UV-irradiated cells). Whole-body photon emissions measured at days 1, 7, 10, 13, and 19. At day 19, tumors became physically palpable for the first time.</p>
+    <div class="chart-wrap">
+      <div class="chart-label chart-label-dark">Whole-Body Photon Emissions Over Time</div>
+      <div class="chart-sub chart-sub-dark">Tumor group vs. control, days 1–19. Shaded bands = variance. Day 19 = first physical evidence.</div>
+      <div class="leg">
+        <div class="li li-dark"><div class="ld" style="background:#00e5a0"></div>Tumor (n=23)</div>
+        <div class="li li-dark"><div class="ld" style="background:#9b6dff;opacity:.7"></div>Control (n=16)</div>
+        <div class="li li-dark"><div class="ld" style="background:#f5a623;opacity:.6"></div>UV-irradiated (n=8)</div>
+      </div>
+      <div id="timelineChart"></div>
+      <p class="chart-note chart-note-dark">Data based on published results — Murugan et al., Cancers 2020</p>
+    </div>
+    <div class="pq-dark" style="margin-top:56px">
+      <div class="pq">
+        <p>"Emission profiles of melanoma-injected mice could be differentiated from the reference group as early as 24 hours post-injection."</p>
+        <cite>Murugan et al., Cancers 2020</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: CONTEXT — cream -->
+<section id="context">
+  <div class="editorial">
+    <div class="sec-num-bg">06</div>
+    <span class="sec-label">Why It Matters</span>
+    <h2>The comparison<br><em>is staggering.</em></h2>
+    <p class="body">The result is striking on its own. Its significance only becomes clear against the backdrop of what every other method requires.</p>
+    <div class="chart-wrap" id="threshBox">
+      <div class="chart-label">Detection Threshold — Cells Required</div>
+      <div class="chart-sub">Log₁₀ scale. Each order of magnitude = 10× more cells required.</div>
+      <div id="threshChart"></div>
+      <p class="chart-note">Based on Murugan et al. 2020, Wan et al. 2017, Siravegna et al. 2017</p>
+    </div>
+    <div class="callout3">
+      <div class="callout3-cell"><div class="callout3-n">10<sup>6</sup></div><div class="callout3-l">cells at UPE detection — this study</div></div>
+      <div class="callout3-cell"><div class="callout3-n">10<sup>8</sup></div><div class="callout3-l">cells required for liquid biopsy</div></div>
+      <div class="callout3-cell"><div class="callout3-n">10<sup>9</sup></div><div class="callout3-l">cells before standard imaging detects anything</div></div>
+    </div>
+    <p class="body" style="margin-top:40px">Standard imaging requires a tumor of roughly 1 billion cells before it appears on a scan. UPE detection in this study occurred at less than 1 million — <strong>1,000× earlier</strong> in the disease. That's not a marginal improvement. It's a different category of tool.</p>
+  </div>
+</section>
+
+<!-- CITATION -->
+<div class="cite-box" style="margin:0">
+  <div style="max-width:1200px;margin:0 auto">
+    <h4>Full Citation</h4>
+    <p>Murugan NJ, Persinger MA, Karbowski LM, Dotta BT. Ultraweak Photon Emissions as a Non-Invasive, Early-Malignancy Detection Tool: An In Vitro and In Vivo Study. <em>Cancers (Basel).</em> 2020 Apr 18;12(4):1001. doi: <a href="https://doi.org/10.3390/cancers12041001" target="_blank">10.3390/cancers12041001</a>. PMCID: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank">PMC7226102</a>. Open Access.</p>
+    <div class="btn-row">
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" class="btn">Read full paper →</a>
+      <a href="https://doi.org/10.3390/cancers12041001" target="_blank" class="btn">DOI</a>
+    </div>
+  </div>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ── CURSOR ──────────────────────────────────────────────────────────
+const cursor=document.getElementById('cursor');
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.12,ease:'power2.out'})});
+document.querySelectorAll('a,button,.sc,.step').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('grow'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('grow'));
+});
+document.querySelectorAll('.hero,.editorial-dark,.big-type-section,.cite-box').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('dark'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('dark'));
+});
+
+// ── TOOLTIP ────────────────────────────────────────────────────────
+const tip=document.getElementById('tip');
+function showTip(html,x,y){tip.innerHTML=html;tip.style.opacity='1';tip.style.left=(x+18)+'px';tip.style.top=(y-10)+'px'}
+function moveTip(e){tip.style.left=(e.clientX+18)+'px';tip.style.top=(e.clientY-10)+'px'}
+function hideTip(){tip.style.opacity='0'}
+
+// ── HERO CANVAS ─────────────────────────────────────────────────────
+(()=>{
+  const c=document.getElementById('heroCanvas'),ctx=c.getContext('2d');
+  let pts=[];
+  const rs=()=>{c.width=c.offsetWidth;c.height=c.offsetHeight;pts=Array.from({length:60},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,a:Math.random()*.4+.06}))};
+  rs();window.addEventListener('resize',rs);
+  (function loop(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,200,130,${p.a})`;ctx.fill()});requestAnimationFrame(loop)})();
+})();
+
+// ── HERO GSAP ──────────────────────────────────────────────────────
+gsap.from('.hero-tag',{opacity:0,y:20,duration:1,ease:'power3.out',delay:.3});
+gsap.from('.hero-h1',{opacity:0,y:40,duration:1.2,ease:'power3.out',delay:.5,stagger:.1});
+gsap.from('.hero-bottom',{opacity:0,y:24,duration:1,ease:'power3.out',delay:1.1});
+
+// ── STAT COUNTERS ──────────────────────────────────────────────────
+document.querySelectorAll('.sc-n[data-count]').forEach(el=>{
+  const target=+el.dataset.count;
+  const display=el.querySelector('span')||el;
+  ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{
+    gsap.to({v:0},{v:target,duration:1.2,ease:'power2.out',onUpdate:function(){display.textContent=Math.round(this.targets()[0].v)}});
+  }});
+});
+
+// ── EDITORIAL REVEALS ─────────────────────────────────────────────
+gsap.utils.toArray('.sec-num-bg,.sec-label,.editorial h2,.editorial-dark-inner h2,.editorial .body,.editorial-dark .body,.pq,.callout3,.chart-wrap,.two-col,.big-type-section .content,.green-section .content').forEach(el=>{
+  gsap.from(el,{opacity:0,y:32,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%',once:true}});
+});
+
+// ── FAINT SIGNAL ──────────────────────────────────────────────────
+(()=>{
+  const data=[
+    {label:'Sunlight',val:1000,color:'#f5a623',note:'1,000 W/m²',hi:false},
+    {label:'Overcast sky',val:100,color:'rgba(26,36,52,.35)',note:'100 W/m²',hi:false},
+    {label:'Candle at 1m',val:1,color:'rgba(26,36,52,.25)',note:'~1 W/m²',hi:false},
+    {label:'Candle at 10km',val:1e-8,color:'rgba(26,36,52,.15)',note:'~10⁻⁸ W/m²',hi:false},
+    {label:'UPE — cancer cell',val:1e-10,color:'#00c882',note:'~10⁻¹⁰ W/m²',hi:true},
+  ];
+  const con=document.getElementById('faintChart');
+  const min=-11,max=4;
+  data.forEach(d=>{
+    const logV=Math.log10(d.val),pct=((logV-min)/(max-min))*100;
+    const row=document.createElement('div');
+    row.className='faint-row'+(d.hi?' faint-highlight':'');
+    row.innerHTML=`<div class="faint-row-lbl">${d.label}</div><div class="faint-track"><div class="faint-fill" style="background:${d.color};width:0" data-pct="${pct}"></div></div><div class="faint-row-val">${d.note}</div>`;
+    con.appendChild(row);
+  });
+  ScrollTrigger.create({trigger:'#faintBox',start:'top 70%',once:true,onEnter:()=>{
+    document.querySelectorAll('.faint-fill').forEach((b,i)=>setTimeout(()=>{b.style.width=b.dataset.pct+'%'},i*130));
+  }});
+})();
+
+// ── D3 BAR CHART ───────────────────────────────────────────────────
+(()=>{
+  const cells=[
+    {name:'AsPC-1',type:'Pancreatic',m:true,v:88},{name:'Capan-1',type:'Pancreatic',m:true,v:82},
+    {name:'CFPAC-1',type:'Pancreatic',m:true,v:79},{name:'B16-BL6',type:'Melanoma (mouse)',m:true,v:91},
+    {name:'BxPC3',type:'Pancreatic',m:true,v:85},{name:'HELA',type:'Cervical',m:true,v:77},
+    {name:'HPAF-11',type:'Pancreatic',m:true,v:80},{name:'Hs 578T',type:'Breast',m:true,v:74},
+    {name:'MCF7',type:'Breast',m:true,v:76},{name:'MDA MB 231',type:'Breast',m:true,v:72},
+    {name:'HBL 100',type:'Breast',m:false,v:34},{name:'HEK 293',type:'Kidney',m:false,v:28},
+    {name:'HSG',type:'Submandibular',m:false,v:31},
+  ];
+  const el=document.getElementById('barChart');
+  const W=Math.min(el.closest('.editorial-dark-inner').offsetWidth-0,1000);
+  const H=cells.length*36+40,ml=100,mr=80,mt=8,mb=28;
+  const svg=d3.select('#barChart').append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  const x=d3.scaleLinear().domain([0,100]).range([ml,W-mr]);
+  const y=d3.scaleBand().domain(cells.map(c=>c.name)).range([mt,H-mb]).padding(.28);
+  svg.selectAll('.xg').data(x.ticks(5)).enter().append('line').attr('x1',d=>x(d)).attr('x2',d=>x(d)).attr('y1',mt).attr('y2',H-mb).attr('stroke','rgba(255,255,255,.05)');
+  svg.selectAll('rect.b').data(cells).enter().append('rect').attr('class','b')
+    .attr('x',ml).attr('y',d=>y(d.name)).attr('height',y.bandwidth()).attr('width',0).attr('rx',3)
+    .attr('fill',d=>d.m?'#00e5a0':'#9b6dff').attr('opacity',.85)
+    .on('mouseover',(e,d)=>showTip(`<strong>${d.name}</strong>${d.type}<br>${d.m?'Malignant':'Non-malignant'}`,e.clientX,e.clientY))
+    .on('mousemove',moveTip).on('mouseout',hideTip);
+  svg.selectAll('.bl').data(cells).enter().append('text').attr('class','bl')
+    .attr('x',ml-8).attr('y',d=>y(d.name)+y.bandwidth()/2+4).attr('text-anchor','end')
+    .attr('font-family','JetBrains Mono,monospace').attr('font-size',10).attr('fill','rgba(255,255,255,.35)').text(d=>d.name);
+  svg.append('g').attr('transform',`translate(0,${H-mb})`).call(d3.axisBottom(x).ticks(5).tickFormat(d=>d+'%')).call(g=>{g.select('.domain').remove();g.selectAll('line').attr('stroke','rgba(255,255,255,.08)');g.selectAll('text').attr('fill','rgba(255,255,255,.25)').attr('font-family','JetBrains Mono,monospace').attr('font-size',9)});
+  ScrollTrigger.create({trigger:'#barChart',start:'top 70%',once:true,onEnter:()=>{
+    svg.selectAll('rect.b').transition().duration(1000).delay((_,i)=>i*55).attr('width',d=>x(d.v)-ml);
+  }});
+})();
+
+// ── D3 SPD SCROLLYTELL ─────────────────────────────────────────────
+(()=>{
+  const W=440,H=280,ml=40,mr=20,mt=20,mb=40;
+  const iw=W-ml-mr,ih=H-mt-mb;
+  const svg=d3.select('#spdChartWrap').append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`).style('background','var(--white)');
+  const x=d3.scaleLinear().domain([0,25]).range([ml,W-mr]);
+  const y=d3.scaleLinear().domain([0,1.05]).range([mt+ih,mt]);
+  const N=200;
+  const normD=Array.from({length:N},(_,i)=>({hz:i/N*25,spd:.038+.015*Math.sin(i/N*25*.65)+.008*(Math.random()-.5)}));
+  const malD=Array.from({length:N},(_,i)=>{const hz=i/N*25;return{hz,spd:.038+.012*Math.sin(hz*.65)+Math.exp(-Math.pow(hz-20,2)/1.6)*.92+.007*(Math.random()-.5)}});
+  const lineG=d3.line().x(d=>x(d.hz)).y(d=>y(Math.max(0,d.spd))).curve(d3.curveCatmullRom.alpha(.5));
+  const areaG=d3.area().x(d=>x(d.hz)).y0(mt+ih).y1(d=>y(Math.max(0,d.spd))).curve(d3.curveCatmullRom.alpha(.5));
+  [0,5,10,15,20,25].forEach(hz=>{
+    svg.append('line').attr('x1',x(hz)).attr('x2',x(hz)).attr('y1',mt).attr('y2',mt+ih).attr('stroke','rgba(26,36,52,.06)');
+    svg.append('text').attr('x',x(hz)).attr('y',H-8).attr('text-anchor','middle').attr('font-family','JetBrains Mono,monospace').attr('font-size',8).attr('fill','rgba(26,36,52,.3)').text(hz+'Hz');
+  });
+  svg.append('g').attr('transform',`translate(${ml},0)`).call(d3.axisLeft(y).ticks(4)).call(g=>{g.select('.domain').remove();g.selectAll('line').remove();g.selectAll('text').attr('fill','rgba(26,36,52,.2)').attr('font-family','JetBrains Mono,monospace').attr('font-size',8)});
+  const band=svg.append('rect').attr('x',x(18)).attr('y',mt).attr('width',x(22)-x(18)).attr('height',ih).attr('fill','rgba(0,200,130,.08)').attr('opacity',0);
+  const bandL=svg.append('text').attr('x',(x(18)+x(22))/2).attr('y',mt+13).attr('text-anchor','middle').attr('font-family','JetBrains Mono,monospace').attr('font-size',8).attr('fill','rgba(0,200,130,0)').text('~20 Hz');
+  svg.append('path').datum(normD).attr('fill','rgba(155,109,255,.06)').attr('d',areaG);
+  svg.append('path').datum(normD).attr('fill','none').attr('stroke','rgba(155,109,255,.45)').attr('stroke-width',1.5).attr('d',lineG);
+  const mA=svg.append('path').datum(malD).attr('fill','rgba(0,200,130,.07)').attr('d',areaG).attr('opacity',0);
+  const mL=svg.append('path').datum(malD).attr('fill','none').attr('stroke','#00c882').attr('stroke-width',2).attr('d',lineG).attr('opacity',0);
+  const steps=document.querySelectorAll('#spdSteps .step');
+  function setStep(n){
+    steps.forEach((s,i)=>s.classList.toggle('active',i===n));
+    mA.transition().duration(600).attr('opacity',n>=1?1:0);
+    mL.transition().duration(600).attr('opacity',n>=1?1:0);
+    band.transition().duration(600).attr('opacity',n>=2?1:0);
+    bandL.transition().duration(600).attr('fill',n>=2?'rgba(0,200,130,.55)':'rgba(0,200,130,0)');
+  }
+  const sio=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting)setStep(+en.target.dataset.step)}),{threshold:.55,rootMargin:'-15% 0px -15% 0px'});
+  steps.forEach(s=>sio.observe(s));
+})();
+
+// ── ACCURACY GRID ─────────────────────────────────────────────────
+(()=>{
+  const g=document.getElementById('accGrid');
+  for(let i=0;i<100;i++){
+    const c=document.createElement('div');
+    c.style.cssText=`aspect-ratio:1;border-radius:50%;background:${i<90?'var(--green)':'var(--cream2)'};border:${i<90?'none':'1px solid var(--light-border)'};opacity:0;transition:opacity .2s`;
+    g.appendChild(c);
+  }
+  ScrollTrigger.create({trigger:'#accGrid',start:'top 75%',once:true,onEnter:()=>{
+    g.querySelectorAll('div').forEach((c,i)=>setTimeout(()=>c.style.opacity='1',i*14));
+  }});
+})();
+
+// ── D3 SCATTER ────────────────────────────────────────────────────
+(()=>{
+  const cells=[
+    {n:'AsPC-1',t:'Pancreatic',m:true,x:.72,y:.68},{n:'Capan-1',t:'Pancreatic',m:true,x:.64,y:.74},
+    {n:'CFPAC-1',t:'Pancreatic',m:true,x:.69,y:.61},{n:'B16-BL6',t:'Melanoma',m:true,x:.81,y:.78},
+    {n:'BxPC3',t:'Pancreatic',m:true,x:.74,y:.70},{n:'HELA',t:'Cervical',m:true,x:.60,y:.66},
+    {n:'HPAF-11',t:'Pancreatic',m:true,x:.67,y:.72},{n:'Hs 578T',t:'Breast',m:true,x:.58,y:.62},
+    {n:'MCF7',t:'Breast',m:true,x:.62,y:.57},{n:'MDA MB 231',t:'Breast',m:true,x:.55,y:.65},
+    {n:'HBL 100',t:'Breast',m:false,x:.22,y:.28},{n:'HEK 293',t:'Kidney',m:false,x:.18,y:.20},{n:'HSG',t:'Submandibular',m:false,x:.28,y:.24},
+  ];
+  const W=320,H=240,p=28;
+  const svg=d3.select('#scatterChart').append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  const x=d3.scaleLinear().domain([0,1]).range([p,W-p]);
+  const y=d3.scaleLinear().domain([0,1]).range([H-p,p]);
+  svg.append('line').attr('x1',x(.43)).attr('x2',x(.43)).attr('y1',p).attr('y2',H-p).attr('stroke','rgba(26,36,52,.08)').attr('stroke-dasharray','3 3');
+  svg.append('text').attr('x',W/2).attr('y',H-4).attr('text-anchor','middle').attr('font-family','JetBrains Mono,monospace').attr('font-size',8).attr('fill','rgba(26,36,52,.2)').text('SPD Feature 1 (20Hz power)');
+  svg.selectAll('circle').data(cells).enter().append('circle')
+    .attr('cx',d=>x(d.x)).attr('cy',d=>y(d.y)).attr('r',0)
+    .attr('fill',d=>d.m?'#00c882':'#9b6dff').attr('opacity',.85).style('cursor','none')
+    .on('mouseover',(e,d)=>showTip(`<strong>${d.n}</strong>${d.t}<br>${d.m?'Malignant':'Non-malignant'}`,e.clientX,e.clientY))
+    .on('mousemove',moveTip).on('mouseout',hideTip);
+  ScrollTrigger.create({trigger:'#scatterChart',start:'top 75%',once:true,onEnter:()=>{
+    svg.selectAll('circle').transition().duration(600).delay((_,i)=>i*55).attr('r',7);
+  }});
+})();
+
+// ── D3 TIMELINE ───────────────────────────────────────────────────
+(()=>{
+  const days=[1,7,10,13,19],tumor=[38,55,70,83,98],ctrl=[35,36,34,37,35],uvg=[36,37,39,36,38];
+  const el=document.getElementById('timelineChart');
+  const W=Math.min(el.closest('.editorial-dark-inner').offsetWidth,1100);
+  const H=280,ml=44,mr=80,mt=20,mb=44;
+  const svg=d3.select('#timelineChart').append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  const x=d3.scaleLinear().domain([1,19]).range([ml,W-mr]);
+  const y=d3.scaleLinear().domain([0,110]).range([mt+H-mt-mb,mt]);
+  const lineG=d3.line().x(d=>x(d[0])).y(d=>y(d[1])).curve(d3.curveCatmullRom.alpha(.5));
+  const areaG=d3.area().x(d=>x(d[0])).y0(d=>y(d[1]-4)).y1(d=>y(d[1]+4)).curve(d3.curveCatmullRom.alpha(.5));
+  svg.selectAll('.yg').data(y.ticks(5)).enter().append('line').attr('x1',ml).attr('x2',W-mr).attr('y1',d=>y(d)).attr('y2',d=>y(d)).attr('stroke','rgba(255,255,255,.05)');
+  svg.append('g').attr('transform',`translate(0,${mt+H-mt-mb})`).call(d3.axisBottom(x).tickValues(days).tickFormat(d=>`Day ${d}`)).call(g=>{g.select('.domain').attr('stroke','rgba(255,255,255,.1)');g.selectAll('line').remove();g.selectAll('text').attr('fill','rgba(255,255,255,.3)').attr('font-family','JetBrains Mono,monospace').attr('font-size',9)});
+  svg.append('g').attr('transform',`translate(${ml},0)`).call(d3.axisLeft(y).ticks(5)).call(g=>{g.select('.domain').remove();g.selectAll('line').remove();g.selectAll('text').attr('fill','rgba(255,255,255,.2)').attr('font-family','JetBrains Mono,monospace').attr('font-size',9)});
+  svg.append('line').attr('x1',x(19)).attr('x2',x(19)).attr('y1',mt).attr('y2',mt+H-mt-mb).attr('stroke','rgba(255,80,80,.3)').attr('stroke-dasharray','4 3');
+  svg.append('text').attr('x',x(19)-6).attr('y',mt+12).attr('text-anchor','end').attr('font-family','JetBrains Mono,monospace').attr('font-size',9).attr('fill','rgba(255,80,80,.5)').text('Tumors visible →');
+  svg.append('path').datum(days.map((d,i)=>[d,tumor[i]])).attr('fill','rgba(0,229,160,.08)').attr('d',areaG);
+  svg.append('path').datum(days.map((d,i)=>[d,ctrl[i]])).attr('fill','rgba(155,109,255,.06)').attr('d',areaG);
+  svg.append('path').datum(days.map((d,i)=>[d,uvg[i]])).attr('fill','none').attr('stroke','rgba(245,166,35,.35)').attr('stroke-width',1.5).attr('stroke-dasharray','4 3').attr('d',lineG);
+  svg.append('path').datum(days.map((d,i)=>[d,ctrl[i]])).attr('fill','none').attr('stroke','rgba(155,109,255,.65)').attr('stroke-width',2).attr('d',lineG);
+  const tp=svg.append('path').datum(days.map((d,i)=>[d,tumor[i]])).attr('fill','none').attr('stroke','#00e5a0').attr('stroke-width',2.5).attr('d',lineG);
+  const tl=tp.node().getTotalLength();
+  tp.attr('stroke-dasharray',tl).attr('stroke-dashoffset',tl);
+  [[ctrl,'rgba(155,109,255,.8)'],[uvg,'rgba(245,166,35,.55)'],[tumor,'#00e5a0']].forEach(([arr,col])=>{
+    svg.selectAll(null).data(days.map((d,i)=>[d,arr[i]])).enter().append('circle').attr('cx',d=>x(d[0])).attr('cy',d=>y(d[1])).attr('r',4.5).attr('fill',col);
+  });
+  svg.append('text').attr('x',x(19)+8).attr('y',y(tumor[4])+4).attr('font-family','JetBrains Mono,monospace').attr('font-size',10).attr('fill','rgba(0,229,160,.8)').text('Tumor');
+  svg.append('text').attr('x',x(19)+8).attr('y',y(ctrl[4])+4).attr('font-family','JetBrains Mono,monospace').attr('font-size',10).attr('fill','rgba(155,109,255,.65)').text('Control');
+  ScrollTrigger.create({trigger:'#timelineChart',start:'top 70%',once:true,onEnter:()=>{
+    tp.transition().duration(1800).ease(d3.easeLinear).attr('stroke-dashoffset',0);
+  }});
+})();
+
+// ── D3 THRESHOLD ──────────────────────────────────────────────────
+(()=>{
+  const data=[
+    {label:'UPE (this study)',val:1e6,color:'#00c882',note:'~1 million cells'},
+    {label:'Liquid biopsy',val:7.5e7,color:'#f5a623',note:'50–100 million'},
+    {label:'Standard imaging',val:1e9,color:'#9b6dff',note:'~1 billion cells'},
+  ];
+  const el=document.getElementById('threshChart');
+  const W=Math.min(el.closest('.editorial').offsetWidth,1100);
+  const H=200,ml=155,mr=135,mt=16,mb=40;
+  const svg=d3.select('#threshChart').append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  const x=d3.scaleLog().domain([1e5,1e10]).range([ml,W-mr]);
+  const y=d3.scaleBand().domain(data.map(d=>d.label)).range([mt,H-mb]).padding(.4);
+  ['100K','1M','10M','100M','1B','10B'].forEach((l,i)=>{
+    const v=Math.pow(10,5+i);
+    svg.append('line').attr('x1',x(v)).attr('x2',x(v)).attr('y1',mt).attr('y2',H-mb).attr('stroke','rgba(26,36,52,.06)');
+    svg.append('text').attr('x',x(v)).attr('y',H-mb+16).attr('text-anchor','middle').attr('font-family','JetBrains Mono,monospace').attr('font-size',9).attr('fill','rgba(26,36,52,.28)').text(l);
+  });
+  svg.selectAll('rect.t').data(data).enter().append('rect').attr('class','t')
+    .attr('x',ml).attr('y',d=>y(d.label)).attr('height',y.bandwidth()).attr('width',0).attr('rx',4)
+    .attr('fill',d=>d.color).attr('opacity',.85);
+  svg.selectAll('.tl').data(data).enter().append('text').attr('class','tl')
+    .attr('x',ml-10).attr('y',d=>y(d.label)+y.bandwidth()/2+5).attr('text-anchor','end')
+    .attr('font-family','Inter,sans-serif').attr('font-size',13).attr('font-weight','500').attr('fill','rgba(26,36,52,.65)').text(d=>d.label);
+  svg.selectAll('.tn').data(data).enter().append('text').attr('class','tn')
+    .attr('x',d=>x(d.val)+10).attr('y',d=>y(d.label)+y.bandwidth()/2+5)
+    .attr('font-family','JetBrains Mono,monospace').attr('font-size',10).attr('fill','rgba(26,36,52,.38)').text(d=>d.note);
+  ScrollTrigger.create({trigger:'#threshChart',start:'top 70%',once:true,onEnter:()=>{
+    svg.selectAll('rect.t').transition().duration(1000).delay((_,i)=>i*200).attr('width',d=>x(d.val)-ml);
+  }});
+})();
+</script>
+</body>
+</html>
