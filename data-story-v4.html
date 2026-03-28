@@ -10,7 +10,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/split-type@0.3/umd/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -462,52 +461,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// ── LENIS SMOOTH SCROLL ────────────────────────────────────────────
-const lenis = new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),orientation:'vertical',smoothWheel:true});
-lenis.on('scroll',ScrollTrigger.update);
-gsap.ticker.add(time=>lenis.raf(time*1000));
-gsap.ticker.lagSmoothing(0);
-
 // ── SPLIT TYPE HERO ────────────────────────────────────────────────
 window.addEventListener('load',()=>{
-  const heroTitle = document.querySelector('.hero-h1');
-  if(!heroTitle) return;
-  const split = new SplitType(heroTitle, {types:'lines,words,chars'});
-  gsap.from(split.chars,{
-    opacity:0,
-    y:40,
-    rotateX:-60,
-    stagger:0.018,
-    duration:.7,
-    ease:'back.out(1.4)',
-    delay:.6,
-    onComplete:()=>split.revert()
-  });
+  try {
+    const heroTitle = document.querySelector('.hero-h1');
+    if(heroTitle && typeof SplitType !== 'undefined') {
+      const split = new SplitType(heroTitle, {types:'chars'});
+      gsap.from(split.chars,{
+        opacity:0, y:36, rotateX:-50,
+        stagger:0.016, duration:.65,
+        ease:'back.out(1.3)', delay:.5,
+        onComplete:()=>{ split.revert(); }
+      });
+    }
+  } catch(e){ console.warn('SplitType hero failed',e); }
 
-  // Section headings — word by word
-  document.querySelectorAll('.editorial h2, .editorial-dark h2, .green-section h2, .big-type-section h2').forEach(el=>{
-    const s = new SplitType(el,{types:'words'});
-    gsap.from(s.words,{
-      opacity:0,y:28,
-      stagger:.06,
-      duration:.7,
-      ease:'power3.out',
-      scrollTrigger:{trigger:el,start:'top 85%',once:true},
-      onComplete:()=>s.revert()
+  try {
+    if(typeof SplitType !== 'undefined') {
+      document.querySelectorAll('.editorial h2, .green-section h2').forEach(el=>{
+        const s = new SplitType(el,{types:'words'});
+        gsap.from(s.words,{
+          opacity:0, y:24, stagger:.05, duration:.65,
+          ease:'power3.out',
+          scrollTrigger:{trigger:el, start:'top 88%', once:true},
+          onComplete:()=>s.revert()
+        });
+      });
+    }
+  } catch(e){ console.warn('SplitType headings failed',e); }
+});
+
+// ── MAGNETIC BUTTONS (desktop only) ──────────────────────────────
+if(window.innerWidth > 900) {
+  document.querySelectorAll('.btn').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2;
+      const y=e.clientY-r.top-r.height/2;
+      gsap.to(btn,{x:x*.22,y:y*.22,duration:.3,ease:'power2.out'});
     });
+    btn.addEventListener('mouseleave',()=>gsap.to(btn,{x:0,y:0,duration:.5,ease:'elastic.out(1,.4)'}));
   });
-});
-
-// ── MAGNETIC BUTTONS ───────────────────────────────────────────────
-document.querySelectorAll('.btn').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const x=e.clientX-r.left-r.width/2;
-    const y=e.clientY-r.top-r.height/2;
-    gsap.to(btn,{x:x*.25,y:y*.25,duration:.3,ease:'power2.out'});
-  });
-  btn.addEventListener('mouseleave',()=>gsap.to(btn,{x:0,y:0,duration:.5,ease:'elastic.out(1,.4)'}));
-});
+}
 
 // ── CURSOR ──────────────────────────────────────────────────────────
 const cursor=document.getElementById('cursor');
@@ -552,8 +547,17 @@ document.querySelectorAll('.sc-n[data-count]').forEach(el=>{
 });
 
 // ── EDITORIAL REVEALS ─────────────────────────────────────────────
-gsap.utils.toArray('.sec-num-bg,.sec-label,.editorial h2,.editorial-dark-inner h2,.editorial .body,.editorial-dark .body,.pq,.callout3,.chart-wrap,.two-col,.big-type-section .content,.green-section .content').forEach(el=>{
-  gsap.from(el,{opacity:0,y:32,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%',once:true}});
+const revealEls = document.querySelectorAll('.sec-label,.editorial .body,.editorial-dark .body,.pq,.callout3,.chart-wrap,.two-col,.big-type-section .content,.green-section .content,.cite-box h4,.cite-box p,.btn-row,.callout3-cell');
+revealEls.forEach((el,i)=>{
+  gsap.from(el,{opacity:0,y:28,duration:.85,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}
+  });
+});
+// Stat cells
+gsap.utils.toArray('.sc').forEach((el,i)=>{
+  gsap.from(el,{opacity:0,y:20,duration:.7,delay:i*.08,ease:'power2.out',
+    scrollTrigger:{trigger:'.stat-strip',start:'top 80%',once:true}
+  });
 });
 
 // ── FAINT SIGNAL ──────────────────────────────────────────────────
