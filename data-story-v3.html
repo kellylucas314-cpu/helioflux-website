@@ -507,8 +507,8 @@ document.querySelectorAll('.r').forEach(el=>io.observe(el));
     .on('mousemove',moveTip).on('mouseout',hideTip);
   svg.selectAll('.bl').data(cells).enter().append('text').attr('class','bl')
     .attr('x',ml-8).attr('y',d=>y(d.name)+y.bandwidth()/2+4)
-    .attr('text-anchor','end').attr('font-family',var(--mono)).attr('font-size',10).attr('fill','rgba(255,255,255,.4)').text(d=>d.name);
-  svg.selectAll('.bl').attr('font-family','JetBrains Mono,monospace');
+    .attr('text-anchor','end').attr('font-family','JetBrains Mono,monospace').attr('font-size',10).attr('fill','rgba(255,255,255,.4)').text(d=>d.name);
+
   svg.append('g').attr('transform',`translate(0,${H-mb})`).call(d3.axisBottom(x).ticks(5).tickFormat(d=>d+'%')).call(g=>{g.select('.domain').remove();g.selectAll('line').attr('stroke','rgba(255,255,255,.08)');g.selectAll('text').attr('fill','rgba(255,255,255,.28)').attr('font-family','JetBrains Mono,monospace').attr('font-size',9)});
   const bio=new IntersectionObserver(ents=>{ents.forEach(e=>{if(e.isIntersecting){svg.selectAll('rect.b').transition().duration(1000).delay((_,i)=>i*55).attr('width',d=>x(d.val)-ml);bio.disconnect()}})},{threshold:.2});
   bio.observe(document.getElementById('barBox'));
