@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Study That Started Everything — HelioFlux</title>
+  <meta name="description" content="A 2020 peer-reviewed study in Cancers Journal proved that ultraweak photon emissions can detect cancer 18 days before tumors are physically visible. This is the science behind HelioFlux.">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..600&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #060610;
+      --navy2: #092743;
+      --cream: #f5f0eb;
+      --cream2: #F7F6F2;
+      --cyan: #00A9D6;
+      --cyan-glow: rgba(0,169,214,.15);
+      --text-dark: #14263C;
+      --text-mid: #3A5068;
+      --text-light: rgba(255,255,255,.82);
+      --text-dim: rgba(255,255,255,.5);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text-light);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,6,16,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: .08em;
+      color: #fff; text-decoration: none; text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none;
+      letter-spacing: .04em; transition: color .2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      padding: 8px 20px; border: 1px solid rgba(0,169,214,.5);
+      border-radius: 50px; color: var(--cyan) !important;
+      transition: all .2s !important;
+    }
+    .nav-cta:hover { background: rgba(0,169,214,.1) !important; border-color: var(--cyan) !important; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 56px 100px;
+      background: var(--navy);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,169,214,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-particles {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: var(--cyan); opacity: 0;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0% { opacity: 0; transform: translateY(0) scale(1); }
+      10% { opacity: .4; }
+      90% { opacity: .1; }
+      100% { opacity: 0; transform: translateY(-120px) scale(.3); }
+    }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 32px; font-weight: 500;
+    }
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 300; line-height: 1.0;
+      letter-spacing: -.02em; color: #fff;
+      max-width: 900px; margin-bottom: 40px;
+    }
+    .hero-title em { font-style: normal; color: var(--cyan); }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,.55); line-height: 1.7;
+      max-width: 580px; margin-bottom: 56px;
+    }
+    .hero-meta {
+      display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .hero-meta-item { font-size: 12px; color: rgba(255,255,255,.35); letter-spacing: .06em; text-transform: uppercase; }
+    .hero-meta-item strong { display: block; font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 4px; letter-spacing: .02em; text-transform: none; }
+    .scroll-line {
+      position: absolute; bottom: 40px; left: 56px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.25);
+    }
+    .scroll-line::before {
+      content: ''; display: block; width: 1px; height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,.2));
+    }
+
+    /* SECTION STYLES */
+    section { position: relative; }
+
+    /* STAT BAR */
+    .stat-bar {
+      background: var(--navy2);
+      padding: 64px 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .stat-item {
+      padding: 32px 40px;
+      border-right: 1px solid rgba(255,255,255,.06);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 300; color: var(--cyan);
+      line-height: 1; margin-bottom: 12px;
+    }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.5; }
+
+    /* NARRATIVE SECTIONS */
+    .narrative {
+      background: var(--cream);
+      padding: 120px 56px;
+    }
+    .narrative-inner { max-width: 720px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 24px; font-weight: 500;
+    }
+    .section-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300; color: var(--text-dark);
+      line-height: 1.15; letter-spacing: -.015em;
+      margin-bottom: 32px;
+    }
+    .section-heading em { font-style: italic; }
+    .body-text {
+      font-size: 18px; color: var(--text-mid);
+      line-height: 1.8; margin-bottom: 24px;
+    }
+    .body-text strong { color: var(--text-dark); font-weight: 600; }
+    .pull-quote {
+      margin: 48px 0;
+      padding: 32px 40px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(0,169,214,.05);
+      border-radius: 0 8px 8px 0;
+    }
+    .pull-quote p {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 300; color: var(--text-dark);
+      line-height: 1.45; letter-spacing: -.01em;
+    }
+
+    /* DARK NARRATIVE */
+    .narrative-dark {
+      background: var(--navy);
+      padding: 120px 56px;
+    }
+    .narrative-dark .section-heading { color: #fff; }
+    .narrative-dark .body-text { color: rgba(255,255,255,.65); }
+    .narrative-dark .pull-quote { background: rgba(0,169,214,.08); }
+    .narrative-dark .pull-quote p { color: rgba(255,255,255,.9); }
+    .narrative-dark .section-eyebrow { color: var(--cyan); }
+
+    /* TIMELINE VISUALIZATION */
+    .timeline-viz {
+      margin: 56px 0;
+      position: relative;
+    }
+    .timeline-track {
+      position: relative;
+      height: 4px;
+      background: rgba(255,255,255,.08);
+      border-radius: 2px;
+      margin: 60px 0 80px;
+    }
+    .timeline-fill {
+      position: absolute; left: 0; top: 0; height: 100%;
+      background: linear-gradient(to right, var(--cyan), rgba(0,169,214,.3));
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.2s ease;
+    }
+    .timeline-fill.animate { width: 100%; }
+    .timeline-markers {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      margin-top: -2px;
+    }
+    .timeline-marker {
+      display: flex; flex-direction: column; align-items: center;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid var(--cyan);
+      background: var(--navy);
+      position: absolute; top: -8px;
+      transition: background .3s ease;
+    }
+    .timeline-dot.active { background: var(--cyan); }
+    .timeline-day {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300; color: var(--cyan);
+      margin-top: 24px; line-height: 1;
+    }
+    .timeline-event {
+      font-size: 13px; color: rgba(255,255,255,.5);
+      margin-top: 8px; text-align: center; line-height: 1.4;
+    }
+    .timeline-event strong { color: rgba(255,255,255,.8); display: block; margin-bottom: 4px; font-size: 14px; }
+
+    /* CELL LINES GRID */
+    .cell-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 48px 0;
+    }
+    .cell-card {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      background: rgba(255,255,255,.03);
+      transition: all .3s;
+      cursor: default;
+    }
+    .cell-card:hover {
+      border-color: rgba(0,169,214,.4);
+      background: rgba(0,169,214,.06);
+      transform: translateY(-2px);
+    }
+    .cell-name {
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.8); margin-bottom: 6px;
+    }
+    .cell-type { font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.4; }
+    .cell-badge {
+      display: inline-block; margin-top: 8px;
+      padding: 2px 8px; border-radius: 50px;
+      font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .cell-badge.malignant { background: rgba(0,169,214,.15); color: var(--cyan); }
+    .cell-badge.normal { background: rgba(255,255,255,.06); color: rgba(255,255,255,.4); }
+
+    /* FREQUENCY VIZ */
+    .freq-viz {
+      margin: 48px 0;
+      padding: 40px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+    }
+    .freq-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 120px;
+      margin-bottom: 16px;
+    }
+    .freq-bar {
+      flex: 1; border-radius: 2px 2px 0 0;
+      background: rgba(255,255,255,.08);
+      transition: height .8s ease, background .3s;
+      min-height: 4px;
+    }
+    .freq-bar.highlight {
+      background: var(--cyan);
+      box-shadow: 0 0 20px rgba(0,169,214,.4);
+    }
+    .freq-axis {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: rgba(255,255,255,.3);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 8px;
+    }
+    .freq-label {
+      text-align: center; font-size: 13px;
+      color: rgba(255,255,255,.5); margin-top: 12px;
+    }
+    .freq-label strong { color: var(--cyan); }
+
+    /* ACCURACY RING */
+    .accuracy-section {
+      background: var(--navy2);
+      padding: 120px 56px;
+      text-align: center;
+    }
+    .accuracy-ring-wrap {
+      display: flex; justify-content: center;
+      margin: 64px 0;
+    }
+    .accuracy-ring {
+      position: relative; width: 240px; height: 240px;
+    }
+    .accuracy-ring svg { transform: rotate(-90deg); }
+    .accuracy-ring .ring-bg { stroke: rgba(255,255,255,.06); }
+    .accuracy-ring .ring-fill {
+      stroke: var(--cyan);
+      stroke-dasharray: 628;
+      stroke-dashoffset: 628;
+      transition: stroke-dashoffset 1.5s ease;
+      filter: drop-shadow(0 0 8px rgba(0,169,214,.5));
+    }
+    .accuracy-ring .ring-fill.animate { stroke-dashoffset: 63; }
+    .accuracy-center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .accuracy-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 64px; font-weight: 300;
+      color: #fff; line-height: 1;
+    }
+    .accuracy-pct { font-size: 28px; color: var(--cyan); }
+    .accuracy-sub { font-size: 13px; color: rgba(255,255,255,.4); margin-top: 8px; letter-spacing: .06em; text-transform: uppercase; }
+    .accuracy-caption {
+      font-size: 17px; color: rgba(255,255,255,.55);
+      max-width: 560px; margin: 0 auto; line-height: 1.7;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--navy);
+      padding: 120px 56px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cta-section h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300; color: #fff;
+      line-height: 1.2; margin-bottom: 24px; letter-spacing: -.015em;
+    }
+    .cta-section p {
+      font-size: 18px; color: rgba(255,255,255,.5);
+      max-width: 520px; margin: 0 auto 48px; line-height: 1.7;
+    }
+    .btn-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 40px; background: var(--cyan);
+      color: #fff; border-radius: 50px;
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: all .3s; letter-spacing: .02em;
+    }
+    .btn-primary:hover { background: #0093bc; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 40px; border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.7); border-radius: 50px;
+      font-size: 14px; text-decoration: none;
+      transition: all .3s; letter-spacing: .02em;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+    /* CITATION */
+    .citation {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 48px auto 0;
+      max-width: 680px;
+      text-align: left;
+    }
+    .citation p { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.7; }
+    .citation a { color: var(--cyan); text-decoration: none; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 0 24px 80px; }
+      .scroll-line { left: 24px; }
+      .stat-bar { grid-template-columns: 1fr 1fr; padding: 40px 24px; }
+      .stat-item { padding: 24px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.06); }
+      .narrative, .narrative-dark, .accuracy-section, .cta-section { padding: 80px 24px; }
+      .freq-viz { padding: 24px; }
+      .cell-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline-markers { gap: 8px; }
+      .timeline-day { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Helio<span>Flux</span></a>
+    <div class="nav-links">
+      <a href="science.html">Science</a>
+      <a href="team.html">Team</a>
+      <a href="press.html">Press</a>
+      <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Inquiry" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-particles" id="particles"></div>
+
+    <p class="hero-eyebrow reveal">Cancers Journal · April 2020 · Peer-Reviewed</p>
+    <h1 class="hero-title reveal">
+      Your body's light<br>
+      reveals cancer<br>
+      <em>18 days early.</em>
+    </h1>
+    <p class="hero-sub reveal">
+      A 2020 study published in Cancers (MDPI) proved it. In living mice, ultraweak photon emissions detected melanoma 18 days before tumors were physically visible. This is the science HelioFlux is built on.
+    </p>
+    <div class="hero-meta reveal">
+      <div class="hero-meta-item"><strong>Nirosha J. Murugan et al.</strong>Lead Author</div>
+      <div class="hero-meta-item"><strong>Cancers, Vol. 12</strong>Journal</div>
+      <div class="hero-meta-item"><strong>DOI 10.3390/cancers12041001</strong>Published April 18, 2020</div>
+    </div>
+    <div class="scroll-line">Scroll to read</div>
+  </section>
+
+  <!-- STAT BAR -->
+  <div class="stat-bar">
+    <div class="stat-item reveal">
+      <div class="stat-num">13</div>
+      <div class="stat-label">cancer cell lines tested (human and mouse)</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">47</div>
+      <div class="stat-label">living mice in the in vivo experiments</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">90%</div>
+      <div class="stat-label">discriminant accuracy across all conditions</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">100s</div>
+      <div class="stat-label">measurement window. That's it.</div>
+    </div>
+  </div>
+
+  <!-- THE QUESTION -->
+  <section class="narrative">
+    <div class="narrative-inner">
+      <p class="section-eyebrow reveal">The Starting Point</p>
+      <h2 class="section-heading reveal">What if cancer had a light signature?</h2>
+      <p class="body-text reveal">
+        Living cells emit faint light. Not visible to the eye, but real and measurable. These ultraweak photon emissions (UPEs) are a byproduct of the chemical reactions powering every cell in your body.
+      </p>
+      <p class="body-text reveal">
+        The idea had been suggested before. If metabolism drives photon emission, and cancer fundamentally disrupts metabolism, then cancer cells should emit differently. Different pattern. Different frequency. A signature.
+      </p>
+      <div class="pull-quote reveal">
+        <p>"The question was whether we could read that signature fast enough, and accurately enough, to be clinically useful."</p>
+      </div>
+      <p class="body-text reveal">
+        Dr. Murugan and her team at Laurentian University designed an experiment to find out. They tested 13 different cancer cell lines. Then they tested living mice. The results were clearer than anyone expected.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE CELL LINES -->
+  <section class="narrative-dark">
+    <div class="narrative-inner">
+      <p class="section-eyebrow reveal">In Vitro Study</p>
+      <h2 class="section-heading reveal">13 cell lines.<br>One consistent signal.</h2>
+      <p class="body-text reveal" style="color:rgba(255,255,255,.65);">
+        Malignant and non-malignant cells from 13 different human and mouse origins were measured using digital photomultiplier tubes (PMTs) for exactly 100 seconds. No contrast agents. No staining. Just photons.
+      </p>
+      <p class="body-text reveal" style="color:rgba(255,255,255,.65);">
+        Across every single cell line, the result was the same: <strong style="color:#fff;">malignant cells emitted more photons than their non-malignant counterparts.</strong> And when the team analyzed the spectral power density (SPD) of those emissions, a specific frequency range stood out consistently.
+      </p>
+    </div>
+
+    <div style="max-width:900px;margin:0 auto;padding:0 56px;">
+      <div class="cell-grid reveal">
+        <div class="cell-card"><div class="cell-name">AsPC-1</div><div class="cell-type">Human Pancreatic</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">Capan-1</div><div class="cell-type">Human Pancreatic</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">CFPAC-1</div><div class="cell-type">Human Pancreatic</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">BxPC3</div><div class="cell-type">Human Pancreatic</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">HPAF-11</div><div class="cell-type">Human Pancreatic</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">B16-BL6</div><div class="cell-type">Mouse Melanoma</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">HELA</div><div class="cell-type">Human Cervical</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">Hs 578T</div><div class="cell-type">Human Breast</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">MCF7</div><div class="cell-type">Human Breast</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">MDA MB 231</div><div class="cell-type">Human Breast</div><span class="cell-badge malignant">Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">HBL 100</div><div class="cell-type">Human Breast</div><span class="cell-badge normal">Non-Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">HEK 293</div><div class="cell-type">Human Embryonic Kidney</div><span class="cell-badge normal">Non-Malignant</span></div>
+        <div class="cell-card"><div class="cell-name">HSG</div><div class="cell-type">Human Submandibular</div><span class="cell-badge normal">Non-Malignant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE SIGNAL -->
+  <section class="narrative">
+    <div class="narrative-inner">
+      <p class="section-eyebrow reveal">The Discovery</p>
+      <h2 class="section-heading reveal">Cancer speaks at <em>20 Hz.</em></h2>
+      <p class="body-text reveal">
+        When the team ran spectral power density analysis on the photon emissions, a specific frequency emerged. Across malignant cell cultures and mice with growing tumors, the peak SPD clustered around <strong>approximately 20 Hz.</strong>
+      </p>
+      <p class="body-text reveal">
+        This frequency is not random. Prior research had shown that weak magnetic field pulsations at this range can inhibit malignant cell growth. The 20 Hz signal may be a window into the underlying disruption that defines cancer at the cellular level.
+      </p>
+
+      <div class="freq-viz reveal" id="freqViz">
+        <div class="freq-chart" id="freqChart"></div>
+        <div class="freq-axis">
+          <span>0 Hz</span>
+          <span>5 Hz</span>
+          <span>10 Hz</span>
+          <span>15 Hz</span>
+          <span>~20 Hz</span>
+          <span>25 Hz</span>
+        </div>
+        <div class="freq-label">Spectral Power Density profile. Peak at <strong>~20 Hz</strong> consistent across malignant samples.</div>
+      </div>
+
+      <p class="body-text reveal">
+        Non-malignant cells showed no such peak. The spectral shape was the tell. Not how bright the signal was, but <strong>how it was distributed across frequencies</strong> during that 100-second window.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE MICE -->
+  <section class="narrative-dark">
+    <div class="narrative-inner">
+      <p class="section-eyebrow reveal">In Vivo Study</p>
+      <h2 class="section-heading reveal">47 mice.<br>One stunning result.</h2>
+      <p class="body-text reveal" style="color:rgba(255,255,255,.65);">
+        The in vitro results were compelling. But the real test was in living animals. 47 male C57 mice were divided into groups. Some were injected with live melanoma cells (B16-BL6). Others received UV-irradiated (dead) cells. A third group received nothing.
+      </p>
+      <p class="body-text reveal" style="color:rgba(255,255,255,.65);">
+        The researchers measured whole-body photon emissions across four time points over 21 days. They were looking for whether the signal could distinguish tumor mice from controls, and how early.
+      </p>
+
+      <div class="timeline-viz reveal" id="timelineViz">
+        <div class="timeline-track">
+          <div class="timeline-fill" id="timelineFill"></div>
+        </div>
+        <div class="timeline-markers">
+          <div class="timeline-marker">
+            <div class="timeline-dot active" id="dot1"></div>
+            <div class="timeline-day">Day 1</div>
+            <div class="timeline-event"><strong>UPE signal detected</strong>Photon emissions from tumor mice already differ from controls</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="timeline-dot" id="dot2"></div>
+            <div class="timeline-day">Day 7-13</div>
+            <div class="timeline-event"><strong>Signal strengthens</strong>Discriminant accuracy increases as tumor burden grows</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="timeline-dot" id="dot3"></div>
+            <div class="timeline-day">Day 19</div>
+            <div class="timeline-event"><strong>Tumors visible</strong>Only now are tumors palpable. UPE detected this 18 days earlier.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote reveal" style="margin-top:56px;">
+        <p>"The emission profiles of mice injected with melanoma cells could be differentiated from the reference group as early as 24 hours post-injection."</p>
+      </div>
+      <p class="body-text reveal" style="color:rgba(255,255,255,.5);font-size:14px;margin-top:-8px;">Murugan et al., Cancers 2020</p>
+    </div>
+  </section>
+
+  <!-- ACCURACY RING -->
+  <section class="accuracy-section">
+    <p class="section-eyebrow reveal" style="color:var(--cyan);">The Result</p>
+    <h2 class="section-heading reveal" style="color:#fff;text-align:center;max-width:600px;margin:0 auto 16px;">Discriminant accuracy<br>across all conditions.</h2>
+    <div class="accuracy-ring-wrap reveal" id="ringWrap">
+      <div class="accuracy-ring">
+        <svg width="240" height="240" viewBox="0 0 240 240">
+          <circle class="ring-bg" cx="120" cy="120" r="100" fill="none" stroke-width="8"/>
+          <circle class="ring-fill" id="ringFill" cx="120" cy="120" r="100" fill="none" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        <div class="accuracy-center">
+          <div class="accuracy-num">90<span class="accuracy-pct">%</span></div>
+          <div class="accuracy-sub">Discriminant Accuracy</div>
+        </div>
+      </div>
+    </div>
+    <p class="accuracy-caption reveal">
+      Step-wise linear discriminant analysis of spectral power density profiles. 90% accuracy distinguishing malignant from non-malignant conditions across all cell lines and animal models tested.
+    </p>
+  </section>
+
+  <!-- WHAT IT MEANS -->
+  <section class="narrative">
+    <div class="narrative-inner">
+      <p class="section-eyebrow reveal">Why It Matters</p>
+      <h2 class="section-heading reveal">This changes what<br><em>"early detection" means.</em></h2>
+      <p class="body-text reveal">
+        Standard imaging requires a tumor to reach roughly 1 billion cells before it appears on a scan. Liquid biopsy methods need cancer cells shedding biomarkers into the blood, which happens later still.
+      </p>
+      <p class="body-text reveal">
+        This study demonstrated detection at a point in tumor development so early that the animals showed no physical signs of disease. The photon signal was the only indication that cancer was present.
+      </p>
+      <p class="body-text reveal">
+        The measurement took 100 seconds. No blood draw. No tissue removal. No radiation. A photomultiplier tube placed near the subject and a spectral analysis of the signal.
+      </p>
+      <div class="pull-quote reveal">
+        <p>That is the foundation HelioFlux is built on. Not a hypothesis. A published, peer-reviewed result.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="reveal">Read the original study.</h2>
+    <p class="reveal">Published April 18, 2020. Open access. Peer-reviewed by Cancers (MDPI), an international journal of oncology research.</p>
+    <div class="btn-row reveal">
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="btn-primary">Read Full Paper (PMC) →</a>
+      <a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener" class="btn-ghost">DOI Link</a>
+      <a href="science.html" class="btn-ghost">Back to Science</a>
+    </div>
+    <div class="citation reveal">
+      <p>Murugan NJ, Persinger MA, Karbowski LM, Dotta BT. Ultraweak Photon Emissions as a Non-Invasive, Early-Malignancy Detection Tool: An In Vitro and In Vivo Study. <em>Cancers (Basel).</em> 2020 Apr 18;12(4):1001. doi: 10.3390/cancers12041001. PMID: 32316648; PMCID: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank">PMC7226102</a>.</p>
+    </div>
+  </section>
+
+  <script>
+    // Particle system
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3 + 1;
+      p.style.cssText = `
+        width:${size}px;height:${size}px;
+        left:${Math.random()*100}%;
+        bottom:${Math.random()*60}%;
+        animation-duration:${Math.random()*8+6}s;
+        animation-delay:${Math.random()*8}s;
+      `;
+      container.appendChild(p);
+    }
+
+    // Frequency chart
+    const chart = document.getElementById('freqChart');
+    const freqData = [2,3,4,5,6,7,8,9,11,13,15,18,22,28,36,45,55,62,68,72,95,88,70,52,35,22,15,10,7,5,4,3,4,5,6,5,4,4,3,3,2,2,3,3,2,2,2,1,1,1];
+    const highlightRange = [18, 22];
+    freqData.forEach((val, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'freq-bar';
+      const hz = (i / freqData.length) * 25;
+      if (hz >= highlightRange[0] && hz <= highlightRange[1]) bar.classList.add('highlight');
+      bar.style.height = (val / 100 * 120) + 'px';
+      chart.appendChild(bar);
+    });
+
+    // Intersection Observer for reveals
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Trigger animations
+          if (entry.target.id === 'ringWrap') {
+            setTimeout(() => document.getElementById('ringFill').classList.add('animate'), 200);
+          }
+          if (entry.target.id === 'timelineViz') {
+            setTimeout(() => {
+              document.getElementById('timelineFill').classList.add('animate');
+              setTimeout(() => document.getElementById('dot2').classList.add('active'), 600);
+              setTimeout(() => document.getElementById('dot3').classList.add('active'), 1200);
+            }, 300);
+          }
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
