@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Library — Kelly's Second Brain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0ece4;
+  --surface:#faf8f4;
+  --dark:#1a1714;
+  --dark2:#2e2a25;
+  --text:#3a342c;
+  --mid:#7a7068;
+  --border:#e4dfd6;
+  --accent:#c17d3c;
+  --accent2:#5c8a6e;
+
+  /* type badges */
+  --col-video:#7c5cbf;
+  --col-article:#3a7ab5;
+  --col-course:#c17d3c;
+  --col-paper:#5c8a6e;
+  --col-tool:#b53a5a;
+  --col-podcast:#c1923c;
+  --col-idea:#4a8a9e;
+  --col-todo:#888;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;min-height:100vh}
+
+/* ── HEADER ───────────────────── */
+header{background:var(--dark);padding:0 40px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.logo span{color:#c4a97a;opacity:.8}
+.count-badge{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:12px;padding:4px 10px;border-radius:20px;font-family:'Inter',sans-serif;font-weight:400}
+
+/* ── HERO ───────────────────────── */
+.hero{padding:64px 40px 48px;max-width:900px}
+.hero-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:12px;font-weight:500}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(36px,6vw,64px);font-weight:800;color:var(--dark);line-height:1.05;letter-spacing:-.03em;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent);font-weight:300}
+.hero p{font-size:17px;color:var(--mid);max-width:520px;line-height:1.65}
+
+/* ── SEARCH + FILTERS ────────────── */
+.controls{padding:0 40px 32px;display:flex;flex-direction:column;gap:16px;max-width:1200px}
+.search-wrap{position:relative;max-width:520px}
+.search-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:.4;pointer-events:none}
+#search{width:100%;padding:14px 16px 14px 46px;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;color:var(--dark);outline:none;transition:border-color .2s}
+#search::placeholder{color:var(--mid);opacity:.7}
+#search:focus{border-color:var(--accent)}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filter-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);font-weight:500;margin-right:4px}
+.pill{padding:7px 14px;border-radius:40px;border:1.5px solid var(--border);background:var(--surface);color:var(--mid);font-size:13px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap;font-family:'Inter',sans-serif}
+.pill:hover{border-color:var(--dark);color:var(--dark)}
+.pill.active{background:var(--dark);border-color:var(--dark);color:#fff}
+
+/* ── GRID ───────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding:0 40px 80px;max-width:1320px}
+
+/* ── CARD ───────────────────────── */
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s;cursor:pointer;text-decoration:none;color:inherit}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(26,23,20,.08);border-color:rgba(26,23,20,.15)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.type-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.card-arrow{color:var(--mid);opacity:.4;flex-shrink:0;margin-top:2px;transition:opacity .2s,transform .2s}
+.card:hover .card-arrow{opacity:.8;transform:translate(2px,-2px)}
+.card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:var(--dark);line-height:1.3;letter-spacing:-.01em}
+.card p{font-size:13.5px;color:var(--mid);line-height:1.6;flex:1}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11px;color:var(--mid);background:var(--bg);border:1px solid var(--border);padding:2px 8px;border-radius:20px}
+.card-date{font-size:11px;color:var(--mid);opacity:.5;white-space:nowrap;flex-shrink:0}
+
+/* type colors */
+.t-youtube,.t-video{background:rgba(124,92,191,.1);color:var(--col-video)}
+.t-article{background:rgba(58,122,181,.1);color:var(--col-article)}
+.t-course{background:rgba(193,125,60,.1);color:var(--col-course)}
+.t-paper{background:rgba(92,138,110,.1);color:var(--col-paper)}
+.t-tool{background:rgba(181,58,90,.1);color:var(--col-tool)}
+.t-podcast{background:rgba(193,146,60,.1);color:var(--col-podcast)}
+.t-idea{background:rgba(74,138,158,.1);color:var(--col-idea)}
+.t-todo,.t-learn{background:rgba(136,136,136,.1);color:var(--col-todo)}
+
+/* type icons */
+.t-youtube::before,.t-video::before{content:"▶ "}
+.t-article::before{content:"📄 "}
+.t-course::before{content:"🎓 "}
+.t-paper::before{content:"🔬 "}
+.t-tool::before{content:"🛠 "}
+.t-podcast::before{content:"🎙 "}
+.t-idea::before{content:"💡 "}
+.t-todo::before,.t-learn::before{content:"📌 "}
+
+/* empty state */
+.empty{grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--mid)}
+.empty-icon{font-size:48px;margin-bottom:16px;opacity:.4}
+.empty p{font-size:15px}
+
+/* ── RESPONSIVE ─────────────────── */
+@media(max-width:768px){
+  header{padding:0 20px}
+  .hero{padding:40px 20px 32px}
+  .controls{padding:0 20px 24px}
+  .grid{grid-template-columns:1fr;padding:0 20px 60px;gap:14px}
+  .card{padding:20px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:32px}
+  .hero p{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">The Library <span>/ Kelly</span></div>
+  <div class="count-badge" id="count-badge">loading...</div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">Personal knowledge base</div>
+  <h1>Everything you want<br>to <em>learn, watch, read.</em></h1>
+  <p>Send Kip a link and it appears here automatically — with a summary, tags, and type. Your second brain, no friction.</p>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="search" type="text" placeholder="Search anything..." autocomplete="off" spellcheck="false">
+  </div>
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <button class="pill active" data-type="all">All</button>
+    <button class="pill" data-type="youtube">Video</button>
+    <button class="pill" data-type="article">Article</button>
+    <button class="pill" data-type="course">Course</button>
+    <button class="pill" data-type="paper">Paper</button>
+    <button class="pill" data-type="tool">Tool</button>
+    <button class="pill" data-type="podcast">Podcast</button>
+    <button class="pill" data-type="idea">Idea</button>
+    <button class="pill" data-cat="helioflux">🔬 HelioFlux</button>
+    <button class="pill" data-cat="ai-tech">🤖 AI</button>
+    <button class="pill" data-cat="design">🎨 Design</button>
+  </div>
+</div>
+
+<div class="grid" id="grid">
+  <div class="empty"><div class="empty-icon">📚</div><p>Loading resources...</p></div>
+</div>
+
+<script>
+const RESOURCES = [
+  {"id":1,"title":"Matt Wolfe: AI Tools That Will Change Everything in 2026","url":"","type":"youtube","category":"ai-tech","date":"2026-02-18","summary":"Matt Wolfe covers the most impactful AI tools emerging in 2026, including agentic workflows, image generation advances, and productivity stacks.","tags":["AI","tools","productivity","agents"]},
+  {"id":2,"title":"Matt Wolfe: The State of AI Agents — What's Actually Working","url":"","type":"youtube","category":"ai-tech","date":"2026-02-18","summary":"Deep dive into which AI agent frameworks and tools are production-ready vs overhyped. Covers OpenClaw, Claude Code, and autonomous workflows.","tags":["AI","agents","automation","OpenClaw"]},
+  {"id":3,"title":"Scientific American: Your Brain Is Glowing, and Scientists Can't Figure Out Why","url":"https://www.scientificamerican.com/article/your-brain-is-glowing-and-scientists-cant-figure-out-why/","type":"article","category":"helioflux","date":"2026-02-18","summary":"Dr. Nirosha Murugan's biophoton research featured in Scientific American. External scientists call the work potentially significant. Covers UPEs in brain tissue and implications for cancer detection.","tags":["HelioFlux","biophotons","Nirosha","press","SciAm"]},
+  {"id":4,"title":"Radiolab (NPR): The Spark of Life — Are We Glowing?","url":"https://radiolab.org/podcast/the-spark-of-life","type":"podcast","category":"helioflux","date":"2025-09-19","summary":"Full Radiolab episode featuring Nirosha Murugan. Covers both brain biophoton research AND cancer diagnosis via UPEs. Excellent for investor credibility.","tags":["HelioFlux","biophotons","Nirosha","press","Radiolab","NPR"]},
+  {"id":5,"title":"Paper: Biophotonic Markers of Malignancy (BBR 2018, 92% accuracy)","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/","type":"paper","category":"helioflux","date":"2018-01-01","summary":"First published validation: 92% accuracy, 100% cancer detection rate. UV/IR wavelength ratio method (420nm, 620nm, 950nm). Foundational HelioFlux science.","tags":["HelioFlux","research","accuracy","biophotons"]},
+  {"id":6,"title":"Paper: UPEs as Non-Invasive Early-Malignancy Detection (Cancers 2020, 90% accuracy)","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/","type":"paper","category":"helioflux","date":"2020-01-01","summary":"90% accuracy across 13 cell lines. 24-hour detection in mouse models. Confirms platform technology potential beyond initial cell line study.","tags":["HelioFlux","research","accuracy","biophotons","cancer"]},
+  {"id":7,"title":"Paper: Exploring UPEs as Optical Markers of Brain Activity (iScience/Cell Press 2025)","url":"https://doi.org/10.1016/j.isci.2025.112019","type":"paper","category":"helioflux","date":"2025-03-01","summary":"20 human subjects. Brain biophotons cross-validated with EEG. Most recent published research. Cell Press credibility. Directly supports human application of HelioFlux tech.","tags":["HelioFlux","research","brain","human","iScience"]},
+  {"id":8,"title":"YC Lightcone: The AI Agent Economy Is Here","url":"https://youtu.be/Q8wVMdwhlh4","type":"youtube","category":"ai-tech","date":"2026-02-21","summary":"YC partners (Garry Tan, Harj Taggar) discuss the agent economy. OpenClaw explicitly named. Key insight: 'Make something agents want' as new YC motto. Non-technical founders automating businesses with AI agents.","tags":["YC","agents","OpenClaw","economy","AI","Garry Tan"]},
+  {"id":9,"title":"Anthropic Official: Claude Code in Action (free course)","url":"https://anthropic.skilljar.com/claude-code-in-action","type":"course","category":"ai-tech","date":"2026-02-24","summary":"Anthropic's own training course. Covers Claude Code architecture, practical implementation, and advanced integrations. Free. This is the official source — start here.","tags":["Claude Code","learning","Anthropic","course"]},
+  {"id":10,"title":"Claude 101: Claude Code for Non-Programmers (Every.to)","url":"https://claude101.every.to/","type":"course","category":"ai-tech","date":"2026-02-24","summary":"Step-by-step guide built specifically for non-programmers. 'In one day, you'll give it real tasks and ship something live.' Great for leveling up intentionally.","tags":["Claude Code","learning","beginner","non-programmer"]},
+  {"id":11,"title":"Sabrina.dev: The ULTIMATE Claude Code Tutorial","url":"https://www.sabrina.dev/p/claude-code-full-course-for-beginners","type":"article","category":"ai-tech","date":"2026-02-17","summary":"Full course on building an AI assistant with Claude Code. Covers skills, quality gate hooks, brand voice, subagents, and permissions. Highly relevant to building systems with Kip.","tags":["Claude Code","learning","subagents","agents"]},
+  {"id":12,"title":"CodeWithMukesh: Claude Code for Beginners — Complete 2026 Guide","url":"https://codewithmukesh.com/blog/claude-code-for-beginners/","type":"article","category":"ai-tech","date":"2026-01-20","summary":"15-minute beginner guide. Covers installation, CLAUDE.md setup, Plan Mode mastery, and comparison with Copilot/Cursor. Good quick reference.","tags":["Claude Code","learning","CLAUDE.md","Plan Mode","beginner"]},
+  {"id":13,"title":"Udemy: Claude Code Beginner Crash Course (Eden Marco)","url":"https://www.udemy.com/course/claudecode/","type":"course","category":"ai-tech","date":"2026-02-01","summary":"Structured video course on agentic coding workflows with Claude Code. Updated February 2026. Good for learning systematically rather than picking things up ad hoc.","tags":["Claude Code","learning","course","agentic","video"]},
+  {"id":14,"title":"Greg Isenberg: How I Use Obsidian + Claude Code to Run My Life","url":"https://youtu.be/6MBq1paspVU","type":"youtube","category":"ai-tech","date":"2026-02-22","summary":"Live demo of Claude Code reading an entire Obsidian vault and surfacing patterns across years of notes — generating startup ideas, tracking how ideas evolved. 10-rule framework for building a personal OS with markdown + agents. Key: 'Once the vault exists, the agent stops being generic. It starts thinking in your voice.'","tags":["Claude Code","Obsidian","personal-OS","productivity","markdown","agents"]},
+  {"id":17,"title":"Webflow Blog: Typography Design — How to Optimize Text on Your Website","url":"https://webflow.com/blog/typographic-design","type":"article","category":"design","date":"2026-03-04","summary":"Practical guide to web typography fundamentals: hierarchy, readability, spacing, line length, and pairing fonts to improve comprehension and conversion.","tags":["typography","web design","branding","readability"]},
+  {"id":18,"title":"Fonts In Use — Technology Typography References (Staff Picks)","url":"https://fontsinuse.com/in/1/topics/32/technology?filters=staff-picks-only","type":"article","category":"design","date":"2026-03-04","summary":"Curated real-world typography examples from technology brands. Useful reference board for tone, pairing, and visual voice decisions.","tags":["typography","inspiration","technology","reference"]},
+  {"id":20,"title":"Bold Web Design: Font Combinations for Web Designers","url":"https://www.boldwebdesign.com.au/font-combinations-for-web-designers.html","type":"article","category":"design","date":"2026-03-04","summary":"Compilation of font pairing options and practical combinations for websites across brand styles and readability constraints.","tags":["font combinations","typography","web design","ui"]},
+  {"id":21,"title":"NCBI: Natural History and Prognostic Markers (Tumor Growth Modeling)","url":"https://www.ncbi.nlm.nih.gov/books/NBK13977/","type":"paper","category":"helioflux","date":"2026-03-04","summary":"Clinical growth modeling reference. Frequently cited interpretation: time to clinical detectability can range from ~2 years for very fast-growing tumors to ~10 years at moderate doubling times.","tags":["HelioFlux","cancer imaging","tumor growth","detectability"]},
+  {"id":22,"title":"Frangioni JV (2008): New Technologies for Human Cancer Imaging","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC2654310/","type":"paper","category":"helioflux","date":"2008-01-01","summary":"Seminal review arguing current cancer imaging remains inadequate for early detection. Commonly cited detectability threshold anchor: ~10^9 cells (~1 cm^3). Foundational for HelioFlux's detection advantage framing.","tags":["HelioFlux","imaging limits","Frangioni","10^9 cells","early detection"]},
+  {"id":24,"title":"5 Claude Code Hacks for Professional Websites","url":"https://youtu.be/86HM0RUWhCk","type":"youtube","category":"ai-tech","date":"2026-03-08","summary":"5 hacks: (1) CLAUDE.md as system prompt; (2) frontend-design skill; (3) Screenshot loop for self-iteration; (4) Paste competitor URLs for style analysis; (5) Point Claude at specific UI components to replicate. Deploy: Claude Code → GitHub → Vercel.","tags":["claude-code","website","frontend-design","CLAUDE.md","landing-page"]},
+  {"id":25,"title":"Anthropic Academy — AI Learning Resources & Guides","url":"https://www.anthropic.com/learn","type":"course","category":"ai-tech","date":"2026-03-28","summary":"Official Anthropic learning hub. Courses on API development, AI Fluency, Model Context Protocol, and Claude Code. Three tracks: Build with Claude, Claude for work, Claude personal. Earnable certificates.","tags":["anthropic","claude","ai-education","api","courses","mcp"]},
+  {"id":26,"title":"Claude just killed ALL Note-Taking Apps. Here is proof.","url":"https://youtu.be/geIKyDaXwGg","type":"youtube","category":"ai-tech","date":"2026-03-28","summary":"Claims Claude replaced traditional note-taking apps like Notion and Obsidian. 122K views. Demonstrates unified capture, synthesis, and retrieval workflow. Relevant since you run both Claude Code and Obsidian.","tags":["claude","note-taking","ai-productivity","obsidian"]},
+  {"id":27,"title":"Claude Code + iMessage is Finally Here","url":"https://youtu.be/hHlpVeooPrI","type":"youtube","category":"ai-tech","date":"2026-03-28","summary":"How to connect Claude Code to iMessage so you can message your AI assistant from iPhone. Mac required — runs Claude Code in background and forwards iMessages to it. Very new.","tags":["claude-code","iMessage","Mac","setup","ai-tools"]},
+  {"id":28,"title":"10 CLI Tools That Make Claude Code UNSTOPPABLE","url":"https://youtu.be/uULvhQrKB_c","type":"youtube","category":"ai-tech","date":"2026-03-28","summary":"10 command-line tools that plug into Claude Code and dramatically expand its capabilities. Watch with Kip — install anything useful directly.","tags":["claude-code","CLI","tools","productivity"]},
+  {"id":29,"title":"NotebookLM Changed Completely: Here's What Matters (2026)","url":"https://youtu.be/_uXnyhrqmsU","type":"youtube","category":"ai-tech","date":"2026-03-28","summary":"214K views. NotebookLM major update breakdown. Google's AI research tool — drop in Nirosha's papers and ask questions, generate audio overviews, visual summaries. Very powerful for HelioFlux research organization.","tags":["notebooklm","google","research","ai-tools","helioflux"]},
+  {"id":30,"title":"New Claude Cowork Projects Explained","url":"https://youtu.be/zvCOmAzwa3Y","type":"youtube","category":"ai-tech","date":"2026-03-28","summary":"9-minute explainer on Claude's Cowork Projects feature from The AI Advantage. Dropped 1 day ago. Quick watch.","tags":["claude","cowork","projects","ai-tools"]},
+  {"id":31,"title":"ResearchRabbit — Visual Citation Mapping","url":"https://researchrabbit.ai","type":"tool","category":"ai-tech","date":"2026-03-28","summary":"Visual citation mapping tool. Drop in any paper and it maps the entire connected research universe — what cited it, what it cited, related work you'd never find searching. Perfect for navigating the biophotonics/UPE field.","tags":["research","citations","papers","helioflux","ai-tools"]},
+  {"id":32,"title":"Readwise Reader — Unified Reading Inbox","url":"https://read.readwise.io","type":"tool","category":"ai-tech","date":"2026-03-28","summary":"Best save-to-read tool available. Unified inbox for articles, YouTube videos, newsletters, PDFs, tweets. Pulls YouTube transcripts so you can skim videos in 2 minutes. Highlights sync. Great iPhone app.","tags":["reading","productivity","bookmarks","youtube","ai-tools"]},
+  {"id":33,"title":"Google Stitch — Sketch to Website","url":"https://labs.google.com/stitch","type":"tool","category":"design","date":"2026-03-28","summary":"Google Labs AI design tool. Sketch a UI on paper, take a photo, and it generates a working website. Iterate with natural language. Very new — join the waitlist. Huge for fast website iteration.","tags":["design","google","ai","website","prototype"]},
+  {"id":34,"title":"Littlebird — Your Mac's Automatic Memory","url":"https://littlebird.ai","type":"tool","category":"ai-tech","date":"2026-03-28","summary":"Mac app that passively watches everything you do (emails, Slack, Notion, LinkedIn) and auto-organizes with 1-minute executive summaries. Passive capture so you never have to manually save. Mac-only.","tags":["mac","memory","productivity","capture","ai-tools"]}
+];
+
+const grid = document.getElementById('grid');
+const searchEl = document.getElementById('search');
+const countBadge = document.getElementById('count-badge');
+let activeType = 'all';
+let activeCat = null;
+
+function typeLabel(t){
+  const map={youtube:'Video',article:'Article',course:'Course',paper:'Paper',tool:'Tool',podcast:'Podcast',idea:'Idea',todo:'Learn',learn:'Learn'};
+  return map[t]||t;
+}
+
+function formatDate(d){
+  if(!d)return'';
+  try{const dt=new Date(d);return dt.toLocaleDateString('en-US',{month:'short',year:'numeric'})}catch{return d}
+}
+
+function render(){
+  const q=searchEl.value.toLowerCase().trim();
+  let items=RESOURCES.filter(r=>{
+    if(activeType!=='all'&&r.type!==activeType)return false;
+    if(activeCat&&r.category!==activeCat)return false;
+    if(!q)return true;
+    return(r.title+' '+(r.summary||'')+' '+(r.tags||[]).join(' ')+' '+r.category).toLowerCase().includes(q);
+  });
+  items.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  countBadge.textContent=`${items.length} resource${items.length!==1?'s':''}`;
+  if(!items.length){
+    grid.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><p>Nothing found — try a different search or filter</p></div>`;
+    return;
+  }
+  grid.innerHTML=items.map(r=>{
+    const href=r.url?`href="${r.url}" target="_blank" rel="noopener"`:'';
+    const tags=(r.tags||[]).slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('');
+    const summary=r.summary?r.summary.slice(0,160)+(r.summary.length>160?'…':''):'';
+    return`<a class="card" ${href}>
+      <div class="card-top">
+        <span class="type-badge t-${r.type||'article'}">${typeLabel(r.type||'article')}</span>
+        ${r.url?`<svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>`:''}
+      </div>
+      <h3>${r.title}</h3>
+      ${summary?`<p>${summary}</p>`:''}
+      <div class="card-footer">
+        <div class="tags">${tags}</div>
+        <span class="card-date">${formatDate(r.date)}</span>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+// filters
+document.querySelectorAll('.pill[data-type]').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.pill[data-type]').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    activeType=p.dataset.type;
+    activeCat=null;
+    document.querySelectorAll('.pill[data-cat]').forEach(x=>x.classList.remove('active'));
+    render();
+  });
+});
+document.querySelectorAll('.pill[data-cat]').forEach(p=>{
+  p.addEventListener('click',()=>{
+    const same=p.classList.contains('active');
+    document.querySelectorAll('.pill[data-cat]').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.pill[data-type]').forEach(x=>x.classList.remove('active'));
+    document.querySelector('.pill[data-type="all"]').classList.add('active');
+    activeType='all';
+    if(same){activeCat=null}else{activeCat=p.dataset.cat;p.classList.add('active')}
+    render();
+  });
+});
+
+searchEl.addEventListener('input',render);
+render();
+</script>
+</body>
+</html>
