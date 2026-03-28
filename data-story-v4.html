@@ -141,7 +141,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
 
 /* SCROLLYTELL */
 .sticky-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.sticky-panel{position:sticky;top:80px;height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;padding:40px 48px 40px 56px;background:var(--cream)}
+.sticky-panel{position:sticky;top:80px;height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;padding:40px 48px 40px 56px;background:var(--cream);min-height:320px}
 .steps-panel{padding:100px 56px 100px 48px;background:var(--white)}
 .step{padding:48px 0;border-bottom:1px solid var(--light-border);opacity:.25;filter:blur(.5px);transition:opacity .5s ease,filter .5s ease}
 .step.active{opacity:1;filter:none}
@@ -195,7 +195,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 56px;display:fl
   .green-section{padding:80px 24px}
   .green-section h2{font-size:clamp(36px,10vw,60px)}
   .sticky-wrap{display:block}
-  .sticky-panel{position:static;height:auto;padding:40px 24px}
+  .sticky-panel{position:static;height:auto;min-height:280px;padding:32px 24px;display:flex;align-items:center;justify-content:center}
   .steps-panel{padding:40px 24px}
   .step{opacity:1;filter:none}
   .callout3{grid-template-columns:1fr}
@@ -546,7 +546,8 @@ gsap.utils.toArray('.sec-num-bg,.sec-label,.editorial h2,.editorial-dark-inner h
 })();
 
 // ── D3 SPD SCROLLYTELL ─────────────────────────────────────────────
-(()=>{
+// Delay ensures container has layout dimensions before D3 renders
+setTimeout(()=>{
   const W=440,H=280,ml=40,mr=20,mt=20,mb=40;
   const iw=W-ml-mr,ih=H-mt-mb;
   const svg=d3.select('#spdChartWrap').append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`).style('background','var(--white)');
@@ -578,7 +579,7 @@ gsap.utils.toArray('.sec-num-bg,.sec-label,.editorial h2,.editorial-dark-inner h
   }
   const sio=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting)setStep(+en.target.dataset.step)}),{threshold:.55,rootMargin:'-15% 0px -15% 0px'});
   steps.forEach(s=>sio.observe(s));
-})();
+},300);
 
 // ── ACCURACY GRID ─────────────────────────────────────────────────
 (()=>{
