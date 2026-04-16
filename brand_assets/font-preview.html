@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HelioFlux Wordmark Font — Preview</title>
+<style>
+  @font-face {
+    font-family: 'HelioFlux Wordmark';
+    src: url('helioflux-wordmark.woff2') format('woff2'),
+         url('helioflux-wordmark.ttf')   format('truetype');
+    font-display: swap;
+  }
+  :root { --navy: #0f1c2e; --cream: #f5f0eb; }
+  html, body { margin: 0; background: var(--cream); color: var(--navy);
+               font-family: -apple-system, "Inter", sans-serif; }
+  main { max-width: 960px; margin: 80px auto; padding: 0 32px; }
+  .sample {
+    font-family: 'HelioFlux Wordmark', sans-serif;
+    font-feature-settings: "liga" 1, "dlig" 1;
+    /* ligatures on is default for "liga", but belt-and-suspenders */
+    display: block;
+    line-height: 1;
+    color: var(--navy);
+    margin: 24px 0 48px;
+  }
+  .s-40 { font-size: 40px; }
+  .s-80 { font-size: 80px; }
+  .s-140 { font-size: 140px; }
+  h1 { font-weight: 500; letter-spacing: -0.01em; font-size: 28px; }
+  h2 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.14em;
+       color: rgba(15,28,46,0.5); margin-top: 64px; }
+  .dark { background: var(--navy); color: #fff; padding: 48px 32px;
+          margin: 48px -32px; }
+  .dark .sample { color: #fff; }
+  code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.06);
+         padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+  <main>
+    <h1>HelioFlux Wordmark — ligature font</h1>
+    <p>Type <code>HelioFlux</code> in this font and the browser substitutes the
+       whole wordmark as one vector glyph. Zoom in — it's sharp at any size.</p>
+
+    <h2>On cream — 40 / 80 / 140 px</h2>
+    <span class="sample s-40">HelioFlux</span>
+    <span class="sample s-80">HelioFlux</span>
+    <span class="sample s-140">HelioFlux</span>
+
+    <div class="dark">
+      <h2 style="color:rgba(255,255,255,.5)">On navy</h2>
+      <span class="sample s-80">HelioFlux</span>
+    </div>
+
+    <h2>With surrounding text</h2>
+    <p style="font-size:22px; line-height:1.7;">
+      Welcome to <span class="sample s-40" style="display:inline-block;vertical-align:-0.25em;">HelioFlux</span> — a new way to look at energy.
+    </p>
+
+    <h2>Editing live</h2>
+    <p>Try retyping the phrase here (ligature only fires on the exact sequence
+       <code>HelioFlux</code>):</p>
+    <span contenteditable class="sample s-80" style="outline:1px dashed rgba(15,28,46,.2); padding:12px 24px; border-radius:8px; min-width: 400px;">HelioFlux</span>
+  </main>
+</body>
+</html>
