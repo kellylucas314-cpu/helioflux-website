@@ -1150,6 +1150,40 @@
   <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" class="mob-cta mob-link">Request Deck</a>
 </div>
 
+<!-- Isolated hamburger script — must run independently of GSAP/Lenis/ScrollTrigger so menu works even if animation libs fail to load. Do not merge into main script block. -->
+<script>
+(function() {
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (!hamburger || !mobileMenu) return;
+
+  function toggleMenu(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    var isOpen = mobileMenu.classList.contains('open');
+    if (isOpen) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    } else {
+      hamburger.classList.add('open');
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  hamburger.addEventListener('touchend', toggleMenu, { passive: false });
+
+  mobileMenu.querySelectorAll('.mob-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
@@ -1678,23 +1712,7 @@ const btt = document.getElementById('back-to-top');
 lenis.on('scroll', ({ scroll }) => btt.classList.toggle('visible', scroll > 400));
 btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { duration: 1.4 }); });
 
-// ─── MOBILE HAMBURGER ───
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-if (hamburger && mobileMenu) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-  });
-  mobileMenu.querySelectorAll('.mob-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-}
+// Mobile hamburger handler moved to isolated script block near markup — runs independently of GSAP/Lenis.
 
 </script>
 
