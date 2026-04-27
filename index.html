@@ -457,6 +457,8 @@
       .mobile-menu a { font-family: var(--serif); font-size: clamp(28px, 6vw, 40px); font-weight: 300; color: var(--white); text-decoration: none; letter-spacing: .04em; transition: color .2s; }
       .mobile-menu a:hover { color: var(--cyan); }
       .mobile-menu .mob-cta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,169,214,.35); padding: 14px 36px; font-family: var(--sans); font-weight: 400; margin-top: 16px; border-radius: 50px; }
+      .mob-close { position: absolute; top: 18px; right: 22px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: none; color: rgba(255,255,255,.85); font-size: 36px; line-height: 1; font-weight: 200; cursor: pointer; padding: 0; transition: color .2s, transform .2s; }
+      .mob-close:hover, .mob-close:focus { color: var(--cyan); transform: scale(1.05); outline: none; }
       .nav-cta { display: none; }
       .hero { height: auto !important; min-height: 100svh !important; padding: 148px 24px 72px !important; justify-content: center !important; }
       .hero-content { margin-top: 0 !important; max-width: 100% !important; }
@@ -1149,6 +1151,7 @@
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" id="mobClose" aria-label="Close menu" type="button">&times;</button>
   <a href="#platform" class="mob-link">Proof</a>
   <a href="science.html" class="mob-link">Science</a>
   <a href="team.html" class="mob-link">Team</a>
@@ -1180,6 +1183,12 @@
 
   hamburger.addEventListener('click', toggleMenu);
   hamburger.addEventListener('touchend', toggleMenu, { passive: false });
+
+  var mobClose = document.getElementById('mobClose');
+  if (mobClose) {
+    mobClose.addEventListener('click', toggleMenu);
+    mobClose.addEventListener('touchend', toggleMenu, { passive: false });
+  }
 
   mobileMenu.querySelectorAll('.mob-link').forEach(function(link) {
     link.addEventListener('click', function() {
