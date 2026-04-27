@@ -892,6 +892,7 @@
       .prob-opener { font-size: clamp(28px, 7.5vw, 40px) !important; margin-bottom: 20px !important; }
 
       /* Stats — tighter */
+      .stat-band > div { padding: 64px 24px !important; }
       .prob-gap-grid { margin-top: 36px !important; margin-bottom: 36px !important; }
       .prob-gap-num { font-size: clamp(48px, 14vw, 72px) !important; }
       .prob-gap-col { padding: 8px 12px !important; }
@@ -1025,7 +1026,7 @@
 
     /* === CREAM CONTENT SECTIONS === */
     #problem {
-      background: #f5f0eb;
+      background: #F7F6F2;
       color: #16263A;
     }
     #problem h2, #problem h3, #problem .lead { color: #16263A; }
@@ -1037,6 +1038,12 @@
     #problem .crisis-card-title { color: #16263A; }
     #problem .crisis-bullets li { color: #4a5b6e; }
     #problem .crisis-bullets li::before { background: rgba(0,169,214,.5); }
+
+    /* === DARK STAT BAND (rhythm break between problem and science) === */
+    .stat-band .prob-gap-survive { color: rgba(255,255,255,.78); }
+    .stat-band .prob-gap-label { color: rgba(255,255,255,.5); }
+    .stat-band .prob-gap-col.late .prob-gap-num { color: rgba(255,255,255,.45); }
+    .stat-band .prob-gap-vline { opacity: 0.7; }
 
     /* Peppercorn — cream */
     .peppercorn {
@@ -1201,13 +1208,12 @@
   <div class="scroll-cue"><div class="scroll-line"></div></div>
 </section>
 
-<!-- ═══ PROBLEM ═══ -->
-<section id="problem" style="background:#f5f0eb;">
-  <div style="padding:100px 56px 60px;text-align:center;max-width:900px;margin:0 auto;">
+<!-- ═══ PROBLEM (cream — headline, urgency line, survival gap stats) ═══ -->
+<section id="problem" style="background:#F7F6F2;">
+  <div style="padding:120px 56px 100px;text-align:center;max-width:900px;margin:0 auto;">
     <p class="prob-opener reveal" style="margin-bottom:28px;">Cancer is caught too late.</p>
-    <p class="reveal" style="font-size:18px;color:#3A5068;line-height:1.8;max-width:720px;margin:0 auto 32px;text-align:center;">Every 60 seconds, the U.S. loses one person to cancer. Not because treatments fail, but because they start too late.</p>
-
-    <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin-bottom:0;margin-top:40px;">
+    <p class="reveal" style="font-size:18px;color:#3A5068;line-height:1.8;max-width:720px;margin:0 auto 56px;text-align:center;">Every 60 seconds, the U.S. loses one person to cancer. Not because treatments fail, but because they start too late.</p>
+    <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin:40px auto 0;">
       <div class="prob-gap-col early">
         <div class="prob-gap-num" id="earlyNum">&gt;90%</div>
         <div class="prob-gap-survive">5-year survival</div>
@@ -1223,36 +1229,51 @@
   </div>
 </section>
 
-<!-- ═══ THE SCIENCE (dark section) ═══ -->
-<div id="solution" style="background:#092743;position:relative;">
-  <div style="max-width:1200px;margin:0 auto;padding:160px 56px 80px;text-align:center;">
+<!-- ═══ BRIDGE BAND (dark — full-bleed thin slice of microscopy footage with bridge text overlaid) ═══ -->
+<section class="bridge-band" style="background:#092743;position:relative;overflow:hidden;min-height:clamp(220px,28vh,280px);">
+  <video autoplay loop muted playsinline preload="metadata" aria-label="Microscopy footage of dividing cancer cells" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+    <source src="cancer-cells-under-microscope.mp4" type="video/mp4">
+  </video>
+  <!-- Subtle vignette/darkening for text legibility -->
+  <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(9,39,67,0.35) 0%, rgba(9,39,67,0.65) 100%);pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:2;padding:clamp(72px,12vh,110px) 40px;text-align:center;max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;min-height:inherit;">
+    <p class="reveal" style="font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);font-weight:300;font-style:italic;color:rgba(255,255,255,.96);letter-spacing:0.01em;line-height:1.4;margin:0 auto;text-shadow:0 2px 18px rgba(0,0,0,0.65);">There's a signal before there's a tumor.</p>
+  </div>
+</section>
+
+<!-- ═══ THE SCIENCE → THE SCAN (unified cream section, wrapped to prevent body-bg leak) ═══ -->
+<div class="cream-band" style="background:#F7F6F2;">
+<div id="solution" style="background:#F7F6F2;display:block;margin:0;">
+  <div style="max-width:1200px;margin:0 auto;padding:120px 56px 80px;text-align:center;">
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow" style="color:#00A9D6;">The Science</p>
-      <h2 style="color:rgba(255,255,255,.95);">Cancer has a <em style="color:#00A9D6;font-style:italic;">light signature.</em></h2>
-      <p style="font-size:19px;color:rgba(255,255,255,.7);margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Every cell in your body emits faint light as a byproduct of metabolism. These signals are invisible to the eye, but real and measurable.</p>
-      <p style="font-size:19px;color:rgba(255,255,255,.7);margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Cancer cells process energy differently. The light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
-      <p style="font-size:19px;color:rgba(255,255,255,.7);margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to identify cancer at 100-200x fewer cells than standard imaging.</p>
+      <h2 style="color:#0A1640;">Cancer has a <em style="color:#00A9D6;font-style:italic;">light signature.</em></h2>
+      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Every cell in your body emits faint light as a byproduct of metabolism. These signals are invisible to the eye, but real and measurable.</p>
+      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Cancer cells process energy differently. The light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
+      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to identify cancer at 100-200x fewer cells than standard imaging.</p>
     </div>
-  </div>
-
-  <!-- Detection stages diagram — seamless on matching dark bg -->
-  <div class="reveal" style="max-width:1000px;margin:0 auto;padding:0 24px 60px;position:relative;">
-    <img src="detection-stages-v3.jpg" alt="Cancer progression stages timeline" style="width:100%;display:block;image-rendering:auto;">
-    <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom, transparent, #092743);pointer-events:none;"></div>
   </div>
 </div>
 
-<!-- ═══ THE SCAN ═══ -->
+<!-- Light signature animation: normal vs cancer cells — sits between the science explanation and the tool section as visual proof -->
+<div class="reveal" style="max-width:480px;margin:0 auto;padding:0 24px;">
+  <video autoplay loop muted playsinline preload="metadata" poster="light-signature-poster.jpg" style="width:100%;display:block;background:#F7F6F2;" aria-label="Animation comparing the smooth light signature of normal cells with the chaotic signal from cancer cells">
+    <source src="light-signature.webm" type="video/webm">
+    <source src="light-signature.mp4" type="video/mp4">
+  </video>
+</div>
+
 <div id="two-systems" style="background:#F7F6F2;">
-  <div style="max-width:1200px;margin:0 auto;padding:120px 56px;text-align:center;">
+  <div style="max-width:1200px;margin:0 auto;padding:100px 56px 120px;text-align:center;">
     <div class="reveal">
       <p class="eyebrow" style="color:#00A9D6;">The Scan</p>
-      <h2 style="margin-bottom:44px;color:#14263C;">We built the tool <em>to read it.</em></h2>
-      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:left;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
-      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:left;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
-      <p style="font-size:17px;color:#3A5068;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:56px;font-weight:500;text-align:left;">No blood draw. No biopsy. No radiation.</p>
+      <h2 style="margin-bottom:44px;color:#0A1640;">We built the tool <em>to read it.</em></h2>
+      <p style="font-size:17px;color:#0A1640;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:left;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
+      <p style="font-size:17px;color:#0A1640;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:left;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
+      <p style="font-size:17px;color:#0A1640;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:56px;font-weight:500;text-align:left;">No blood draw. No biopsy. No radiation.</p>
 
-      <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);font-weight:400;color:#14263C;margin-bottom:40px;">Two systems. <em>One signal.</em></h3>
+      <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);font-weight:400;color:#0A1640;margin-bottom:40px;">Two systems. <em>One signal.</em></h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
         <div class="qs-card" style="background:#092743;overflow:hidden;border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
           <img src="qsense-product.jpg" alt="QSense" style="width:100%;max-height:220px;object-fit:cover;display:block;">
@@ -1286,6 +1307,7 @@
     </div>
   </div>
 </div>
+</div><!-- /.cream-band -->
 
 <!-- ═══ PHOTO BREAK ═══ -->
 <div style="position:relative;overflow:hidden;">
@@ -1686,6 +1708,75 @@ document.querySelectorAll('.prob-glass-card').forEach(card => {
         }, 250);
       }
     });
+  }
+})();
+
+// ─── BRIDGE BAND: cells un-divide on scroll ───
+(function() {
+  const svg = document.querySelector('.bridge-cells');
+  if (!svg) return;
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  // Tumor cluster — center cell is the survivor; outer cells fade first as you scroll
+  // Format: [x, y, radius]
+  const positions = [
+    [600, 120, 18], // center (survivor)
+    [540, 110, 12], [660, 112, 13], [560, 145, 14], [640, 132, 11],
+    [510, 92, 13], [580, 80, 12], [650, 158, 14], [710, 96, 13],
+    [700, 145, 12], [592, 178, 14], [470, 124, 11],
+    [402, 80, 12], [430, 145, 13], [462, 60, 11], [474, 178, 14],
+    [540, 42, 13], [582, 208, 12], [624, 32, 14], [670, 198, 13],
+    [732, 56, 11], [762, 144, 14], [792, 80, 12], [810, 174, 11],
+    [378, 178, 13], [350, 110, 14], [840, 110, 13], [860, 80, 12],
+    [292, 90, 11], [312, 156, 13], [240, 124, 12], [358, 40, 14],
+    [922, 60, 13], [940, 138, 12], [904, 196, 11], [884, 30, 13]
+  ];
+
+  const cx = positions[0][0], cy = positions[0][1];
+  const cells = [];
+
+  positions.forEach(([x, y, r], i) => {
+    const c = document.createElementNS(SVG_NS, 'circle');
+    c.setAttribute('cx', x);
+    c.setAttribute('cy', y);
+    c.setAttribute('r', r);
+    c.setAttribute('fill', i === 0 ? 'url(#cellGlowCore)' : 'url(#cellGlow)');
+    c.style.opacity = i === 0 ? '1' : '0.85';
+    c.dataset.dist = Math.hypot(x - cx, y - cy);
+    svg.appendChild(c);
+    cells.push(c);
+  });
+
+  // Sort outer cells (skip center) by distance from center, descending — farthest fades first
+  const outer = cells.slice(1).sort((a, b) => parseFloat(b.dataset.dist) - parseFloat(a.dataset.dist));
+
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '.bridge-band',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    }).to(outer, {
+      opacity: 0,
+      attr: { r: 0 },
+      stagger: { amount: 0.95, from: 'start' },
+      ease: 'power2.in'
+    }, 0);
+
+    // Subtle "alive" pulse on the surviving center cell
+    gsap.to(cells[0], {
+      attr: { r: 22 },
+      opacity: 0.92,
+      duration: 1.8,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1
+    });
+  } else {
+    // Fallback: no JS animation lib — just leave cells visible (or fade peripheral statically)
+    outer.forEach((c, i) => { c.style.opacity = i < outer.length / 2 ? '0.6' : '0.3'; });
   }
 })();
 
