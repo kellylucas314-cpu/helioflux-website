@@ -69,15 +69,17 @@
     height: 100%; pointer-events: none;
   }
 
-  /* ─── DIVIDER B: Stippled dunes (Manifold-inspired) ─── */
+  /* ─── DIVIDER B: Stippled dunes (Manifold-inspired, procedurally stippled) ─── */
   .divider-b {
     position: relative; line-height: 0;
     background: var(--cream);
     overflow: hidden;
-    height: clamp(180px, 32vw, 280px);
   }
-  .divider-b .layer { position: absolute; left: -2%; right: -2%; bottom: 0; width: 104%; }
-  .divider-b .layer svg { display: block; width: 100%; height: 100%; }
+  .divider-b img {
+    display: block; width: 100%;
+    height: clamp(340px, 60vw, 520px);
+    object-fit: cover; object-position: center bottom;
+  }
 
   /* ─── DIVIDER C: Flowing color ribbon (Prenuvo/Isomorphic-inspired) ─── */
   .divider-c {
@@ -181,62 +183,7 @@
 </section>
 
 <div class="divider-b" aria-hidden="true">
-  <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
-    <defs>
-      <!-- Far dune: small, sparse cyan dots -->
-      <pattern id="dotsFar" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-        <circle cx="3" cy="3" r="0.7" fill="#00A9D6" opacity=".55"/>
-      </pattern>
-      <!-- Mid dune: medium dots, teal-tinted -->
-      <pattern id="dotsMid" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
-        <circle cx="2.5" cy="2.5" r="0.85" fill="#00c9c8" opacity=".7"/>
-      </pattern>
-      <!-- Front dune: dense navy dots fading to solid -->
-      <pattern id="dotsFront" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="1" fill="#092743"/>
-      </pattern>
-      <!-- Mask that fades each dune from top (sparse) to bottom (dense) -->
-      <linearGradient id="fadeFar" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
-        <stop offset="60%" stop-color="#fff" stop-opacity=".7"/>
-        <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
-      </linearGradient>
-      <linearGradient id="fadeMid" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
-        <stop offset="40%" stop-color="#fff" stop-opacity=".5"/>
-        <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
-      </linearGradient>
-      <mask id="maskFar"><rect width="100%" height="100%" fill="url(#fadeFar)"/></mask>
-      <mask id="maskMid"><rect width="100%" height="100%" fill="url(#fadeMid)"/></mask>
-    </defs>
-  </svg>
-
-  <!-- Layer 1 (back): far dune shape, sparse cyan dots -->
-  <div class="layer" style="height:78%;">
-    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
-      <path d="M0,80 C 220,30 420,150 720,90 S 1200,20 1440,110 L1440,220 L0,220 Z"
-            fill="url(#dotsFar)" mask="url(#maskFar)"/>
-    </svg>
-  </div>
-
-  <!-- Layer 2 (mid): teal dune, medium dots, slightly offset -->
-  <div class="layer" style="height:60%;">
-    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
-      <path d="M0,140 C 280,80 480,180 800,100 S 1240,160 1440,90 L1440,220 L0,220 Z"
-            fill="url(#dotsMid)" mask="url(#maskMid)"/>
-    </svg>
-  </div>
-
-  <!-- Layer 3 (front): dense navy dune that resolves into solid navy -->
-  <div class="layer" style="height:42%;">
-    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
-      <path d="M0,120 C 240,60 460,160 740,80 S 1180,140 1440,70 L1440,220 L0,220 Z"
-            fill="url(#dotsFront)"/>
-    </svg>
-  </div>
-
-  <!-- Solid navy floor so it joins the next section seamlessly -->
-  <div style="position:absolute;left:0;right:0;bottom:0;height:14%;background:#092743;"></div>
+  <img src="assets/divider-dunes.svg" alt="" loading="lazy">
 </div>
 
 <section class="navy">
