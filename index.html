@@ -1023,6 +1023,196 @@
 <style id="transition-gradients">
     /* No gradient needed — bridge quote handles dark breaks between cream sections */
 </style>
+
+<style id="problem-progression">
+  /* ─── Lead-in line that bridges stats → progression (pinned with the cells) ─── */
+  .prob-prog-leadin {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .prob-prog-leadin p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 2.5vw, 30px);
+    line-height: 1.4;
+    letter-spacing: .005em;
+    color: #16263A;
+    margin: 0;
+  }
+
+  /* ─── Scroll-driven cell→tumor progression inside #problem ─── */
+  .prob-prog-block {
+    position: relative;
+    height: 230vh;            /* total scroll length — animation runs over the first ~91%, final frame lingers in the last ~9% */
+    background: #F7F6F2;
+  }
+  .prob-prog-pin {
+    /* ScrollTrigger handles pinning via transform — site has overflow-x:hidden on <html> which breaks position:sticky. */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(40px, 6vh, 72px);
+    /* Top padding ensures content clears the fixed header; vertical centering then balances the composition. */
+    padding: clamp(85px, 10vh, 115px) clamp(24px, 6vw, 56px) clamp(40px, 6vh, 72px);
+  }
+  .prob-prog-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(24px, 5vw, 72px);
+    width: 100%;
+  }
+  .prob-prog-stage {
+    flex: 0 0 auto;
+    width: min(30vw, 320px);
+    aspect-ratio: 1 / 1;
+    position: relative;
+  }
+  .prob-prog-stage canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    /* Feather edges so the source frame's cream doesn't form a visible rectangle on the page cream.
+       Tightened mask radius so the cell stays crisper at the center and only the outer cream-mismatch fades. */
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
+            mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
+  }
+  .prob-prog-caption {
+    flex: 0 0 340px;
+    width: 340px;
+    max-width: 340px;
+    text-align: left;
+    height: 50vh;
+    max-height: 320px;
+    position: relative;
+  }
+  .prob-prog-caption .phase {
+    opacity: 0;
+    transition: opacity .28s ease, transform .28s ease;
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    transform: translateY(calc(-50% + 10px));
+    pointer-events: none;
+  }
+  .prob-prog-caption .phase.active {
+    opacity: 1;
+    transform: translateY(-50%);
+    /* Fade in AFTER the outgoing caption has faded out, so both never overlap at high alpha. */
+    transition: opacity .42s ease .22s, transform .42s ease .22s;
+    pointer-events: auto;
+  }
+  .prob-prog-caption .text {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(19px, 1.7vw, 24px);
+    color: #16263A;
+    line-height: 1.5;
+    letter-spacing: .005em;
+    display: block;
+  }
+  .prob-prog-caption .text em {
+    font-style: italic;
+    color: var(--cyan);
+    font-weight: 400;
+  }
+  .prob-prog-caption .stage-label {
+    display: block;
+    margin-top: 14px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(22, 38, 58, 0.5);
+  }
+  .prob-prog-caption .punchline {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(19px, 1.8vw, 25px);
+    line-height: 1.4;
+    color: #0A1640;
+  }
+  .prob-prog-caption .punchline strong {
+    font-weight: 500;
+    color: var(--cyan);
+  }
+  .prob-prog-caption .closer {
+    display: block;
+    margin-top: 18px;
+    font-family: var(--serif);
+    font-style: normal;
+    font-weight: 600;
+    font-size: clamp(20px, 1.95vw, 25px);
+    line-height: 1.35;
+    color: #0A1640;
+    letter-spacing: -0.005em;
+  }
+
+  /* Tablet / narrow desktop: stack with caption below */
+  @media (max-width: 880px) {
+    .prob-prog-block { height: 200vh; }
+    .prob-prog-pin {
+      gap: 20px;
+      padding: 6vh 24px 0;
+      justify-content: flex-start;
+    }
+    .prob-prog-row {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .prob-prog-stage { width: min(54vw, 280px); }
+    .prob-prog-caption {
+      flex: 0 0 auto;
+      width: min(86vw, 520px);
+      max-width: 520px;
+      height: auto;
+      min-height: 160px;
+      max-height: none;
+      text-align: center;
+    }
+    .prob-prog-caption .phase {
+      position: relative;
+      top: auto;
+      transform: translateY(0);
+    }
+    .prob-prog-caption .phase:not(.active) {
+      position: absolute;
+      transform: translateY(0);
+    }
+    .prob-prog-caption .phase.active {
+      transform: translateY(0);
+    }
+  }
+  @media (max-width: 480px) {
+    .prob-prog-block { height: 180vh; }
+    .prob-prog-stage { width: min(64vw, 240px); }
+    .prob-prog-caption .text { font-size: 18px; }
+    .prob-prog-caption .punchline { font-size: 19px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prob-prog-block { height: auto; }
+    .prob-prog-pin {
+      position: static;
+      height: auto;
+      padding: 60px 24px;
+    }
+  }
+</style>
     <style id="section-theme">
     /* ─── HYBRID: Dark hero, cream body, dark accent breaks ─── */
 
@@ -1139,7 +1329,6 @@
 <nav id="nav">
   <a href="index.html" class="logo">Helio<span>Flux</span></a>
   <ul class="nav-links">
-    <li><a href="#platform">Proof</a></li>
     <li><a href="science.html">Science</a></li>
     <li><a href="team.html">Team</a></li>
     <li><a href="press.html">Press</a></li>
@@ -1152,7 +1341,6 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <button class="mob-close" id="mobClose" aria-label="Close menu" type="button">&times;</button>
-  <a href="#platform" class="mob-link">Proof</a>
   <a href="science.html" class="mob-link">Science</a>
   <a href="team.html" class="mob-link">Team</a>
   <a href="press.html" class="mob-link">Press</a>
@@ -1217,9 +1405,9 @@
   <div class="scroll-cue"><div class="scroll-line"></div></div>
 </section>
 
-<!-- ═══ PROBLEM (cream — headline, urgency line, survival gap stats) ═══ -->
+<!-- ═══ PROBLEM (cream — headline, urgency line, survival gap stats, progression scroll) ═══ -->
 <section id="problem" style="background:#F7F6F2;">
-  <div style="padding:120px 56px 100px;text-align:center;max-width:900px;margin:0 auto;">
+  <div style="padding:120px 56px 0;text-align:center;max-width:900px;margin:0 auto;">
     <p class="prob-opener reveal" style="margin-bottom:28px;">Cancer is caught too late.</p>
     <p class="reveal" style="font-size:18px;color:#3A5068;line-height:1.8;max-width:720px;margin:0 auto 56px;text-align:center;">Every 60 seconds, the U.S. loses one person to cancer. Not because treatments fail, but because they start too late.</p>
     <div class="prob-gap-grid reveal" id="survivalGapGrid" style="margin:40px auto 0;">
@@ -1236,42 +1424,80 @@
       </div>
     </div>
   </div>
+
+  <!-- Scroll-driven progression: cell → tumor, with crisp HTML captions -->
+  <div class="prob-prog-block" id="probProgression" aria-label="Cancer progression visualization, scroll to advance">
+    <div class="prob-prog-pin">
+      <!-- Lead-in stays pinned at top throughout the scroll. -->
+      <div class="prob-prog-leadin">
+        <p>The problem isn't timing. It's what we can see.</p>
+      </div>
+      <div class="prob-prog-row">
+      <div class="prob-prog-stage">
+        <canvas id="probProgCanvas" width="720" height="720" role="img" aria-label="Single cell progressing through stages of cancer"></canvas>
+      </div>
+      <div class="prob-prog-caption" id="probProgCaption">
+        <div class="phase active" data-phase="0"><span class="text">A single cell acquires a driver mutation.</span></div>
+        <div class="phase" data-phase="1"><span class="text">Atypical daughter cells multiply.</span></div>
+        <div class="phase" data-phase="2">
+          <span class="text">A pre-malignant cluster forms.</span>
+          <span class="stage-label">Pre-cancer</span>
+        </div>
+        <div class="phase" data-phase="3">
+          <span class="text">A diffusion-limited microtumor takes shape.</span>
+          <span class="stage-label">Carcinoma in situ</span>
+        </div>
+        <div class="phase" data-phase="4">
+          <span class="text">Hypoxia triggers <em>angiogenesis</em>. New blood vessels feed the growth.</span>
+          <span class="stage-label">Carcinoma in situ</span>
+        </div>
+        <div class="phase" data-phase="5">
+          <span class="text">The tumor breaches the basement membrane and invades surrounding tissue.</span>
+          <span class="stage-label">Stage I</span>
+        </div>
+        <div class="phase" data-phase="6">
+          <span class="punchline">Standard imaging typically detects a tumor at <strong>~1&nbsp;cm</strong>. Roughly <strong>1&nbsp;billion cells</strong>.</span>
+          <span class="closer">By then, it's been growing silently for years.</span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ═══ BRIDGE BAND (dark — full-bleed thin slice of microscopy footage with bridge text overlaid) ═══ -->
 <section class="bridge-band" style="background:#092743;position:relative;overflow:hidden;min-height:clamp(220px,28vh,280px);">
   <video autoplay loop muted playsinline preload="metadata" aria-label="Microscopy footage of dividing cancer cells" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
-    <source src="cancer-cells-under-microscope.mp4" type="video/mp4">
+    <source src="blue-cells-in-dish.mp4" type="video/mp4">
   </video>
   <!-- Subtle vignette/darkening for text legibility -->
   <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(9,39,67,0.35) 0%, rgba(9,39,67,0.65) 100%);pointer-events:none;"></div>
 
   <div style="position:relative;z-index:2;padding:clamp(72px,12vh,110px) 40px;text-align:center;max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;min-height:inherit;">
-    <p class="reveal" style="font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);font-weight:300;font-style:italic;color:rgba(255,255,255,.96);letter-spacing:0.01em;line-height:1.4;margin:0 auto;text-shadow:0 2px 18px rgba(0,0,0,0.65);">There's a signal before there's a tumor.</p>
+    <p class="reveal" style="font-family:var(--serif);font-size:clamp(20px,2.4vw,30px);font-weight:300;font-style:italic;color:rgba(255,255,255,.96);letter-spacing:0.01em;line-height:1.4;margin:0 auto;text-shadow:0 2px 18px rgba(0,0,0,0.65);">But there's a signal before there's a tumor.</p>
   </div>
 </section>
 
 <!-- ═══ THE SCIENCE → THE SCAN (unified cream section, wrapped to prevent body-bg leak) ═══ -->
 <div class="cream-band" style="background:#F7F6F2;">
 <div id="solution" style="background:#F7F6F2;display:block;margin:0;">
-  <div style="max-width:1200px;margin:0 auto;padding:120px 56px 80px;text-align:center;">
+  <div style="max-width:1200px;margin:0 auto;padding:120px 56px 32px;text-align:center;">
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow" style="color:#00A9D6;">The Science</p>
       <h2 style="color:#0A1640;">Cancer has a <em style="color:#00A9D6;font-style:italic;">light signature.</em></h2>
-      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Every cell in your body emits faint light as a byproduct of metabolism. These signals are invisible to the eye, but real and measurable.</p>
-      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Cancer cells process energy differently. The light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
-      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">The key is not brightness alone. It's pattern: wavelength, timing, and the metabolic fingerprint hidden inside the signal.</p>
+      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Every cell in your body emits faint light as a byproduct of metabolism. Cancer cells process energy differently, and the light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
       <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to identify cancer at 100-200x fewer cells than standard imaging.</p>
     </div>
   </div>
 </div>
 
 <!-- Light signature animation: normal vs cancer cells — sits between the science explanation and the tool section as visual proof -->
-<div class="reveal" style="max-width:480px;margin:0 auto;padding:0 24px;">
+<div class="reveal" style="max-width:520px;margin:0 auto;padding:0 24px;">
   <video autoplay loop muted playsinline preload="metadata" poster="light-signature-poster.jpg" style="width:100%;display:block;background:#F7F6F2;" aria-label="Animation comparing the smooth light signature of normal cells with the chaotic signal from cancer cells">
     <source src="light-signature.webm" type="video/webm">
     <source src="light-signature.mp4" type="video/mp4">
   </video>
+  <p style="font-family:var(--serif);font-style:italic;font-weight:300;font-size:15px;line-height:1.5;color:rgba(22,38,58,0.65);text-align:center;margin:18px auto 0;max-width:440px;">Normal cells emit a smooth, steady light signature. Cancer cells emit a disrupted one.</p>
 </div>
 
 <div id="two-systems" style="background:#F7F6F2;">
@@ -1503,13 +1729,13 @@ class Photon {
     this.life -= this.decay;
     if (this.life <= 0 || this.x < -10 || this.y < -10 || this.x > canvas.width + 10 || this.y > canvas.height + 10) this.reset();
   }
-  draw() {
+  draw(offX, offY) {
     ctx.save();
-    ctx.globalAlpha = this.life * (this.cyan ? 0.85 : 0.55);
-    if (this.glow) { ctx.shadowBlur = 10; ctx.shadowColor = '#00A9D6'; }
+    ctx.globalAlpha = this.life * (this.cyan ? 0.62 : 0.38);
+    if (this.glow) { ctx.shadowBlur = 7; ctx.shadowColor = '#00A9D6'; }
     ctx.fillStyle = this.cyan ? '#00A9D6' : 'rgba(180,210,255,0.9)';
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.arc(this.x + offX, this.y + offY, this.size, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
@@ -1517,9 +1743,22 @@ class Photon {
 
 for (let i = 0; i < 160; i++) particles.push(new Photon());
 
+// Subtle mouse parallax for the photon field — current pos lerps toward target each frame.
+const heroParallax = { tx: 0, ty: 0, x: 0, y: 0 };
+const HERO_PARALLAX_MAX = 14;  // px max drift
+window.addEventListener('mousemove', e => {
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  heroParallax.tx = ((e.clientX - cx) / cx) * HERO_PARALLAX_MAX;
+  heroParallax.ty = ((e.clientY - cy) / cy) * HERO_PARALLAX_MAX;
+});
+
 function animateCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => { p.update(); p.draw(); });
+  // Ease toward target offset for a smooth, gentle response.
+  heroParallax.x += (heroParallax.tx - heroParallax.x) * 0.05;
+  heroParallax.y += (heroParallax.ty - heroParallax.y) * 0.05;
+  particles.forEach(p => { p.update(); p.draw(heroParallax.x, heroParallax.y); });
   requestAnimationFrame(animateCanvas);
 }
 animateCanvas();
@@ -1819,6 +2058,130 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
 
 
 <a href="#" id="back-to-top" aria-label="Back to top">↑</a>
+
+<!-- Progression scroll: isolated so it runs even if earlier scripts throw. -->
+<script>
+(() => {
+  const block = document.getElementById('probProgression');
+  if (!block || typeof ScrollTrigger === 'undefined') return;
+  const canvas = document.getElementById('probProgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const phases = Array.from(document.querySelectorAll('#probProgCaption .phase'));
+
+  const FRAME_COUNT = 128;
+  const FRAME_PATH = i => `assets/progression-video/f-${String(i).padStart(3, '0')}.webp`;
+  const frames = new Array(FRAME_COUNT + 1);
+
+  // Animation runs from scroll-progress 0 → ANIM_END; the remainder holds the final frame
+  // so the closer line gets a small linger beat before the pin releases.
+  const ANIM_END = 0.83;
+
+  // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
+  const PHASE_BOUNDS = [0.00, 0.10, 0.20, 0.30, 0.40, 0.55, 0.72, 1.001];
+  function phaseFor(p) {
+    for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
+      if (p < PHASE_BOUNDS[i + 1]) return i;
+    }
+    return phases.length - 1;
+  }
+
+  function setCanvasSize(img) {
+    if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+    }
+  }
+
+  function render(floatIndex) {
+    const baseI = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(floatIndex)));
+    const nextI = Math.min(FRAME_COUNT - 1, baseI + 1);
+    const blend = Math.max(0, Math.min(1, floatIndex - baseI));
+    const baseImg = frames[baseI + 1];
+    const nextImg = frames[nextI + 1];
+    if (!baseImg || !baseImg.complete || baseImg.naturalWidth === 0) return;
+    ctx.globalAlpha = 1;
+    ctx.drawImage(baseImg, 0, 0, canvas.width, canvas.height);
+    if (blend > 0.001 && nextI !== baseI && nextImg && nextImg.complete && nextImg.naturalWidth > 0) {
+      ctx.globalAlpha = blend;
+      ctx.drawImage(nextImg, 0, 0, canvas.width, canvas.height);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  let activePhase = -1;
+  function setPhase(i) {
+    if (i === activePhase) return;
+    activePhase = i;
+    phases.forEach((el, idx) => el.classList.toggle('active', idx === i));
+  }
+
+  let firstSized = false;
+  function preload() {
+    const promises = [];
+    for (let i = 1; i <= FRAME_COUNT; i++) {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = FRAME_PATH(i);
+      frames[i] = img;
+      promises.push(
+        img.decode().then(() => {
+          if (i === 1 && !firstSized) {
+            setCanvasSize(img);
+            render(0);
+            firstSized = true;
+          }
+        }).catch(() => {})
+      );
+    }
+    return Promise.all(promises);
+  }
+
+  const state = { floatIndex: 0, animProgress: 0 };
+  let rafQueued = false;
+  function tick() {
+    render(state.floatIndex);
+    setPhase(phaseFor(state.animProgress));
+    rafQueued = false;
+  }
+
+  preload().then(() => {
+    if (frames[1] && frames[1].complete) {
+      setCanvasSize(frames[1]);
+      render(0);
+    }
+    setPhase(0);
+
+    ScrollTrigger.create({
+      trigger: '#probProgression',
+      start: 'top top',
+      end: 'bottom bottom',
+      pin: '.prob-prog-pin',
+      pinSpacing: false,
+      anticipatePin: 1,
+      scrub: true,
+      invalidateOnRefresh: true,
+      onUpdate: self => {
+        const animProgress = Math.min(self.progress / ANIM_END, 1);
+        state.animProgress = animProgress;
+        state.floatIndex = animProgress * (FRAME_COUNT - 1);
+        if (!rafQueued) {
+          rafQueued = true;
+          requestAnimationFrame(tick);
+        }
+      }
+    });
+
+    ScrollTrigger.refresh();
+  });
+
+  window.addEventListener('resize', () => {
+    if (rafQueued) return;
+    rafQueued = true;
+    requestAnimationFrame(tick);
+  });
+})();
+</script>
 
 </body>
 </html>
