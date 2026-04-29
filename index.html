@@ -895,7 +895,7 @@
 
       /* Stats — tighter */
       .stat-band > div { padding: 64px 24px !important; }
-      .prob-gap-grid { margin-top: 36px !important; margin-bottom: 36px !important; }
+      .prob-gap-grid { margin-top: 36px !important; margin-bottom: 8px !important; }
       .prob-gap-num { font-size: clamp(48px, 14vw, 72px) !important; }
       .prob-gap-col { padding: 8px 12px !important; }
       .prob-gap-survive { font-size: 14px !important; }
@@ -1165,7 +1165,7 @@
   @media (max-width: 880px) {
     .prob-prog-block { height: 400vh; }   /* longer scroll so captions don't fly past on touch */
     .prob-prog-pin {
-      padding: clamp(80px, 10vh, 110px) 24px clamp(60px, 8vh, 90px);
+      padding: clamp(28px, 4vh, 48px) 24px clamp(60px, 8vh, 90px);   /* tight top so leadin sits close to the stats */
       /* leadin pinned at top via base styles; row auto-centers below */
     }
     .prob-prog-row {
@@ -1200,7 +1200,7 @@
   @media (max-width: 480px) {
     .prob-prog-block { height: 440vh; }   /* mobile: significantly longer pin so each phase has room on touch scroll */
     .prob-prog-pin {
-      padding: clamp(70px, 9vh, 95px) 20px clamp(48px, 6vh, 72px);
+      padding: clamp(20px, 3vh, 36px) 20px clamp(48px, 6vh, 72px);   /* tight top so leadin sits close to the survival stats */
     }
     .prob-prog-stage { width: min(76vw, 300px); }   /* larger cell so it fills the pinned viewport better */
     .prob-prog-caption {
