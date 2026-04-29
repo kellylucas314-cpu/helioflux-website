@@ -1043,20 +1043,6 @@
     margin: 0;
   }
 
-  /* Thin vertical divider — bridges the visual gap from the survival-gap stats into the progression scroll. */
-  .prob-prog-divider {
-    width: 1px;
-    height: clamp(60px, 9vh, 110px);
-    background: linear-gradient(to bottom, rgba(22,38,58,0) 0%, rgba(22,38,58,0.28) 50%, rgba(22,38,58,0) 100%);
-    margin: clamp(36px, 5vh, 56px) auto clamp(20px, 3vh, 36px);
-  }
-  @media (max-width: 480px) {
-    .prob-prog-divider {
-      height: clamp(48px, 7vh, 80px);
-      margin: clamp(28px, 4vh, 44px) auto clamp(16px, 2vh, 28px);
-    }
-  }
-
   /* ─── Scroll-driven cell→tumor progression inside #problem ─── */
   .prob-prog-block {
     position: relative;
@@ -1445,9 +1431,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Thin vertical divider — visual transition from stats into the progression scroll -->
-  <div aria-hidden="true" class="prob-prog-divider"></div>
 
   <!-- Scroll-driven progression: cell → tumor, with crisp HTML captions -->
   <div class="prob-prog-block" id="probProgression" aria-label="Cancer progression visualization, scroll to advance">
