@@ -118,7 +118,7 @@
     .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,.95) 0%, rgba(10,14,26,.7) 12%, rgba(15,28,50,.45) 50%, rgba(15,28,50,.3) 100%); }
 
     .hero-content { position: relative; z-index: 3; max-width: 900px; }
-    .hero-eyebrow { font-size: 15px; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 18px; opacity: 0; text-shadow: 0 0 12px rgba(0,169,214,0.3); }
+    .hero-eyebrow { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 22px; opacity: 0; font-weight: 500; }
     .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 96px); font-weight: 520; line-height: 1.05; color: var(--white); margin-bottom: 18px; opacity: 0; letter-spacing: -0.01em; }
     .hero h1 em { font-style: normal; color: inherit; font-weight: inherit; }
     .hero-accent { color: var(--cyan) !important; font-style: normal; font-family: inherit; font-weight: inherit; }
@@ -381,7 +381,7 @@
     .team-bio { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 300; }
 
     /* ─── CTA ─── */
-    .cta-section { padding: 180px 56px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section { padding: 120px 56px 100px; text-align: center; position: relative; overflow: hidden; }
     .cta-glow { position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(0,169,214,.06) 0%, transparent 70%); pointer-events: none; }
     .cta-section h2 { margin-bottom: 24px; }
     .cta-section .lead { max-width: 480px; margin: 0 auto 52px; }
@@ -608,20 +608,20 @@
     .prob-gap-col.early::before { display: none; }
     .prob-gap-col.late::before { display: none; }
     .prob-gap-num {
-      font-family: var(--sans); font-size: clamp(72px,12vw,120px); font-weight: 700; line-height: 1; margin-bottom: 12px;
-      position: relative; letter-spacing: -0.04em;
+      font-family: var(--sans); font-size: clamp(72px,12vw,120px); font-weight: 300; line-height: 1; margin-bottom: 12px;
+      position: relative; letter-spacing: -0.025em;
     }
     .prob-gap-col.early .prob-gap-num {
       color: #00A9D6;
     }
     .prob-gap-col.late .prob-gap-num {
-      color: #4a5b6e;
+      color: #16263A;             /* dark navy instead of muted gray — both numbers should be equally legible; color is the signal, not brightness */
     }
     .prob-gap-survive { font-size: 16px; color: #2A3F56; margin-bottom: 2px; }
     .prob-gap-label { font-size: 14px; color: #5a6b7e; margin-top: 2px; }
     .prob-gap-vline {
       width: 1px; height: 160px; flex-shrink: 0;
-      background: linear-gradient(to bottom, transparent, rgba(0,169,214,.2) 30%, rgba(0,169,214,.2) 70%, transparent);
+      background: linear-gradient(to bottom, transparent, rgba(22,38,58,.18) 30%, rgba(22,38,58,.18) 70%, transparent);
     }
     .prob-support {
       font-family: Georgia,'Playfair Display',serif; font-style: italic;
@@ -871,7 +871,7 @@
 
     /* ─── LATE-STAGE CORAL ─── */
     .stat-coral { color: var(--coral); }
-    .prob-gap-col.late .prob-gap-num { color: #4a5b6e; }
+    .prob-gap-col.late .prob-gap-num { color: #16263A; }
   
   
     /* Mobile hero spacing hotfix */
@@ -1403,7 +1403,7 @@
   <div class="hero-content">
     <p class="hero-eyebrow" id="he">ULTRA-EARLY CANCER DETECTION</p>
     <h1 id="hh">Your cells emit <span class="hero-accent">light.</span><br>We learned to <span style="white-space:nowrap;">read&nbsp;it.</span></h1>
-    <p class="hero-sub" id="hpoetic">No blood draw. No biopsy. No radiation. Detects cancer 100-200x earlier than standard imaging.</p>
+    <p class="hero-sub" id="hpoetic">Detects cancer 100-200&times; earlier than standard imaging.<br>No blood draw. No biopsy. No radiation.</p>
     <div class="hero-actions" id="ha">
       <a href="#solution" class="btn-cyan">See the Science</a>
       <a href="team.html" class="btn-ghost">Meet the Team →</a>
@@ -1492,8 +1492,8 @@
     <div class="reveal" style="margin-bottom:16px;">
       <p class="eyebrow" style="color:#00A9D6;">The Science</p>
       <h2 style="color:#0A1640;">Cancer has a <em style="color:#00A9D6;font-style:italic;">light signature.</em></h2>
-      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Every cell in your body emits faint light as a byproduct of metabolism. Cancer cells process energy differently, and the light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
-      <p style="font-size:19px;color:#0A1640;margin-top:28px;line-height:1.75;max-width:720px;margin-left:auto;margin-right:auto;text-align:left;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to identify cancer at 100-200x fewer cells than standard imaging.</p>
+      <p style="font-size:19px;color:#0A1640;margin-top:32px;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;text-align:center;">Every cell in your body emits faint light as a byproduct of metabolism. Cancer cells process energy differently, and the light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
+      <p style="font-size:19px;color:#0A1640;margin-top:24px;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;text-align:center;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to identify cancer at 100-200x fewer cells than standard imaging.</p>
     </div>
   </div>
 </div>
@@ -1511,27 +1511,29 @@
   <div style="max-width:1200px;margin:0 auto;padding:100px 56px 120px;text-align:center;">
     <div class="reveal">
       <p class="eyebrow" style="color:#00A9D6;">The Scan</p>
-      <h2 style="margin-bottom:44px;color:#0A1640;">We built the tool <em>to read it.</em></h2>
-      <p style="font-size:17px;color:#0A1640;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:left;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
-      <p style="font-size:17px;color:#0A1640;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:left;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
-      <p style="font-size:17px;color:#0A1640;line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;margin-bottom:56px;font-weight:500;text-align:left;">No blood draw. No biopsy. No radiation.</p>
+      <h2 style="margin-bottom:44px;color:#0A1640;">We built the tool to read it.</h2>
+      <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:center;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
+      <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:center;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
+      <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:64px;font-weight:500;text-align:center;">No blood draw. No biopsy. No radiation.</p>
 
       <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);font-weight:400;color:#0A1640;margin-bottom:40px;">Two systems. <em>One signal.</em></h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto;">
-        <div class="qs-card" style="background:#092743;overflow:hidden;border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
+        <div class="qs-card" style="background:#092743;overflow:hidden;border:1px solid rgba(255,255,255,0.1);border-radius:8px;text-align:left;">
           <img src="qsense-product.jpg" alt="QSense" style="width:100%;max-height:220px;object-fit:cover;display:block;">
-          <div style="padding:28px 32px;">
-            <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7DD4F0;margin-bottom:8px;">Hardware</p>
-            <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">QSense&#8482;</h3>
-            <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">A sensor array sensitive enough to count individual photons from living tissue. Non-invasive, radiation-free, and designed to detect cancer signals before a tumor forms. Dark, controlled environment. No contact with the body. Fifteen minutes.<br><br><span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7DD4F0;opacity:.7;">Current Status: Functional prototype built and ready for human studies.</span></p>
+          <div style="padding:32px;">
+            <p style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7DD4F0;margin-bottom:10px;font-weight:500;">Hardware</p>
+            <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:18px;color:#F4F8FF;letter-spacing:-0.01em;">QSense&#8482;</h3>
+            <p style="font-size:16px;color:rgba(244,248,255,.92);line-height:1.7;margin:0 0 22px;">A sensor array sensitive enough to count individual photons from living tissue. Non-invasive, radiation-free, and designed to detect cancer signals before a tumor forms.</p>
+            <p style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(125,212,240,.7);margin:0;font-weight:500;">Functional prototype, ready for human studies</p>
           </div>
         </div>
-        <div class="lum-card" style="background:#092743;overflow:hidden;border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
+        <div class="lum-card" style="background:#092743;overflow:hidden;border:1px solid rgba(255,255,255,0.1);border-radius:8px;text-align:left;">
           <img src="luminal-product.jpg" alt="LuminAI" style="width:100%;max-height:220px;object-fit:cover;display:block;">
-          <div style="padding:28px 32px;">
-            <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7DD4F0;margin-bottom:8px;">Software</p>
-            <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:16px;color:#F4F8FF;">LuminAI&#8482;</h3>
-            <p style="font-size:16px;color:rgba(244,248,255,.95);line-height:1.75;margin:0;">AI trained on 10 years of data from cell and animal models. It processes roughly a million data points per scan, analyzing photon counts, wavelength ratios, and emission timing to distinguish healthy tissue from cancer. Real-time results. The system refines its accuracy with every dataset it processes.<br><br><span style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7DD4F0;opacity:.7;">Current Status: Fully developed code, integrated with hardware.</span></p>
+          <div style="padding:32px;">
+            <p style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7DD4F0;margin-bottom:10px;font-weight:500;">Software</p>
+            <h3 style="font-family:var(--serif);font-size:26px;font-weight:300;margin-bottom:18px;color:#F4F8FF;letter-spacing:-0.01em;">LuminAI&#8482;</h3>
+            <p style="font-size:16px;color:rgba(244,248,255,.92);line-height:1.7;margin:0 0 22px;">AI trained on a decade of cell and animal data. Processes roughly a million data points per scan, distinguishing healthy tissue from cancer in real time.</p>
+            <p style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(125,212,240,.7);margin:0;font-weight:500;">Fully developed, integrated with hardware</p>
           </div>
         </div>
       </div>
@@ -1563,7 +1565,7 @@
 <section id="platform" style="background:#092743;margin-top:-2px;">
   <div class="h-section-label" style="padding-top:80px;">
     <p class="eyebrow reveal">What It Can Detect</p>
-    <h2 class="reveal">Proven in the lab.<br><em>Heading to humans.</em></h2>
+    <h2 class="reveal">Proven in the lab.<br>Heading to humans.</h2>
   </div>
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
@@ -1606,7 +1608,7 @@
 <!-- ═══ CREDIBILITY ANCHOR ═══ -->
 <div id="credibility" style="background:#f5f0eb;">
   <div style="max-width:1200px;margin:0 auto;padding:120px 56px;">
-    <h2 class="reveal" style="margin-bottom:48px;color:#16263A;">The scientist behind<br>the <em>technology.</em></h2>
+    <h2 class="reveal" style="margin-bottom:48px;color:#16263A;">The scientist behind<br>the technology.</h2>
 
     <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;" class="reveal">
       <div>
@@ -1624,7 +1626,7 @@
 
 <!-- ═══ PRESS STRIP ═══ -->
 <div style="background:#2F4562;">
-  <div style="max-width:1200px;margin:0 auto;padding:120px 56px;text-align:center;">
+  <div style="max-width:1200px;margin:0 auto;padding:96px 56px;text-align:center;">
     <p class="eyebrow reveal">Featured In</p>
     <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:40px;opacity:.7;" class="reveal">
       <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.7);">Scientific American</span>
@@ -1643,8 +1645,8 @@
 <!-- ═══ SECTION 7 — THE ASK ═══ -->
 <section class="cta-section" id="contact" style="background:#092743;">
   <div class="cta-glow"></div>
-  <h2 class="reveal">The science works.<br><em>The next step is human data.</em></h2>
-  <p class="lead reveal" style="max-width:720px;margin:0 auto 48px;color:rgba(255,255,255,.78);">Ten years of published research. Three peer-reviewed papers. Validated across cancer cell lines, animal models, and living human subjects. We're raising a pre-pilot round to fund our first IRB-approved human study: the step that takes this from published science to a clinical product.</p>
+  <h2 class="reveal">The science works.<br>The next step is human data.</h2>
+  <p class="lead reveal" style="max-width:620px;margin:0 auto 48px;color:rgba(255,255,255,.78);">Ten years of published research. Validated in cells, animals, and living human subjects. We're raising a pre-pilot round for our first IRB-approved human study.</p>
 
   <div class="cta-actions reveal" style="margin-bottom:0;">
     <a href="mailto:kelly.lucas@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A" class="btn-cyan">Request Investor Deck</a>
