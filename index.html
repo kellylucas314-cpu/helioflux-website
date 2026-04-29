@@ -1925,46 +1925,27 @@ document.querySelectorAll('.prob-glass-card').forEach(card => {
   });
 });
 
-// ─── SURVIVAL GAP COUNT-UP ───
+// ─── SURVIVAL GAP BAR REVEAL ───
+// Numbers are static in markup (">90%" / "~30%"). The digit count-up was removed because
+// smooth-scroll could catch users mid-animation and show wrong percentages — bad on a
+// headline survival claim. Bar widths still reveal on scroll for a subtle motion cue.
 (function() {
-  const earlyEl = document.getElementById('earlyNum');
-  const lateEl  = document.getElementById('lateNum');
-  if (!earlyEl || !lateEl) return;
-
-  let fired = false;
-  function countUp(el, target, prefix, suffix, duration) {
-    const start = performance.now();
-    el.classList.add('counting');
-    function frame(now) {
-      const p = Math.min((now - start) / duration, 1);
-      const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
-      el.textContent = prefix + Math.round(ease * target) + suffix;
-      if (p < 1) requestAnimationFrame(frame);
-      else { el.textContent = prefix + target + suffix; el.classList.remove('counting'); }
-    }
-    requestAnimationFrame(frame);
-  }
-
   const grid = document.getElementById('survivalGapGrid');
   const barEarlyEl = document.getElementById('barEarly');
   const barLateEl  = document.getElementById('barLate');
+  if (!grid || !window.ScrollTrigger) return;
 
-  if (grid && window.ScrollTrigger) {
-    ScrollTrigger.create({
-      trigger: grid,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        if (fired) return; fired = true;
-        countUp(earlyEl, 90, '>', '%', 1500);
-        countUp(lateEl,  30, '~', '%', 1500);
-        setTimeout(() => {
-          if (barEarlyEl) barEarlyEl.style.width = '90%';
-          if (barLateEl)  barLateEl.style.width  = '30%';
-        }, 250);
-      }
-    });
-  }
+  let fired = false;
+  ScrollTrigger.create({
+    trigger: grid,
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      if (fired) return; fired = true;
+      if (barEarlyEl) barEarlyEl.style.width = '90%';
+      if (barLateEl)  barLateEl.style.width  = '30%';
+    }
+  });
 })();
 
 // ─── BRIDGE BAND: cells un-divide on scroll ───
