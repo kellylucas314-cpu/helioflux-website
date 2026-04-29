@@ -1056,9 +1056,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: clamp(20px, 3vh, 36px);
-    /* Top padding ensures content clears the fixed header; vertical centering then balances the composition. */
+    /* No justify-content: leadin sticks to top (right under the header), the row auto-centers in the space below via auto margins.
+       This way the leadin appears directly under the survival-gap stats during scroll-in, instead of being centered with empty cream above. */
     padding: clamp(80px, 9vh, 105px) clamp(24px, 6vw, 56px) clamp(40px, 5vh, 64px);
   }
   .prob-prog-row {
@@ -1068,6 +1067,7 @@
     justify-content: center;
     gap: clamp(24px, 5vw, 72px);
     width: 100%;
+    margin: auto 0;     /* equal auto-margin top + bottom centers the row in remaining vertical space below the leadin */
   }
   .prob-prog-stage {
     flex: 0 0 auto;
@@ -1165,14 +1165,14 @@
   @media (max-width: 880px) {
     .prob-prog-block { height: 400vh; }   /* longer scroll so captions don't fly past on touch */
     .prob-prog-pin {
-      gap: 24px;
       padding: clamp(80px, 10vh, 110px) 24px clamp(60px, 8vh, 90px);
-      justify-content: center;            /* balanced cream top + bottom inside the pinned viewport */
+      /* leadin pinned at top via base styles; row auto-centers below */
     }
     .prob-prog-row {
       flex-direction: column;
       gap: 22px;
       align-items: center;
+      /* margin: auto 0 inherited from base */
     }
     .prob-prog-stage { width: min(56vw, 290px); }
     .prob-prog-caption {
@@ -1201,7 +1201,6 @@
     .prob-prog-block { height: 440vh; }   /* mobile: significantly longer pin so each phase has room on touch scroll */
     .prob-prog-pin {
       padding: clamp(70px, 9vh, 95px) 20px clamp(48px, 6vh, 72px);
-      gap: 20px;
     }
     .prob-prog-stage { width: min(76vw, 300px); }   /* larger cell so it fills the pinned viewport better */
     .prob-prog-caption {
