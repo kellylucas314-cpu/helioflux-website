@@ -1163,10 +1163,10 @@
 
   /* Tablet / narrow desktop: stack with caption below */
   @media (max-width: 880px) {
-    .prob-prog-block { height: 320vh; }   /* longer scroll so captions don't fly past on touch */
+    .prob-prog-block { height: 400vh; }   /* longer scroll so captions don't fly past on touch */
     .prob-prog-pin {
-      gap: 26px;
-      padding: clamp(85px, 11vh, 115px) 24px clamp(36px, 5vh, 56px);
+      gap: 22px;
+      padding: clamp(55px, 7vh, 80px) 24px clamp(36px, 5vh, 56px);
       justify-content: flex-start;        /* content sits near top so it appears right under the stats, not centered with cream above */
     }
     .prob-prog-row {
@@ -1198,10 +1198,10 @@
     }
   }
   @media (max-width: 480px) {
-    .prob-prog-block { height: 360vh; }   /* mobile: significantly longer pin so each phase has room on touch scroll */
+    .prob-prog-block { height: 440vh; }   /* mobile: significantly longer pin so each phase has room on touch scroll */
     .prob-prog-pin {
-      padding: clamp(70px, 9vh, 92px) 20px clamp(24px, 4vh, 40px);
-      gap: 22px;
+      padding: clamp(40px, 6vh, 65px) 20px clamp(24px, 4vh, 40px);
+      gap: 18px;
     }
     .prob-prog-stage { width: min(68vw, 260px); }
     .prob-prog-caption {
