@@ -1165,9 +1165,9 @@
   @media (max-width: 880px) {
     .prob-prog-block { height: 400vh; }   /* longer scroll so captions don't fly past on touch */
     .prob-prog-pin {
-      gap: 22px;
-      padding: clamp(55px, 7vh, 80px) 24px clamp(36px, 5vh, 56px);
-      justify-content: flex-start;        /* content sits near top so it appears right under the stats, not centered with cream above */
+      gap: 24px;
+      padding: clamp(80px, 10vh, 110px) 24px clamp(60px, 8vh, 90px);
+      justify-content: center;            /* balanced cream top + bottom inside the pinned viewport */
     }
     .prob-prog-row {
       flex-direction: column;
@@ -1200,10 +1200,10 @@
   @media (max-width: 480px) {
     .prob-prog-block { height: 440vh; }   /* mobile: significantly longer pin so each phase has room on touch scroll */
     .prob-prog-pin {
-      padding: clamp(40px, 6vh, 65px) 20px clamp(24px, 4vh, 40px);
-      gap: 18px;
+      padding: clamp(70px, 9vh, 95px) 20px clamp(48px, 6vh, 72px);
+      gap: 20px;
     }
-    .prob-prog-stage { width: min(68vw, 260px); }
+    .prob-prog-stage { width: min(76vw, 300px); }   /* larger cell so it fills the pinned viewport better */
     .prob-prog-caption {
       width: min(90vw, 480px);
       min-height: 96px;
