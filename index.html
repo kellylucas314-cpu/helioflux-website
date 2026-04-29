@@ -1046,19 +1046,19 @@
   /* ─── Scroll-driven cell→tumor progression inside #problem ─── */
   .prob-prog-block {
     position: relative;
-    height: 155vh;            /* tight scroll budget — pin releases sooner; closer linger handled by ANIM_END */
+    height: 200vh;            /* scroll budget for the animation + closer linger; bridge band approaches naturally as cream below the content-sized pin scrolls past */
     background: #F7F6F2;
   }
   .prob-prog-pin {
-    /* ScrollTrigger handles pinning via transform — site has overflow-x:hidden on <html> which breaks position:sticky. */
-    height: 100vh;
+    /* ScrollTrigger handles pinning via transform — site has overflow-x:hidden on <html> which breaks position:sticky.
+       Pin element sized to its content (not 100vh) so the bridge band approaches naturally after the closer.
+       Bottom padding is a FIXED pixel value so the gap between the closer and the bridge band is consistent
+       regardless of window height (was vh-relative which made it tight on small windows, big on large ones). */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* No justify-content: leadin sticks to top (right under the header), the row auto-centers in the space below via auto margins.
-       This way the leadin appears directly under the survival-gap stats during scroll-in, instead of being centered with empty cream above. */
-    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) 0;
+    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) 140px;
   }
   .prob-prog-row {
     display: flex;
@@ -1163,10 +1163,9 @@
 
   /* Tablet / narrow desktop: stack with caption below */
   @media (max-width: 880px) {
-    .prob-prog-block { height: 400vh; }   /* longer scroll so captions don't fly past on touch */
+    .prob-prog-block { height: 240vh; }   /* shorter scroll budget — mobile was way too sticky at 400vh */
     .prob-prog-pin {
-      padding: clamp(28px, 4vh, 48px) 24px clamp(60px, 8vh, 90px);   /* tight top so leadin sits close to the stats */
-      /* leadin pinned at top via base styles; row auto-centers below */
+      padding: clamp(20px, 3vh, 32px) 24px 80px;   /* tight top + fixed bottom buffer so the bridge band sits a consistent distance below */
     }
     .prob-prog-row {
       flex-direction: column;
@@ -1198,9 +1197,9 @@
     }
   }
   @media (max-width: 480px) {
-    .prob-prog-block { height: 440vh; }   /* mobile: significantly longer pin so each phase has room on touch scroll */
+    .prob-prog-block { height: 260vh; }   /* mobile scroll length — was 440 (way too sticky), tuned down so phases progress at finger-swipe pace */
     .prob-prog-pin {
-      padding: clamp(20px, 3vh, 36px) 20px clamp(48px, 6vh, 72px);   /* tight top so leadin sits close to the survival stats */
+      padding: clamp(12px, 2vh, 24px) 20px 64px;   /* tight top + fixed bottom buffer so bridge band gap is consistent */
     }
     .prob-prog-stage { width: min(76vw, 300px); }   /* larger cell so it fills the pinned viewport better */
     .prob-prog-caption {
