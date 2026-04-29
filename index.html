@@ -1046,7 +1046,7 @@
   /* ─── Scroll-driven cell→tumor progression inside #problem ─── */
   .prob-prog-block {
     position: relative;
-    height: 170vh;            /* tighter scroll budget — pin releases sooner so the bridge band appears closer to the closer line */
+    height: 155vh;            /* tight scroll budget — pin releases sooner; closer linger handled by ANIM_END */
     background: #F7F6F2;
   }
   .prob-prog-pin {
@@ -1641,22 +1641,19 @@
     .press-logos .logo-cbcnews   { height: 30px; }
     .press-logos .logo-labj      { height: 14px; }
   }
-  /* NVIDIA Inception official badge — preserves brand-required white background per NVIDIA guidelines */
+  /* NVIDIA Inception official badge — shown at full size; the badge artwork already
+     carries its required light background, so no extra pill is needed. */
   .nvidia-inception {
-    display: inline-flex;
-    align-items: center;
-    background: #F4F2F0;
-    border-radius: 6px;
-    padding: 8px 14px;
-    margin-top: 36px;
-    opacity: 0.92;
+    display: inline-block;
+    margin-top: 44px;
+    opacity: 0.95;
     transition: opacity .25s ease;
   }
   .nvidia-inception:hover { opacity: 1; }
-  .nvidia-inception img { display: block; height: 32px; width: auto; }
+  .nvidia-inception img { display: block; height: 60px; width: auto; }
   @media (max-width: 880px) {
-    .nvidia-inception { margin-top: 28px; padding: 6px 12px; }
-    .nvidia-inception img { height: 26px; }
+    .nvidia-inception { margin-top: 32px; }
+    .nvidia-inception img { height: 46px; }
   }
 </style>
 <div style="background:#2F4562;">
@@ -2105,7 +2102,7 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
 
   // Animation runs from scroll-progress 0 → ANIM_END; the remainder holds the final frame
   // so the closer line gets a small linger beat before the pin releases.
-  const ANIM_END = 0.83;
+  const ANIM_END = 0.74;
 
   // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
   // Phase 2 ("a pre-malignant cluster forms") gets a bit more dwell so the cross-fade has time to settle.
