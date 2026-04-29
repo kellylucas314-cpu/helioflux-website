@@ -1046,7 +1046,7 @@
   /* ─── Scroll-driven cell→tumor progression inside #problem ─── */
   .prob-prog-block {
     position: relative;
-    height: 200vh;            /* total scroll length — animation runs over the first ~83%, final frame lingers in the last ~17% */
+    height: 170vh;            /* tighter scroll budget — pin releases sooner so the bridge band appears closer to the closer line */
     background: #F7F6F2;
   }
   .prob-prog-pin {
@@ -1058,16 +1058,16 @@
     align-items: center;
     /* No justify-content: leadin sticks to top (right under the header), the row auto-centers in the space below via auto margins.
        This way the leadin appears directly under the survival-gap stats during scroll-in, instead of being centered with empty cream above. */
-    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) clamp(20px, 3vh, 36px);
+    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) 0;
   }
   .prob-prog-row {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;       /* caption text vertically centers with the cell */
     justify-content: center;
     gap: clamp(24px, 5vw, 72px);
     width: 100%;
-    margin: clamp(20px, 3vh, 40px) 0 auto;   /* tight fixed gap below leadin; remaining space pushed below the row */
+    margin: clamp(20px, 3vh, 40px) 0 0;   /* tight fixed gap below leadin; row stays at its natural position */
   }
   .prob-prog-stage {
     flex: 0 0 auto;
@@ -1312,8 +1312,7 @@
     .h-stat-num { color: var(--cyan); }
     .h-stat-label { color: rgba(255,255,255,.65); }
 
-    /* Press */
-    .press-logos { background: #092743; }
+    /* Press logos sit on the parent #2F4562 band; no background of their own */
 
     /* Team */
     .team-grid { background: rgba(255,255,255,0.04); }
@@ -1629,18 +1628,35 @@
   .press-logos { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 5vw, 72px); flex-wrap: wrap; margin-top: 48px; }
   .press-logos img { display: block; width: auto; opacity: 0.72; transition: opacity .25s ease; }
   .press-logos img:hover { opacity: 1; }
-  .press-logos .logo-sciam       { height: 22px; }
-  .press-logos .logo-radiolab    { height: 30px; }
+  .press-logos .logo-sciam       { height: 30px; }
+  .press-logos .logo-radiolab    { height: 24px; }
   .press-logos .logo-cellpress   { height: 24px; filter: brightness(0) invert(1); }
   .press-logos .logo-cbcnews     { height: 38px; filter: brightness(0) invert(1); }
   .press-logos .logo-labj        { height: 18px; }
   @media (max-width: 880px) {
     .press-logos { gap: 32px 40px; margin-top: 36px; }
-    .press-logos .logo-sciam     { height: 18px; }
-    .press-logos .logo-radiolab  { height: 24px; }
+    .press-logos .logo-sciam     { height: 22px; }
+    .press-logos .logo-radiolab  { height: 18px; }
     .press-logos .logo-cellpress { height: 20px; }
     .press-logos .logo-cbcnews   { height: 30px; }
     .press-logos .logo-labj      { height: 14px; }
+  }
+  /* NVIDIA Inception official badge — preserves brand-required white background per NVIDIA guidelines */
+  .nvidia-inception {
+    display: inline-flex;
+    align-items: center;
+    background: #F4F2F0;
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin-top: 36px;
+    opacity: 0.92;
+    transition: opacity .25s ease;
+  }
+  .nvidia-inception:hover { opacity: 1; }
+  .nvidia-inception img { display: block; height: 32px; width: auto; }
+  @media (max-width: 880px) {
+    .nvidia-inception { margin-top: 28px; padding: 6px 12px; }
+    .nvidia-inception img { height: 26px; }
   }
 </style>
 <div style="background:#2F4562;">
@@ -1656,7 +1672,11 @@
     <div style="margin-top:36px;">
       <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage →</a>
     </div>
-    <p class="reveal" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-top:28px;opacity:.7;">NVIDIA Inception Program Member</p>
+    <div class="reveal" style="text-align:center;">
+      <span class="nvidia-inception" aria-label="NVIDIA Inception Program member">
+        <img src="images/press/nvidia-inception.png" alt="NVIDIA Inception Program">
+      </span>
+    </div>
   </div>
 </div>
 
