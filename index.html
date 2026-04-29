@@ -2070,7 +2070,9 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
   const phases = Array.from(document.querySelectorAll('#probProgCaption .phase'));
 
   const FRAME_COUNT = 128;
-  const FRAME_PATH = i => `assets/progression-video/f-${String(i).padStart(3, '0')}.webp`;
+  // Cache-bust suffix forces the browser to re-fetch frames if a previous load 404'd against a downed dev server.
+  const FRAME_VER = 'v2';
+  const FRAME_PATH = i => `assets/progression-video/f-${String(i).padStart(3, '0')}.webp?${FRAME_VER}`;
   const frames = new Array(FRAME_COUNT + 1);
 
   // Animation runs from scroll-progress 0 → ANIM_END; the remainder holds the final frame
@@ -2078,7 +2080,8 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
   const ANIM_END = 0.83;
 
   // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
-  const PHASE_BOUNDS = [0.00, 0.10, 0.20, 0.30, 0.40, 0.55, 0.72, 1.001];
+  // Phase 2 ("a pre-malignant cluster forms") gets a bit more dwell so the cross-fade has time to settle.
+  const PHASE_BOUNDS = [0.00, 0.10, 0.20, 0.34, 0.44, 0.57, 0.72, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
