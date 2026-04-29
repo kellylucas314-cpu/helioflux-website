@@ -1046,7 +1046,7 @@
   /* ─── Scroll-driven cell→tumor progression inside #problem ─── */
   .prob-prog-block {
     position: relative;
-    height: 230vh;            /* total scroll length — animation runs over the first ~91%, final frame lingers in the last ~9% */
+    height: 200vh;            /* total scroll length — animation runs over the first ~83%, final frame lingers in the last ~17% */
     background: #F7F6F2;
   }
   .prob-prog-pin {
@@ -1058,7 +1058,7 @@
     align-items: center;
     /* No justify-content: leadin sticks to top (right under the header), the row auto-centers in the space below via auto margins.
        This way the leadin appears directly under the survival-gap stats during scroll-in, instead of being centered with empty cream above. */
-    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) clamp(40px, 5vh, 64px);
+    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) clamp(20px, 3vh, 36px);
   }
   .prob-prog-row {
     display: flex;
