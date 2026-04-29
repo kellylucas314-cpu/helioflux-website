@@ -1163,24 +1163,24 @@
 
   /* Tablet / narrow desktop: stack with caption below */
   @media (max-width: 880px) {
-    .prob-prog-block { height: 200vh; }
+    .prob-prog-block { height: 270vh; }   /* longer scroll so captions don't fly past on touch */
     .prob-prog-pin {
-      gap: 20px;
-      padding: 6vh 24px 0;
-      justify-content: flex-start;
+      gap: 26px;
+      padding: clamp(85px, 11vh, 115px) 24px clamp(36px, 5vh, 56px);
+      justify-content: center;
     }
     .prob-prog-row {
       flex-direction: column;
-      gap: 20px;
+      gap: 22px;
       align-items: center;
     }
-    .prob-prog-stage { width: min(54vw, 280px); }
+    .prob-prog-stage { width: min(56vw, 290px); }
     .prob-prog-caption {
       flex: 0 0 auto;
       width: min(86vw, 520px);
       max-width: 520px;
       height: auto;
-      min-height: 160px;
+      min-height: 110px;
       max-height: none;
       text-align: center;
     }
@@ -1198,8 +1198,16 @@
     }
   }
   @media (max-width: 480px) {
-    .prob-prog-block { height: 180vh; }
-    .prob-prog-stage { width: min(64vw, 240px); }
+    .prob-prog-block { height: 260vh; }   /* mobile: even more scroll length so phases breathe */
+    .prob-prog-pin {
+      padding: clamp(75px, 10vh, 100px) 20px clamp(28px, 4vh, 44px);
+      gap: 22px;
+    }
+    .prob-prog-stage { width: min(68vw, 260px); }
+    .prob-prog-caption {
+      width: min(90vw, 480px);
+      min-height: 96px;
+    }
     .prob-prog-caption .text { font-size: 18px; }
     .prob-prog-caption .punchline { font-size: 19px; }
   }
