@@ -1124,6 +1124,10 @@
   }
   .prob-prog-stage {
     flex: 0 0 auto;
+    /* Bg matches the contrast-filtered cream of the source frames at center, then radially
+       fades back to the page's #F7F6F2 cream at edges — so there's no hard rectangular
+       boundary between the filtered canvas content and the page bg. */
+    background: radial-gradient(circle at center, #fffdf7 40%, #F7F6F2 100%);
     /* vh-based primary size so the cell fills the vertical space between leadin and bridge band.
        vw fallback keeps it from crowding the caption on narrow desktops. */
     width: min(62vh, 48vw, 700px);
