@@ -85,30 +85,6 @@
     .js-ready .reveal { opacity: 0; transform: translateY(20px); }
     .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ─── ACCORDION ─── */
-    .acc-stack { max-width: 860px; }
-    .acc-item { border-bottom: 1px solid rgba(28,53,80,.1); }
-    .acc-trigger {
-      width: 100%; background: none; border: none; color: #14263C;
-      padding: 28px 0; display: flex; justify-content: space-between; align-items: flex-start;
-      cursor: pointer; text-align: left; gap: 24px;
-    }
-    .acc-label { font-family: var(--serif); font-size: 20px; font-weight: 400; display: block; margin-bottom: 6px; }
-    .acc-preview { font-size: 15px; color: #5a6b7e; display: block; line-height: 1.6; }
-    .acc-icon { font-size: 24px; color: var(--cyan); flex-shrink: 0; transition: transform .3s; }
-    .acc-body { max-height: 0; overflow: hidden; transition: max-height .5s ease; }
-    .acc-body-pad { padding: 0 0 32px; }
-    .acc-body p { font-size: 16px; color: #3A5068; line-height: 1.8; margin-bottom: 16px; }
-    .acc-body p:last-child { margin-bottom: 0; }
-    .acc-item.open .acc-icon { transform: rotate(45deg); }
-    .acc-item.open .acc-body { max-height: 2000px; }
-    .acc-pub-link { display: block; padding: 12px 0; font-size: 14px; color: #00A9D6; text-decoration: none; border-bottom: 1px solid rgba(28,53,80,.08); transition: color .2s; }
-    .acc-pub-link:hover { color: var(--white); }
-    .acc-stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 28px; }
-    .acc-stat { background: rgba(255,255,255,.02); padding: 24px 16px; }
-    .acc-stat-n { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); margin-bottom: 6px; }
-    .acc-stat-l { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.5; }
-
     /* ─── PRODUCT CARDS ─── */
     .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin: 0 auto; }
     .product-card {
@@ -156,7 +132,6 @@
     @media (max-width: 768px) {
       .product-grid { grid-template-columns: 1fr; }
       .research-grid { grid-template-columns: 1fr; }
-      .acc-stat-row { grid-template-columns: 1fr 1fr; }
       footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
       .f-bottom { padding: 16px 24px; }
       .hiw-text-overlay { position:relative !important; width:100% !important; padding:40px 24px !important; background:#060610; text-align:left !important; }
@@ -190,7 +165,7 @@
 <!-- ═══ PAGE HEADER (dark) ═══ -->
 <div style="padding:180px 56px 60px;max-width:1200px;margin:0 auto;">
   <p class="eyebrow reveal">The Science</p>
-  <h2 class="reveal">The science behind<br>HelioFlux.</h2>
+  <h2 class="reveal">A signal that appears<br>before the tumor does.</h2>
   <p class="lead reveal" style="max-width:640px;margin-top:24px;">Every living cell emits light. Cancer changes the pattern. HelioFlux reads that change at 5-10 million cells, long before imaging, blood tests, or symptoms.</p>
 </div>
 
@@ -288,62 +263,6 @@
   </div>
 </div>
 
-<!-- ═══ DEEP DIVE ACCORDIONS (dark) ═══ -->
-<div style="background:#f5f0eb;padding:100px 56px;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <p class="eyebrow reveal" style="color:#00A9D6;">For the Curious</p>
-    <h2 class="reveal" style="color:#14263C;">Go deeper.</h2>
-
-    <div class="acc-stack reveal">
-      <!-- ITEM 1 -->
-      <div class="acc-item">
-        <button class="acc-trigger" aria-expanded="false">
-          <div><span class="acc-label">What the AI sees</span>
-          <span class="acc-preview">LuminAI analyzes the spectral fingerprint of each scan against a validated cancer signature database.</span></div>
-          <span class="acc-icon">+</span>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-pad">
-            <p>QSense captures raw photon emission data at single-photon sensitivity. LuminAI then runs spectral power density analysis, decomposing the signal by wavelength and frequency to extract the emission fingerprint.</p>
-            <p>The AI compares that fingerprint against a validated database of cancer and healthy-tissue signatures, built from three peer-reviewed studies across <strong>13 cancer cell lines</strong> and <strong>47 living animal models</strong>. The output: a biomarker classification with a confidence score. Powered by NVIDIA computing infrastructure.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ITEM 2 -->
-      <div class="acc-item">
-        <button class="acc-trigger" aria-expanded="false">
-          <div><span class="acc-label">The patient experience</span>
-          <span class="acc-preview">No blood draw, no radiation, no prep. Place the sensor, wait 15 minutes, get results the same visit.</span></div>
-          <span class="acc-icon">+</span>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-pad">
-            <p>A HelioFlux scan takes approximately 15 minutes. The patient sits comfortably while QSense reads photon emissions from the target area. No needles. No contrast agents. No ionizing radiation. No preparation required.</p>
-            <p>LuminAI processes the data in real time. The clinician receives a biomarker classification during the same visit, not weeks later. For patients, it feels closer to having your temperature taken than getting a biopsy.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ITEM 3 -->
-      <div class="acc-item">
-        <button class="acc-trigger" aria-expanded="false">
-          <div><span class="acc-label">Why current screening falls short</span>
-          <span class="acc-preview">Only 5 of 200+ cancer types have recommended screening. Most cancers are found too late.</span></div>
-          <span class="acc-icon">+</span>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-pad">
-            <p>Standard imaging (CT, MRI, mammography) requires roughly 1 billion cells before it can detect a tumor. By that point, cancer has been growing silently for years.</p>
-            <p>Only breast, cervical, colorectal, lung, and prostate cancers have USPSTF-recommended screening. Over 200 types have none. High costs ($10K+ out-of-pocket for multi-cancer panels) delay or prevent screening, especially in underserved communities.</p>
-            <p>For cancers like ovarian and pancreatic, the average time from symptom to diagnosis exceeds six months. HelioFlux is designed to change that math entirely.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ═══ PUBLISHED RESEARCH (cream) ═══ -->
 <div style="background:#f5f0eb;padding:100px 56px;">
   <div style="max-width:1200px;margin:0 auto;text-align:center;">
@@ -366,8 +285,8 @@
       </a>
       <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="research-card">
         <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">20</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">Human Brain Photon Study</div>
-        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;margin-bottom:12px;">World's first photoencephalography study. Tracked brain activity through photon emissions in 20 living human subjects, cross-validated against EEG. Extends the platform from cancer into neuroscience.</div>
+        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">Platform Signal Validation: Brain Activity</div>
+        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;margin-bottom:12px;">Tracked brain activity through photon emissions in 20 living human subjects, cross-validated against EEG. Demonstrates the core technology's signal sensitivity beyond cancer applications.</div>
         <div style="font-size:13px;color:#8a96a3;">iScience · Cell Press · 2025</div>
         <div style="font-size:13px;color:#00A9D6;margin-top:12px;">Read paper ↗</div>
       </a>
@@ -375,8 +294,13 @@
   </div>
 </div>
 
+<!-- ═══ THE OPPORTUNITY (dark) ═══ -->
+<div style="background:#092743;padding:96px 56px 0;text-align:center;">
+  <p class="reveal" style="font-size:21px;line-height:1.6;color:rgba(255,255,255,.82);max-width:760px;margin:0 auto;font-weight:300;">Only 5 of 200+ cancer types have a recommended screening protocol. HelioFlux is designed to change that.</p>
+</div>
+
 <!-- ═══ CTA (dark) ═══ -->
-<div style="background:#092743;padding:80px 56px;text-align:center;">
+<div style="background:#092743;padding:64px 56px 80px;text-align:center;">
   <div style="max-width:720px;margin:0 auto;" class="reveal">
     <h2 style="margin-bottom:20px;">Request the full deck</h2>
     <p style="font-size:17px;color:rgba(255,255,255,.65);margin-bottom:36px;">Study data, clinical roadmap, and technical specifications.</p>
@@ -412,18 +336,6 @@ document.querySelectorAll('.reveal').forEach(el => {
     entries.forEach(e => { if (e.isIntersecting) { el.classList.add('in'); obs.unobserve(el); } });
   }, { threshold: 0.12 });
   obs.observe(el);
-});
-// Accordion
-document.querySelectorAll('.acc-trigger').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.closest('.acc-item');
-    const open = item.classList.contains('open');
-    item.parentElement.querySelectorAll('.acc-item').forEach(i => {
-      i.classList.remove('open');
-      i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
-    });
-    if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
-  });
 });
 // Hamburger
 const hamburger = document.getElementById('hamburger');
