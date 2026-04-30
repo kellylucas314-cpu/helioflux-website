@@ -1092,7 +1092,9 @@
   }
   .prob-prog-stage {
     flex: 0 0 auto;
-    width: min(36vw, 420px);
+    /* vh-based primary size so the cell fills the vertical space between leadin and bridge band.
+       vw fallback keeps it from crowding the caption on narrow desktops. */
+    width: min(62vh, 48vw, 700px);
     aspect-ratio: 1 / 1;
     position: relative;
   }
