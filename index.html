@@ -2211,7 +2211,7 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
 
   const FRAME_COUNT = 234;
   // Cache-bust suffix forces the browser to re-fetch frames if a previous load 404'd against a downed dev server.
-  const FRAME_VER = 'v3';
+  const FRAME_VER = 'v4';
   const FRAME_PATH = i => `assets/progression-video/f-${String(i).padStart(3, '0')}.webp?${FRAME_VER}`;
   const frames = new Array(FRAME_COUNT + 1);
 
