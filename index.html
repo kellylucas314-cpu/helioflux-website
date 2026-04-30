@@ -1124,11 +1124,6 @@
   }
   .prob-prog-stage {
     flex: 0 0 auto;
-    /* Bg matches the contrast-filtered cream of the source frames at center, then radially
-       fades back to the page's #F7F6F2 cream at edges. Use `closest-side` so the gradient
-       100% point lines up with the box edges (default `farthest-corner` only finishes at
-       the corners, leaving an unfinished cream zone visible along the sides). */
-    background: radial-gradient(ellipse closest-side at center, #fffdf7 30%, #F7F6F2 100%);
     /* vh-based primary size so the cell fills the vertical space between leadin and bridge band.
        vw fallback keeps it from crowding the caption on narrow desktops. */
     width: min(62vh, 48vw, 700px);
@@ -1142,14 +1137,9 @@
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
-    /* Subtle perceived-sharpness boost — source frames are 720×720 webp upscaled to ~1200
-       device pixels on Retina, so they read soft. Real fix is higher-res Higgsfield frames. */
-    filter: contrast(1.08) saturate(1.05);
-    /* Feather edges. `closest-side` aligns the mask 100% point with the canvas edges, so
-       the canvas is fully transparent before the rectangle's edges, letting the stage's
-       matching radial-gradient bg do the smooth handoff to page cream. */
-    -webkit-mask-image: radial-gradient(ellipse closest-side at center, #000 30%, rgba(0,0,0,0.45) 55%, transparent 90%);
-            mask-image: radial-gradient(ellipse closest-side at center, #000 30%, rgba(0,0,0,0.45) 55%, transparent 90%);
+    /* Feather edges so the source frame's cream doesn't form a visible rectangle on the page cream. */
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
+            mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
   }
   .prob-prog-caption {
     flex: 0 0 340px;
@@ -1656,7 +1646,7 @@
 <!-- ═══ PHOTO BREAK ═══ -->
 <div style="position:relative;overflow:hidden;">
   <div class="nirosha-quote-photo" style="position:relative;height:500px;overflow:hidden;">
-    <img src="nirosha-lab-work.jpg" alt="Dr. Nirosha Murugan in the laboratory" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block;">
+    <img src="nirosha-looking-at-cells.jpg" alt="Dr. Nirosha Murugan in the laboratory" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block;">
   </div>
 </div>
 
