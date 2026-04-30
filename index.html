@@ -121,7 +121,10 @@
       bottom: 0;
       width: 58%;
       z-index: 1;
-      pointer-events: none;
+      /* No pointer-events: none — iOS Safari in Low Power Mode blocks autoplay and falls
+         back to a tap-to-play overlay; that overlay is on the video element itself, so it
+         needs to receive taps. Hero-content sits at z-index 3 above this, so its links
+         and buttons still take priority for taps. */
       opacity: 0;
       overflow: hidden;
       /* Blend mode lives on the container, not the video. If it were on the video,
