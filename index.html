@@ -2017,16 +2017,16 @@ document.querySelectorAll('.prob-glass-card').forEach(card => {
 });
 
 // ─── SURVIVAL GAP COUNT-UP ───
-// The two big numbers (">90%" / "~30%") tick up from 0 when the grid enters the viewport.
-// Strong ease-out and a short total duration mean the digits land at their final values
-// quickly, so a user scrolling fast still reads the correct final percentages.
+// 2s S-curve (power2.inOut) so motion is visible throughout — front-loaded ease-out finished
+// most of the count too quickly to feel like an animation.
 (function() {
   const grid = document.getElementById('survivalGapGrid');
   const earlyEl = document.getElementById('earlyNum');
   const lateEl  = document.getElementById('lateNum');
   if (!grid || !earlyEl || !lateEl || !window.ScrollTrigger || !window.gsap) return;
 
-  // Hide initial values until trigger fires so the static markup doesn't flash before the count-up
+  // Reset to 0 so the count-up has somewhere to start. The static markup ships with the real
+  // values too, so no-JS / reduced-motion visitors still see the correct numbers.
   earlyEl.textContent = '>0%';
   lateEl.textContent  = '~0%';
 
@@ -2041,14 +2041,13 @@ document.querySelectorAll('.prob-glass-card').forEach(card => {
       gsap.to(obj, {
         early: 90,
         late: 30,
-        duration: 1.4,
-        ease: 'power2.out',
+        duration: 2.0,
+        ease: 'power2.inOut',
         onUpdate: () => {
           earlyEl.textContent = '>' + Math.round(obj.early) + '%';
           lateEl.textContent  = '~' + Math.round(obj.late)  + '%';
         },
         onComplete: () => {
-          // Lock final values exactly so the displayed text matches the source claim
           earlyEl.textContent = '>90%';
           lateEl.textContent  = '~30%';
         }
