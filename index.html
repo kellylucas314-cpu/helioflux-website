@@ -922,16 +922,24 @@
       body { overflow-x: hidden; }
 
       /* ── Problem section ── */
-      #problem > div { padding: 110px 24px 56px !important; }   /* more top space between hero and "Cancer is caught too late" so it balances the gap below the stats */
-      #problem p[style*="max-width:720px"] { max-width: 100% !important; }
+      /* Top padding generously breaks from the dark hero into cream. Tightened from 110 → 88
+         and the headline → paragraph rhythm reduced via margin-bottom 20 → 16 so the section
+         feels more compact on a 390px viewport without losing breathing room.
+         Bottom padding tightened (48 → 20) so the cream gap between the stats and the
+         "The problem isn't timing" lead-in inside the progression pin doesn't feel like an
+         awkward void during the brief pre-pin scroll moment. */
+      #problem > div { padding: 88px 24px 20px !important; }
+      #problem p[style*="max-width:720px"] { max-width: 100% !important; margin-bottom: 40px !important; }
       #problem p[style*="font-size:clamp(28px"] { font-size: 24px !important; padding-top: 8px !important; }
-      .prob-opener { font-size: clamp(28px, 7.5vw, 40px) !important; margin-bottom: 20px !important; }
+      .prob-opener { font-size: clamp(28px, 7.5vw, 40px) !important; margin-bottom: 16px !important; }
 
-      /* Stats — tighter */
+      /* Stats — tighter rhythm. Grid margin-top reduced (36 → 20) so the gap from paragraph
+         to stats is paragraph-margin (40) + grid-margin-top (20) = 60px instead of 96px,
+         which felt disproportionately large vs the narrow mobile viewport. */
       .stat-band > div { padding: 64px 24px !important; }
-      .prob-gap-grid { margin-top: 36px !important; margin-bottom: 8px !important; }
+      .prob-gap-grid { margin-top: 20px !important; margin-bottom: 4px !important; }
       .prob-gap-num { font-size: clamp(48px, 14vw, 72px) !important; }
-      .prob-gap-col { padding: 8px 12px !important; }
+      .prob-gap-col { padding: 6px 12px !important; }
       .prob-gap-survive { font-size: 14px !important; }
       .prob-gap-label { font-size: 12px !important; }
 
@@ -1137,9 +1145,16 @@
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
-    /* Feather edges so the source frame's cream doesn't form a visible rectangle on the page cream. */
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
-            mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
+    /* Feather edges so the source frame's cream doesn't form a visible rectangle on the page cream.
+       MUST use `closest-side` — default radial-gradient sizing is `farthest-corner`, which puts the
+       100% radius at the canvas corners (sqrt(2) × halfWidth). With that sizing, an 88% transparency
+       boundary sits ~25% past the side edges, leaving the rightmost ~15px column (which the source
+       Higgsfield frames have as pure white #FFFFFF — verified in pixel sampling) fully under solid
+       mask. That column shows as a faint vertical hairline against the page cream (#F7F6F2).
+       `circle closest-side` makes 100% radius = halfWidth, so the transparent boundary lands ON the
+       canvas edges and erases the white column. */
+    -webkit-mask-image: radial-gradient(circle closest-side at center, #000 60%, transparent 96%);
+            mask-image: radial-gradient(circle closest-side at center, #000 60%, transparent 96%);
   }
   .prob-prog-caption {
     flex: 0 0 340px;
@@ -1217,7 +1232,7 @@
 
   /* Tablet / narrow desktop: stack with caption below */
   @media (max-width: 880px) {
-    .prob-prog-block { height: 240vh; }   /* shorter scroll budget — mobile was way too sticky at 400vh */
+    .prob-prog-block { height: 280vh; }   /* shorter scroll budget — mobile was way too sticky at 400vh */
     .prob-prog-pin {
       height: calc(100vh - 100px);
       min-height: 540px;
@@ -1258,14 +1273,16 @@
     }
   }
   @media (max-width: 480px) {
-    .prob-prog-block { height: 260vh; }   /* mobile scroll length — was 440 (way too sticky), tuned down so phases progress at finger-swipe pace */
+    .prob-prog-block { height: 320vh; }   /* mobile scroll length — bumped from 260 so each phase gets enough scroll runway (~280px) that finger-swipe momentum lands on a phase rather than skipping through 2-3 of them. Combined with scrub: 0.4 smoothing, intermediate captions now have time to settle into view before the next cross-fade. */
     .prob-prog-pin {
       height: calc(100vh - 80px);
       min-height: 480px;
       padding: 0 20px;
     }
     .prob-prog-leadin {
-      margin-top: clamp(24px, 4vh, 48px);
+      /* Tightened from clamp(24,4vh,48) so the lead-in sits closer to the top of the pin —
+         the previous offset created an awkward cream gap during the brief pre-pin scroll. */
+      margin-top: clamp(12px, 2.5vh, 28px);
     }
     .prob-prog-stage { width: min(76vw, 300px); }   /* larger cell so it fills the pinned viewport better */
     .prob-prog-caption {
@@ -1299,7 +1316,9 @@
       width: 80px;
       height: 1px;
       padding: 0 !important;
-      margin: 4px auto 28px;
+      /* Margin tightened (4/28 → 4/16) so the pre-pin transition between stats and the
+         "The problem isn't timing" lead-in doesn't feel like an awkward void of cream. */
+      margin: 4px auto 16px;
       background: linear-gradient(to right, transparent, rgba(22, 38, 58, 0.18) 30%, rgba(22, 38, 58, 0.18) 70%, transparent);
     }
   }
@@ -2188,9 +2207,13 @@ document.querySelectorAll('.acc-trigger').forEach(btn => {
 });
 
 // ─── BACK TO TOP ───
+// Element lives further down in the DOM than this script; guard against null so the
+// uncaught reference doesn't kill any later script execution in this block.
 const btt = document.getElementById('back-to-top');
-lenis.on('scroll', ({ scroll }) => btt.classList.toggle('visible', scroll > 400));
-btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { duration: 1.4 }); });
+if (btt) {
+  lenis.on('scroll', ({ scroll }) => btt.classList.toggle('visible', scroll > 400));
+  btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { duration: 1.4 }); });
+}
 
 // Mobile hamburger handler moved to isolated script block near markup — runs independently of GSAP/Lenis.
 
@@ -2217,17 +2240,20 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
 
   // Animation runs from scroll-progress 0 → ANIM_END; the remainder holds the final frame
   // so the closer line gets a small linger beat before the pin releases.
-  const ANIM_END = 0.74;
+  // Bumped 0.74 → 0.88 so the trailing linger window doesn't eat ~26% of the scroll budget —
+  // mobile users were perceiving the leftover scroll budget as a "void" of empty cream after
+  // the closer caption finished and before the bridge band scrolled into view.
+  const ANIM_END = 0.88;
 
   // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
-  // Phase 2 ("a pre-malignant cluster forms") gets a bit more dwell so the cross-fade has time to settle.
-  // Mobile gets slightly more room on phases 0–5 (finger-swipe momentum makes intermediate captions
-  // hard to read otherwise) at the cost of trimming phase-6 dwell from 28% → 24%. Phase 6 stays the
-  // longest so the punchline + closer still get the strongest beat.
+  // Each phase gets enough scroll runway that finger-swipe momentum on mobile lands ON a
+  // phase rather than skipping through 2-3 of them. Phase 6 (punchline + closer) stays the
+  // longest so it reads as the conclusion. Intermediate phases are roughly equal weight so
+  // every step of the progression gets time to settle into view before the next cross-fade.
   const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
   const PHASE_BOUNDS = _isMobileProg
-    ? [0.00, 0.12, 0.23, 0.36, 0.47, 0.60, 0.76, 1.001]
-    : [0.00, 0.10, 0.20, 0.34, 0.44, 0.57, 0.72, 1.001];
+    ? [0.00, 0.13, 0.26, 0.39, 0.52, 0.65, 0.78, 1.001]
+    : [0.00, 0.12, 0.24, 0.36, 0.48, 0.60, 0.74, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
@@ -2308,7 +2334,13 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
       pin: '.prob-prog-pin',
       pinSpacing: false,
       anticipatePin: 1,
-      scrub: true,
+      // 0.4s scrub lerps the animProgress toward the target instead of snapping. On mobile,
+      // a momentum throw used to fire `onUpdate` for every intermediate scroll position
+      // within ~150ms — phases ticked by faster than the cross-fade could complete, so
+      // captions appeared to "jump." With scrub: 0.4, momentum throws ease toward the
+      // landing position over ~400ms, giving each phase enough dwell to actually settle
+      // into the active cross-fade.
+      scrub: 0.4,
       invalidateOnRefresh: true,
       onUpdate: self => {
         const animProgress = Math.min(self.progress / ANIM_END, 1);
