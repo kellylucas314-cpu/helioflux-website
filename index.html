@@ -96,33 +96,58 @@
       justify-content: center;
       padding: 120px 56px 100px;
       overflow: hidden;
+      background: #0f1c2e;
     }
     .hero::after {
       content: "";
       position: absolute;
       left: 0; right: 0; bottom: 0;
       height: 160px;
-      background: linear-gradient(to bottom, rgba(10,14,26,0) 0%, rgba(10,14,26,1) 100%);
+      background: linear-gradient(to bottom, rgba(15,28,46,0) 0%, rgba(15,28,46,1) 100%);
       pointer-events: none;
-      z-index: 2;
+      z-index: 4;
     }
-    /* Canvas lives behind everything */
-    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
-    /* Hero background */
-    .hero-photo {
-      position: absolute; inset: 0; z-index: 1;
-      background-image: url('nirosha-hero.jpg');
-      background-size: cover; background-position: center 20%;
-      opacity: 0.55;
+    /* Canvas lives behind everything (drifts subtle particles across whole hero) */
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* Starfield video pinned to the right of the hero, full-height, dominating that side.
+       mix-blend-mode:screen drops the video's near-black background into the navy field, so
+       there's no visible rectangle — only the bright stars come through. A left-to-right
+       bluish gradient (.hero::before) dims the left ~half so the headline reads cleanly. */
+    .hero-video {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 58%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      overflow: hidden;
+      /* Blend mode lives on the container, not the video. If it were on the video,
+         the video's stacking context would isolate the blend and the navy backdrop
+         would never be reached — leaving a hard black rectangle. With it here, the
+         whole container screen-blends with the hero's navy: pure-black video pixels
+         stay navy, bright cell pixels lift above it. */
+      mix-blend-mode: screen;
     }
-    .hero-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10,14,26,.95) 0%, rgba(10,14,26,.7) 12%, rgba(15,28,50,.45) 50%, rgba(15,28,50,.3) 100%); }
+    .hero-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: right center;
+      display: block;
+      filter: brightness(0.48) saturate(0.9);
+    }
+    /* No gradient overlay — the entire hero sits on plain navy so the video's screen-blended
+       void (which math'es out to navy too) has no visible boundary. */
 
     .hero-content { position: relative; z-index: 3; max-width: 900px; }
-    .hero-eyebrow { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 22px; opacity: 0; font-weight: 500; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 96px); font-weight: 520; line-height: 1.05; color: var(--white); margin-bottom: 18px; opacity: 0; letter-spacing: -0.01em; }
+    .hero-eyebrow { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 22px; opacity: 0; font-weight: 500; text-shadow: 0 0 18px rgba(15,28,46,0.85); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 96px); font-weight: 520; line-height: 1.05; color: var(--white); margin-bottom: 18px; opacity: 0; letter-spacing: -0.01em; text-shadow: 0 2px 28px rgba(15,28,46,0.9), 0 0 12px rgba(15,28,46,0.7); }
     .hero h1 em { font-style: normal; color: inherit; font-weight: inherit; }
     .hero-accent { color: var(--cyan) !important; font-style: normal; font-family: inherit; font-weight: inherit; }
-    .hero-sub { font-size: 18px; color: rgba(255,255,255,.8); line-height: 1.7; max-width: 580px; margin-bottom: 28px; font-weight: 300; opacity: 0; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,.8); line-height: 1.7; max-width: 580px; margin-bottom: 28px; font-weight: 300; opacity: 0; text-shadow: 0 1px 14px rgba(15,28,46,0.85); }
     .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; }
     .btn-cyan { padding: 16px 40px; background: var(--cyan); color: var(--bg); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; font-weight: 600; transition: all .3s; display: inline-block; border-radius: 50px; }
     .btn-cyan:hover { background: #2CBFE6; transform: translateY(-1px); }
@@ -882,6 +907,10 @@
       .hero { min-height: 100svh; padding: 148px 20px 56px; justify-content: center !important; }
       .hero-content { margin-top: 0; }
       .hero h1 { font-size: clamp(38px, 10.5vw, 56px); line-height: 1.08; letter-spacing: -0.01em; }
+      /* On mobile the video fills the full hero (no right-side split) and dims further so
+         the headline stays the loudest element. */
+      .hero-video { width: 100%; }
+      .hero-video video { filter: brightness(0.45) saturate(0.85); }
     }
 
     /* ═══ COMPREHENSIVE MOBILE RESPONSIVE ═══ */
@@ -1259,7 +1288,7 @@
      the gradient hairline (matching .prob-gap-vline pattern) gives the
      pivot from "the problem" to "what we can see" a soft visual punctuation.
      Selector is scoped under #problem so it outweighs the broad
-     `#problem > div { padding: 110px 24px 56px !important }` rule that
+     `#problem > div { padding: 110px 24px 56px !important }` rule (line 891) that
      otherwise inflates this hairline to 166px tall. */
   .prob-mobile-divider { display: none; }
   @media (max-width: 768px) {
@@ -1450,8 +1479,6 @@
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
-  <div class="hero-photo"></div>
-  <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow" id="he">ULTRA-EARLY CANCER DETECTION</p>
     <h1 id="hh">Your cells emit <span class="hero-accent">light.</span><br>We learned to <span style="white-space:nowrap;">read&nbsp;it.</span></h1>
@@ -1460,6 +1487,11 @@
       <a href="#solution" class="btn-cyan">See the Science</a>
       <a href="team.html" class="btn-ghost">Meet the Team →</a>
     </div>
+  </div>
+  <div class="hero-video" aria-hidden="true">
+    <video autoplay loop muted playsinline preload="auto">
+      <source src="starfield-loop.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="scroll-cue"><div class="scroll-line"></div></div>
 </section>
@@ -1657,7 +1689,7 @@
       <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
-  <p class="reveal" style="text-align:center;font-size:20px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.7);max-width:720px;margin:20px auto 48px;padding:0 56px;">Read metabolism through light. Cancer is just the beginning.</p>
+  <p class="reveal" style="text-align:center;font-size:20px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.7);max-width:720px;margin:20px auto 48px;padding:0 56px;">Metabolism has a light signature. Cancer is where we started reading it.</p>
 </section>
 
 <!-- ═══ CREDIBILITY ANCHOR ═══ -->
@@ -1833,7 +1865,7 @@ class Photon {
   }
   draw(offX, offY) {
     ctx.save();
-    ctx.globalAlpha = this.life * (this.cyan ? 0.62 : 0.38);
+    ctx.globalAlpha = this.life * (this.cyan ? 0.50 : 0.28);
     if (this.glow) { ctx.shadowBlur = 7; ctx.shadowColor = '#00A9D6'; }
     ctx.fillStyle = this.cyan ? '#00A9D6' : 'rgba(180,210,255,0.9)';
     ctx.beginPath();
@@ -1892,10 +1924,14 @@ lenis.on('scroll', ({ scroll }) => nav.classList.toggle('scrolled', scroll > 60)
 
 // ─── HERO ENTRANCE ───
 const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-tl.to('#he', { opacity: 1, y: 0, duration: .8 }, .4)
+tl.to('.hero-video', { opacity: 1, duration: 1.4 }, .2)
+  .to('#he', { opacity: 1, y: 0, duration: .8 }, .4)
   .to('#hh', { opacity: 1, y: 0, duration: 1.1 }, .65)
   .to('#hpoetic', { opacity: 1, y: 0, duration: .9 }, 1.1)
   .to('#ha', { opacity: 1, y: 0, duration: .7 }, 1.45);
+
+// Hero video is a pre-rendered boomerang (forward + reversed) at slowed-down,
+// motion-interpolated framerate, so it loops seamlessly at native 1.0x.
 
 // ─── SCROLL REVEALS ───
 document.querySelectorAll('.reveal').forEach((el, i) => {
@@ -2021,16 +2057,18 @@ document.querySelectorAll('.prob-glass-card').forEach(card => {
 });
 
 // ─── SURVIVAL GAP COUNT-UP ───
-// 2s S-curve (power2.inOut) so motion is visible throughout — front-loaded ease-out finished
-// most of the count too quickly to feel like an animation.
+// The two big numbers (">90%" / "~30%") tick up from 0 when the grid enters the viewport.
+// 2s duration with power2.inOut (S-curve) so motion is visible throughout — not front-loaded
+// like ease-out, which finishes most of the count too fast to feel like an animation.
 (function() {
   const grid = document.getElementById('survivalGapGrid');
   const earlyEl = document.getElementById('earlyNum');
   const lateEl  = document.getElementById('lateNum');
   if (!grid || !earlyEl || !lateEl || !window.ScrollTrigger || !window.gsap) return;
 
-  // Reset to 0 so the count-up has somewhere to start. The static markup ships with the real
-  // values too, so no-JS / reduced-motion visitors still see the correct numbers.
+  // Reset the static markup to 0 so the count-up has somewhere to start. If the trigger
+  // never fires (no JS / reduced-motion / failure), the markup ALSO ships with the real values
+  // so this is the only place visitors might see "0%" — but only briefly, until the trigger fires.
   earlyEl.textContent = '>0%';
   lateEl.textContent  = '~0%';
 
