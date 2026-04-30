@@ -1137,10 +1137,13 @@
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
-    /* Feather edges so the source frame's cream doesn't form a visible rectangle on the page cream.
-       Tightened mask radius so the cell stays crisper at the center and only the outer cream-mismatch fades. */
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
-            mask-image: radial-gradient(ellipse at center, #000 50%, transparent 88%);
+    /* Subtle perceived-sharpness boost — source frames are 720×720 webp upscaled to ~1200
+       device pixels on Retina, so they read soft. Real fix is higher-res Higgsfield frames. */
+    filter: contrast(1.08) saturate(1.05);
+    /* Feather edges with a longer/softer gradient so the filter's slight cream-shift doesn't
+       form a visible rectangle against the page's cream bg. */
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, rgba(0,0,0,0.7) 60%, transparent 100%);
+            mask-image: radial-gradient(ellipse at center, #000 35%, rgba(0,0,0,0.7) 60%, transparent 100%);
   }
   .prob-prog-caption {
     flex: 0 0 340px;
@@ -1492,7 +1495,7 @@
     </div>
   </div>
   <div class="hero-video" aria-hidden="true">
-    <video autoplay loop muted playsinline preload="auto">
+    <video autoplay loop muted playsinline preload="metadata" poster="starfield-poster.jpg">
       <source src="starfield-loop.mp4" type="video/mp4">
     </video>
   </div>
