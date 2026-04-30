@@ -146,7 +146,7 @@
     .section-bg { background: var(--bg-alt); max-width: 100%; }
     .section-bg .section-inner { max-width: 1200px; margin: 0 auto; padding: 140px 56px; }
     .eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; opacity: 0.7; font-weight: 500; }
-    .eyebrow::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(0,169,214,.3); margin-top: 20px; }
+    .eyebrow::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(0,169,214,.3); margin: 20px auto 0; }
     h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 300; line-height: 1.12; margin-bottom: 44px; letter-spacing: -0.01em; }
     h2 em { font-style: italic; font-weight: 300; }
     h3 { font-family: var(--serif); font-size: clamp(20px, 2.5vw, 28px); font-weight: 500; line-height: 1.25; letter-spacing: -0.005em; }
@@ -206,6 +206,8 @@
       max-width: 1200px; margin: 0 auto;
     }
     .h-section-label .eyebrow { margin-bottom: 12px; }
+    /* Platform eyebrow is left-aligned, so anchor its underline to the left edge */
+    .h-section-label .eyebrow::after { margin-left: 0; margin-right: auto; }
     .h-section-label h2 { max-width: 600px; }
 
     .h-track {
@@ -981,8 +983,20 @@
       /* ── Credibility / Nirosha bio ── */
       #credibility > div { padding: 64px 24px !important; }
       #credibility h2 { font-size: clamp(28px, 7.5vw, 38px) !important; margin-bottom: 32px !important; }
-      div[style*="grid-template-columns:1fr 1.2fr"][style*="gap:56px"] { grid-template-columns: 1fr !important; gap: 28px !important; }
-      div[style*="grid-template-columns:1fr 1.2fr"] img { height: 340px !important; width: 100% !important; object-fit: cover; border-radius: 6px; }
+      /* Stack credibility grid (Nirosha photo + bio) on mobile.
+         Class-based selector: the previous attribute-substring selector failed to match because
+         browsers normalize inline styles by adding a space after each colon, breaking [style*="...:..."]
+         lookups that don't include the space. */
+      .cred-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+      /* Portrait aspect so the headshot reads naturally on a phone */
+      .cred-grid img {
+        height: auto !important;
+        width: 100% !important;
+        aspect-ratio: 4 / 5 !important;
+        object-fit: cover !important;
+        object-position: center 22% !important;
+        border-radius: 8px !important;
+      }
       #credibility p[style*="font-size:17px"] { font-size: 15px !important; line-height: 1.75 !important; }
       #credibility div[style*="font-size:clamp(28px"] { font-size: 28px !important; }
       div[style*="background:#092743"] > div { padding: 64px 24px !important; }
@@ -1051,14 +1065,21 @@
   }
   .prob-prog-pin {
     /* ScrollTrigger handles pinning via transform — site has overflow-x:hidden on <html> which breaks position:sticky.
-       Pin element sized to its content (not 100vh) so the bridge band approaches naturally after the closer.
-       Bottom padding is a FIXED pixel value so the gap between the closer and the bridge band is consistent
-       regardless of window height (was vh-relative which made it tight on small windows, big on large ones). */
+       Pin element height = viewport minus a fixed offset, so the gap between the cell row and the bridge band
+       below the block is always the same pixel value regardless of window height. The row anchors to the
+       bottom of the pin (margin-top:auto) so its bottom edge stays a constant distance from the bridge.
+       min-height is sized just above content so on short viewports the gap shrinks slightly but content
+       never overflows the pin. */
     width: 100%;
+    height: calc(100vh - 180px);
+    min-height: 540px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: clamp(120px, 14vh, 160px) clamp(24px, 6vw, 56px) 140px;
+    padding: 0 clamp(24px, 6vw, 56px);
+  }
+  .prob-prog-leadin {
+    margin-top: clamp(80px, 12vh, 140px);
   }
   .prob-prog-row {
     display: flex;
@@ -1067,7 +1088,7 @@
     justify-content: center;
     gap: clamp(24px, 5vw, 72px);
     width: 100%;
-    margin: clamp(20px, 3vh, 40px) 0 0;   /* tight fixed gap below leadin; row stays at its natural position */
+    margin: auto 0 0;          /* push row to bottom of pin so the gap below stays fixed at 180px */
   }
   .prob-prog-stage {
     flex: 0 0 auto;
@@ -1165,13 +1186,18 @@
   @media (max-width: 880px) {
     .prob-prog-block { height: 240vh; }   /* shorter scroll budget — mobile was way too sticky at 400vh */
     .prob-prog-pin {
-      padding: clamp(20px, 3vh, 32px) 24px 80px;   /* tight top + fixed bottom buffer so the bridge band sits a consistent distance below */
+      height: calc(100vh - 100px);
+      min-height: 540px;
+      padding: 0 24px;
+    }
+    .prob-prog-leadin {
+      margin-top: clamp(40px, 6vh, 72px);
     }
     .prob-prog-row {
       flex-direction: column;
       gap: 22px;
       align-items: center;
-      /* margin: auto 0 inherited from base */
+      /* margin: auto 0 0 inherited from base — anchors row to bottom of pin */
     }
     .prob-prog-stage { width: min(56vw, 290px); }
     .prob-prog-caption {
@@ -1199,7 +1225,12 @@
   @media (max-width: 480px) {
     .prob-prog-block { height: 260vh; }   /* mobile scroll length — was 440 (way too sticky), tuned down so phases progress at finger-swipe pace */
     .prob-prog-pin {
-      padding: clamp(12px, 2vh, 24px) 20px 64px;   /* tight top + fixed bottom buffer so bridge band gap is consistent */
+      height: calc(100vh - 80px);
+      min-height: 480px;
+      padding: 0 20px;
+    }
+    .prob-prog-leadin {
+      margin-top: clamp(24px, 4vh, 48px);
     }
     .prob-prog-stage { width: min(76vw, 300px); }   /* larger cell so it fills the pinned viewport better */
     .prob-prog-caption {
@@ -1216,6 +1247,25 @@
       position: static;
       height: auto;
       padding: 60px 24px;
+    }
+  }
+
+  /* Mobile-only hairline between the survival stats and the lead-in.
+     The cream gap on stacked mobile read as an unintentional void;
+     the gradient hairline (matching .prob-gap-vline pattern) gives the
+     pivot from "the problem" to "what we can see" a soft visual punctuation.
+     Selector is scoped under #problem so it outweighs the broad
+     `#problem > div { padding: 110px 24px 56px !important }` rule that
+     otherwise inflates this hairline to 166px tall. */
+  .prob-mobile-divider { display: none; }
+  @media (max-width: 768px) {
+    #problem > .prob-mobile-divider {
+      display: block;
+      width: 80px;
+      height: 1px;
+      padding: 0 !important;
+      margin: 4px auto 28px;
+      background: linear-gradient(to right, transparent, rgba(22, 38, 58, 0.18) 30%, rgba(22, 38, 58, 0.18) 70%, transparent);
     }
   }
 </style>
@@ -1430,6 +1480,9 @@
     </div>
   </div>
 
+  <!-- Mobile-only hairline punctuating the pivot from stats → lead-in (hidden on desktop) -->
+  <div class="prob-mobile-divider" aria-hidden="true"></div>
+
   <!-- Scroll-driven progression: cell → tumor, with crisp HTML captions -->
   <div class="prob-prog-block" id="probProgression" aria-label="Cancer progression visualization, scroll to advance">
     <div class="prob-prog-pin">
@@ -1491,7 +1544,7 @@
       <p class="eyebrow" style="color:#00A9D6;">The Science</p>
       <h2 style="color:#0A1640;">Cancer has a <em style="color:#00A9D6;font-style:italic;">light signature.</em></h2>
       <p style="font-size:19px;color:#0A1640;margin-top:32px;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;text-align:center;">Every cell in your body emits faint light as a byproduct of metabolism. Cancer cells process energy differently, and the light they produce shifts: altered wavelengths, changed intensity. This happens at the metabolic level, before any mass forms.</p>
-      <p style="font-size:19px;color:#0A1640;margin-top:24px;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;text-align:center;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to identify cancer at 100-200x fewer cells than standard imaging.</p>
+      <p style="font-size:19px;color:#0A1640;margin-top:32px;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;text-align:center;">Dr. Nirosha Murugan spent a decade building technology that reads these signals with enough precision to detect cancer 100-200&times; earlier than standard imaging.</p>
     </div>
   </div>
 </div>
@@ -1511,7 +1564,7 @@
       <p class="eyebrow" style="color:#00A9D6;">The Scan</p>
       <h2 style="margin-bottom:44px;color:#0A1640;">We built the tool to read it.</h2>
       <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:center;">We've built prototype devices and validated them in peer-reviewed studies. Now we're developing the clinical version.</p>
-      <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:center;">A patient sits in a dark room for about fifteen minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
+      <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:24px;text-align:center;">A patient sits in a dark room for about 15 minutes. A sensor reads the faint light coming off their body. AI analyzes the signal. Same visit, same day.</p>
       <p style="font-size:18px;color:#0A1640;line-height:1.75;max-width:660px;margin-left:auto;margin-right:auto;margin-bottom:64px;font-weight:500;text-align:center;">No blood draw. No biopsy. No radiation.</p>
 
       <h3 style="font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);font-weight:400;color:#0A1640;margin-bottom:40px;">Two systems. <em>One signal.</em></h3>
@@ -1572,7 +1625,7 @@
         <div class="reveal">
           <div class="h-panel-status">Featured · Human Study In Preparation</div>
           <h3>Skin Cancer<br><em>Detection</em></h3>
-          <p>90-92% accuracy across multiple cancer cell lines in cell cultures and animal studies. Detected cancer within 24 hours of exposure. Tumors weren't physically detectable for another 18 days. First human study targeting Q3 2026 with a Beverly Hills dermatology partner.</p>
+          <p>90-92% accuracy across multiple cancer cell lines in cell cultures and animal models. Cancer signals detected within 24 hours; physical tumors weren't visible for another 18 days. First human study targeting Q3 2026 with a Beverly Hills dermatology partner.</p>
         </div>
       </div><!-- /h-panel 1 -->
       <div class="h-panel">
@@ -1608,7 +1661,7 @@
   <div style="max-width:1200px;margin:0 auto;padding:120px 56px;">
     <h2 class="reveal" style="margin-bottom:48px;color:#16263A;">The scientist behind<br>the technology.</h2>
 
-    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;" class="reveal">
+    <div class="cred-grid reveal" style="display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;">
       <div>
         <img loading="lazy" src="nirosha-lab-headshot.jpg" alt="Dr. Nirosha Murugan" style="width:100%;height:320px;object-fit:cover;object-position:center top;display:block;aspect-ratio:1/1;">
       </div>
@@ -1644,14 +1697,12 @@
      carries its required light background, so no extra pill is needed. */
   .nvidia-inception {
     display: inline-block;
-    margin-top: 44px;
     opacity: 0.95;
     transition: opacity .25s ease;
   }
   .nvidia-inception:hover { opacity: 1; }
   .nvidia-inception img { display: block; height: 60px; width: auto; }
   @media (max-width: 880px) {
-    .nvidia-inception { margin-top: 32px; }
     .nvidia-inception img { height: 46px; }
   }
 </style>
@@ -1665,9 +1716,13 @@
       <img class="logo-cbcnews"   src="images/press/cbc-news.svg"            alt="CBC News">
       <img class="logo-labj"      src="images/press/la-business-journal.svg" alt="LA Business Journal">
     </div>
-    <div style="margin-top:36px;">
-      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage →</a>
+    <div class="reveal" style="margin-top:24px;">
+      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage &rarr;</a>
     </div>
+
+    <!-- Partner program signal — separated by hairline so it reads as a distinct credibility beat -->
+    <div class="reveal" aria-hidden="true" style="width:80px;height:1px;margin:64px auto 28px;background:linear-gradient(to right, transparent, rgba(255,255,255,.18) 30%, rgba(255,255,255,.18) 70%, transparent);"></div>
+    <p class="reveal" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);opacity:.7;font-weight:500;margin-bottom:24px;">Partner Program</p>
     <div class="reveal" style="text-align:center;">
       <span class="nvidia-inception" aria-label="NVIDIA Inception Program member">
         <img src="images/press/nvidia-inception.png" alt="NVIDIA Inception Program">
@@ -1961,25 +2016,43 @@ document.querySelectorAll('.prob-glass-card').forEach(card => {
   });
 });
 
-// ─── SURVIVAL GAP BAR REVEAL ───
-// Numbers are static in markup (">90%" / "~30%"). The digit count-up was removed because
-// smooth-scroll could catch users mid-animation and show wrong percentages — bad on a
-// headline survival claim. Bar widths still reveal on scroll for a subtle motion cue.
+// ─── SURVIVAL GAP COUNT-UP ───
+// The two big numbers (">90%" / "~30%") tick up from 0 when the grid enters the viewport.
+// Strong ease-out and a short total duration mean the digits land at their final values
+// quickly, so a user scrolling fast still reads the correct final percentages.
 (function() {
   const grid = document.getElementById('survivalGapGrid');
-  const barEarlyEl = document.getElementById('barEarly');
-  const barLateEl  = document.getElementById('barLate');
-  if (!grid || !window.ScrollTrigger) return;
+  const earlyEl = document.getElementById('earlyNum');
+  const lateEl  = document.getElementById('lateNum');
+  if (!grid || !earlyEl || !lateEl || !window.ScrollTrigger || !window.gsap) return;
+
+  // Hide initial values until trigger fires so the static markup doesn't flash before the count-up
+  earlyEl.textContent = '>0%';
+  lateEl.textContent  = '~0%';
 
   let fired = false;
   ScrollTrigger.create({
     trigger: grid,
-    start: 'top 75%',
+    start: 'top 78%',
     once: true,
     onEnter: () => {
       if (fired) return; fired = true;
-      if (barEarlyEl) barEarlyEl.style.width = '90%';
-      if (barLateEl)  barLateEl.style.width  = '30%';
+      const obj = { early: 0, late: 0 };
+      gsap.to(obj, {
+        early: 90,
+        late: 30,
+        duration: 1.4,
+        ease: 'power2.out',
+        onUpdate: () => {
+          earlyEl.textContent = '>' + Math.round(obj.early) + '%';
+          lateEl.textContent  = '~' + Math.round(obj.late)  + '%';
+        },
+        onComplete: () => {
+          // Lock final values exactly so the displayed text matches the source claim
+          earlyEl.textContent = '>90%';
+          lateEl.textContent  = '~30%';
+        }
+      });
     }
   });
 })();
@@ -2105,7 +2178,13 @@ btt.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, { dur
 
   // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
   // Phase 2 ("a pre-malignant cluster forms") gets a bit more dwell so the cross-fade has time to settle.
-  const PHASE_BOUNDS = [0.00, 0.10, 0.20, 0.34, 0.44, 0.57, 0.72, 1.001];
+  // Mobile gets slightly more room on phases 0–5 (finger-swipe momentum makes intermediate captions
+  // hard to read otherwise) at the cost of trimming phase-6 dwell from 28% → 24%. Phase 6 stays the
+  // longest so the punchline + closer still get the strongest beat.
+  const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
+  const PHASE_BOUNDS = _isMobileProg
+    ? [0.00, 0.12, 0.23, 0.36, 0.47, 0.60, 0.76, 1.001]
+    : [0.00, 0.10, 0.20, 0.34, 0.44, 0.57, 0.72, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
