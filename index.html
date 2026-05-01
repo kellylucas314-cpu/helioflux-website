@@ -1138,10 +1138,11 @@
     aspect-ratio: 1 / 1;
     position: relative;
   }
-  .prob-prog-stage canvas {
+  .prob-prog-stage video {
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: cover;
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -1547,7 +1548,7 @@
       </div>
       <div class="prob-prog-row">
       <div class="prob-prog-stage">
-        <canvas id="probProgCanvas" width="720" height="720" role="img" aria-label="Single cell progressing through stages of cancer"></canvas>
+        <video id="probProgVideo" src="assets/progression.mp4" preload="auto" muted playsinline disablepictureinpicture aria-label="Single cell progressing through stages of cancer"></video>
       </div>
       <div class="prob-prog-caption" id="probProgCaption">
         <div class="phase active" data-phase="0"><span class="text">A single cell acquires a driver mutation.</span></div>
@@ -2225,26 +2226,23 @@ if (btt) {
 (() => {
   const block = document.getElementById('probProgression');
   if (!block || typeof ScrollTrigger === 'undefined') return;
-  const canvas = document.getElementById('probProgCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d', { alpha: false });
+  const video = document.getElementById('probProgVideo');
+  if (!video) return;
   const phases = Array.from(document.querySelectorAll('#probProgCaption .phase'));
 
-  const FRAME_COUNT = 234;
-  // Cache-bust suffix forces the browser to re-fetch frames if a previous load 404'd against a downed dev server.
-  const FRAME_VER = 'v4';
-  const FRAME_PATH = i => `assets/progression-video/f-${String(i).padStart(3, '0')}.webp?${FRAME_VER}`;
-  const frames = new Array(FRAME_COUNT + 1);
+  // Replaced the 234-webp-frame canvas approach with a single hardware-decoded video. The
+  // canvas approach was decoding ~843MB of RGBA in memory on mobile (234 frames × 960² × 4
+  // bytes), which forced constant frame eviction + re-decode mid-scroll = visible stutter.
+  // The video element keeps compressed data resident, decodes only the visible window, and
+  // is hardware-accelerated. The mp4 was generated with a keyframe every 10 frames so seeking
+  // to any scroll position is fast.
 
   // Animation runs from scroll-progress 0 → ANIM_END; the remainder holds the final frame
   // so the closer line gets a small linger beat before the pin releases.
-  // Bumped 0.74 → 0.88 so the trailing linger window doesn't eat ~26% of the scroll budget —
-  // mobile users were perceiving the leftover scroll budget as a "void" of empty cream after
-  // the closer caption finished and before the bridge band scrolled into view.
   const ANIM_END = 0.88;
 
-  // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
-  // Aligned to the underlying 13-stage source illustration (~18 frames per stage):
+  // Phase boundaries against animProgress (0..1), aligned to the underlying 13-stage source
+  // illustration (~18 frames per stage):
   //   stages 1-2  : single cell + driver mutation                     → caption 0
   //   stages 3-4  : atypical daughters + clonal expansion             → caption 1
   //   stage 5     : pre-malignant cluster                             → caption 2
@@ -2252,54 +2250,12 @@ if (btt) {
   //   stages 8-9  : hypoxia + angiogenesis (vessels appear)           → caption 4
   //   stages 10-11: growing microtumor + basement membrane breach     → caption 5
   //   stages 12-13: local invasion + ~1cm imaging-detectable          → caption 6 (punchline)
-  // Phase 5 trimmed from 0.70-0.85 → 0.70-0.80 so it stops feeling sticky on mobile —
-  // stages 10-11 look visually similar (round vasculated tumor at slightly different
-  // sizes), so 15% of scroll on near-identical imagery read as "stuck." 10% is enough
-  // to read the caption without the visual feeling frozen.
-  // Phase 6 starts at animProgress 0.80 → caption 6 sets up the "imaging detects" punchline
-  // while the cell completes its growth to 1cm. Combined with ANIM_END=0.88's trailing
-  // hold of frame 234, phase 6 occupies ~30% of total scroll — strong closer weight.
   const PHASE_BOUNDS = [0.00, 0.13, 0.30, 0.42, 0.55, 0.70, 0.80, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
     }
     return phases.length - 1;
-  }
-
-  function setCanvasSize(img) {
-    if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      lastFloatIndex = -2;
-    }
-  }
-
-  // Sub-frame interpolation via alpha blend of adjacent frames. With scrub: 0.4 decelerating,
-  // floatIndex moves through fractional values during the ease — snapping to Math.round() leaves
-  // the canvas frozen for several ticks and then jumps, which reads as a stutter on slow scrolls.
-  // Linear-blending base + next at the fractional position renders smooth sub-frame motion that
-  // tracks Lenis-smoothed scroll continuously. Skip the redraw only when the float index hasn't
-  // moved meaningfully (< 1/100th of a frame) so we don't burn cycles on no-op repaints.
-  let lastFloatIndex = -2;
-  function render(floatIndex) {
-    if (Math.abs(floatIndex - lastFloatIndex) < 0.01) return;
-    const baseI = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(floatIndex)));
-    const nextI = Math.min(FRAME_COUNT - 1, baseI + 1);
-    const blend = Math.max(0, Math.min(1, floatIndex - baseI));
-    const baseImg = frames[baseI + 1];
-    if (!baseImg || !baseImg.complete || baseImg.naturalWidth === 0) return;
-    ctx.globalAlpha = 1;
-    ctx.drawImage(baseImg, 0, 0, canvas.width, canvas.height);
-    if (blend > 0.001 && nextI !== baseI) {
-      const nextImg = frames[nextI + 1];
-      if (nextImg && nextImg.complete && nextImg.naturalWidth > 0) {
-        ctx.globalAlpha = blend;
-        ctx.drawImage(nextImg, 0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 1;
-      }
-    }
-    lastFloatIndex = floatIndex;
   }
 
   let activePhase = -1;
@@ -2309,40 +2265,26 @@ if (btt) {
     phases.forEach((el, idx) => el.classList.toggle('active', idx === i));
   }
 
-  let firstSized = false;
-  function preload() {
-    const promises = [];
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = FRAME_PATH(i);
-      frames[i] = img;
-      promises.push(
-        img.decode().then(() => {
-          if (i === 1 && !firstSized) {
-            setCanvasSize(img);
-            render(0);
-            firstSized = true;
-          }
-        }).catch(() => {})
-      );
-    }
-    return Promise.all(promises);
-  }
-
-  const state = { floatIndex: 0, animProgress: 0 };
+  // currentTime updates are coalesced into a single rAF tick to avoid spamming the seeker.
+  // Skipping when the delta is below ~1/120s prevents no-op seeks during idle frames.
+  const state = { animProgress: 0 };
   let rafQueued = false;
+  let lastSeekTime = -1;
   function tick() {
-    render(state.floatIndex);
-    setPhase(phaseFor(state.animProgress));
     rafQueued = false;
+    if (videoDuration > 0) {
+      const target = state.animProgress * videoDuration;
+      if (Math.abs(target - lastSeekTime) > 0.008) {
+        video.currentTime = target;
+        lastSeekTime = target;
+      }
+    }
+    setPhase(phaseFor(state.animProgress));
   }
 
-  preload().then(() => {
-    if (frames[1] && frames[1].complete) {
-      setCanvasSize(frames[1]);
-      render(0);
-    }
+  let videoDuration = 0;
+  function init() {
+    videoDuration = video.duration;
     setPhase(0);
 
     ScrollTrigger.create({
@@ -2352,17 +2294,13 @@ if (btt) {
       pin: '.prob-prog-pin',
       pinSpacing: false,
       anticipatePin: 1,
-      // scrub: true means animProgress tracks scroll position 1:1, with Lenis providing the
-      // smoothing (default 1.25s ease). Earlier we used scrub: 0.4 to add a second layer of
-      // GSAP smoothing on top, but stacking Lenis + GSAP eased twice — after a scroll, the
-      // canvas would keep wiggling for ~1.6s instead of settling cleanly, which read as
-      // glitchy. Lenis alone is enough; scrub: true makes the cell feel solid and decisive.
+      // scrub: true tracks scroll 1:1 with Lenis providing smoothing. Adding GSAP scrub
+      // (e.g. 0.4) on top stacked two ease passes and made the cell wiggle for ~1.6s after
+      // each scroll — read as glitch. Lenis alone is enough.
       scrub: true,
       invalidateOnRefresh: true,
       onUpdate: self => {
-        const animProgress = Math.min(self.progress / ANIM_END, 1);
-        state.animProgress = animProgress;
-        state.floatIndex = animProgress * (FRAME_COUNT - 1);
+        state.animProgress = Math.min(self.progress / ANIM_END, 1);
         if (!rafQueued) {
           rafQueued = true;
           requestAnimationFrame(tick);
@@ -2371,10 +2309,15 @@ if (btt) {
     });
 
     ScrollTrigger.refresh();
-  });
+  }
+
+  if (video.readyState >= 1 && video.duration > 0) {
+    init();
+  } else {
+    video.addEventListener('loadedmetadata', init, { once: true });
+  }
 
   window.addEventListener('resize', () => {
-    lastFloatIndex = -2;  // force redraw after layout/canvas changes
     if (rafQueued) return;
     rafQueued = true;
     requestAnimationFrame(tick);
