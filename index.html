@@ -2252,13 +2252,22 @@ if (btt) {
   // longest so it reads as the conclusion. Intermediate phases are roughly equal weight so
   // every step of the progression gets time to settle into view before the next cross-fade.
   const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
-  // Phase 5 (basement membrane breach) trimmed — stages 10-11 in the source illustration look
-  // visually near-identical (round vasculated tumor at slightly different sizes), so the wider
-  // dwell read as "stuck on the caption right before the last one." Freed scroll goes to phase 6,
-  // which is the punchline and deserves the extra weight anyway.
+  // Desktop bounds aligned to the underlying 13-stage source illustration (~18 frames per stage).
+  // Previous bounds had captions 4-6 all activating while the cell was already at its
+  // fully-grown vasculated form — the scroll moved through the late captions while the visual
+  // had already arrived at the late stages. Realigned so each caption is active during the
+  // frames where its concept is actually being depicted:
+  //   stages 1-2  : single cell + driver mutation                     → caption 0  (0-13%)
+  //   stages 3-4  : atypical daughters + clonal expansion             → caption 1  (13-30%)
+  //   stage 5     : pre-malignant cluster                             → caption 2  (30-42%)
+  //   stages 6-7  : avascular microlesion + diffusion-limited tumor   → caption 3  (42-55%)
+  //   stages 8-9  : hypoxia + angiogenesis (vessels APPEAR here)      → caption 4  (55-70%)
+  //   stages 10-11: growing microtumor + basement membrane breach     → caption 5  (70-85%)
+  //   stages 12-13: local invasion + ~1cm imaging-detectable          → caption 6  (85+ + hold)
+  // Mobile bounds left as-is — Kelly hasn't asked for re-alignment there yet.
   const PHASE_BOUNDS = _isMobileProg
     ? [0.00, 0.13, 0.26, 0.39, 0.52, 0.65, 0.75, 1.001]
-    : [0.00, 0.12, 0.24, 0.36, 0.48, 0.60, 0.70, 1.001];
+    : [0.00, 0.13, 0.30, 0.42, 0.55, 0.70, 0.85, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
