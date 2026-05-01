@@ -2265,24 +2265,46 @@ if (btt) {
     phases.forEach((el, idx) => el.classList.toggle('active', idx === i));
   }
 
-  // currentTime updates are coalesced into a single rAF tick to avoid spamming the seeker.
-  // Skipping when the delta is below ~1/120s prevents no-op seeks during idle frames.
+  // currentTime updates are gated on the previous seek finishing. Issuing seeks faster than
+  // the decoder can handle (which a 60Hz scroll easily can) caused brief black frames and
+  // wrong-frame flashes between phase 5 and phase 6. Now we record the latest target and
+  // only push it to the video when the previous seek's `seeked` event fires — naturally
+  // rate-limited by the decoder. Captions still update every tick regardless of seek state
+  // so the text never lags scroll.
   const state = { animProgress: 0 };
   let rafQueued = false;
-  let lastSeekTime = -1;
+  let isSeeking = false;
+  let pendingTarget = null;
+
+  function applySeek(t) {
+    isSeeking = true;
+    video.currentTime = t;
+  }
+
   function tick() {
     rafQueued = false;
     if (videoDuration > 0) {
       const target = state.animProgress * videoDuration;
-      if (Math.abs(target - lastSeekTime) > 0.008) {
-        video.currentTime = target;
-        lastSeekTime = target;
+      pendingTarget = target;
+      if (!isSeeking && Math.abs(target - video.currentTime) > 0.02) {
+        applySeek(target);
       }
     }
     setPhase(phaseFor(state.animProgress));
   }
 
   let videoDuration = 0;
+
+  // When a seek completes, push the latest pending target if it has drifted past the
+  // dead-band. This keeps the video catching up to scroll position without overrunning
+  // the decoder.
+  video.addEventListener('seeked', () => {
+    isSeeking = false;
+    if (pendingTarget !== null && Math.abs(pendingTarget - video.currentTime) > 0.02) {
+      applySeek(pendingTarget);
+    }
+  });
+
   function init() {
     videoDuration = video.duration;
     setPhase(0);
