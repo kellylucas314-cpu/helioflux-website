@@ -2252,9 +2252,13 @@ if (btt) {
   // longest so it reads as the conclusion. Intermediate phases are roughly equal weight so
   // every step of the progression gets time to settle into view before the next cross-fade.
   const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
+  // Phase 5 (basement membrane breach) trimmed — stages 10-11 in the source illustration look
+  // visually near-identical (round vasculated tumor at slightly different sizes), so the wider
+  // dwell read as "stuck on the caption right before the last one." Freed scroll goes to phase 6,
+  // which is the punchline and deserves the extra weight anyway.
   const PHASE_BOUNDS = _isMobileProg
-    ? [0.00, 0.13, 0.26, 0.39, 0.52, 0.65, 0.78, 1.001]
-    : [0.00, 0.12, 0.24, 0.36, 0.48, 0.60, 0.74, 1.001];
+    ? [0.00, 0.13, 0.26, 0.39, 0.52, 0.65, 0.75, 1.001]
+    : [0.00, 0.12, 0.24, 0.36, 0.48, 0.60, 0.70, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
