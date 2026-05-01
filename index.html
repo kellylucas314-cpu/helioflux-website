@@ -2252,11 +2252,14 @@ if (btt) {
   //   stages 8-9  : hypoxia + angiogenesis (vessels appear)           → caption 4
   //   stages 10-11: growing microtumor + basement membrane breach     → caption 5
   //   stages 12-13: local invasion + ~1cm imaging-detectable          → caption 6 (punchline)
-  // Phase 6 starts at animProgress 0.85 (frame ~198, stage 12) so the "imaging detects"
-  // line lands on visible vasculature + invasion. Combined with ANIM_END=0.88's trailing
-  // hold of frame 234, phase 6 occupies ~25% of total scroll — strong end weight while
-  // still giving every earlier phase ≥12% animProgress so finger-swipe momentum can settle.
-  const PHASE_BOUNDS = [0.00, 0.13, 0.30, 0.42, 0.55, 0.70, 0.85, 1.001];
+  // Phase 5 trimmed from 0.70-0.85 → 0.70-0.80 so it stops feeling sticky on mobile —
+  // stages 10-11 look visually similar (round vasculated tumor at slightly different
+  // sizes), so 15% of scroll on near-identical imagery read as "stuck." 10% is enough
+  // to read the caption without the visual feeling frozen.
+  // Phase 6 starts at animProgress 0.80 → caption 6 sets up the "imaging detects" punchline
+  // while the cell completes its growth to 1cm. Combined with ANIM_END=0.88's trailing
+  // hold of frame 234, phase 6 occupies ~30% of total scroll — strong closer weight.
+  const PHASE_BOUNDS = [0.00, 0.13, 0.30, 0.42, 0.55, 0.70, 0.80, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
@@ -2349,13 +2352,12 @@ if (btt) {
       pin: '.prob-prog-pin',
       pinSpacing: false,
       anticipatePin: 1,
-      // 0.4s scrub lerps the animProgress toward the target instead of snapping. On mobile,
-      // a momentum throw used to fire `onUpdate` for every intermediate scroll position
-      // within ~150ms — phases ticked by faster than the cross-fade could complete, so
-      // captions appeared to "jump." With scrub: 0.4, momentum throws ease toward the
-      // landing position over ~400ms, giving each phase enough dwell to actually settle
-      // into the active cross-fade.
-      scrub: 0.4,
+      // scrub: true means animProgress tracks scroll position 1:1, with Lenis providing the
+      // smoothing (default 1.25s ease). Earlier we used scrub: 0.4 to add a second layer of
+      // GSAP smoothing on top, but stacking Lenis + GSAP eased twice — after a scroll, the
+      // canvas would keep wiggling for ~1.6s instead of settling cleanly, which read as
+      // glitchy. Lenis alone is enough; scrub: true makes the cell feel solid and decisive.
+      scrub: true,
       invalidateOnRefresh: true,
       onUpdate: self => {
         const animProgress = Math.min(self.progress / ANIM_END, 1);
