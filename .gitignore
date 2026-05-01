@@ -1,3 +1,8 @@
 node_modules/
 package-lock.json
 package.json
+
+# local dev / debug artifacts
+_progshot_*.png
+_screenshot_progression.js
+.ffmpeg-*.log
