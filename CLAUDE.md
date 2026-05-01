@@ -66,7 +66,7 @@ Dark hero → Light cream section → Dark quote band → Light cream section �
 5. **MOBILE FIRST** — Kelly reviews on mobile. Test everything at 390px width.
 6. **NO em dashes anywhere in copy** — biggest AI tell
 7. **Test locally before committing**
-8. **Only push to GitHub when explicitly asked**
+8. **Only push to GitHub when explicitly asked** — when Kelly says "push" (or equivalent), you have advance authorization to push directly to `main` without further confirmation. This is a single-developer site repo with auto-deploy from main; that is the standing workflow.
 
 ## SECTION BACKGROUNDS (reference)
 - `#problem` section: background `#f5f0eb`, text `#16263A`
