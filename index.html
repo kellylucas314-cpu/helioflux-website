@@ -2265,23 +2265,22 @@ if (btt) {
     if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
+      lastDrawnIndex = -1;
     }
   }
 
+  // Snap to nearest frame instead of alpha-blending two adjacent frames. With 234 frames over
+  // ~200vh of scroll, frame steps are imperceptible, and removing the blend kills a ghost-wobble
+  // that scrub-easing was creating: GSAP's eased progress oscillated near integer boundaries,
+  // and the alpha overlap between frame N and N+1 read as a shaky double image during scrolling.
+  let lastDrawnIndex = -1;
   function render(floatIndex) {
-    const baseI = Math.max(0, Math.min(FRAME_COUNT - 1, Math.floor(floatIndex)));
-    const nextI = Math.min(FRAME_COUNT - 1, baseI + 1);
-    const blend = Math.max(0, Math.min(1, floatIndex - baseI));
-    const baseImg = frames[baseI + 1];
-    const nextImg = frames[nextI + 1];
-    if (!baseImg || !baseImg.complete || baseImg.naturalWidth === 0) return;
-    ctx.globalAlpha = 1;
-    ctx.drawImage(baseImg, 0, 0, canvas.width, canvas.height);
-    if (blend > 0.001 && nextI !== baseI && nextImg && nextImg.complete && nextImg.naturalWidth > 0) {
-      ctx.globalAlpha = blend;
-      ctx.drawImage(nextImg, 0, 0, canvas.width, canvas.height);
-      ctx.globalAlpha = 1;
-    }
+    const i = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(floatIndex)));
+    if (i === lastDrawnIndex) return;
+    const img = frames[i + 1];
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    lastDrawnIndex = i;
   }
 
   let activePhase = -1;
@@ -2357,6 +2356,7 @@ if (btt) {
   });
 
   window.addEventListener('resize', () => {
+    lastDrawnIndex = -1;  // force redraw after layout/canvas changes
     if (rafQueued) return;
     rafQueued = true;
     requestAnimationFrame(tick);
