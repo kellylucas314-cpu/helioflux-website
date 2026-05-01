@@ -1145,16 +1145,14 @@
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
-    /* Feather edges so the source frame's cream doesn't form a visible rectangle on the page cream.
-       MUST use `closest-side` — default radial-gradient sizing is `farthest-corner`, which puts the
-       100% radius at the canvas corners (sqrt(2) × halfWidth). With that sizing, an 88% transparency
-       boundary sits ~25% past the side edges, leaving the rightmost ~15px column (which the source
-       Higgsfield frames have as pure white #FFFFFF — verified in pixel sampling) fully under solid
-       mask. That column shows as a faint vertical hairline against the page cream (#F7F6F2).
-       `circle closest-side` makes 100% radius = halfWidth, so the transparent boundary lands ON the
-       canvas edges and erases the white column. */
-    -webkit-mask-image: radial-gradient(circle closest-side at center, #000 60%, transparent 96%);
-            mask-image: radial-gradient(circle closest-side at center, #000 60%, transparent 96%);
+    /* Feather only the outermost ~12% of the radius so the source frame's white edge doesn't form a
+       visible rectangle on the page cream (#F7F6F2). Previous setting (60%→96%) was way too wide —
+       the 36%-wide fade zone made the cell content itself look blurred and gradient-overlaid. Now
+       the inner 88% of the cell stays fully sharp; only the very edge softens into the page.
+       MUST use `closest-side` so 100% = halfWidth and the transparent boundary lands on the canvas
+       edges (the source Higgsfield frames have pure white #FFFFFF in the corners — verified). */
+    -webkit-mask-image: radial-gradient(circle closest-side at center, #000 88%, transparent 100%);
+            mask-image: radial-gradient(circle closest-side at center, #000 88%, transparent 100%);
   }
   .prob-prog-caption {
     flex: 0 0 340px;
