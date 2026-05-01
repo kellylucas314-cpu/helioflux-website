@@ -1175,8 +1175,11 @@
   .prob-prog-caption .phase.active {
     opacity: 1;
     transform: translateY(-50%);
-    /* Fade in AFTER the outgoing caption has faded out, so both never overlap at high alpha. */
-    transition: opacity .42s ease .22s, transform .42s ease .22s;
+    /* Crossfade with the outgoing caption (no delay). Previous .22s pre-delay meant captions
+       took 640ms to fully appear, so on mobile any normal-speed scroll skipped past intermediate
+       phases before their text ever became visible. Now total settle is ~280ms — captions
+       reliably register even on a quick flick. */
+    transition: opacity .28s ease, transform .28s ease;
     pointer-events: auto;
   }
   .prob-prog-caption .text {
