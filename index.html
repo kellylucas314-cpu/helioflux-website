@@ -2244,14 +2244,19 @@ if (btt) {
   const ANIM_END = 0.88;
 
   // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
-  // Each phase gets enough scroll runway that finger-swipe momentum on mobile lands ON a
-  // phase rather than skipping through 2-3 of them. Phase 6 (punchline + closer) stays the
-  // longest so it reads as the conclusion. Intermediate phases are roughly equal weight so
-  // every step of the progression gets time to settle into view before the next cross-fade.
-  const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
-  const PHASE_BOUNDS = _isMobileProg
-    ? [0.00, 0.13, 0.26, 0.39, 0.52, 0.65, 0.78, 1.001]
-    : [0.00, 0.12, 0.24, 0.36, 0.48, 0.60, 0.74, 1.001];
+  // Aligned to the underlying 13-stage source illustration (~18 frames per stage):
+  //   stages 1-2  : single cell + driver mutation                     → caption 0
+  //   stages 3-4  : atypical daughters + clonal expansion             → caption 1
+  //   stage 5     : pre-malignant cluster                             → caption 2
+  //   stages 6-7  : avascular microlesion + diffusion-limited tumor   → caption 3
+  //   stages 8-9  : hypoxia + angiogenesis (vessels appear)           → caption 4
+  //   stages 10-11: growing microtumor + basement membrane breach     → caption 5
+  //   stages 12-13: local invasion + ~1cm imaging-detectable          → caption 6 (punchline)
+  // Phase 6 starts at animProgress 0.85 (frame ~198, stage 12) so the "imaging detects"
+  // line lands on visible vasculature + invasion. Combined with ANIM_END=0.88's trailing
+  // hold of frame 234, phase 6 occupies ~25% of total scroll — strong end weight while
+  // still giving every earlier phase ≥12% animProgress so finger-swipe momentum can settle.
+  const PHASE_BOUNDS = [0.00, 0.13, 0.30, 0.42, 0.55, 0.70, 0.85, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
