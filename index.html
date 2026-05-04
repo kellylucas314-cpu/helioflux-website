@@ -2252,22 +2252,20 @@ if (btt) {
   // longest so it reads as the conclusion. Intermediate phases are roughly equal weight so
   // every step of the progression gets time to settle into view before the next cross-fade.
   const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
-  // Desktop bounds aligned to the underlying 13-stage source illustration (~18 frames per stage).
-  // Previous bounds had captions 4-6 all activating while the cell was already at its
-  // fully-grown vasculated form — the scroll moved through the late captions while the visual
-  // had already arrived at the late stages. Realigned so each caption is active during the
-  // frames where its concept is actually being depicted:
-  //   stages 1-2  : single cell + driver mutation                     → caption 0  (0-13%)
-  //   stages 3-4  : atypical daughters + clonal expansion             → caption 1  (13-30%)
-  //   stage 5     : pre-malignant cluster                             → caption 2  (30-42%)
-  //   stages 6-7  : avascular microlesion + diffusion-limited tumor   → caption 3  (42-55%)
-  //   stages 8-9  : hypoxia + angiogenesis (vessels APPEAR here)      → caption 4  (55-70%)
-  //   stages 10-11: growing microtumor + basement membrane breach     → caption 5  (70-85%)
-  //   stages 12-13: local invasion + ~1cm imaging-detectable          → caption 6  (85+ + hold)
-  // Mobile bounds left as-is — Kelly hasn't asked for re-alignment there yet.
-  const PHASE_BOUNDS = _isMobileProg
-    ? [0.00, 0.13, 0.26, 0.39, 0.52, 0.65, 0.75, 1.001]
-    : [0.00, 0.13, 0.30, 0.42, 0.55, 0.70, 0.85, 1.001];
+  // Bounds derived empirically by scrubbing the actual extracted frames (234 frames total).
+  // The Higgsfield-upscaled source moves fast through early stages and stays nearly static after
+  // ~frame 150. Earlier bounds assumed even 18-frames-per-stage spacing; in reality the visual
+  // landmarks land where the source recording put them, not where math suggested.
+  // Visual landmarks identified by direct frame inspection:
+  //   frames 1-13   : 3-6 cells (small starting cluster)            → caption 0  (0-6%)
+  //   frames 14-27  : 10-25 cells multiplying                       → caption 1  (6-12%)
+  //   frames 28-39  : dense cluster forming                         → caption 2  (12-17%)
+  //   frames 40-46  : dense ball, no vessels yet                    → caption 3  (17-20%)
+  //   frames 47-93  : vessels APPEAR and grow                       → caption 4  (20-40%)
+  //   frames 94-151 : tumor visibly expanding outward               → caption 5  (40-65%)
+  //   frames 152-234: mature tumor (visual barely changes)          → caption 6  (65%+ + hold)
+  // Same bounds for mobile and desktop — the underlying frames are identical.
+  const PHASE_BOUNDS = [0.00, 0.06, 0.12, 0.17, 0.20, 0.40, 0.65, 1.001];
   function phaseFor(p) {
     for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
       if (p < PHASE_BOUNDS[i + 1]) return i;
