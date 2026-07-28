@@ -156,6 +156,21 @@
     .btn-cyan:hover { background: #2CBFE6; transform: translateY(-1px); }
     .btn-ghost { font-size: 16px; color: rgba(255,255,255,.78); text-decoration: none; border: none; padding: 0; letter-spacing: .04em; transition: color .3s; display: inline-block; }
     .btn-ghost:hover { color: var(--white); }
+    .team-bio-cta {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      max-width: 100%;
+      padding: 15px 28px !important;
+      border: 1px solid rgba(28,53,80,.28) !important;
+      border-radius: 999px;
+      font-size: 13px !important;
+      line-height: 1;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
 
     /* Scroll indicator */
     .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.55); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
@@ -245,9 +260,9 @@
     }
     .h-panel {
       width: 82vw;
-      padding: 44px 36px;
+      padding: 36px 36px 30px;
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
+      grid-template-columns: 1.08fr 1.12fr;
       gap: 28px;
       align-items: start;
       border-right: 1px solid var(--border);
@@ -255,8 +270,8 @@
     }
     .h-panel:last-child { border-right: none; }
     .h-panel-img { position: relative; }
-    .h-panel-img img { display: block; width: 100%; height: 240px; object-fit: cover; opacity: .88; }
-    .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: 240px; overflow: hidden; }
+    .h-panel-img img { display: block; width: 100%; height: clamp(280px, 25vw, 330px); object-fit: cover; opacity: .9; }
+    .h-panel-img { background: linear-gradient(160deg, #07101C 0%, #0B1828 60%, #061018 100%); min-height: clamp(280px, 25vw, 330px); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .h-panel-img::after {
       content: '';
       position: absolute; top: 30%; left: 35%;
@@ -274,14 +289,14 @@
     .h-panel-num { font-family: var(--serif); font-size: 100px; font-weight: 300; color: var(--cyan); opacity: .07; position: absolute; top: -20px; right: 20px; line-height: 1; pointer-events: none; }
     .h-panel h3 { font-family: var(--serif); font-size: clamp(26px,3vw,36px); font-weight: 500; margin-bottom: 20px; line-height: 1.15; }
     .h-panel h3 em { font-style: italic; }
-    .h-panel p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
+    .h-panel p { font-size: 16px; color: rgba(255,255,255,.78); line-height: 1.85; font-weight: 300; margin-bottom: 0; }
     .h-panel-pub { font-size: 14px; color: var(--muted); font-style: italic; border-left: 2px solid rgba(0,169,214,.2); padding-left: 14px; line-height: 1.6; margin-bottom: 24px; }
     .h-stats { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
     .h-stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--cyan); }
     .h-stat-label { font-size: 14px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
 
     /* Scroll progress dots */
-    .h-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0 60px; }
+    .h-dots { display: flex; justify-content: center; gap: 8px; padding: 4px 0 14px; }
     .h-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .3s, transform .3s; }
     .h-dot.active { background: var(--cyan); transform: scale(1.3); }
 
@@ -471,8 +486,8 @@
         padding: 44px 28px;
         gap: 28px;
       }
-      .h-panel-img img { height: 240px; }
-      .h-dots { padding: 20px 0 40px; }
+      .h-panel-img img { height: clamp(260px, 40vw, 320px); }
+      .h-dots { padding: 16px 0 32px; }
     }
     @media (max-width: 900px) {
       nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
@@ -724,9 +739,9 @@
     .quote-warm .quote-attr { color: var(--cyan); opacity: .7; }
 
     /* Carousel arrows */
-    .h-arrows { display: flex; justify-content: center; gap: 14px; padding-top: 28px; padding-bottom: 8px; }
+    .h-arrows { display: flex; justify-content: center; gap: 12px; padding-top: 18px; padding-bottom: 2px; }
     .h-arrow {
-      width: 44px; height: 44px; border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       border: none; background: rgba(255,255,255,.08);
       color: rgba(255,255,255,.7); font-size: 18px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -1059,6 +1074,7 @@
       .cta-actions a { text-align: center; width: 100%; }
       .btn-cyan { padding: 14px 32px !important; font-size: 12px !important; }
       .btn-ghost { font-size: 14px !important; padding: 12px 0 !important; }
+      .team-bio-cta { font-size: 12px !important; padding: 15px 24px !important; letter-spacing: .12em !important; }
 
       /* Three audience blocks — stack */
       div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; gap: 16px !important; }
@@ -1442,9 +1458,9 @@
     <li><a href="science.html">Science</a></li>
     <li><a href="team.html">Team</a></li>
     <li><a href="press.html">Press</a></li>
-    <li><a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
+    <li><a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
   </ul>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" class="nav-cta">Request Deck</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request" class="nav-cta">Request Deck</a>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="background:none;border:none;">
     <span></span><span></span><span></span>
   </button>
@@ -1454,8 +1470,8 @@
   <a href="science.html" class="mob-link">Science</a>
   <a href="team.html" class="mob-link">Team</a>
   <a href="press.html" class="mob-link">Press</a>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact" class="mob-link">Contact</a>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" class="mob-cta mob-link">Request Deck</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact" class="mob-link">Contact</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request" class="mob-cta mob-link">Request Deck</a>
 </div>
 
 <!-- Isolated hamburger script — must run independently of GSAP/Lenis/ScrollTrigger so menu works even if animation libs fail to load. Do not merge into main script block. -->
@@ -1679,6 +1695,14 @@
   <div class="h-section" id="hSection">
     <div class="h-track" id="hTrack">
       <div class="h-panel" style="background:rgba(0,169,214,.04);border-left:3px solid #00A9D6;border-right:none;">
+        <div class="h-panel-img reveal"><img src="breast-cancer-valley-care.jpg" alt="Valley Breast Care and Women's Health Center team" loading="lazy" style="object-position:left center;"></div>
+        <div class="reveal">
+          <div class="h-panel-status">IRB Study In Development</div>
+          <h3>Breast Cancer<br><em>Detection</em></h3>
+          <p>HelioFlux is preparing an IRB study for breast cancer detection with Dr. Tom Lomis, a world-renowned cancer oncologist and surgeon, to evaluate how ultra-weak photon emissions may support earlier, non-invasive detection.</p>
+        </div>
+      </div>
+      <div class="h-panel" style="background:rgba(0,169,214,.04);border-left:3px solid #00A9D6;border-right:none;">
         <div class="h-panel-img reveal"><img src="skin-device.jpg" alt="HelioFlux skin cancer detection device render" loading="lazy"></div>
         <div class="reveal">
           <div class="h-panel-status">Featured · Human Study In Preparation</div>
@@ -1700,7 +1724,7 @@
       <button class="h-arrow" id="hNext" aria-label="Next">&#8594;</button>
     </div>
     <div class="h-dots" id="hDots">
-      <div class="h-dot active"></div><div class="h-dot"></div>
+      <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
 </section>
@@ -1787,8 +1811,8 @@
   <p class="lead reveal" style="max-width:620px;margin:0 auto 48px;color:rgba(255,255,255,.78);">Ten years of published research. Validated in cells, animals, and living human subjects. We're raising a pre-pilot round for our first IRB-approved human study.</p>
 
   <div class="cta-actions reveal" style="margin-bottom:0;">
-    <a href="mailto:kelly.lucas@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A" class="btn-cyan">Request Investor Deck</a>
-    <a href="mailto:kelly.lucas@helioflux.co?subject=Let's connect: HelioFlux" class="btn-ghost">Schedule a Conversation →</a>
+    <a href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A" class="btn-cyan">Request Investor Deck</a>
+    <a href="mailto:connect@helioflux.co?subject=Let's connect: HelioFlux" class="btn-ghost">Schedule a Conversation →</a>
   </div>
 </section>
 
@@ -1796,7 +1820,7 @@
   <div>
     <div class="f-logo">Helio<span>Flux</span></div>
     <div class="f-tagline">Your cells emit light. We learned to read it.</div>
-    <div class="f-contact">kelly.lucas@helioflux.co</div>
+    <div class="f-contact">connect@helioflux.co</div>
   </div>
   <div class="f-col">
     <h4>Company</h4>
@@ -1810,7 +1834,7 @@
     <h4>Connect</h4>
     <ul>
       <li><a href="https://www.linkedin.com/company/helioflux" target="_blank" rel="noopener">LinkedIn ↗</a></li>
-      <li><a href="mailto:kelly.lucas@helioflux.co">Email</a></li>
+      <li><a href="mailto:connect@helioflux.co">Email</a></li>
       <li><a href="index.html#contact">Request Deck</a></li>
     </ul>
   </div>
