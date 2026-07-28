@@ -1013,7 +1013,7 @@
       .h-panel {
         width: 100% !important;
         grid-template-columns: 1fr !important;
-        padding: 36px 24px !important;
+        padding: 28px 20px 32px !important;
         border-right: none !important;
         border-bottom: 1px solid rgba(255,255,255,.06);
         scroll-snap-align: none !important;
@@ -1021,9 +1021,14 @@
       .h-panel:last-child { border-bottom: none; }
       .h-panel-img { display: none; }
       .h-panel-img:has(img) { display: block; }
+      .h-panel-img,
+      .h-panel-img img {
+        height: clamp(220px, 58vw, 300px) !important;
+        min-height: clamp(220px, 58vw, 300px) !important;
+      }
       .h-panel h3 { font-size: 26px !important; }
-      .h-panel p { font-size: 15px !important; line-height: 1.75 !important; }
-      .h-panel-status { font-size: 11px !important; padding: 5px 12px !important; }
+      .h-panel p { font-size: 15px !important; line-height: 1.7 !important; }
+      .h-panel-status { font-size: 10px !important; line-height: 1.3 !important; padding: 5px 10px !important; margin-bottom: 16px !important; }
       .h-stats { flex-wrap: wrap; gap: 20px !important; padding-top: 20px !important; }
       .h-stat-num { font-size: 24px !important; }
       .h-stat-label { font-size: 12px !important; }
@@ -1308,6 +1313,39 @@
     }
     .prob-prog-caption .text { font-size: 18px; }
     .prob-prog-caption .punchline { font-size: 19px; }
+  }
+
+  @media (max-width: 768px) {
+    .prob-prog-block {
+      height: auto !important;
+      padding: 28px 24px 56px;
+    }
+    .prob-prog-pin {
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+    }
+    .prob-prog-leadin { margin-top: 0 !important; }
+    .prob-prog-row {
+      margin: 24px 0 0 !important;
+      gap: 18px !important;
+    }
+    .prob-prog-stage {
+      width: min(72vw, 260px) !important;
+    }
+    .prob-prog-caption {
+      min-height: 0 !important;
+      height: auto !important;
+    }
+    .prob-prog-caption .phase {
+      display: none;
+      position: relative !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .prob-prog-caption .phase.active {
+      display: block;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1718,13 +1756,21 @@
           <p>World's first study to read light patterns from human brains. Published in iScience (Cell Press) in 2025, light emissions around the heads of living people were detected while their brain waves were measured by EEG. The same platform is now being used to monitor brain health after chemotherapy and concussions.</p>
         </div>
       </div>
+      <div class="h-panel">
+        <div class="h-panel-img reveal"><img src="metabolic-cell.jpg" alt="Mitochondria cellular metabolism visualization" loading="lazy"></div>
+        <div class="reveal">
+          <div class="h-panel-status">Research Frontier</div>
+          <h3>Metabolic &amp;<br><em>Systemic Disease</em></h3>
+          <p>The metabolic disruptions in cancer also appear in diabetes, cardiovascular disease, and autoimmune conditions. Published research shows light reads these disruptions directly: HelioFlux is pursuing that signal as the platform expands.</p>
+        </div>
+      </div>
     </div>
     <div class="h-arrows">
       <button class="h-arrow" id="hPrev" aria-label="Previous">&#8592;</button>
       <button class="h-arrow" id="hNext" aria-label="Next">&#8594;</button>
     </div>
     <div class="h-dots" id="hDots">
-      <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div>
+      <div class="h-dot active"></div><div class="h-dot"></div><div class="h-dot"></div><div class="h-dot"></div>
     </div>
   </div>
 </section>
@@ -2352,6 +2398,15 @@ if (btt) {
       render(0);
     }
     setPhase(0);
+
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      state.animProgress = 1;
+      state.floatIndex = FRAME_COUNT - 1;
+      tick();
+      setPhase(phases.length - 1);
+      ScrollTrigger.refresh();
+      return;
+    }
 
     ScrollTrigger.create({
       trigger: '#probProgression',
