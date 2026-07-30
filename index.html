@@ -171,6 +171,24 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
+    .team-full-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      max-width: 100%;
+      padding: 14px 32px;
+      border: 1.5px solid rgba(28,53,80,.32);
+      border-radius: 50px;
+      color: #1C3550;
+      font-size: 13px;
+      line-height: 1.15;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
 
     /* Scroll indicator */
     .scroll-cue { position: absolute; bottom: 36px; right: 56px; z-index: 3; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.55); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 2s forwards; }
@@ -1080,6 +1098,15 @@
       .btn-cyan { padding: 14px 32px !important; font-size: 12px !important; }
       .btn-ghost { font-size: 14px !important; padding: 12px 0 !important; }
       .team-bio-cta { font-size: 12px !important; padding: 15px 24px !important; letter-spacing: .12em !important; }
+      .team-full-cta {
+        width: auto !important;
+        max-width: 100% !important;
+        padding: 14px 22px !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        letter-spacing: .08em !important;
+        white-space: nowrap !important;
+      }
 
       /* Three audience blocks — stack */
       div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; gap: 16px !important; }
@@ -1780,7 +1807,7 @@
         <div style="font-size:clamp(28px,3.5vw,40px);font-family:var(--serif);font-weight:300;margin-bottom:8px;color:#16263A;">Dr. Nirosha J. Murugan</div>
         <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:24px;">Interim CEO, Chief Scientist &amp; Co-Founder</div>
         <p style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:32px;">She earned her Ph.D. in Biomolecular Sciences at Laurentian University, Canada, where she pioneered the quantum-sensor-based cancer detection technology now commercialized through HelioFlux. As a postdoctoral researcher in Dr. Michael Levin's lab at the Allen Discovery Center at Tufts University, she advanced ion-channel bioelectricity as a mechanism of tissue patterning and co-developed a drug delivery system to induce limb regeneration in non-regenerative animals.</p>
-        <a href="team.html" class="btn-ghost" style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#1C3550;border:1.5px solid rgba(28,53,80,.32);padding:14px 32px;border-radius:50px;font-weight:600;">Meet the full team →</a>
+        <a href="team.html" class="btn-ghost team-full-cta">Meet the full team →</a>
       </div>
     </div>
   </div>
