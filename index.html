@@ -882,6 +882,17 @@
     a:visited { color: inherit; }
     a.btn-cyan:visited { color: var(--bg); }
     a.btn-ghost, a.btn-ghost:visited { color: rgba(255,255,255,.78); }
+    a.team-full-cta,
+    a.team-full-cta:visited {
+      color: #1C3550;
+      background: rgba(255,255,255,.42);
+      border-color: rgba(28,53,80,.38);
+    }
+    a.team-full-cta:hover {
+      color: #0F1C2E;
+      background: rgba(255,255,255,.72);
+      border-color: rgba(0,169,214,.55);
+    }
     a.nav-cta, a.nav-cta:visited { color: var(--cyan); }
     .nav-links a:visited { color: rgba(255,255,255,0.72); }
     .press-card:visited .press-headline { color: var(--white); }
@@ -1522,10 +1533,10 @@
   <ul class="nav-links">
     <li><a href="science.html">Science</a></li>
     <li><a href="team.html">Team</a></li>
-    <li><a href="press.html">Press</a></li>
-    <li><a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
+    <li><a href="press.html">Updates</a></li>
+    <li><a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact&amp;body=Hello%20HelioFlux%20team%2C%0A%0AI%27d%20like%20to%20connect%20about%3A%0A%0AName%3A%0AOrganization%3A%0A%0AThank%20you.">Contact</a></li>
   </ul>
-  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request" class="nav-cta">Request Deck</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request&amp;body=Hello%20HelioFlux%20team%2C%0A%0AI%27d%20like%20to%20request%20the%20HelioFlux%20deck.%0A%0AName%3A%0AOrganization%3A%0ARole%3A%0AReason%20for%20interest%3A%0A%0AThank%20you." class="nav-cta">Request Deck</a>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="background:none;border:none;">
     <span></span><span></span><span></span>
   </button>
@@ -1534,9 +1545,9 @@
   <button class="mob-close" id="mobClose" aria-label="Close menu" type="button">&times;</button>
   <a href="science.html" class="mob-link">Science</a>
   <a href="team.html" class="mob-link">Team</a>
-  <a href="press.html" class="mob-link">Press</a>
-  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact" class="mob-link">Contact</a>
-  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request" class="mob-cta mob-link">Request Deck</a>
+  <a href="press.html" class="mob-link">Updates</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact&amp;body=Hello%20HelioFlux%20team%2C%0A%0AI%27d%20like%20to%20connect%20about%3A%0A%0AName%3A%0AOrganization%3A%0A%0AThank%20you." class="mob-link">Contact</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request&amp;body=Hello%20HelioFlux%20team%2C%0A%0AI%27d%20like%20to%20request%20the%20HelioFlux%20deck.%0A%0AName%3A%0AOrganization%3A%0ARole%3A%0AReason%20for%20interest%3A%0A%0AThank%20you." class="mob-cta mob-link">Request Deck</a>
 </div>
 
 <!-- Isolated hamburger script — must run independently of GSAP/Lenis/ScrollTrigger so menu works even if animation libs fail to load. Do not merge into main script block. -->
@@ -1855,7 +1866,7 @@
       <img class="logo-labj"      src="images/press/la-business-journal.svg" alt="LA Business Journal">
     </div>
     <div class="reveal" style="margin-top:24px;">
-      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read press coverage &rarr;</a>
+      <a href="press.html" class="btn-ghost" style="font-size:15px;">Read updates &rarr;</a>
     </div>
 
     <!-- Partner program signal — separated by hairline so it reads as a distinct credibility beat -->
@@ -1876,8 +1887,8 @@
   <p class="lead reveal" style="max-width:620px;margin:0 auto 48px;color:rgba(255,255,255,.78);">Ten years of published research. Validated in cells, animals, and living human subjects. We're raising a pre-pilot round for our first IRB-approved human study.</p>
 
   <div class="cta-actions reveal" style="margin-bottom:0;">
-    <a href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A" class="btn-cyan">Request Investor Deck</a>
-    <a href="mailto:connect@helioflux.co?subject=Let's connect: HelioFlux" class="btn-ghost">Schedule a Conversation →</a>
+    <a href="mailto:connect@helioflux.co?subject=Investor%20Deck%20Request%3A%20HelioFlux&amp;body=Hello%20HelioFlux%20team%2C%0A%0AI%27d%20like%20to%20request%20the%20HelioFlux%20deck.%0A%0AName%3A%0AOrganization%3A%0ARole%3A%0AReason%20for%20interest%3A%0AHow%20I%20heard%20about%20HelioFlux%3A%0A%0AThank%20you." class="btn-cyan">Request Investor Deck</a>
+    <a href="mailto:connect@helioflux.co?subject=Let%27s%20connect%3A%20HelioFlux&amp;body=Hello%20HelioFlux%20team%2C%0A%0AI%27d%20like%20to%20schedule%20a%20conversation.%0A%0AName%3A%0AOrganization%3A%0ATopic%3A%0A%0AThank%20you." class="btn-ghost">Schedule a Conversation →</a>
   </div>
 </section>
 
@@ -1892,7 +1903,7 @@
     <ul>
       <li><a href="science.html">Science</a></li>
       <li><a href="team.html">Team</a></li>
-      <li><a href="press.html">Press</a></li>
+      <li><a href="press.html">Updates</a></li>
     </ul>
   </div>
   <div class="f-col">
