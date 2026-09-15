@@ -1513,6 +1513,7 @@
     /* QSense/LuminAI cards stay dark */
     .qs-card, .lum-card { background: #092743; color: #fff; }
     </style>
+<link rel="stylesheet" href="assets/tumor-growth/story.css?v=20260915">
 </head>
 <body>
 <div class="cursor-dot" id="cdot"></div>
@@ -1619,47 +1620,34 @@
     </div>
   </div>
 
-  <!-- Mobile-only hairline punctuating the pivot from stats → lead-in (hidden on desktop) -->
-  <div class="prob-mobile-divider" aria-hidden="true"></div>
+</section>
 
-  <!-- Scroll-driven progression: cell → tumor, with crisp HTML captions -->
-  <div class="prob-prog-block" id="probProgression" aria-label="Cancer progression visualization, scroll to advance">
-    <div class="prob-prog-pin">
-      <!-- Lead-in stays pinned at top throughout the scroll. -->
-      <div class="prob-prog-leadin">
-        <p>The problem isn't timing. It's what we can see.</p>
-      </div>
-      <div class="prob-prog-row">
-      <div class="prob-prog-stage">
-        <canvas id="probProgCanvas" width="720" height="720" role="img" aria-label="Single cell progressing through stages of cancer"></canvas>
-      </div>
-      <div class="prob-prog-caption" id="probProgCaption">
-        <div class="phase active" data-phase="0"><span class="text">A single cell acquires a driver mutation.</span></div>
-        <div class="phase" data-phase="1"><span class="text">Atypical daughter cells multiply.</span></div>
-        <div class="phase" data-phase="2">
-          <span class="text">A pre-malignant cluster forms.</span>
-          <span class="stage-label">Pre-cancer</span>
-        </div>
-        <div class="phase" data-phase="3">
-          <span class="text">A diffusion-limited microtumor takes shape.</span>
-          <span class="stage-label">Carcinoma in situ</span>
-        </div>
-        <div class="phase" data-phase="4">
-          <span class="text">Hypoxia triggers <em>angiogenesis</em>. New blood vessels feed the growth.</span>
-          <span class="stage-label">Carcinoma in situ</span>
-        </div>
-        <div class="phase" data-phase="5">
-          <span class="text">The tumor breaches the basement membrane and invades surrounding tissue.</span>
-          <span class="stage-label">Stage I</span>
-        </div>
-        <div class="phase" data-phase="6">
-          <span class="punchline">Standard imaging typically detects a tumor at <strong>~1&nbsp;cm</strong>. Roughly <strong>1&nbsp;billion cells</strong>.</span>
-          <span class="closer">By then, it's been growing silently for years.</span>
-        </div>
-      </div>
-      </div>
-    </div>
+<!-- A separate, full-width chapter for the scroll-driven tumor story. -->
+<section class="hf-growth-chapter" data-lenis-prevent aria-label="The growth we don't see">
+<div id="problem-original-thesis" class="reveal"><p>The problem isn't timing. It's what we can see.</p></div>
+<!-- HF-GROWTH-START -->
+<div id="probProgression" aria-label="An illustrative story of tumor growth">
+ <div class="hf-growth-pin">
+  <div class="hf-growth-heading"><h2>The growth we don’t see.</h2><button type="button" class="hf-growth-mode" aria-pressed="false">Read as stills</button></div>
+  <div class="hf-growth-scene">
+   <div class="hf-growth-stage">
+    <div class="hf-growth-poster hf-growth-still-art" aria-hidden="true"><img src="assets/tumor-growth/I0.webp" srcset="assets/tumor-growth/960/I0.webp 960w, assets/tumor-growth/I0.webp 1254w" sizes="(max-width:880px) 420px,650px" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt=""></div>
+    <canvas class="hf-growth-canvas" width="1254" height="1254" role="img" aria-label="Three separate normal-appearing cells."></canvas>
+   </div>
+   <div class="hf-growth-story">
+    <p class="hf-growth-beat">GROWTH 01 / 9</p>
+    <h3 class="hf-growth-title">Before the first change</h3>
+    <p class="hf-growth-caption">The story begins with a few normal cells.</p>
+    <div class="hf-growth-progress" aria-hidden="true"><span></span></div>
+   </div>
   </div>
+  <div class="hf-growth-bottom"><p class="hf-growth-status">Scroll to watch it grow</p></div>
+ </div>
+ <div class="hf-growth-static" aria-label="Tumor growth as matched illustrations"><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/I0.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="Three separate normal-appearing cells."><noscript><img src="assets/tumor-growth/I0.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="Three separate normal-appearing cells."></noscript></div><figcaption><strong>Before the first change</strong><p>The story begins with a few normal cells.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/I1.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="The same cells; one nuclear/lineage cue begins to appear."><noscript><img src="assets/tumor-growth/I1.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="The same cells; one nuclear/lineage cue begins to appear."></noscript></div><figcaption><strong>A single cell changes</strong><p>A single cell acquires a driver mutation: a DNA change that can give it a growth advantage.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/E5.webp" loading="lazy" width="1254" height="1254" style="width:36.285957%;height:36.285957%;left:31.726809%;top:28.175319%" alt="Four descendants of the altered cell form a small cluster."><noscript><img src="assets/tumor-growth/E5.webp" loading="lazy" width="1254" height="1254" style="width:36.285957%;height:36.285957%;left:31.726809%;top:28.175319%" alt="Four descendants of the altered cell form a small cluster."></noscript></div><figcaption><strong>The change is passed on</strong><p>Now we follow the altered cell’s descendants as they inherit the change and divide.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/E7.webp" loading="lazy" width="1254" height="1254" style="width:38.761905%;height:38.761905%;left:31.036341%;top:27.268170%" alt="Additional altered descendants appear."><noscript><img src="assets/tumor-growth/E7.webp" loading="lazy" width="1254" height="1254" style="width:38.761905%;height:38.761905%;left:31.036341%;top:27.268170%" alt="Additional altered descendants appear."></noscript></div><figcaption><strong>The cluster grows</strong><p>Repeated divisions build a larger cluster of related cells.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/M3-fine.webp" loading="lazy" width="1254" height="1254" style="width:53.664629%;height:53.664629%;left:22.825328%;top:18.718341%" alt="A rounded, dense aggregate represents premalignant growth."><noscript><img src="assets/tumor-growth/M3-fine.webp" loading="lazy" width="1254" height="1254" style="width:53.664629%;height:53.664629%;left:22.825328%;top:18.718341%" alt="A rounded, dense aggregate represents premalignant growth."></noscript></div><figcaption><strong>A precancerous cluster</strong><p>The growing cluster becomes more crowded and disorganized.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/AV.webp" loading="lazy" width="1254" height="1254" style="width:66.323213%;height:66.323213%;left:17.499510%;top:16.567091%" alt="Dense mass without visible new vessels."><noscript><img src="assets/tumor-growth/AV.webp" loading="lazy" width="1254" height="1254" style="width:66.323213%;height:66.323213%;left:17.499510%;top:16.567091%" alt="Dense mass without visible new vessels."></noscript></div><figcaption><strong>Growth needs a blood supply</strong><p>As the mass grows, oxygen can become scarce inside. Cells can send signals that encourage new blood vessels to grow.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/M5.webp" loading="lazy" width="1254" height="1254" style="width:75.534770%;height:75.534770%;left:12.985553%;top:12.479187%" alt="First fine vessels are visibly present."><noscript><img src="assets/tumor-growth/M5.webp" loading="lazy" width="1254" height="1254" style="width:75.534770%;height:75.534770%;left:12.985553%;top:12.479187%" alt="First fine vessels are visibly present."></noscript></div><figcaption><strong>A blood supply supports growth</strong><p>New blood vessels grow around the mass, supplying oxygen and nutrients that support further growth.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/L4-v2.webp" loading="lazy" width="1254" height="1254" style="width:87.202742%;height:87.202742%;left:7.267875%;top:7.301175%" alt="First cells visibly extend beyond the former main-mass contour into nearby tissue."><noscript><img src="assets/tumor-growth/L4-v2.webp" loading="lazy" width="1254" height="1254" style="width:87.202742%;height:87.202742%;left:7.267875%;top:7.301175%" alt="First cells visibly extend beyond the former main-mass contour into nearby tissue."></noscript></div><figcaption><strong>Growth into nearby tissue</strong><p>With further changes, cells can become cancerous and grow into nearby tissue.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/tumor-growth/L7-v2.webp" loading="lazy" width="1254" height="1254" style="width:94.080705%;height:94.080705%;left:3.897453%;top:4.248874%" alt="Largest mass with vessels and local extension."><noscript><img src="assets/tumor-growth/L7-v2.webp" loading="lazy" width="1254" height="1254" style="width:94.080705%;height:94.080705%;left:3.897453%;top:4.248874%" alt="Largest mass with vessels and local extension."></noscript></div><figcaption><strong>Standard imaging typically detects a tumor at ~1 cm.</strong><p>Roughly 1 billion cells.
+
+By then, it's been growing silently for years.</p></figcaption></figure></div>
+</div>
+<!-- HF-GROWTH-END -->
 </section>
 
 <!-- ═══ BRIDGE BAND (dark — full-bleed thin slice of microscopy footage with bridge text overlaid) ═══ -->
@@ -1920,6 +1908,7 @@
   ¹ Imaging detectability is often discussed around ~1 cm<sup>3</sup> (~1 g), roughly ~10<sup>8</sup>–10<sup>9</sup> cells (Frangioni JV, 2008; Davis L et al., <em>Cancers</em> 2022).<br>
   ² Tumor growth modeling shows time to detectability can range from ~2 years (fast) to ~10 years (moderate), depending on doubling time (Holland et al., NCBI Bookshelf).
 </div>
+<div class="hf-growth-evidence"><p class="hf-growth-note">Illustrative, not to scale. Growth and detection vary.</p><details class="hf-growth-sources"><summary>Science behind the illustration</summary><a href="https://www.cancer.gov/about-cancer/understanding/what-is-cancer" target="_blank" rel="noopener">NCI: What Is Cancer?</a> <a href="https://www.cancer.gov/about-cancer/causes-prevention/genetics" target="_blank" rel="noopener">NCI: The Genetics of Cancer</a> <a href="https://www.cancer.gov/about-cancer/treatment/types/immunotherapy/angiogenesis-inhibitors-fact-sheet" target="_blank" rel="noopener">NCI: Angiogenesis Inhibitors</a> <a href="https://doi.org/10.1136/gutjnl-2014-308653" target="_blank" rel="noopener">Yu et al., 2015: Time to progression of pancreatic ductal adenocarcinoma</a> <a href="https://www.nature.com/articles/nature09515" target="_blank" rel="noopener">Yachida et al., 2010: Distant metastasis occurs late during the genetic evolution of pancreatic cancer</a> <a href="https://cdas.cancer.gov/learn/nlst/screening/" target="_blank" rel="noopener">NCI: NLST Screening</a></details></div>
 <script>document.body.classList.add("js-ready");</script>
 <script>
 // ─── LENIS ───
@@ -2303,167 +2292,10 @@ if (btt) {
 
 <a href="#" id="back-to-top" aria-label="Back to top">↑</a>
 
-<!-- Progression scroll: isolated so it runs even if earlier scripts throw. -->
-<script>
-(() => {
-  const block = document.getElementById('probProgression');
-  if (!block || typeof ScrollTrigger === 'undefined') return;
-  const canvas = document.getElementById('probProgCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d', { alpha: false });
-  const phases = Array.from(document.querySelectorAll('#probProgCaption .phase'));
-
-  const FRAME_COUNT = 234;
-  // Cache-bust suffix forces the browser to re-fetch frames if a previous load 404'd against a downed dev server.
-  const FRAME_VER = 'v4';
-  const FRAME_PATH = i => `assets/progression-video/f-${String(i).padStart(3, '0')}.webp?${FRAME_VER}`;
-  const frames = new Array(FRAME_COUNT + 1);
-
-  // Animation runs from scroll-progress 0 → ANIM_END; the remainder holds the final frame
-  // so the closer line gets a small linger beat before the pin releases.
-  // Bumped 0.74 → 0.88 so the trailing linger window doesn't eat ~26% of the scroll budget —
-  // mobile users were perceiving the leftover scroll budget as a "void" of empty cream after
-  // the closer caption finished and before the bridge band scrolled into view.
-  const ANIM_END = 0.88;
-
-  // Phase boundaries are expressed against animProgress (0..1 of the animation portion).
-  // Each phase gets enough scroll runway that finger-swipe momentum on mobile lands ON a
-  // phase rather than skipping through 2-3 of them. Phase 6 (punchline + closer) stays the
-  // longest so it reads as the conclusion. Intermediate phases are roughly equal weight so
-  // every step of the progression gets time to settle into view before the next cross-fade.
-  const _isMobileProg = window.matchMedia('(max-width: 768px)').matches;
-  // Bounds derived empirically by scrubbing the actual extracted frames (234 frames total).
-  // The Higgsfield-upscaled source moves fast through early stages and stays nearly static after
-  // ~frame 150. Earlier bounds assumed even 18-frames-per-stage spacing; in reality the visual
-  // landmarks land where the source recording put them, not where math suggested.
-  // Visual landmarks identified by direct frame inspection:
-  //   frames 1-13   : 3-6 cells (small starting cluster)            → caption 0  (0-6%)
-  //   frames 14-27  : 10-25 cells multiplying                       → caption 1  (6-12%)
-  //   frames 28-39  : dense cluster forming                         → caption 2  (12-17%)
-  //   frames 40-46  : dense ball, no vessels yet                    → caption 3  (17-20%)
-  //   frames 47-93  : vessels APPEAR and grow                       → caption 4  (20-40%)
-  //   frames 94-151 : tumor visibly expanding outward               → caption 5  (40-65%)
-  //   frames 152-234: mature tumor (visual barely changes)          → caption 6  (65%+ + hold)
-  // Same bounds for mobile and desktop — the underlying frames are identical.
-  const PHASE_BOUNDS = [0.00, 0.06, 0.12, 0.17, 0.20, 0.40, 0.65, 1.001];
-  function phaseFor(p) {
-    for (let i = 0; i < PHASE_BOUNDS.length - 1; i++) {
-      if (p < PHASE_BOUNDS[i + 1]) return i;
-    }
-    return phases.length - 1;
-  }
-
-  function setCanvasSize(img) {
-    if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      lastDrawnIndex = -1;
-    }
-  }
-
-  // Snap to nearest frame instead of alpha-blending two adjacent frames. With 234 frames over
-  // ~200vh of scroll, frame steps are imperceptible, and removing the blend kills a ghost-wobble
-  // that scrub-easing was creating: GSAP's eased progress oscillated near integer boundaries,
-  // and the alpha overlap between frame N and N+1 read as a shaky double image during scrolling.
-  let lastDrawnIndex = -1;
-  function render(floatIndex) {
-    const i = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(floatIndex)));
-    if (i === lastDrawnIndex) return;
-    const img = frames[i + 1];
-    if (!img || !img.complete || img.naturalWidth === 0) return;
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    lastDrawnIndex = i;
-  }
-
-  let activePhase = -1;
-  function setPhase(i) {
-    if (i === activePhase) return;
-    activePhase = i;
-    phases.forEach((el, idx) => el.classList.toggle('active', idx === i));
-  }
-
-  let firstSized = false;
-  function preload() {
-    const promises = [];
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = FRAME_PATH(i);
-      frames[i] = img;
-      promises.push(
-        img.decode().then(() => {
-          if (i === 1 && !firstSized) {
-            setCanvasSize(img);
-            render(0);
-            firstSized = true;
-          }
-        }).catch(() => {})
-      );
-    }
-    return Promise.all(promises);
-  }
-
-  const state = { floatIndex: 0, animProgress: 0 };
-  let rafQueued = false;
-  function tick() {
-    render(state.floatIndex);
-    setPhase(phaseFor(state.animProgress));
-    rafQueued = false;
-  }
-
-  preload().then(() => {
-    if (frames[1] && frames[1].complete) {
-      setCanvasSize(frames[1]);
-      render(0);
-    }
-    setPhase(0);
-
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      state.animProgress = 1;
-      state.floatIndex = FRAME_COUNT - 1;
-      tick();
-      setPhase(phases.length - 1);
-      ScrollTrigger.refresh();
-      return;
-    }
-
-    ScrollTrigger.create({
-      trigger: '#probProgression',
-      start: 'top top',
-      end: 'bottom bottom',
-      pin: '.prob-prog-pin',
-      pinSpacing: false,
-      anticipatePin: 1,
-      // 0.4s scrub lerps the animProgress toward the target instead of snapping. On mobile,
-      // a momentum throw used to fire `onUpdate` for every intermediate scroll position
-      // within ~150ms — phases ticked by faster than the cross-fade could complete, so
-      // captions appeared to "jump." With scrub: 0.4, momentum throws ease toward the
-      // landing position over ~400ms, giving each phase enough dwell to actually settle
-      // into the active cross-fade.
-      scrub: 0.4,
-      invalidateOnRefresh: true,
-      onUpdate: self => {
-        const animProgress = Math.min(self.progress / ANIM_END, 1);
-        state.animProgress = animProgress;
-        state.floatIndex = animProgress * (FRAME_COUNT - 1);
-        if (!rafQueued) {
-          rafQueued = true;
-          requestAnimationFrame(tick);
-        }
-      }
-    });
-
-    ScrollTrigger.refresh();
-  });
-
-  window.addEventListener('resize', () => {
-    lastDrawnIndex = -1;  // force redraw after layout/canvas changes
-    if (rafQueued) return;
-    rafQueued = true;
-    requestAnimationFrame(tick);
-  });
-})();
-</script>
+<!-- Tumor growth: artwork and captions share one native-scroll sequence. -->
+<script src="assets/tumor-growth/sequence-data.js?v=20260915"></script>
+<script src="assets/tumor-growth/renderer.js?v=20260915"></script>
+<script src="assets/tumor-growth/story.js?v=20260915"></script>
 
 </body>
 </html>
