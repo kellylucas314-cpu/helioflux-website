@@ -112,7 +112,7 @@
      root.dataset.frame=String(state.dominant+1);root.dataset.beat=String(frame.readingBeat);
    }
    progress.style.transform='scaleX('+raw+')';
-   status.textContent=frame.readingBeat===data.readingBeats.length?'Keep scrolling to the science':'Scroll to watch it grow';
+   status.textContent=frame.readingBeat===data.readingBeats.length?'':'Scroll to watch it grow';
    root.dataset.position=String(position);root.dataset.distance=String(distance);
    previousPosition=position;
    document.body.classList.toggle('hf-growth-inview',scrollY>start-pinHeight*.5&&scrollY<start+distance+pinHeight);
