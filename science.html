@@ -1,355 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Science overview | HelioFlux</title>
+  <meta name="description" content="How living cells emit faint light, what published research shows, and how HelioFlux is developing photon measurement and analysis for cancer research.">
+
+  <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The science behind HelioFlux — ultra-weak photon emission detection for ultra-early cancer screening. 90-92% accuracy across peer-reviewed studies.">
-  <title>The Science — HelioFlux</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="canonical" href="https://helioflux.co/science.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..600&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:      #092743;
-      --bg2:     #092743;
-      --bg-alt:  #2F4562;
-      --white:   #FFFFFF;
-      --off-white: #ECF0FF;
-      --muted:   #D0DEEA;
-      --cyan:    #00A9D6;
-      --amber:   #E8A838;
-      --body:    rgba(255,255,255,0.88);
-      --caption: rgba(255,255,255,0.55);
-      --border:  rgba(255,255,255,0.06);
-      --divider: rgba(255,255,255,0.1);
-      --serif:   'Plus Jakarta Sans', system-ui, sans-serif;
-      --sans:    'DM Sans', system-ui, sans-serif;
-    }
-    html { overflow-x: hidden; }
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: var(--sans);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      cursor: default;
-    }
-
-    .cursor-dot {
-      position: fixed; width: 5px; height: 5px;
-      background: var(--cyan); border-radius: 50%;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-      box-shadow: 0 0 8px var(--cyan);
-      transition: width .2s, height .2s;
-    }
-    .cursor-dot.big { width: 12px; height: 12px; }
-    @media (pointer: coarse) { .cursor-dot { display: none; } body { cursor: auto; } }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 56px;
-      transition: background .5s, padding .4s, border-color .5s;
-      border-bottom: 1px solid transparent;
-    }
-    nav.scrolled { background: rgba(10,14,26,0.92); backdrop-filter: blur(28px); padding: 18px 56px; border-bottom-color: var(--border); }
-    .logo { font-family: var(--serif); font-size: 24px; font-weight: 420; color: rgba(255,255,255,.88); text-decoration: none !important; border-bottom: 0 !important; }
-    .logo span { color: var(--cyan); }
-    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-    .nav-links a { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; transition: color .3s; font-weight: 400; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta { padding: 10px 28px; background: transparent; color: var(--cyan); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; border: 1px solid rgba(0,169,214,.35); border-radius: 50px; }
-    .nav-cta:hover { background: rgba(0,169,214,.1); border-color: var(--cyan); }
-    .nav-hamburger { display: none; }
-    .mobile-menu { display: none; }
-
-    .eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; opacity: 0.7; font-weight: 500; }
-    .eyebrow::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(0,169,214,.3); margin-top: 20px; }
-    .hero-centered .eyebrow::after { margin-left: auto; margin-right: auto; }
-    h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 300; line-height: 1.12; margin-bottom: 44px; letter-spacing: -0.01em; }
-    h2 em { font-style: italic; font-weight: 300; }
-    h3 { font-family: var(--serif); font-size: clamp(20px, 2.5vw, 28px); font-weight: 500; line-height: 1.25; }
-    .lead { font-size: 17px; color: rgba(255,255,255,.72); line-height: 1.8; font-weight: 300; }
-
-    .reveal { opacity: 1; transform: none; transition: opacity .9s ease, transform .9s ease; }
-    .js-ready .reveal { opacity: 0; transform: translateY(20px); }
-    .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* ─── PRODUCT CARDS ─── */
-    .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin: 0 auto; }
-    .product-card {
-      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-      overflow: hidden; transition: background .3s;
-    }
-    .product-card:hover { background: rgba(255,255,255,.05); }
-    .product-card img { width: 100%; max-height: 220px; object-fit: cover; display: block; }
-    .product-card-body { padding: 28px 32px; }
-
-    /* ─── RESEARCH CARDS ─── */
-    .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 900px; margin: 0 auto; }
-    .research-card {
-      background: rgba(28,53,80,.04); padding: 40px 28px; text-decoration: none; color: #14263C;
-      transition: background .3s; display: block;
-    }
-    .research-card:hover { background: rgba(28,53,80,.08); }
-
-    /* ─── FOOTER ─── */
-    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 72px 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 56px; }
-    .f-logo { font-family: var(--serif); font-size: 22px; margin-bottom: 12px; }
-    .f-logo span { color: var(--cyan); }
-    .f-tagline { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--muted); margin-bottom: 20px; }
-    .f-contact { font-size: 13px; color: var(--muted); line-height: 1.9; }
-    .f-col h4 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
-    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .f-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .f-col a:hover { color: var(--white); }
-    .f-bottom { background: var(--bg2); border-top: 1px solid var(--border); padding: 20px 56px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,.18); flex-wrap: wrap; gap: 8px; }
-
-    /* ─── MOBILE ─── */
-    @media (max-width: 900px) {
-      nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 201; background: none; border: none; }
-      .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.7); transition: all .3s; }
-      .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px,4px); }
-      .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-      .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px,-4px); }
-      .nav-cta { display: none; }
-      .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9,39,67,.98); backdrop-filter: blur(20px); z-index: 199; padding: 100px 32px 40px; gap: 16px; transform: translateX(100%); transition: transform .4s ease; }
-      .mobile-menu.open { transform: translateX(0); }
-      .mob-link { font-size: 20px; color: rgba(255,255,255,.8); text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--border); }
-    }
-    @media (max-width: 768px) {
-      .product-grid { grid-template-columns: 1fr; }
-      .research-grid { grid-template-columns: 1fr; }
-      footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
-      .f-bottom { padding: 16px 24px; }
-      .hiw-text-overlay { position:relative !important; width:100% !important; padding:40px 24px !important; background:#060610; text-align:left !important; }
-      .hiw-text-overlay p, .hiw-text-overlay h2, .hiw-text-overlay .eyebrow { text-align:left !important; }
-    }
-  </style>
+  <link rel="preload" as="font" href="assets/science-v2-20260917/assets/research-evidence/89b3fb38aa0d275d7a731d0d.ttf" type="font/ttf" crossorigin>
+  <!-- hf-science-navigation --><link rel="stylesheet" href="assets/science-v2-20260917/assets/science-navigation.css"><script src="assets/science-v2-20260917/assets/science-navigation.js" defer></script><!-- /hf-science-navigation -->
+  <link rel="stylesheet" href="assets/science-v2-20260917/assets/science-overview/overview.css">
+  <link rel="stylesheet" href="assets/science-v2-20260917/assets/science-overview/chapter-design.css">
+  <link rel="stylesheet" href="assets/science-v2-20260917/assets/science-overview/measurement-atlas.css">
+  <script src="assets/science-v2-20260917/assets/science-overview/measurement-film.js" defer></script>
+  <script src="assets/science-v2-20260917/assets/science-overview/measurement-atlas.js" defer></script>
+  <script src="assets/science-v2-20260917/assets/science-overview/overview.js" defer></script>
+  <link rel="stylesheet" href="assets/science-v2-20260917/assets/science-white-accent.css" media="screen">
+<link rel="canonical" href="https://helioflux.co/science.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Science overview | HelioFlux">
+<meta property="og:description" content="How living cells emit faint light, what published research shows, and how HelioFlux is developing photon measurement and analysis for cancer research.">
+<meta property="og:url" content="https://helioflux.co/science.html">
+<meta property="og:image" content="https://helioflux.co/nirosha-hero.jpg">
 </head>
-<body>
-<div class="cursor-dot" id="cdot"></div>
-
-<nav id="nav">
-  <a href="index.html" class="logo">Helio<span>Flux</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="science.html" style="color:var(--white);">Science</a></li>
-    <li><a href="team.html">Team</a></li>
-    <li><a href="press.html">Press</a></li>
-    <li><a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
-  </ul>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" class="nav-cta">Request Deck</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="index.html" class="mob-link">Home</a>
-  <a href="science.html" class="mob-link">Science</a>
-  <a href="team.html" class="mob-link">Team</a>
-  <a href="press.html" class="mob-link">Press</a>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact" class="mob-link">Contact</a>
-</div>
-
-<!-- ═══ PAGE HEADER (dark) ═══ -->
-<div class="hero-centered" style="padding:180px 56px 60px;max-width:1200px;margin:0 auto;text-align:center;">
-  <p class="eyebrow reveal">The Science</p>
-  <h2 class="reveal">A signal that appears<br>before the tumor does.</h2>
-  <p class="lead reveal" style="max-width:640px;margin:24px auto 0;">Every living cell emits light. Cancer changes the pattern. HelioFlux reads that change at 5-10 million cells, long before imaging, blood tests, or symptoms.</p>
-</div>
-
-<!-- ═══ HOW IT WORKS (text only, centered navy block) ═══ -->
-<div style="background:#092743;padding:96px 56px 104px;">
-  <div style="max-width:760px;margin:0 auto;text-align:center;">
-    <p class="eyebrow reveal" style="margin-bottom:18px;">How It Works</p>
-    <h2 class="reveal" style="margin-bottom:24px;">From skin to signal<br>in 15 minutes.</h2>
-    <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:24px;">
-      <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.84);line-height:1.9;margin:0 auto 22px;max-width:680px;">A QSense sensor is placed against the skin. It counts individual photons — the faint light your cells are always emitting — at single-photon sensitivity.</p>
-      <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.84);line-height:1.9;margin:0 auto 22px;max-width:680px;">The raw signal feeds into LuminAI, our NVIDIA-powered software. It runs spectral analysis in real time, comparing the emission fingerprint against a validated database of cancer and healthy-tissue signatures.</p>
-      <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.84);line-height:1.9;margin:0 auto;max-width:620px;">In about 15 minutes, the clinician has a result. No biopsy. No blood draw. No radiation. No waiting for the lab.</p>
+<body class="overview-page hf-dark-hero">
+  <a href="#main" class="skip-link">Skip to the science</a>
+  <header class="site-header" id="top">
+    <nav id="nav" aria-label="Main navigation">
+      <a class="logo" href="index.html" aria-label="HelioFlux home">HelioFlux</a>
+      <ul class="nav-links">
+        <li class="hf-science-nav-item"><details class="hf-science-menu"><summary>Science</summary><div class="hf-science-options"><a href="science.html" aria-current="page">Overview</a><a href="research-evidence.html">Research &amp; evidence</a></div></details></li>
+        <li><a href="team.html">Team</a></li><li><a href="press.html">Press</a></li><li><a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
+      </ul>
+      <a class="nav-cta" href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span aria-hidden="true">↗</span></a>
+      <button id="hamburger" type="button" aria-controls="mobileMenu" aria-expanded="false" hidden>Menu <span aria-hidden="true">＋</span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <a class="mob-link" href="index.html">Home</a>
+      <details class="hf-science-menu hf-science-mobile"><summary>Science</summary><div class="hf-science-options"><a class="mob-link" href="science.html" aria-current="page">Overview</a><a class="mob-link" href="research-evidence.html">Research &amp; evidence</a></div></details>
+      <a class="mob-link" href="team.html">Team</a><a class="mob-link" href="press.html">Press</a><a class="mob-link" href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck ↗</a>
     </div>
-  </div>
-</div>
+    <noscript><nav class="nojs-nav" aria-label="Page links"><a href="science.html">Overview</a><a href="research-evidence.html">Research &amp; evidence</a><a href="team.html">Team</a></nav></noscript>
+  </header>
 
-<!-- ═══ THE PHYSICS (cream) ═══ -->
-<div style="background:#f5f0eb;padding:100px 56px;">
-  <div style="max-width:860px;margin:0 auto;">
-    <p class="eyebrow reveal" style="color:#00A9D6;">The Physics</p>
-    <h2 class="reveal" style="color:#14263C;">Why cancer light<br>looks different.</h2>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">Ultra-weak photon emissions (UPEs) are a byproduct of oxidative metabolism — the chemical reactions that power every cell. They are real, measurable, and carry information about the cell's internal state. Healthy cells produce a characteristic emission profile. Cancer cells do not.</p>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">The difference lies in the <strong style="color:#14263C;">spectral shape</strong>, not brightness. Malignant cells emit photons at shifted wavelengths, with a frequency signature around <strong style="color:#14263C;">~20Hz</strong> that does not appear in healthy tissue. This signature was discovered by Dr. Nirosha Murugan across a decade of peer-reviewed research.</p>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;">LuminAI applies spectral power density (SPD) analysis to extract this fingerprint from raw photon data. The result is a biomarker classification — malignant or not — grounded in physics, not symptoms, imaging, or blood chemistry.</p>
-  </div>
-</div>
+  <main id="main">
+    <section class="overview-hero signal-section" aria-labelledby="signal-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Science / Overview</p>
+          <h1 id="signal-title">Too faint to see.<br><span>Not too faint<br>to measure.</span></h1>
+          <p class="hero-lead">Living cells give off tiny amounts of light. HelioFlux is developing a way to read that light for earlier cancer detection.</p>
+          <div class="hero-actions">
+            <a class="button button-lime" href="#the-signal">How it works <span aria-hidden="true">↓</span></a>
+            <a class="hero-evidence-link" href="research-evidence.html">Explore 100+ years of evidence <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="hero-stage">Built on cell and animal research.<br> Advancing toward human evaluation.</p>
+        </div>
+        <figure class="signal-art">
+          <div class="measurement-frame">
+            <img class="measurement-poster" src="assets/science-v2-20260917/assets/science-overview/measurement-atlas-v1.png" width="1536" height="1024" fetchpriority="high" alt="Scientific illustration of a mammalian cell and a light detector. Animated light leaves the cell in several directions; some reaches the detector's entrance window and produces an electrical signal.">
+            <video id="measurement-film" data-src="assets/science-v2-20260917/assets/science-overview/measurement-atlas-motion-v2.mp4" width="1536" height="1024" muted playsinline loop preload="none" aria-hidden="true" hidden></video>
+            <canvas id="signal-canvas" width="1536" height="1024" aria-hidden="true" hidden></canvas>
+          </div>
+          <figcaption class="signal-labels"><span><b>01 / Cell chemistry</b>The source</span><span><b>02 / Faint light</b>The signal</span><span><b>03 / Detection</b>The measurement</span></figcaption>
+          <div class="art-utilities"><span>Illustrating photon measurement</span><button class="motion-button" id="motion-toggle" type="button" hidden>Pause illustration</button></div>
+          <details class="measurement-note"><summary>About this illustration</summary><div><p>Oxidative chemical reactions in living tissue can release faint light. A photon counter converts some arriving photons into electrical signals.</p><p>The cell and detector illustrate the principle, not a single-cell experiment or finished QSense device. Brightness, scale, cell motion and timing are illustrative.</p><div class="measurement-sources"><a href="https://doi.org/10.1073/pnas.77.1.347" target="_blank" rel="noopener">Emission research ↗</a><a href="https://www.hamamatsu.com/us/en/product/optical-sensors/pmt/about_pmts.html" target="_blank" rel="noopener">How photon detection works ↗</a></div></div></details>
+        </figure>
+      </div>
+    </section>
 
-<!-- ═══ DETECTION THRESHOLD (dark) ═══ -->
-<div style="background:#092743;padding:100px 56px;">
-  <div style="max-width:860px;margin:0 auto;">
-    <p class="eyebrow reveal">Detection Threshold</p>
-    <h2 class="reveal">What "early" <em>actually means.</em></h2>
+    <div class="section-index"><nav class="shell" aria-label="On this page"><span>In this overview</span><a href="#the-signal">The signal</a><a href="#our-approach">Our approach</a><a href="#published-research">Selected studies</a><a href="#human-studies">What comes next</a></nav></div>
 
-    <!-- Size comparison visual -->
-    <div class="reveal" style="margin-bottom:56px;text-align:center;">
-      <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto;" aria-label="Size comparison: HelioFlux detects at peppercorn size, standard imaging detects at marble size">
-        <!-- Baseline -->
-        <line x1="80" y1="220" x2="620" y2="220" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+    <section class="section shell" id="the-signal" aria-labelledby="signal-heading">
+      <div class="section-top chapter-bar"><p class="eyebrow"><span class="chapter-number">01</span><span>The biological signal</span></p><span class="section-side">From cell chemistry to information</span></div>
+      <div class="signal-intro">
+        <h2 id="signal-heading">The pattern matters.<br><span class="teal">Not just the brightness.</span></h2>
+        <div><p class="lead">Chemical reactions involving oxygen can release tiny amounts of light. Sensitive instruments let us measure it, even when our eyes cannot. <a class="source-mark" href="https://doi.org/10.1073/pnas.77.1.347" target="_blank" rel="noopener" aria-label="Source: Boveris and colleagues, 1980">[1]</a></p><p>In small laboratory studies, cancerous and non-cancerous cell samples showed differences in their light-emission patterns. Researchers examine both the light’s color and how the signal changes over time. <a class="source-mark" href="#published-research" aria-label="See the cell studies">[2, 3]</a></p></div>
+      </div>
+      <div class="study-visual">
+        <figure>
+          <a href="assets/science-v2-20260917/assets/research-evidence/5fdd670dcc3495009556826f.png" target="_blank" rel="noopener" aria-label="Open the 2018 cell-study illustration at full size"><img src="assets/science-v2-20260917/assets/research-evidence/5fdd670dcc3495009556826f.png" width="1536" height="1024" loading="lazy" alt="Illustration of six cultured cell lines, a wavelength filter between a cell dish and a photon detector, and a rack of alternative filters. Only one filter is used per recording."></a>
+          <figcaption><span>Illustrating the 2018 cell study</span><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener">Original paper ↗</a></figcaption>
+        </figure>
+        <div class="reading-key">
+          <p class="eyebrow">Reading the experiment</p>
+          <h3>A closer look at the light.</h3>
+          <p>Filters isolate parts of the light spectrum, helping researchers look beyond total brightness.</p>
+          <ol class="key-steps"><li><span>01</span><div><b>Compare cell samples</b><p>Six laboratory cell lines.</p></div></li><li><span>02</span><div><b>Filter the light</b><p>One filter per recording.</p></div></li><li><span>03</span><div><b>Record the light</b><p>A detector below the dish.</p></div></li></ol>
+          <details class="quiet-detail"><summary>Color and timing: what’s the difference?<span aria-hidden="true">＋</span></summary><div><p><strong>Color</strong> describes the light’s wavelength. <strong>Timing</strong> describes how the measured signal varies over time. They are different ways of studying the same light.</p><p>The approximately 20 Hz feature discussed in the 2020 paper concerns changes over time, not the color of a photon.</p><a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener">Read the 2020 paper ↗</a></div></details>
+        </div>
+      </div>
+    </section>
 
-        <!-- HelioFlux detection: peppercorn (~2mm) -->
-        <circle cx="230" cy="192" r="8" fill="none" stroke="#00A9D6" stroke-width="2"/>
-        <circle cx="230" cy="192" r="8" fill="rgba(0,169,214,.15)"/>
-        <circle cx="230" cy="192" r="16" fill="none" stroke="rgba(0,169,214,.15)" stroke-width="1"/>
-        <circle cx="230" cy="192" r="24" fill="none" stroke="rgba(0,169,214,.06)" stroke-width="1"/>
-        <text x="230" y="250" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" letter-spacing="1.5" fill="#00A9D6">HELIOFLUX</text>
-        <text x="230" y="270" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="24" fill="#00A9D6" font-weight="300">5-10M cells</text>
-        <text x="230" y="292" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="rgba(255,255,255,.4)">~2mm · peppercorn</text>
+    <section class="approach-section" id="our-approach" aria-labelledby="approach-heading">
+      <div class="shell section">
+        <div class="section-top chapter-bar"><p class="eyebrow"><span class="chapter-number">02</span><span>HelioFlux’s approach</span></p><span class="section-side">Research-stage hardware + software</span></div>
+        <div class="section-heading"><h2 id="approach-heading">Measure the light.<br>Look for useful patterns.</h2><p class="lead">The measurement and the analysis work together. One captures a faint biological signal. The other is being developed to help interpret it.</p></div>
+        <div class="platform-pair">
+          <article class="platform"><div class="platform-index"><span>01 / Capture</span><span>Hardware</span></div><h3>QSense</h3><figure class="platform-figure"><img src="assets/science-v2-20260917/qsense-product.jpg" width="481" height="487" loading="lazy" decoding="async" alt="Original QSense concept artwork: vivid cell clusters surrounded by curved teal sensing lines."><figcaption>QSense / Concept artwork</figcaption></figure><p class="platform-takeaway">Sensitive enough to count individual photons.</p><p>Our research-stage measurement system records the extremely faint light naturally emitted by tissue. It measures light that is already there, without shining excitation light into the sample.</p></article>
+          <article class="platform"><div class="platform-index"><span>02 / Interpret</span><span>Software</span></div><h3>LuminAI</h3><figure class="platform-figure"><img src="assets/science-v2-20260917/luminal-product.jpg" width="491" height="483" loading="lazy" decoding="async" alt="Original LuminAI concept artwork: a luminous teal signal trace surrounded by flowing wave patterns."><figcaption>LuminAI / Concept artwork</figcaption></figure><p class="platform-takeaway">Built around the information in the signal.</p><p>Our software is being developed to analyze the light’s color, timing and behavior, looking for patterns that could add useful biological information.</p></article>
+        </div>
+        <details class="quiet-detail approach-detail"><summary>What does “passive measurement” mean?<span aria-hidden="true">＋</span></summary><div><p>The proposed measurement collects light naturally emitted by tissue. It does not rely on excitation light, ionizing radiation, injected contrast, a blood draw or tissue removal. That describes the measurement approach, not a replacement for the tests used to diagnose cancer.</p></div></details>
+      </div>
+    </section>
 
-        <!-- Standard imaging detection: marble (~1cm) -->
-        <circle cx="470" cy="155" r="55" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
-        <circle cx="470" cy="155" r="55" fill="rgba(255,255,255,.02)"/>
-        <text x="470" y="250" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" letter-spacing="1.5" fill="rgba(255,255,255,.35)">STANDARD IMAGING</text>
-        <text x="470" y="270" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="24" fill="rgba(255,255,255,.4)" font-weight="300">1B+ cells</text>
-        <text x="470" y="292" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="rgba(255,255,255,.25)">~1cm · marble</text>
+    <section class="section shell" id="published-research" aria-labelledby="research-heading">
+      <div class="section-top chapter-bar"><p class="eyebrow"><span class="chapter-number">03</span><span>Published research</span></p></div>
+      <div class="section-heading"><h2 id="research-heading">A foundation in<br>published science.</h2><p class="lead">Dr. Nirosha Murugan’s research spans laboratory cells, an animal cancer model and exploratory human measurement. Each answers a different question.</p></div>
+      <div class="research-list">
+        <article class="paper-row" id="study-2018"><div class="paper-year">2018 <span>Cell cultures</span></div><div class="paper-content"><h3>Can the light distinguish cell groups?</h3><p>Selected wavelength bands helped distinguish cancerous and non-cancerous cell samples in a small laboratory study.</p><details class="study-detail"><summary>Study details &amp; original paper<span aria-hidden="true">＋</span></summary><div><p>The study compared six cell lines. Its strongest quoted classification result, 92%, followed exclusion of the transformed HBL100 line. The result describes this study’s cell-sample analysis, not patient diagnostic performance.</p><p class="paper-title">Murugan et al. · <cite>Biophotonic markers of malignancy: Discriminating cancers using wavelength-specific biophotons.</cite> Biochemistry and Biophysics Reports.</p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener">Read the original paper ↗</a></div></details></div><span class="paper-ref">02</span></article>
+        <article class="paper-row" id="study-2020"><div class="paper-year">2020 <span>Cell cultures + mice</span></div><div class="paper-content"><h3>Do patterns change in a cancer model?</h3><p>Cell-line analyses found distinguishing features. A separate mouse melanoma experiment found differences between groups before tumors were physically apparent.</p><details class="study-detail"><summary>Study details &amp; original paper<span aria-hidden="true">＋</span></summary><div><p>The cell-culture analysis included 13 human and mouse cell lines. Selected signal-analysis settings yielded 90% discriminant accuracy.</p><p>The separate 47-mouse experiment included 23 mice given live melanoma cells, 8 given UV-killed cells and 16 uninjected controls. It found group-level signal differences as early as 24 hours. It did not report 90% animal diagnostic accuracy.</p><p class="paper-title">Murugan et al. · <cite>Ultraweak photon emissions as a non-invasive, early-malignancy detection tool: An in vitro and in vivo study.</cite> Cancers.</p><a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener">Read the original paper ↗</a></div></details></div><span class="paper-ref">03</span></article>
+        <article class="paper-row" id="study-2025"><div class="paper-year">2025 <span>Human measurement</span></div><div class="paper-content"><h3>What can we measure in people?</h3><p>An exploratory study recorded faint light near the head alongside electrical brain activity in 20 healthy adults. This was measurement research, not a cancer study.</p><details class="study-detail"><summary>Study details &amp; original paper<span aria-hidden="true">＋</span></summary><div><p>The study explored relationships between photon measurements and EEG. It did not establish where all recorded photons originated, and comparisons with nonbrain tissue remain important. These findings do not validate a cancer test or the current HelioFlux platform.</p><p class="paper-title">Casey et al. · <cite>Exploring ultraweak photon emissions as optical markers of brain activity.</cite> iScience. Nirosha Murugan, senior and corresponding author.</p><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener">Read the original paper ↗</a></div></details></div><span class="paper-ref">04</span></article>
+      </div>
+      <a class="evidence-bridge" href="research-evidence.html"><div><span class="eyebrow">The full biophoton research timeline</span><h3>Over 100 years of scientific evidence.</h3><p>From the first experiments in 1923 to modern photon imaging, with illustrations and original papers.</p></div><span class="bridge-cta">Explore the evidence timeline <span aria-hidden="true">→</span></span></a>
+    </section>
 
-        <!-- Dashed line connecting -->
-        <line x1="255" y1="192" x2="410" y2="168" stroke="rgba(0,169,214,.1)" stroke-width="1" stroke-dasharray="4 4"/>
+    <section class="next-section" id="human-studies" aria-labelledby="next-heading"><div class="shell section">
+      <div class="section-top chapter-bar"><p class="eyebrow"><span class="chapter-number">04</span><span>The next step</span></p><span class="section-side">From laboratory evidence to human evaluation</span></div>
+      <div class="section-heading"><h2 id="next-heading">The next test<br>is in people.</h2><div><p class="lead">Can these signals add useful information about cancer in a clinical setting?</p><p>Planned human feasibility work would compare light measurements with biopsy results, the clinical reference. Human cancer performance has not yet been established.</p></div></div>
+      <ol class="study-path" aria-label="Proposed human study approach"><li><span>01</span><h3>Measure the light</h3><p>Record the tissue’s photon signal.</p></li><li><span>02</span><h3>Compare with biopsy</h3><p>Match the measurement to the clinical result.</p></li><li><span>03</span><h3>Evaluate the value</h3><p>Test whether the signal adds useful information.</p></li></ol>
+      <div class="questions"><details class="quiet-detail"><summary>Is this the same as thermal imaging?<span aria-hidden="true">＋</span></summary><div><p>No. Thermal imaging records infrared radiation associated with temperature. Ultraweak photon-emission research measures a much fainter signal associated with chemical processes. In the well-known 2009 human-imaging paper, the thermal image is a separate comparison, not the photon image.</p><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006256" target="_blank" rel="noopener">Read the human-imaging paper ↗</a></div></details><details class="quiet-detail"><summary>Would this replace a biopsy?<span aria-hidden="true">＋</span></summary><div><p>That is not established. The research question is whether photon measurements can add useful information before or alongside biopsy. Biopsy results would be the clinical reference for the planned feasibility work.</p></div></details></div>
+      <div class="closing-cta"><div><h3>Explore the science with us.</h3><p>Request the research, development roadmap and technical background.</p></div><a class="button button-lime" href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Science%20Deck%20Request">Request the deck <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+  </main>
 
-        <!-- Time label -->
-        <text x="350" y="50" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="rgba(255,255,255,.2)" letter-spacing="2">1.5 TO 2 YEARS OF SILENT GROWTH</text>
-        <line x1="150" y1="46" x2="210" y2="46" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-        <line x1="490" y1="46" x2="550" y2="46" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-      </svg>
-    </div>
-
-    <p class="reveal" style="font-size:16px;color:rgba(255,255,255,.65);line-height:1.8;max-width:720px;margin:0 auto;text-align:center;">A tumor at 5-10 million cells is about 2 millimeters across. Too small to feel. Invisible on a scan. By the time it reaches 1 billion cells, roughly a centimeter, medicine can finally see it. That growth took <strong style="color:rgba(255,255,255,.85);">1.5 to 2 years.</strong> HelioFlux is built to find it first.</p>
-  </div>
-</div>
-
-
-<!-- ═══ STARTING WITH SKIN (cream) ═══ -->
-<div style="background:#f5f0eb;padding:100px 56px;">
-  <div style="max-width:860px;margin:0 auto;">
-    <p class="eyebrow reveal" style="color:#00A9D6;">Our Pilot</p>
-    <h2 class="reveal" style="color:#14263C;">Starting with skin.</h2>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">Every year, millions of patients leave a dermatologist's office with an unanswered question: is this mole dangerous? The doctor has two options. Cut it out and send it to a lab, or say "let's watch it." Most biopsies come back benign. The ones that don't sometimes come back too late.</p>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">HelioFlux gives clinicians a third option. A 15-minute scan reads the photon signature of a suspicious lesion and returns a result in the office. No cutting. No waiting. No guessing.</p>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;margin-bottom:20px;">Skin is where we start because the clinical pathway is clear: the dermatologist already has the patient, already suspects something, and already faces a binary decision. HelioFlux plugs into that moment without changing the workflow.</p>
-    <p class="reveal" style="font-size:17px;color:#3A5068;line-height:1.8;">Once we validate the technology on melanoma, the same platform expands. Brain cancer. Breast cancer. Eventually, a full-body scan that reads every tissue type at once.</p>
-  </div>
-</div>
-
-<!-- ═══ PHOTO BREAK ═══ -->
-<div style="position:relative;overflow:hidden;">
-  <div style="position:relative;height:500px;overflow:hidden;">
-    <img src="nirosha-microscope.jpg" alt="Dr. Nirosha Murugan at the microscope" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block;">
-  </div>
-</div>
-
-<!-- ═══ MOUSE STUDY CALLOUT (dark navy) ═══ -->
-<div style="background:#092743;padding:80px 56px;">
-  <div style="max-width:860px;margin:0 auto;">
-    <p class="eyebrow reveal">Preclinical Evidence</p>
-    <h2 class="reveal" style="font-size:clamp(24px,3vw,40px);margin-bottom:24px;">It worked in mice first.</h2>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:20px;">In 2020, Dr. Murugan's lab published results from 47 live animal models injected with melanoma cells. Whole-body photon emissions detected the cancer within <strong style="color:#fff;">24 hours of injection</strong> — 18 days before tumors were physically detectable. Final discriminant accuracy: <strong style="color:#fff;">90%</strong>.</p>
-    <p class="reveal" style="font-size:17px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:36px;">This is the in vivo foundation for HelioFlux's human skin pilot. Same detection principle. Same spectral signature. Now built into a clinical-grade device.</p>
-    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="reveal" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid rgba(0,169,214,.4);border-radius:50px;color:var(--cyan);font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .3s;" onmouseover="this.style.background='rgba(0,169,214,.1)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,169,214,.4)'">
-      Read the study (Murugan et al., 2020) →
-    </a>
-  </div>
-</div>
-
-<!-- ═══ PUBLISHED RESEARCH (cream) ═══ -->
-<div style="background:#f5f0eb;padding:100px 56px 160px;">
-  <div style="max-width:1200px;margin:0 auto;text-align:center;">
-    <p class="eyebrow reveal" style="color:#00A9D6;">Published Research</p>
-    <h2 class="reveal" style="color:#14263C;">Dr. Murugan's published work</h2>
-    <div class="research-grid reveal">
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener" class="research-card">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">92%</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">In Vitro Cancer Detection</div>
-        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;margin-bottom:12px;">Discriminant accuracy across 30 samples and 6 cancer cell lines. 100% of malignant samples correctly identified. First proof that biophotonic spectral signatures reliably distinguish cancer from healthy tissue.</div>
-        <div style="font-size:13px;color:#8a96a3;">Biochemistry &amp; Biophysics Reports · Elsevier · 2018</div>
-        <div style="font-size:13px;color:#00A9D6;margin-top:12px;">Read paper ↗</div>
-      </a>
-      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7226102/" target="_blank" rel="noopener" class="research-card">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">90%</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">In Vivo Cancer Detection</div>
-        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;margin-bottom:12px;">Discriminant accuracy across 47 living animal models and 13 cancer types. Detected cancer within 24 hours of cell injection. Tumors weren't physically detectable for another 18 days.</div>
-        <div style="font-size:13px;color:#8a96a3;">Cancers · MDPI · 2020</div>
-        <div style="font-size:13px;color:#00A9D6;margin-top:12px;">Read paper ↗</div>
-      </a>
-      <a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener" class="research-card">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:#00A9D6;margin-bottom:16px;">20</div>
-        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">Platform Signal Validation: Brain Activity</div>
-        <div style="font-size:14px;color:#5a6b7e;line-height:1.6;margin-bottom:12px;">Tracked brain activity through photon emissions in 20 living human subjects, cross-validated against EEG. Demonstrates the core technology's signal sensitivity beyond cancer applications.</div>
-        <div style="font-size:13px;color:#8a96a3;">iScience · Cell Press · 2025</div>
-        <div style="font-size:13px;color:#00A9D6;margin-top:12px;">Read paper ↗</div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ THE OPPORTUNITY (dark) ═══ -->
-<div style="background:#092743;padding:140px 56px 40px;text-align:center;">
-  <p class="reveal" style="font-family:var(--serif);font-size:clamp(30px, 4vw, 48px);line-height:1.22;color:rgba(255,255,255,.94);max-width:920px;margin:0 auto;font-weight:300;letter-spacing:-0.01em;">Only <span style="color:#00A9D6;font-weight:400;">5 of 200+</span> cancer types have a recommended screening protocol. HelioFlux is designed to change that.</p>
-</div>
-
-<!-- ═══ CTA (dark) ═══ -->
-<div style="background:#092743;padding:64px 56px 80px;text-align:center;">
-  <div style="max-width:720px;margin:0 auto;" class="reveal">
-    <h2 style="margin-bottom:20px;">Request the full deck</h2>
-    <p style="font-size:17px;color:rgba(255,255,255,.65);margin-bottom:36px;">Study data, clinical roadmap, and technical specifications.</p>
-    <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" style="padding:16px 40px;background:#00A9D6;color:#092743;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:600;border-radius:50px;display:inline-block;transition:all .3s;">Request Deck</a>
-  </div>
-</div>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div><div class="f-logo">Helio<span>Flux</span></div><div class="f-tagline">Your cells emit light. We learned to read it.</div><div class="f-contact">kelly.lucas@helioflux.co<br>Manhattan Beach, CA</div></div>
-  <div class="f-col"><h4>Company</h4><ul><li><a href="science.html">Science</a></li><li><a href="team.html">Team</a></li><li><a href="press.html">Press</a></li></ul></div>
-  <div class="f-col"><h4>Connect</h4><ul><li><a href="https://www.linkedin.com/company/helioflux" target="_blank">LinkedIn ↗</a></li><li><a href="mailto:kelly.lucas@helioflux.co">Email</a></li></ul></div>
-</footer>
-<div class="f-bottom"><span>© 2026 HelioFlux Inc.</span><span>Not FDA cleared. Not intended to diagnose or treat any disease.</span></div>
-
-<script>document.body.classList.add("js-ready");</script>
-<script>
-const lenis = new Lenis({ duration: 1.25, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
-gsap.registerPlugin(ScrollTrigger);
-lenis.on('scroll', ScrollTrigger.update);
-const nav = document.getElementById('nav');
-nav.classList.add('scrolled');
-const cdot = document.getElementById('cdot');
-document.addEventListener('mousemove', e => { gsap.to(cdot, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'none' }); });
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => cdot.classList.add('big'));
-  el.addEventListener('mouseleave', () => cdot.classList.remove('big'));
-});
-document.querySelectorAll('.reveal').forEach(el => {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { el.classList.add('in'); obs.unobserve(el); } });
-  }, { threshold: 0.12 });
-  obs.observe(el);
-});
-// Hamburger
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-if (hamburger) {
-  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
-}
-</script>
+  <footer class="site-footer"><div class="shell"><div class="footer-top"><a class="logo" href="index.html">HelioFlux</a><nav aria-label="Footer"><a href="research-evidence.html">Research &amp; evidence</a><a href="team.html">Meet the team</a><a href="mailto:kelly.lucas@helioflux.co">Contact</a></nav></div><div class="footer-bottom"><span>© 2026 HelioFlux Inc.</span><p>QSense and LuminAI are research-stage technologies. Not FDA cleared for clinical use.</p></div></div></footer>
 </body>
 </html>

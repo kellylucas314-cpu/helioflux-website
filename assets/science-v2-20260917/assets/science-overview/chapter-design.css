@@ -1,0 +1,114 @@
+/* Overview chapter treatment. Original artwork is displayed in its original color. */
+.overview-page .skip-link:not(:focus){clip-path:inset(50%)}
+.overview-page .section-index{background:#eaf0e2;border-bottom-color:#b9c8bd}
+.overview-page .chapter-bar{padding:16px 24px;background:#edf4f2;border-block:1px solid #c0d2ce;min-height:76px;margin-bottom:44px}
+.overview-page .chapter-bar .eyebrow{display:flex;align-items:center;gap:22px;color:var(--ink)}
+.overview-page .chapter-number{font:500 28px/1 var(--display);letter-spacing:-.03em;color:var(--teal);padding-right:22px;border-right:1px solid #a8bfba}
+.overview-page .reading-key{padding:34px;background:#edf4f2;border-top:3px solid var(--teal)}
+.overview-page .reading-key .quiet-detail{border-color:#afc8c2}
+.overview-page .study-visual{gap:48px;grid-template-columns:1.25fr 1fr;align-items:start}
+.overview-page .study-visual figure{align-self:center;background:#fff}
+
+/* The product chapter provides a deliberate dark, colorful interval. */
+.overview-page .approach-section{background:#103b43;color:#f4f7ef;border-block:1px solid #254f55}
+.overview-page .approach-section .chapter-bar{background:none;border-color:#50747a;padding-inline:0}
+.overview-page .approach-section .chapter-bar .eyebrow{color:#daeaaa}
+.overview-page .approach-section .chapter-number{color:#daeaaa;border-color:#698b8c}
+.overview-page .approach-section .section-side{color:#c0d5d5}
+.overview-page .approach-section .section-heading p{color:#d0e0df}
+.overview-page .platform-pair{gap:40px;margin-top:56px}
+.overview-page .platform{min-width:0;padding:28px 34px 34px;background:#0b2935;border-top:3px solid #42b7b4}
+.overview-page .platform:nth-child(2){background:#092f35;border-top-color:var(--lime)}
+.overview-page .platform-index{color:#bdced3}
+.overview-page .platform-index span:first-child{color:#b9e1d9}
+.overview-page .platform h3{color:#f5f7ef;font-size:42px;margin:24px 0}
+.overview-page .platform-figure{width:min(100%,380px);margin:0 auto 28px}
+.overview-page .platform-figure img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;filter:none;mix-blend-mode:normal;border:1px solid #31565d}
+.overview-page .platform-figure figcaption{color:#b1cbd0;font-size:11px;margin-top:10px}
+.overview-page .platform .platform-takeaway{color:#f1f5ed;max-width:none;padding-top:24px;border-top:1px solid #3b6067}
+.overview-page .platform p+p{color:#c2d8dc;max-width:none}
+.overview-page .approach-detail{max-width:none;margin-top:28px;background:#16434a;border-color:#52777a;padding-inline:24px}
+.overview-page .approach-detail>summary{color:#edf3d8;min-height:62px}
+.overview-page .approach-detail>div{color:#d0e0df;max-width:900px}
+.overview-page .approach-section :focus-visible{outline-color:var(--lime)}
+
+/* Research stays white. Date blocks and disclosure bars create the rhythm. */
+.overview-page #published-research .chapter-bar{background:#e9f0f3;border-color:#b7cbd4}
+.overview-page .paper-row{grid-template-columns:180px 1fr 30px;gap:40px;padding-block:36px;border-top-color:#afc4c9}
+.overview-page .paper-year{padding:22px 20px;background:#e7f1ee;border-left:3px solid #2c8588;align-self:start}
+.overview-page #study-2020 .paper-year{background:#edf1dc;border-left-color:#71874e}
+.overview-page #study-2025 .paper-year{background:#e9eff5;border-left-color:#4c7089}
+.overview-page .study-detail>summary{justify-content:space-between;background:#f0f5f5;padding:12px 18px;min-height:52px;border-bottom:1px solid #d3e1e0}
+.overview-page .study-detail>summary:hover{background:#e4efec}
+.overview-page .study-detail>div{padding:10px 18px 22px}
+
+/* A soft-lime closing chapter makes the shift to future work visible. */
+.overview-page .next-section{background:#edf2df;border-top:1px solid #b9c6a7}
+.overview-page .next-section .chapter-bar{background:none;border-color:#b5c4a1;padding-inline:0}
+.overview-page .next-section .chapter-number{border-color:#a7b99a}
+.overview-page .study-path{gap:22px}
+.overview-page .study-path li{background:#fafbf5;border-top:3px solid #367577;padding:22px}
+.overview-page .study-path li>span{font-size:14px}
+.overview-page .study-path li:not(:last-child)::after{top:15px;right:20px}
+.overview-page .questions .quiet-detail{border-color:#b5c4a1}
+.overview-page .closing-cta{padding:32px;background:var(--night);color:var(--paper);border:0}
+.overview-page .closing-cta p{color:#c2d4d7}
+
+@media(max-width:1100px){
+  .overview-page .study-visual{gap:32px;grid-template-columns:1fr 1fr}
+  .overview-page .reading-key{padding:26px}
+  .overview-page .platform{padding:24px}
+  .overview-page .platform-pair{gap:28px}
+  .overview-page .paper-row{grid-template-columns:140px 1fr 20px;gap:28px}
+  .overview-page .paper-year{padding:20px 16px}
+}
+@media(max-width:850px){
+  .overview-page .study-visual{grid-template-columns:1fr}
+  .overview-page .reading-key{max-width:none}
+  .overview-page .platform-pair{grid-template-columns:1fr 1fr;gap:20px}
+  .overview-page .platform{padding:22px 20px}
+  .overview-page .platform h3{font-size:34px}
+  .overview-page .paper-row{grid-template-columns:110px 1fr;gap:24px}
+  .overview-page .paper-year{padding:18px 13px;font-size:28px}
+  .overview-page .study-path li{padding:20px 16px}
+}
+@media(max-width:650px){.overview-page .platform-pair{grid-template-columns:1fr;gap:28px}.overview-page .platform{padding:26px}.overview-page .platform h3{font-size:38px}}
+@media(max-width:560px){
+  .overview-page .chapter-bar{padding:14px 18px;margin-bottom:30px;min-height:66px}
+  .overview-page .chapter-bar .eyebrow{gap:16px;font-size:10px;letter-spacing:.12em}
+  .overview-page .chapter-number{font-size:25px;padding-right:16px}
+  .overview-page .reading-key{padding:24px 22px}
+  .overview-page .platform-pair{margin-top:32px}
+  .overview-page .platform{padding:24px 20px}
+  .overview-page .platform h3{margin-block:20px}
+  .overview-page .platform .platform-takeaway{padding-top:22px}
+  .overview-page .approach-detail{padding-inline:18px}
+  .overview-page .approach-detail>summary{font-size:13px;gap:14px}
+  .overview-page .paper-row{grid-template-columns:1fr;gap:22px;padding-block:28px}
+  .overview-page .paper-year{padding:14px 18px;gap:20px;font-size:28px}
+  .overview-page .study-detail>summary{padding-inline:14px;font-size:12px;gap:12px}
+  .overview-page .study-detail>div{padding-inline:14px}
+  .overview-page .study-path{gap:18px}
+  .overview-page .study-path li{padding:22px}
+  .overview-page .study-path li:not(:last-child)::after{top:15px}
+  .overview-page .closing-cta{padding:26px 22px}
+  .overview-page .closing-cta .button{gap:24px;padding-inline:18px}
+}
+@media print{
+  .overview-page .chapter-bar,.overview-page .approach-section .chapter-bar,.overview-page .next-section .chapter-bar{padding:10px 0;background:white!important;border-color:#aaa!important;min-height:0;margin-bottom:22px}
+  .overview-page .chapter-bar .eyebrow,.overview-page .chapter-number,.overview-page .approach-section .section-heading p,.overview-page .platform h3,.overview-page .platform-index,.overview-page .platform-index span:first-child,.overview-page .platform-figure figcaption,.overview-page .platform .platform-takeaway,.overview-page .platform p+p,.overview-page .closing-cta p{color:var(--ink)!important}
+  .overview-page .chapter-number{font-size:20px}
+  .overview-page .reading-key,.overview-page .platform,.overview-page .next-section,.overview-page .study-path li,.overview-page .closing-cta{background:white!important;color:var(--ink)!important}
+  .overview-page .reading-key{padding:15px}
+  .overview-page .study-visual{grid-template-columns:1fr 1fr;gap:28px}
+  .overview-page .platform-pair{grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;break-inside:auto}
+  .overview-page .platform{padding:16px;border:1px solid #aaa;break-inside:avoid}
+  .overview-page .platform h3{font-size:24px;margin:12px 0}
+  .overview-page .platform-figure{max-width:180px;margin-bottom:16px}
+  .overview-page .platform .platform-takeaway{padding-top:12px}
+  .overview-page .paper-row{grid-template-columns:100px 1fr;gap:25px;padding-block:18px}
+  .overview-page .paper-year{padding:12px 8px;font-size:22px}
+  .overview-page .study-path{grid-template-columns:repeat(3,1fr);gap:16px}
+  .overview-page .study-path li{padding:14px}
+  .overview-page .closing-cta{padding:20px;border-top:1px solid #aaa}
+}
