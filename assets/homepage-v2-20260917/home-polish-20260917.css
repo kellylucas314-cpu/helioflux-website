@@ -13,20 +13,20 @@ body.hf-restored-original .hero-content::before {
   position: absolute;
   z-index: -1;
   pointer-events: none;
-  inset: -18% -22% -20% -14%;
-  background: radial-gradient(ellipse 60% 56% at 42% 50%,
-    rgba(15,28,46,.58) 0%,
-    rgba(15,28,46,.42) 40%,
-    rgba(15,28,46,.18) 72%,
+  inset: -22% -30% -24% -16%;
+  background: radial-gradient(ellipse 64% 60% at 46% 50%,
+    rgba(15,28,46,.9) 0%,
+    rgba(15,28,46,.78) 38%,
+    rgba(15,28,46,.42) 70%,
     rgba(15,28,46,0) 100%);
 }
 @media (max-width: 900px) {
   body.hf-restored-original .hero-content::before {
-    inset: -16% -12% -18% -12%;
-    background: radial-gradient(ellipse 64% 58% at 46% 50%,
-      rgba(15,28,46,.62) 0%,
-      rgba(15,28,46,.44) 42%,
-      rgba(15,28,46,.18) 74%,
+    inset: -18% -14% -20% -14%;
+    background: radial-gradient(ellipse 66% 60% at 48% 50%,
+      rgba(15,28,46,.86) 0%,
+      rgba(15,28,46,.7) 40%,
+      rgba(15,28,46,.34) 72%,
       rgba(15,28,46,0) 100%);
   }
 }
