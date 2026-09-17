@@ -1,0 +1,27 @@
+/* Original cellular film, displayed in Heliopolis colors without media edits. */
+.hf-cellular-signals { --signal-paper:#faf9f5;--signal-ink:#103044;--signal-sage:#657c47;width:100%;max-width:488px;margin:0 auto;padding:0 24px;color:var(--signal-ink);background:var(--signal-paper);isolation:isolate; }
+.hf-cellular-signals__filter { position:absolute;width:0;height:0;overflow:hidden;pointer-events:none; }
+.hf-cellular-signals__media { position:relative;width:100%;aspect-ratio:880 / 696; }
+.hf-cellular-signals__poster,.hf-cellular-signals__video { display:block;width:100%;height:100%;object-fit:contain;filter:url(#hf-signal-palette);position:absolute;inset:0; }
+.hf-cellular-signals__video { opacity:0; }
+.hf-cellular-signals.is-video-ready .hf-cellular-signals__video { opacity:1; }
+.hf-cellular-signals.is-video-ready .hf-cellular-signals__poster { opacity:0; }
+.hf-cellular-signals__controls { display:flex;justify-content:center;margin-top:9px; }
+.hf-cellular-signals__toggle { display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:150px;min-height:44px;padding:9px 13px;border:1px solid rgba(16,48,68,.22);border-radius:3px;background:transparent;color:#526879;font:400 12px/1.25 var(--sans,sans-serif);cursor:pointer; }
+.hf-cellular-signals__toggle[hidden] { display:none; }
+.hf-cellular-signals__toggle:hover { color:var(--signal-ink);border-color:var(--signal-sage); }
+.hf-cellular-signals__toggle:focus-visible { outline:2px solid var(--signal-sage);outline-offset:3px; }
+.hf-cellular-signals__toggle svg { display:block;width:12px;height:12px;fill:currentColor;flex:none; }
+.hf-cellular-signals__caption { max-width:440px;margin:14px auto 0;font-family:var(--serif,serif);font-style:italic;font-weight:300;font-size:15px;line-height:1.5;color:rgba(16,48,68,.75);text-align:center; }
+@media(max-width:480px){ .hf-cellular-signals__caption{font-size:14px;} }
+@media(prefers-reduced-motion:reduce){
+ .hf-cellular-signals__video{opacity:0!important;}
+ .hf-cellular-signals__poster{opacity:1!important;}
+ .hf-cellular-signals__controls{display:none;}
+}
+@media print{
+ .hf-cellular-signals{break-inside:avoid;opacity:1!important;transform:none!important;}
+ .hf-cellular-signals__video{display:none!important;}
+ .hf-cellular-signals__poster{opacity:1!important;}
+ .hf-cellular-signals__controls{display:none;}
+}

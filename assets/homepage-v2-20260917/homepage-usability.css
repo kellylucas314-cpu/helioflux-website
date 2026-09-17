@@ -1,0 +1,33 @@
+/* Behavior-only additions; homepage rhythm lives in homepage-polish.css. */
+#mobileMenu[aria-hidden="true"] { display: none!important; }
+#mobileMenu :focus-visible, #hamburger:focus-visible {
+  outline: 2px solid #daeaaa!important; outline-offset: 4px;
+}
+/* The original library initializes these reveals and applications. A missing
+   CDN or disabled JavaScript must leave a complete readable document. */
+html:not([data-hf-home-usability]) :is(.reveal,#he,#hh,#hpoetic,#ha),
+.hf-home-static :is(.reveal,#he,#hh,#hpoetic,#ha) {
+  opacity: 1!important; transform: none!important; transition: none!important;
+}
+html:not([data-hf-home-usability]) #hTrack, .hf-home-static #hTrack {
+  display: block!important; transform: none!important; width: 100%!important;
+}
+html:not([data-hf-home-usability]) #hTrack .h-panel, .hf-home-static #hTrack .h-panel {
+  width: 100%!important;
+}
+html:not([data-hf-home-usability]) :is(.h-arrows,.h-dots), .hf-home-static :is(.h-arrows,.h-dots) {
+  display: none!important;
+}
+.hf-bridge-toggle {
+  position: absolute; z-index: 3; right: 16px; bottom: 12px;
+  min-height: 44px; padding: 8px 12px;
+  border: 1px solid #84958a; border-radius: 2px;
+  background: rgba(250,249,245,.94); color: #103044;
+  font: 400 11px/1.3 var(--sans, sans-serif); cursor: pointer;
+}
+.hf-bridge-toggle[hidden] { display: none; }
+.hf-bridge-toggle:focus-visible { outline: 2px solid #103044; outline-offset: 3px; }
+@media(prefers-reduced-motion:reduce) {
+  #hTrack { transition: none!important; }
+}
+@media print { .hf-bridge-toggle { display:none; } }

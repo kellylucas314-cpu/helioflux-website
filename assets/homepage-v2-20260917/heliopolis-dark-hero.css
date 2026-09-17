@@ -1,0 +1,27 @@
+/* Kelly's requested direction: luminous atlas artwork within a fully dark hero. */
+.hf-dark-hero{--hf-night:#0a1e2f}
+.hf-dark-hero .hero{background:var(--hf-night)!important}
+.hf-dark-hero nav,.hf-dark-hero nav.scrolled{background:rgba(10,30,47,.98)!important;border-bottom-color:rgba(218,234,170,.16)}
+.hf-dark-hero nav .logo,.hf-dark-hero nav .logo span,.hf-dark-hero .nav-links a{color:#faf9f5!important}
+.hf-dark-hero .nav-links a:hover{color:#daeaaa!important}
+.hf-dark-hero .hero h1{color:#faf9f5!important}
+.hf-dark-hero .hero-accent{color:#daeaaa!important}
+.hf-dark-hero .hero-eyebrow{color:#c8d8ac!important}
+.hf-dark-hero .hero-sub{color:#b9cad1!important}
+.hf-dark-hero .hero .btn-ghost{color:#faf9f5!important}
+.hf-dark-hero .hero .btn-ghost:hover{color:#daeaaa!important}
+.hf-dark-hero .hero .btn-cyan{color:#103044!important;background:#daeaaa!important}
+.hf-dark-hero .hero .scroll-cue{color:#c6d5b5!important}
+.hf-dark-hero .hf-cell-raster{width:52%;right:1%;mix-blend-mode:normal!important}
+.hf-dark-hero .hf-generated-cell{mask-image:linear-gradient(to right,transparent,#000 1%,#000 99%,transparent),linear-gradient(to bottom,transparent,#000 4%,#000 95%,transparent)!important;mask-composite:intersect}
+.hf-dark-hero .nav-hamburger span{background:#faf9f5!important}
+.hf-dark-hero .mobile-menu{background:var(--hf-night)!important}
+.hf-dark-hero .mobile-menu a,.hf-dark-hero .mobile-menu .mob-close{color:#faf9f5!important}
+.hf-dark-hero .mobile-menu .mob-cta{background:#daeaaa!important;color:#103044!important}
+.hf-dark-hero .hf-preview-note{background:#0a1e2fe8;color:#b8c8d0;border-color:#314956}
+.hf-dark-hero .hero :focus-visible,.hf-dark-hero nav :focus-visible{outline-color:#daeaaa!important}
+@media(min-width:1600px){.hf-dark-hero .hf-cell-raster{width:50%;right:2%}}
+@media(max-width:1100px){.hf-dark-hero .hf-cell-raster{width:54%;right:-3%}}
+@media(max-width:880px){.hf-dark-hero .hf-cell-raster{width:88%;right:auto;margin:24px 0 0!important;max-width:650px;align-self:center}}
+@media(max-width:600px){.hf-dark-hero .hf-cell-raster{width:112%!important;right:auto;margin:18px -6% 0!important;max-width:none}}
+@media print{.hf-dark-hero .hero{print-color-adjust:exact;-webkit-print-color-adjust:exact}.hf-dark-hero .hero h1{font-size:42px!important}.hf-dark-hero .hf-cell-raster{width:49%;right:0}}

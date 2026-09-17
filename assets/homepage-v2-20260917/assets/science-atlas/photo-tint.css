@@ -1,0 +1,14 @@
+/* Reversible color grading of original photography. No source pixels replaced. */
+.nirosha-quote-photo img[src$="assets/homepage-v2-20260917/nirosha-microscope.jpg"] {
+  filter: saturate(.70) sepia(.08) brightness(1.03) !important;
+}
+img[src$="assets/homepage-v2-20260917/nirosha-lab-headshot.jpg"] {
+  filter: saturate(.90) sepia(.025) !important;
+}
+img[src$="assets/homepage-v2-20260917/nirosha-lab-v2.jpg"] {
+  filter: saturate(.90) !important;
+}
+/* These portraits are already neutral or warmly lit; preserve their real colors. */
+.team-photo {
+  filter: none !important;
+}

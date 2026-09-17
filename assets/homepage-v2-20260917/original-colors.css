@@ -1,0 +1,177 @@
+/* V2 composition and motion with the original navy / cyan / cream palette.
+   Loaded after V2's theme sheets. This sheet changes color and the original
+   rounded button treatment only; hero geometry and scroll mechanics live elsewhere. */
+body.hf-original-page.hf-restored-original {
+  --bg:#092743; --bg2:#092743; --bg-alt:#2f4562; --bg-warm:#2f4562;
+  --white:#fff; --off-white:#ecf0ff; --muted:#d0deea; --cyan:#00a9d6;
+  --amber:#e8a838; --coral:#e85a4f;
+  --body:rgba(255,255,255,.88); --caption:rgba(255,255,255,.55);
+  --border:rgba(255,255,255,.1); --divider:rgba(255,255,255,.16);
+  --hf-cream:#f7f6f2; --hf-ink:#16263a; --hf-lime:#00a9d6;
+  --hf-rule:#cbd5dc; --hf-night:#0f1c2e;
+  background:#f7f6f2!important; color:#16263a;
+}
+body.hf-original-page.hf-restored-original ::selection { background:#b8e9f5; color:#092743; }
+body.hf-original-page.hf-restored-original :focus-visible { outline-color:#00a9d6!important; }
+
+/* Navigation and actions. */
+body.hf-original-page.hf-restored-original nav,
+body.hf-original-page.hf-restored-original nav.scrolled {
+  background:rgba(15,28,46,.97)!important; border-bottom-color:rgba(255,255,255,.1);
+}
+body.hf-original-page.hf-restored-original nav .logo { color:#fff!important; }
+body.hf-original-page.hf-restored-original nav .logo span { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original .nav-links a,
+body.hf-original-page.hf-restored-original .hf-science-menu > summary { color:#d0deea!important; }
+body.hf-original-page.hf-restored-original .nav-links a:hover,
+body.hf-original-page.hf-restored-original .hf-science-menu > summary:hover { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original .nav-hamburger span { background:#fff!important; }
+body.hf-original-page.hf-restored-original .mobile-menu { background:#0f1c2e!important; }
+body.hf-original-page.hf-restored-original .mobile-menu a,
+body.hf-original-page.hf-restored-original .mobile-menu .mob-close { color:#ecf0ff!important; }
+body.hf-original-page.hf-restored-original .btn-cyan {
+  background:#00a9d6!important; color:#092743!important;
+  border-color:#00a9d6!important; border-radius:50px!important;
+}
+body.hf-original-page.hf-restored-original .btn-cyan:hover { background:#43c3e4!important; border-color:#43c3e4!important; }
+body.hf-original-page.hf-restored-original .nav-cta,
+body.hf-original-page.hf-restored-original .mobile-menu .mob-cta {
+  background:transparent!important; color:#00a9d6!important;
+  border-color:rgba(0,169,214,.4)!important; border-radius:50px!important;
+}
+body.hf-original-page.hf-restored-original .nav-cta:hover,
+body.hf-original-page.hf-restored-original .mobile-menu .mob-cta:hover {
+  background:rgba(0,169,214,.1)!important; border-color:#00a9d6!important;
+}
+body.hf-original-page.hf-restored-original .hf-science-menu > .hf-science-options {
+  background:#f7f6f2; border-color:#cbd5dc; color:#16263a;
+}
+body.hf-original-page.hf-restored-original .hf-science-menu > .hf-science-options > a { color:#16263a!important; }
+body.hf-original-page.hf-restored-original .hf-science-menu > .hf-science-options > a:hover,
+body.hf-original-page.hf-restored-original .hf-science-menu > .hf-science-options > a[aria-current="page"] {
+  color:#092743!important; background:#e1edf5;
+}
+body.hf-original-page.hf-restored-original #back-to-top {
+  background:#00a9d6!important; color:#092743!important; border-color:#00a9d6!important;
+}
+
+/* Hero colors only: the original opening's dimensions are in assets/homepage-v2-20260917/restored-hero.css. */
+body.hf-original-page.hf-restored-original .hero { background:#0f1c2e!important; }
+body.hf-original-page.hf-restored-original .hero h1 { color:#fff!important; }
+body.hf-original-page.hf-restored-original .hero-accent { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original .hero-eyebrow { color:rgba(255,255,255,.6)!important; }
+body.hf-original-page.hf-restored-original .hero-sub { color:rgba(255,255,255,.8)!important; }
+body.hf-original-page.hf-restored-original .hero .btn-ghost { color:#ecf0ff!important; }
+body.hf-original-page.hf-restored-original .hero .btn-ghost:hover { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original .hero .scroll-cue { color:#a4bed0!important; }
+body.hf-original-page.hf-restored-original .scroll-line { background:#00a9d6!important; }
+
+/* Original survival comparison and the intact V2 tumor chapter. */
+body.hf-original-page.hf-restored-original #problem { background:#f7f6f2!important; }
+body.hf-original-page.hf-restored-original #problem .prob-opener { color:#16263a!important; }
+body.hf-original-page.hf-restored-original #problem > div:first-child > p:nth-child(2),
+body.hf-original-page.hf-restored-original #problem .prob-gap-survive,
+body.hf-original-page.hf-restored-original #problem .prob-gap-label { color:#3a5068!important; }
+body.hf-original-page.hf-restored-original #problem .prob-gap-col.early .prob-gap-num { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original #problem .prob-gap-col.late .prob-gap-num { color:#16263a!important; }
+body.hf-original-page.hf-restored-original #problem .prob-gap-vline,
+body.hf-original-page.hf-restored-original #problem .prob-mobile-divider { background:#cbd5dc!important; }
+body.hf-original-page.hf-restored-original .hf-growth-chapter { background:#faf9f5; border-color:#cbd5dc; }
+body.hf-original-page.hf-restored-original #problem-original-thesis p { color:#16263a!important; }
+body.hf-original-page.hf-restored-original #probProgression {
+  --growth-paper:#faf9f5; --growth-ink:#16263a; --growth-muted:#526577;
+}
+body.hf-original-page.hf-restored-original .hf-growth-heading h2 { color:#16263a!important; }
+body.hf-original-page.hf-restored-original .hf-growth-progress { background:#d4dce3; }
+body.hf-original-page.hf-restored-original .hf-growth-progress span { background:#00a9d6; }
+body.hf-original-page.hf-restored-original .hf-growth-static figure { border-color:#d4dce3; }
+
+/* Blue microscopy transition, followed by a continuous cream science canvas. */
+body.hf-original-page.hf-restored-original .bridge-band { background:#092743!important; }
+body.hf-original-page.hf-restored-original .bridge-band video { filter:none; }
+body.hf-original-page.hf-restored-original .bridge-band > div[aria-hidden] {
+  background:radial-gradient(ellipse at center,rgba(9,39,67,.35),rgba(9,39,67,.65))!important;
+}
+body.hf-original-page.hf-restored-original .bridge-band p { color:rgba(255,255,255,.96)!important; }
+body.hf-original-page.hf-restored-original .hf-bridge-toggle {
+  background:rgba(15,28,46,.88); border-color:rgba(255,255,255,.35); color:#ecf0ff;
+}
+body.hf-original-page.hf-restored-original :is(.cream-band,#solution,#two-systems) { background:#f7f6f2!important; }
+body.hf-original-page.hf-restored-original :is(#solution,#two-systems) :is(h2,h3) { color:#0a1640!important; }
+body.hf-original-page.hf-restored-original :is(#solution,#two-systems) p { color:#0a1640!important; }
+body.hf-original-page.hf-restored-original .eyebrow,
+body.hf-original-page.hf-restored-original :is(#solution,#two-systems) .eyebrow,
+body.hf-original-page.hf-restored-original :is(h2,h3) em { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original .eyebrow::after { background:#00a9d6!important; }
+body.hf-original-page.hf-restored-original .hf-cellular-signals {
+  --signal-paper:#f7f6f2; --signal-ink:#16263a; --signal-sage:#007a9b;
+}
+body.hf-original-page.hf-restored-original :is(.hf-cellular-signals__poster,.hf-cellular-signals__video) { filter:none!important; }
+body.hf-original-page.hf-restored-original .hf-cellular-signals__caption { color:#526577; }
+body.hf-original-page.hf-restored-original .hf-cellular-signals__toggle { border-color:#99aaba; color:#3a5068; }
+body.hf-original-page.hf-restored-original .hf-research-link .btn-ghost { color:#1c3550!important; border-color:rgba(28,53,80,.3)!important; }
+
+/* Original full-color product art against navy panels. */
+body.hf-original-page.hf-restored-original #two-systems :is(.qs-card,.lum-card,.nirosha-quote-band) {
+  background:#092743!important; border-color:rgba(9,39,67,.22)!important;
+}
+body.hf-original-page.hf-restored-original #two-systems .hf-product-media { background:#092743; }
+body.hf-original-page.hf-restored-original #two-systems .hf-product-art { filter:none!important; mix-blend-mode:normal!important; }
+body.hf-original-page.hf-restored-original #two-systems :is(.qs-card,.lum-card) :is(h3,p) { color:#f4f8ff!important; }
+body.hf-original-page.hf-restored-original #two-systems :is(.qs-card,.lum-card) p:first-child,
+body.hf-original-page.hf-restored-original #two-systems :is(.qs-card,.lum-card) p:last-child { color:#7dd4f0!important; }
+body.hf-original-page.hf-restored-original #two-systems .nirosha-quote-band p { color:rgba(255,255,255,.9)!important; }
+body.hf-original-page.hf-restored-original #two-systems .nirosha-quote-band p:last-child { color:#00a9d6!important; }
+
+/* Application panels return to their original navy chapter. */
+body.hf-original-page.hf-restored-original :is(#platform,.h-section) { background:#092743!important; }
+body.hf-original-page.hf-restored-original #platform :is(h2,h3) { color:#fff!important; }
+body.hf-original-page.hf-restored-original #platform .h-panel p { color:#d0deea!important; }
+body.hf-original-page.hf-restored-original #platform .h-panel { border-color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original #platform .h-panel[style] { background:rgba(0,169,214,.04)!important; }
+body.hf-original-page.hf-restored-original #platform .h-panel-status {
+  background:#00a9d6!important; color:#092743!important; border-color:#00a9d6!important;
+}
+body.hf-original-page.hf-restored-original #platform .h-arrow {
+  background:transparent!important; color:#ecf0ff!important; border-color:rgba(255,255,255,.3)!important;
+}
+body.hf-original-page.hf-restored-original #platform .h-arrow:hover { background:rgba(0,169,214,.15)!important; border-color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original #platform .h-dot { background:#65798a!important; }
+body.hf-original-page.hf-restored-original #platform .h-dot.active { background:#00a9d6!important; }
+
+/* Warm portrait chapter; retain readable team link. */
+body.hf-original-page.hf-restored-original #credibility { background:#f5f0eb!important; }
+body.hf-original-page.hf-restored-original #credibility h2,
+body.hf-original-page.hf-restored-original #credibility .cred-grid > div > div:first-child { color:#16263a!important; }
+body.hf-original-page.hf-restored-original #credibility p { color:#3a5068!important; }
+body.hf-original-page.hf-restored-original :is(.team-full-cta,.team-bio-cta) {
+  color:#16263a!important; border-color:#98a6b5!important; border-radius:50px!important;
+}
+body.hf-original-page.hf-restored-original :is(.team-full-cta,.team-bio-cta):hover { color:#007a9b!important; border-color:#007a9b!important; }
+
+/* Slate-blue press band with original light logos, not V2's black filters. */
+body.hf-original-page.hf-restored-original #press.hf-press-chapter { background:#2f4562!important; color:#ecf0ff; }
+body.hf-original-page.hf-restored-original .hf-press-chapter .btn-ghost { color:#ecf0ff!important; }
+body.hf-original-page.hf-restored-original .hf-press-chapter .press-logos { background:transparent!important; }
+body.hf-original-page.hf-restored-original .hf-press-chapter .press-logos img { filter:none!important; }
+body.hf-original-page.hf-restored-original .hf-press-chapter .press-logos :is(.logo-cellpress,.logo-cbcnews) { filter:brightness(0) invert(1)!important; }
+body.hf-original-page.hf-restored-original .hf-press-chapter .hf-partner-rule { background:linear-gradient(to right,transparent,rgba(255,255,255,.25),transparent)!important; }
+body.hf-original-page.hf-restored-original .nvidia-inception img { filter:none!important; }
+
+/* Original navy closing section and footer. */
+body.hf-original-page.hf-restored-original :is(#contact,footer,.f-bottom) { background:#092743!important; }
+body.hf-original-page.hf-restored-original #contact h2 { color:#fff!important; }
+body.hf-original-page.hf-restored-original #contact .lead { color:rgba(255,255,255,.78)!important; }
+body.hf-original-page.hf-restored-original #contact .btn-ghost { color:#ecf0ff!important; }
+body.hf-original-page.hf-restored-original footer :is(.f-logo,h4) { color:#fff!important; }
+body.hf-original-page.hf-restored-original footer .f-logo span { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original footer :is(a,p,.f-tagline,.f-contact),
+body.hf-original-page.hf-restored-original .f-bottom span { color:#b9cad8!important; }
+body.hf-original-page.hf-restored-original footer a:hover { color:#00a9d6!important; }
+body.hf-original-page.hf-restored-original :is(.f-bottom,.hf-growth-evidence) { border-color:rgba(255,255,255,.16)!important; }
+body.hf-original-page.hf-restored-original footer :is(.hf-growth-sources,.hf-growth-note) { color:#b9cad8!important; }
+
+/* Candidate controls use the same palette. */
+body.hf-original-page.hf-restored-original .hf-preview-note { background:#0f1c2eeb; color:#c6d5df; border-color:#3f5669; }
+body.hf-original-page.hf-restored-original .hf-preview-note span { color:#7dd4f0; }
+body.hf-original-page.hf-restored-original .hf-studies-launch { background:#f7f6f2; color:#16263a; border-color:#99aaba; }

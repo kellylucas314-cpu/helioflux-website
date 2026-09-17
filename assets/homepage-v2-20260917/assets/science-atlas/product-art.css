@@ -1,0 +1,44 @@
+/* Original product images and original display crop; navy tint is CSS only. */
+#two-systems .hf-products-atlas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+#two-systems .hf-products-atlas > .qs-card,
+#two-systems .hf-products-atlas > .lum-card {
+  min-width: 0;
+  isolation: isolate;
+  background: #faf9f5 !important;
+}
+#two-systems .hf-products-atlas .hf-product-media {
+  aspect-ratio: auto;
+  padding: 0 !important;
+  background: #103044;
+  isolation: isolate;
+}
+#two-systems .hf-product-art {
+  display: block;
+  width: 100%;
+  /* Reserve the existing landscape window before a lazy image decodes. */
+  height: 220px;
+  max-height: 220px !important;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: 50% 50%;
+  background: transparent;
+  filter: grayscale(1);
+  mix-blend-mode: luminosity;
+}
+@media (max-width: 768px) {
+  #two-systems .hf-products-atlas {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  #two-systems .hf-product-art { height: 180px; max-height: 180px !important; }
+}
+@media print {
+  #two-systems .hf-products-atlas > .qs-card,
+  #two-systems .hf-products-atlas > .lum-card { break-inside: avoid; }
+}
