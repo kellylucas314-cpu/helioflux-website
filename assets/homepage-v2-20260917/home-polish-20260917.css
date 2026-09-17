@@ -31,6 +31,22 @@ body.hf-restored-original .hero-content::before {
   }
 }
 
+/* ─── 1b. GROWTH CHAPTER HEADING ─── */
+/* The old italic lead-in now IS the chapter heading, so it carries more weight. */
+.hf-growth-heading { align-items: flex-start; gap: 24px; margin-bottom: 14px; }
+.hf-growth-heading h2 {
+  font: 600 clamp(24px, 2.7vw, 38px) / 1.15 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -.03em;
+  color: #103044;
+  max-width: 26ch;
+}
+.hf-growth-mode { flex-shrink: 0; margin-top: 4px; }
+#probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: clamp(20px, 2.2vw, 26px); }
+@media (max-width: 600px) {
+  .hf-growth-heading h2 { font-size: 22px; max-width: none; }
+  #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }
+}
+
 /* ─── 2. PLATFORM CHAPTER ("Proven in the lab. Heading to humans.") ─── */
 body.hf-original-page.hf-restored-original :is(#platform, .h-section) {
   background: #0e3153 !important;
