@@ -38,8 +38,9 @@ body.hf-restored-original .hero-content::before {
   font: 600 clamp(24px, 2.7vw, 38px) / 1.15 'Plus Jakarta Sans', sans-serif;
   letter-spacing: -.03em;
   color: #103044;
-  max-width: 26ch;
 }
+/* Each sentence stays whole; the only break allowed is between them. */
+.hf-growth-heading h2 .hf-nb { white-space: nowrap; }
 .hf-growth-mode { flex-shrink: 0; margin-top: 4px; }
 #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: clamp(20px, 2.2vw, 26px); }
 @media (max-width: 600px) {
