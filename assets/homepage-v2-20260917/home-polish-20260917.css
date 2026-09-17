@@ -1,0 +1,181 @@
+/* Homepage polish, Sept 17 2026.
+   1. A soft scrim behind the hero words so the cell art never competes with them.
+   2. The "Proven in the lab" chapter rebuilt as roomy cards on its own blue.
+   Loads last so it wins ties with the earlier palette sheets. */
+
+/* ─── 1. HERO SCRIM ─── */
+/* .hero-content already sits at z-index 4 in its own stacking context, so a
+   z-index:-1 pseudo-element paints behind the words but above the video (z 1)
+   and canvas (z 2). Navy on navy, so the page colour never shifts; only the
+   cell art dims where the headline crosses it. */
+body.hf-restored-original .hero-content::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: -18% -22% -20% -14%;
+  background: radial-gradient(ellipse 60% 56% at 42% 50%,
+    rgba(15,28,46,.58) 0%,
+    rgba(15,28,46,.42) 40%,
+    rgba(15,28,46,.18) 72%,
+    rgba(15,28,46,0) 100%);
+}
+@media (max-width: 900px) {
+  body.hf-restored-original .hero-content::before {
+    inset: -16% -12% -18% -12%;
+    background: radial-gradient(ellipse 64% 58% at 46% 50%,
+      rgba(15,28,46,.62) 0%,
+      rgba(15,28,46,.44) 42%,
+      rgba(15,28,46,.18) 74%,
+      rgba(15,28,46,0) 100%);
+  }
+}
+
+/* ─── 2. PLATFORM CHAPTER ("Proven in the lab. Heading to humans.") ─── */
+body.hf-original-page.hf-restored-original :is(#platform, .h-section) {
+  background: #0e3153 !important;
+}
+body.hf-original-page.hf-restored-original #platform {
+  padding-bottom: clamp(72px, 8vw, 112px);
+}
+body.hf-original-page.hf-restored-original #platform .h-section-label {
+  padding: clamp(96px, 10vw, 136px) 56px 0 !important;
+}
+body.hf-original-page.hf-restored-original #platform .h-section-label .eyebrow {
+  color: #7dd4f0 !important;
+  opacity: 1;
+  margin-bottom: 18px;
+}
+body.hf-original-page.hf-restored-original #platform .h-section-label .eyebrow::after {
+  background: rgba(125,212,240,.45);
+}
+body.hf-original-page.hf-restored-original #platform .h-section-label h2 {
+  max-width: 640px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+/* The carousel JS slides the track by panels[0].offsetWidth, so cards keep
+   touching edges. Transparent borders create the visible gap while the
+   inset hairline and background-clip draw the card inside them. */
+body.hf-original-page.hf-restored-original #platform .h-track {
+  padding-left: max(44px, calc((100vw - 1200px) / 2 + 44px));
+}
+body.hf-original-page.hf-restored-original #platform .h-panel {
+  width: min(82vw, 1112px);
+  padding: 44px 44px 48px !important;
+  gap: 48px;
+  align-items: center;
+  border: 12px solid transparent !important;
+  border-radius: 28px;
+  background: rgba(255,255,255,.045) !important;
+  background-clip: padding-box;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.09);
+}
+body.hf-original-page.hf-restored-original #platform .h-panel-img {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,.04);
+  min-height: 0;
+}
+body.hf-original-page.hf-restored-original #platform .h-panel-img::after { display: none; }
+body.hf-original-page.hf-restored-original #platform .h-panel-img img {
+  height: clamp(300px, 26vw, 380px);
+  opacity: 1;
+}
+body.hf-original-page.hf-restored-original #platform .h-panel-status {
+  background: rgba(0,169,214,.14) !important;
+  color: #8fdcf4 !important;
+  border: 1px solid rgba(0,169,214,.4) !important;
+  border-radius: 50px;
+  padding: 7px 16px;
+  font-size: 11px;
+  letter-spacing: .14em;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+body.hf-original-page.hf-restored-original #platform .h-panel h3 {
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 400;
+  line-height: 1.12;
+  margin-bottom: 22px;
+}
+body.hf-original-page.hf-restored-original #platform .h-panel h3 em {
+  color: #00a9d6 !important;
+  font-style: italic !important;
+}
+body.hf-original-page.hf-restored-original #platform .h-panel p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(255,255,255,.74) !important;
+  max-width: 520px;
+}
+body.hf-original-page.hf-restored-original #platform .h-arrows {
+  padding-top: 40px;
+  gap: 14px;
+}
+body.hf-original-page.hf-restored-original #platform .h-arrow {
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  background: transparent !important;
+  color: rgba(255,255,255,.85) !important;
+}
+body.hf-original-page.hf-restored-original #platform .h-arrow:hover {
+  background: rgba(0,169,214,.16) !important;
+  border-color: #00a9d6 !important;
+  transform: none;
+}
+body.hf-original-page.hf-restored-original #platform .h-dots { padding: 18px 0 0; }
+
+@media (max-width: 1024px) {
+  body.hf-original-page.hf-restored-original #platform .h-panel {
+    padding: 32px 32px 40px !important;
+    gap: 32px;
+    align-items: start;
+  }
+}
+
+/* Phones: the panels already stack. Give each one room and a card edge. */
+@media (max-width: 768px) {
+  body.hf-original-page.hf-restored-original #platform .h-section-label {
+    padding: 76px 24px 0 !important;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-section-label h2 {
+    margin-bottom: 36px;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-track {
+    padding: 0 20px;
+    gap: 18px;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-panel {
+    width: 100% !important;
+    padding: 18px 18px 30px !important;
+    gap: 22px;
+    border: 1px solid rgba(255,255,255,.1) !important;
+    border-radius: 18px;
+    background: rgba(255,255,255,.045) !important;
+    background-clip: border-box;
+    box-shadow: none;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-panel:last-child { border-bottom: 1px solid rgba(255,255,255,.1) !important; }
+  body.hf-original-page.hf-restored-original #platform .h-panel-img,
+  body.hf-original-page.hf-restored-original #platform .h-panel-img img {
+    height: clamp(210px, 56vw, 300px) !important;
+    min-height: 0 !important;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-panel > .reveal { padding: 0 6px; }
+  body.hf-original-page.hf-restored-original #platform .h-panel-status {
+    font-size: 10px !important;
+    padding: 6px 12px !important;
+    margin-bottom: 18px !important;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-panel h3 {
+    font-size: 30px !important;
+    margin-bottom: 14px;
+  }
+  body.hf-original-page.hf-restored-original #platform .h-panel p {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+  body.hf-original-page.hf-restored-original #platform { padding-bottom: 56px; }
+}
