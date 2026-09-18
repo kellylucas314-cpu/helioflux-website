@@ -31,6 +31,13 @@ body.hf-restored-original .hero-content::before {
   }
 }
 
+/* Once hero-photons.js has painted this same fade as the canvas background, the
+   copy on the text block steps aside and the canvas rises above the left-hand
+   gradient, so specks float across the whole hero, headline side included. The
+   fade still sits over the cell film, and the words still sit over everything. */
+body.hf-restored-original .hero.hf-scrim-under-specks .hero-content::before { display: none; }
+body.hf-restored-original .hero.hf-scrim-under-specks #hero-canvas { z-index: 3; }
+
 /* ─── 1b. GROWTH CHAPTER HEADING ─── */
 /* The old italic lead-in now IS the chapter heading, so it carries more weight. */
 .hf-growth-heading { justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 14px; }
@@ -87,6 +94,8 @@ body.hf-original-page .hf-cellular-signals__caption .hf-sig-line {
   line-height: inherit !important;
 }
 body.hf-original-page .hf-cellular-signals__caption .hf-sig-accent { color: #00a9d6; }
+/* An older colour file greys the caption with a heavier selector; this restores the navy. */
+body.hf-original-page.hf-restored-original .hf-cellular-signals__caption { color: #103044; }
 @media (max-width: 600px) {
   body.hf-original-page .hf-cellular-signals__caption { font-size: 21px; margin-top: 22px; letter-spacing: -.015em; }
 }
@@ -238,4 +247,13 @@ body.hf-original-page.hf-restored-original #platform .h-dots { padding: 18px 0 0
     line-height: 1.7 !important;
   }
   body.hf-original-page.hf-restored-original #platform { padding-bottom: 56px; }
+}
+
+/* ─── LIGHT-DOT CURSOR ─── */
+/* The V2 theme switched the small cyan cursor dot off. It returns here for mouse
+   users only, and only once the script has seen the mouse move. Links and buttons
+   keep their hand pointer, and the dot grows over them as before. */
+@media (hover: hover) and (pointer: fine) {
+  html.hf-cursor-on, html.hf-cursor-on body { cursor: none !important; }
+  html.hf-cursor-on .cursor-dot { display: block !important; box-shadow: 0 0 10px 2px rgba(0,169,214,.45); }
 }
