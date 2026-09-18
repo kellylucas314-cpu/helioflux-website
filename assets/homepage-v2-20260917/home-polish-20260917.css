@@ -45,6 +45,12 @@ body.hf-restored-original .hero-content::before {
 /* The stills toggle stays in the DOM for the script, but is no longer shown. */
 .hf-growth-mode { display: none !important; }
 #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: clamp(20px, 2.2vw, 26px); }
+/* The heading travels with the tumor and copy as one group, and the group is centred
+   in the pin. Before, the heading was glued under the nav while the scene centred on
+   its own below it, which left the chapter reading as vertically off-centre. The pin
+   keeps its scripted height, so the scroll anchoring is unchanged. */
+#probProgression:not(.hf-growth-is-reading) .hf-growth-heading { margin-top: auto; }
+#probProgression:not(.hf-growth-is-reading) .hf-growth-scene { flex: 0 0 auto; margin-bottom: auto; }
 @media (max-width: 600px) {
   .hf-growth-heading h2 { font-size: 22px; max-width: none; }
   #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }
@@ -55,6 +61,13 @@ body.hf-restored-original .hero-content::before {
    caption sits closer to the artwork now that nothing separates them. */
 .hf-cellular-signals__controls { display: none !important; }
 body.hf-original-page .hf-cellular-signals { max-width: 580px; }
+/* The source animation is 880px wide, so 440px is the largest it can be shown on a
+   2x screen without being upscaled and going soft. The figure keeps its width so
+   the caption lines still fit. */
+body.hf-original-page .hf-cellular-signals__media { max-width: 440px; margin-inline: auto; }
+/* Drop the leftover reveal transform once the figure is in, so the caption text is
+   drawn on the page's own pixel grid rather than a separate layer. */
+.js-ready .hf-cellular-signals.reveal.in { transform: none; }
 body.hf-original-page .hf-cellular-signals__caption {
   max-width: 560px;
   margin: 30px auto 0;
