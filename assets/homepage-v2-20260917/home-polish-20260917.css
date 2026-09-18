@@ -50,6 +50,12 @@ body.hf-restored-original .hero-content::before {
   #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }
 }
 
+/* ─── 1c. LIGHT SIGNATURE ILLUSTRATION ─── */
+/* The pause control stays in the DOM for its script, but is not shown. The
+   caption sits closer to the artwork now that nothing separates them. */
+.hf-cellular-signals__controls { display: none !important; }
+.hf-cellular-signals__caption { margin-top: 20px; font-size: 15px; }
+
 /* ─── 2. PLATFORM CHAPTER ("Proven in the lab. Heading to humans.") ─── */
 body.hf-original-page.hf-restored-original :is(#platform, .h-section) {
   background: #0e3153 !important;
