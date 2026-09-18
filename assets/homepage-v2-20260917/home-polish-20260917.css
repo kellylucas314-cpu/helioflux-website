@@ -54,7 +54,29 @@ body.hf-restored-original .hero-content::before {
 /* The pause control stays in the DOM for its script, but is not shown. The
    caption sits closer to the artwork now that nothing separates them. */
 .hf-cellular-signals__controls { display: none !important; }
-.hf-cellular-signals__caption { margin-top: 20px; font-size: 15px; }
+body.hf-original-page .hf-cellular-signals { max-width: 580px; }
+body.hf-original-page .hf-cellular-signals__caption {
+  max-width: 560px;
+  margin: 30px auto 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(22px, 2.3vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+  color: #103044;
+}
+body.hf-original-page .hf-cellular-signals__caption .hf-sig-line {
+  display: block;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+}
+body.hf-original-page .hf-cellular-signals__caption .hf-sig-accent { color: #00a9d6; }
+@media (max-width: 600px) {
+  body.hf-original-page .hf-cellular-signals__caption { font-size: 21px; margin-top: 22px; letter-spacing: -.015em; }
+}
 
 /* ─── 2. PLATFORM CHAPTER ("Proven in the lab. Heading to humans.") ─── */
 body.hf-original-page.hf-restored-original :is(#platform, .h-section) {
