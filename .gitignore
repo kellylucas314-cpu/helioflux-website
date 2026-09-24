@@ -6,3 +6,6 @@ package.json
 _progshot_*.png
 _screenshot_progression.js
 .ffmpeg-*.log
+
+# Local backups, inspection frames, screenshots, and browser QA.
+_build/
