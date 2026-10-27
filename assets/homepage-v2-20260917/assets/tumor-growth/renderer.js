@@ -11,6 +11,8 @@
   const images = new Map();
   let loading;
   const previousDominant = new WeakMap();
+  const paper = '#faf9f5';
+  const plates = [document.createElement('canvas'), document.createElement('canvas')];
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const smoothstep = value => value * value * (3 - 2 * value);
   // Keep most of each drawing crisp while giving the change enough scroll
@@ -67,6 +69,27 @@
     if (frame.blendSource) layer(ctx, frame.blendSource, extent, aspect, size, alpha * frame.blendAlpha);
   }
 
+  // Bake the paper into each frame before crossfading. The source art has
+  // opaque near-white backgrounds; CSS blending can expose their square on
+  // mobile compositors. Darken preserves every mark below the paper color.
+  function paintedPlate(index, frame, extent, aspect, size) {
+    const plate = plates[index];
+    if (plate.width !== size) plate.width = plate.height = size;
+    const brush = plate.getContext('2d', {alpha: false});
+    brush.save();
+    brush.setTransform(1, 0, 0, 1, 0, 0);
+    brush.globalAlpha = 1;
+    brush.globalCompositeOperation = 'source-over';
+    brush.imageSmoothingEnabled = true;
+    brush.imageSmoothingQuality = 'high';
+    brush.fillStyle = paper;
+    brush.fillRect(0, 0, size, size);
+    brush.globalCompositeOperation = 'darken';
+    frameLayer(brush, frame, extent, aspect, size, 1);
+    brush.restore();
+    return plate;
+  }
+
   function draw(canvas, position, options = {}) {
     const state = sample(position);
     const transitionBlend = state.blend;
@@ -91,19 +114,21 @@
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = paper;
     ctx.fillRect(0, 0, size, size);
     const from = frames[state.a], to = frames[state.b];
     if (state.blend === 1 && state.b !== state.a) {
       // A settled next frame must not leave an earlier vessel or tissue fringe
       // outside its crop. Draw it alone onto the clean plate.
-      frameLayer(ctx, to, state.extent, state.aspect, size, 1);
+      ctx.drawImage(paintedPlate(1, to, state.extent, state.aspect, size), 0, 0);
     } else {
-      frameLayer(ctx, from, state.extent, state.aspect, size, 1);
+      ctx.drawImage(paintedPlate(0, from, state.extent, state.aspect, size), 0, 0);
       if (state.b !== state.a && state.blend > 0 && !sameSource(from, to)) {
-        frameLayer(ctx, to, state.extent, state.aspect, size, state.blend);
+        ctx.globalAlpha = state.blend;
+        ctx.drawImage(paintedPlate(1, to, state.extent, state.aspect, size), 0, 0);
       }
     }
     ctx.restore();

@@ -30,10 +30,10 @@ html, body { overflow-x: clip !important; }
 .hf-growth-mode:focus-visible, .hf-growth-sources a:focus-visible { outline:2px solid #087a8a; outline-offset:4px; }
 .hf-growth-scene { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:38px; align-items:center; min-height:0; flex:1; }
 .hf-growth-stage { position:relative; aspect-ratio:1; width:min(100%,650px,calc(100svh - var(--growth-nav) - 140px)); justify-self:center; background:var(--growth-paper); }
-.hf-growth-canvas,.hf-growth-poster { display:block; width:100%; height:100%; mix-blend-mode:multiply; filter:brightness(1.025); }
+.hf-growth-canvas,.hf-growth-poster { display:block; width:100%; height:100%; }
 .hf-growth-canvas { position:absolute; inset:0; visibility:hidden; }
 .hf-growth-ready .hf-growth-canvas { visibility:visible; }
-.hf-growth-ready .hf-growth-poster { visibility:hidden; }
+.hf-growth-js .hf-growth-poster { visibility:hidden; }
 .hf-growth-poster { position:absolute; inset:0; }
 .hf-growth-story { text-align:left; min-width:0; padding:15px 0; }
 .hf-growth-beat { font:500 11px/1.4 'DM Sans',sans-serif; letter-spacing:.13em; color:var(--growth-muted); text-transform:uppercase; margin:0 0 18px; }
@@ -54,8 +54,12 @@ html, body { overflow-x: clip !important; }
 .hf-growth-static { max-width:1100px; margin:0 auto; padding:32px; }
 .hf-growth-js .hf-growth-static { display:none; }
 .hf-growth-static figure { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px; align-items:center; margin:0; padding:20px 0; border-bottom:1px solid #d7dfd4; break-inside:avoid; }
-.hf-growth-still-art { position:relative; width:min(100%,400px); aspect-ratio:1; overflow:hidden; mix-blend-mode:multiply; filter:brightness(1.025); }
+.hf-growth-still-art { position:relative; width:min(100%,400px); aspect-ratio:1; overflow:hidden; }
 .hf-growth-still-art img { position:absolute; max-width:none; height:auto; }
+.hf-growth-static-canvas { position:absolute; inset:0; display:block; width:100%; height:100%; }
+.hf-growth-js .hf-growth-static img { visibility:hidden; }
+.hf-growth-stills-failed .hf-growth-static img { visibility:visible; mix-blend-mode:darken; }
+html:not(.hf-growth-js) .hf-growth-still-art { mix-blend-mode:darken; }
 .hf-growth-static figcaption strong { display:block; font:520 23px/1.25 'Plus Jakarta Sans',sans-serif; margin-bottom:15px; }
 .hf-growth-static figcaption p { font:400 17px/1.55 'DM Sans',sans-serif; white-space:pre-line; margin:10px 0; }
 .hf-growth-static figcaption .hf-growth-detail { font-size:13px; min-height:0; }

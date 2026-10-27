@@ -62,6 +62,24 @@
      img.src=innerWidth<=880?full.replace('tumor-growth/','tumor-growth/960/'):full;
      delete img.dataset.src;
    });
+   art.load().then(()=>{
+     stills.querySelectorAll('figure').forEach((figure,i)=>{
+       const stage=figure.querySelector('.hf-growth-still-art');
+       let still=stage.querySelector('.hf-growth-static-canvas');
+       if(!still){
+         still=document.createElement('canvas');
+         still.className='hf-growth-static-canvas';
+         still.setAttribute('aria-hidden','true');
+         stage.append(still);
+       }
+       const size=Math.round(Math.min(1200,stage.clientWidth*(devicePixelRatio||1)));
+       if(size>0){
+         still.width=still.height=size;
+         art.draw(still,art.frames.findIndex(f=>f.readingBeat===i+1));
+       }
+     });
+     root.classList.remove('hf-growth-stills-failed');
+   }).catch(()=>root.classList.add('hf-growth-stills-failed'));
  }
  function reserveCopy() {
    const story=root.querySelector('.hf-growth-story'), width=story.getBoundingClientRect().width;
