@@ -161,6 +161,7 @@
 .linework-figure .figure-button { max-width: 1000px; margin-inline: auto; }
 figure[data-kind="paper"] .figure-button img { max-height: 620px; width: auto; max-width: 100%; margin-inline: auto; border: 1px solid var(--rule); border-radius: 4px; }
 .concept-figure .figure-button img { border: 0; border-radius: 0; mix-blend-mode: multiply; }
+.concept-figure .figure-button img[src*="-transparent"] { mix-blend-mode: normal; }
 .enlarge { position: absolute; right: 0; bottom: 0; padding: 6px 12px; border: 1px solid var(--ink); border-radius: var(--r-control); background: var(--paper); font: 500 12.5px/1 var(--display); color: var(--ink); opacity: 0; transition: opacity .2s; }
 .figure-button:hover .enlarge, .figure-button:focus-visible .enlarge { opacity: 1; }
 @media (hover: none) { .enlarge { opacity: 1; } }

@@ -152,7 +152,7 @@
 .century-head .muted { max-width: 52ch; }
 .drawer { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 24px); }
 .drawer a { display: block; color: var(--ink); text-decoration: none; }
-.drawer img { width: 100%; aspect-ratio: 3 / 2; object-fit: contain; mix-blend-mode: multiply; transition: transform .5s var(--ease); }
+.drawer img { width: 100%; aspect-ratio: 3 / 2; object-fit: contain; transition: transform .5s var(--ease); }
 .drawer span { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--rule); font: 500 14px/1.35 var(--display); }
 .drawer b { display: block; font-weight: 500; color: var(--teal); margin-bottom: 3px; }
 .drawer a:hover img { transform: scale(1.04); }
