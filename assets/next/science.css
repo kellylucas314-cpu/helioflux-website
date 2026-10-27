@@ -1,0 +1,248 @@
+/* Science page ("How it works"). Builds on next.css. */
+
+/* Match the dark-section wordmark to this page's hero and button accent. */
+.science-page { --cyan-glow: var(--teal-night); }
+
+/* ---------- Hero: the dark room ---------- */
+.sci-hero { padding: clamp(40px, 6vw, 96px) 0 clamp(40px, 5vw, 72px); overflow: hidden; }
+.sci-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.sci-hero h1 { font-size: clamp(42px, 4.5vw, 66px); }
+.sci-hero h1 .soft { display: block; }
+.sci-hero h1 .soft { color: var(--teal-night); }
+.sci-hero .lead { margin-top: 26px; color: var(--on-night); max-width: 34ch; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 34px; }
+.hero-stage { display: flex; gap: 12px; align-items: baseline; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--rule-night); color: var(--on-night-muted); font-size: 15px; line-height: 1.5; max-width: 42ch; }
+.hero-stage .dot { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; background: var(--teal-night); transform: translateY(-1px); }
+@media (prefers-reduced-motion: no-preference) { .hero-stage .dot { animation: breathe 3.2s ease-in-out 4; } @keyframes breathe { 50% { opacity: .35; } } }
+
+.signal-art { margin: 0; }
+.measurement-frame { position: relative; aspect-ratio: 3 / 2; }
+.measurement-frame img { width: 100%; height: auto; aspect-ratio: 3 / 2; }
+.measurement-frame canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#measurement-film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; opacity: 0; transition: opacity .6s; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 50%, transparent 58%), linear-gradient(to bottom, transparent, #000 9%, #000 87%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 50%, transparent 58%), linear-gradient(to bottom, transparent, #000 9%, #000 87%, transparent 98%);
+  mask-composite: intersect; }
+#measurement-film[hidden] { display: none; }
+/* The film decodes a few levels darker than the poster; lift it so no box shows. */
+#measurement-film { filter: url(#film-match); }
+.art-tags { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; pointer-events: none; }
+.art-tags li {
+  position: absolute; left: var(--x); top: var(--y);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 10px 5px 5px; border-radius: 99px;
+  background: rgba(8, 35, 50, .72); border: 1px solid rgba(214, 232, 238, .28);
+  font: 560 13px/1 var(--display); color: var(--on-night); letter-spacing: .01em; white-space: nowrap;
+}
+.art-tags b { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--teal-night); color: var(--night); font-size: 11px; font-weight: 700; }
+.art-utilities { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 10px; font-size: 13px; color: var(--on-night-muted); }
+.motion-button { min-height: 44px; padding: 0 14px; border-radius: var(--r-control); border: 1px solid rgba(214, 232, 238, .35); background: transparent; color: var(--on-night); font: 520 13px/1 var(--display); cursor: pointer; white-space: nowrap; }
+.motion-button:hover { border-color: var(--on-night); }
+.art-note { margin-top: 8px; }
+.art-note > summary { min-height: 48px; font-size: 14px; font-family: var(--body); font-weight: 500; }
+.art-note .more-body { font-size: 14px; }
+@media (max-width: 900px) {
+  .sci-hero-grid { grid-template-columns: 1fr; }
+  .sci-hero .lead { max-width: none; }
+  .art-tags li { font-size: 11px; padding: 4px 8px 4px 4px; }
+  .art-tags b { width: 17px; height: 17px; }
+}
+@media (max-width: 520px) {
+  .art-tags li:nth-child(2) { --x: 50% !important; }
+  .art-tags li:nth-child(3) { --x: 66% !important; --y: 14% !important; }
+  .art-utilities { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- Page map ---------- */
+.page-map { position: sticky; top: var(--nav-h); z-index: 40; background: rgba(247,246,242,.96); border-bottom: 1px solid var(--rule); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.page-map .shell { display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); min-height: 52px; overflow-x: auto; scrollbar-width: none; }
+.page-map .shell::-webkit-scrollbar { display: none; }
+.page-map-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.page-map a { position: relative; display: inline-flex; gap: 8px; align-items: center; min-height: 52px; color: var(--ink); text-decoration: none; font: 500 14.5px/1 var(--display); white-space: nowrap; }
+.page-map a b { font-weight: 560; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.page-map a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+.page-map a:hover { color: var(--teal); }
+.page-map a.is-current { color: var(--teal); }
+.page-map a.is-current b { color: var(--teal); }
+.page-map a.is-current::after { transform: scaleX(1); }
+@media (max-width: 860px) { .page-map { position: relative; top: 0; } .page-map-label { display: none; } }
+
+/* ---------- 01 The idea: four steps ---------- */
+.idea-head { margin-bottom: clamp(40px, 5vw, 72px); align-items: start; }
+.idea-head .lead { max-width: 38ch; }
+.steps4 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 40px); position: relative; }
+.steps4 li { position: relative; }
+.step-art { position: relative; aspect-ratio: 1; display: grid; place-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--ink); }
+.steps4 li:not(:last-child) .step-art::after { content: ""; position: absolute; bottom: -1px; left: 100%; width: clamp(20px, 2.6vw, 40px); height: 1px; background: var(--ink); }
+.step-art img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.step-art svg { width: 100%; height: 100%; }
+.step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--ink); font: 600 13px/1 var(--display); color: var(--ink); margin-bottom: 12px; }
+.steps4 h3 { font-size: 21px; margin-bottom: 8px; }
+.steps4 p { font-size: 16px; line-height: 1.55; color: var(--muted); }
+@media (max-width: 1000px) { .steps4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .steps4 li .step-art::after { display: none; } }
+@media (max-width: 520px) { .steps4 { grid-template-columns: 1fr; } .steps4 li { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 18px; align-items: start; } .step-art { grid-row: span 3; margin-bottom: 0; } .step-n { margin-bottom: 6px; } }
+
+/* ---------- 02 The signal ---------- */
+.signal-split { align-items: start; }
+.signal-copy h2 { margin-bottom: 28px; }
+.signal-copy .lead + p { margin-top: 18px; }
+.source-mark { font-size: 15px; font-weight: 500; white-space: nowrap; }
+
+.explorable { margin: 0; background: var(--paper); border: 1px solid var(--ink); border-radius: var(--r-image); padding: clamp(18px, 2.4vw, 28px); }
+.explorable-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 20px; margin-bottom: 8px; }
+.explorable-head h3 { font-size: 20px; }
+.segmented { display: flex; gap: 8px; }
+.segmented button { min-height: 44px; padding: 0 16px; border-radius: var(--r-control); border: 1px solid var(--rule-strong); background: var(--paper); color: var(--ink); font: 500 14px/1 var(--display); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.segmented button:hover { border-color: var(--ink); }
+.segmented button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.explorable-key { display: flex; justify-content: space-around; gap: 16px; margin: 16px 0 -4px; color: var(--muted); font: 600 11px/1.2 var(--display); letter-spacing: .08em; text-transform: uppercase; }
+.explorable-key span { width: 50%; text-align: center; }
+.explorable-image { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; mix-blend-mode: multiply; }
+.explorable figcaption { margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.explorable-caption { font: 450 16px/1.45 var(--display); color: var(--ink); margin-bottom: 8px; }
+.explorable .micro { font-size: 13px; }
+
+.experiment { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 72px); align-items: center; margin-top: clamp(64px, 8vw, 112px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--rule); }
+.experiment-read h3 { margin-bottom: 12px; }
+.experiment-read > .muted { margin-bottom: 22px; }
+.minutes.numbered > li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; padding: 16px 0; }
+.minutes.numbered .label { color: var(--teal); font-variant-numeric: tabular-nums; }
+.minutes.numbered strong { color: var(--ink); font: 500 17px/1.3 var(--display); }
+.experiment-read details.more { margin-top: 18px; }
+@media (max-width: 900px) { .experiment { grid-template-columns: 1fr; } }
+
+/* ---------- 03 Approach ---------- */
+.approach-head, .research-head, .next-head { margin-bottom: clamp(40px, 5vw, 64px); align-items: start; }
+.idea-head .lead, .approach-head .lead, .research-head .lead, .next-head .lead { padding-top: .5em; }
+.platforms { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
+.platform { border-top: 1px solid var(--ink); padding-top: 18px; }
+.platform-top { display: flex; justify-content: space-between; font: 600 12px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.platform-role { color: var(--teal); }
+.platform-name { font-size: clamp(34px, 3.4vw, 48px); letter-spacing: -.035em; margin: 18px 0 24px; }
+.platform-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(18px, 2.4vw, 32px); align-items: start; }
+.platform-art { margin: 0; }
+.platform-art img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: multiply; border-radius: var(--r-image); }
+.platform-art figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.platform-takeaway { font: 400 21px/1.3 var(--display); color: var(--ink); letter-spacing: -.012em; margin-bottom: 10px; }
+.platform p:not(.platform-takeaway) { color: var(--text); max-width: 48ch; font-size: 17px; }
+@media (max-width: 1100px) and (min-width: 801px) { .platform-body { grid-template-columns: 1fr; } .platform-art { max-width: 320px; } }
+@media (max-width: 480px) { .platform-body { grid-template-columns: 1fr; } }
+.approach-more { margin-top: clamp(36px, 4vw, 56px); }
+@media (max-width: 800px) { .platforms { grid-template-columns: 1fr; } }
+
+/* ---------- 04 Studies ---------- */
+.research-stages { margin-bottom: clamp(56px, 6vw, 88px); }
+.studies { border-top: 1px solid var(--ink); }
+.study { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(20px, 4vw, 64px); padding: clamp(28px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--rule-strong); }
+.study-meta { display: flex; flex-direction: column; gap: 6px; }
+.study-year { font: 400 clamp(40px, 4vw, 56px)/1 var(--display); letter-spacing: -.04em; color: var(--ink); }
+.study-stage { font-size: 14px; color: var(--muted); }
+.study-body { max-width: 760px; }
+.study-body h3 { margin-bottom: 14px; }
+.study-body > p { color: var(--text); }
+.answer { color: var(--teal); font-weight: 600; }
+.study-body details.more { margin-top: 18px; }
+.paper-ref { font-size: 15px; color: var(--muted); padding-top: 12px; border-top: 1px dashed var(--rule-strong); }
+@media (max-width: 760px) { .study { grid-template-columns: 1fr; gap: 10px; } .study-meta { flex-direction: row; align-items: baseline; gap: 14px; } }
+
+/* ---------- The drawer of plates ---------- */
+.century-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px 40px; margin-bottom: 32px; }
+.century-head h2 { margin-bottom: 10px; }
+.century-head .muted { max-width: 52ch; }
+.drawer { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 24px); }
+.drawer a { display: block; color: var(--ink); text-decoration: none; }
+.drawer img { width: 100%; aspect-ratio: 3 / 2; object-fit: contain; mix-blend-mode: multiply; transition: transform .5s var(--ease); }
+.drawer span { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--rule); font: 500 14px/1.35 var(--display); }
+.drawer b { display: block; font-weight: 500; color: var(--teal); margin-bottom: 3px; }
+.drawer a:hover img { transform: scale(1.04); }
+.drawer a:hover span { color: var(--teal); }
+@media (max-width: 900px) {
+  .drawer { grid-template-columns: repeat(5, minmax(200px, 1fr)); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-right: calc(-1 * var(--gutter)); padding-right: var(--gutter); }
+  .drawer li { scroll-snap-align: start; }
+}
+
+/* ---------- 05 Next ---------- */
+.next-copy { margin-top: 16px; color: var(--text); }
+.process3 { list-style: none; margin: 0 0 clamp(64px, 7vw, 104px); padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); counter-reset: p; }
+.process3 li { border-top: 2px solid var(--ink); padding-top: 18px; position: relative; }
+.process3 li:not(:last-child)::after { content: "→"; position: absolute; right: 0; top: 14px; color: var(--teal); font: 500 18px/1 var(--display); }
+.p-n { font: 600 13px/1 var(--display); color: var(--teal); letter-spacing: .06em; }
+.process3 h3 { font-size: 22px; margin: 12px 0 6px; }
+.process3 p { color: var(--muted); font-size: 16px; }
+@media (max-width: 760px) { .process3 { grid-template-columns: 1fr; } .process3 li::after { display: none; } }
+
+.faq { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.faq-aside { position: sticky; top: calc(var(--nav-h) + 76px); }
+.faq-aside h3 { margin-bottom: 8px; }
+.faq-plate { margin-top: 28px; }
+.faq-list details.more > summary { font-size: 18px; }
+@media (max-width: 900px) { .faq { grid-template-columns: 1fr; } .faq-aside { position: static; } .faq-plate { display: none; } }
+
+/* ---------- Closing ---------- */
+.closing .lead { margin-top: 12px; }
+@media (max-width: 600px) {
+  .explorable-head { flex-direction: column; align-items: flex-start; }
+  .segmented { width: 100%; } .segmented button { flex: 1; }
+  .explorable-key { font-size: 12px; letter-spacing: .04em; }
+}
+
+/* Two-line headlines in split layouts keep their phrases whole. */
+.split-h2 { font-size: clamp(32px, 3.1vw, 46px); }
+@media (max-width: 900px) { .split-h2 br { display: none; } }
+/* The sticky FAQ column forms its own layer; give it the band color so the plate's paper blends away. */
+.faq-aside { background: var(--paper-2); }
+.drawer img { height: auto; }
+
+/* October 4: these values used to sit in style="" attributes on the page. The site's security policy refuses style
+   attributes, so the three labels on the drawing were all stacked in one corner. They live here now. */
+.sprite-sheet { position: absolute; }
+.art-tags li:nth-child(1) { --x: 26%; --y: 9%; }
+.art-tags li:nth-child(2) { --x: 47%; --y: 60%; }
+.art-tags li:nth-child(3) { --x: 73%; --y: 22%; }
+
+/* October 4 (builder pass): in "Sort it by color" view, name the three bars so color is not the only clue. */
+.band-key { display: flex; visibility: hidden; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 16px; margin: 4px 0 2px; font: 600 12px/1.3 var(--display); color: var(--muted); }
+#explorable[data-mode="sort"] .band-key { visibility: visible; } /* space is kept, so nothing jumps when the view switches */
+.band-key span { display: inline-flex; align-items: center; gap: 6px; }
+.band-key .band-key-label { font-weight: 500; }
+.band-key .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; border: 1px solid var(--ink); }
+.band-key .sw-420 { background: #8fa1ed; }
+.band-key .sw-620 { background: #fec867; }
+.band-key .sw-950 { background: #ee7375; }
+
+/* October 4 (refix pass). Phones: the on-page map fades at its right edge so it reads as scrollable, and the
+   explorable key keeps "Non-cancer" in one piece. */
+@media (max-width: 860px) {
+  .page-map .shell { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); padding-right: 40px; }
+}
+@media (max-width: 600px) {
+  .explorable-key { font-size: 11px; letter-spacing: .03em; gap: 8px; }
+  .explorable-key span { white-space: nowrap; }
+}
+
+/* October 4 (round 2). */
+/* Step 3's detector is a concept render, labeled as one (as the QSense and LuminAI cards are). */
+.step-art .art-label { position: absolute; top: 0; left: 0; font-size: 13px; line-height: 1.3; color: var(--muted); }
+@media (max-width: 520px) { .step-art .art-label { font-size: 11.5px; } }
+/* "On this page": the scrolling strip clipped the focus ring. Each link's box now reaches 8px past its words (the
+   words do not move), so the ring sits inside the box; on phones the strip runs to the screen edge so the first link
+   has room. The underline still spans the words only. */
+.page-map a { padding-inline: 8px; margin-inline: -8px; }
+.page-map a::after { left: 8px; right: 8px; }
+.page-map a:focus-visible { outline-offset: -2px; }
+@media (max-width: 860px) { .page-map .shell { width: auto; margin-inline: 0; padding-left: var(--gutter); padding-right: calc(var(--gutter) + 40px); } }
+/* Phones, "Count all the light": the line kept for the bar key wrapped to two lines and left an empty band. The key
+   now fits on one line ("Bars:") and tucks into the blank paper under the drawing's baseline. */
+@media (max-width: 600px) {
+  .band-key .bk-long { display: none; }
+  .band-key { position: relative; margin-top: -16px; }
+}
+
+/* October 4 (round 2, second fixer pass). Layout only. */
+/* "Bars, left to right:" read "Bars , left to right :" above 600px: the swatch rule (inline-flex with a 6px gap) also
+   applied to the label, putting gaps between its three pieces. The label is now plain text. */
+.band-key .band-key-label { display: inline; }
+/* Above 860px the "On this page" strip (52px and its rule) is sticky under the nav. Sections have their own top
+   padding, but a link straight to the explorable or a study card landed with its heading under the strip. */
+@media (min-width: 861px) { .explorable, .study { scroll-margin-top: 53px; } }
