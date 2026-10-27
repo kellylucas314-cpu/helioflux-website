@@ -8,6 +8,14 @@
  const progress=root.querySelector('.hf-growth-progress span'), status=root.querySelector('.hf-growth-status');
  const toggle=root.querySelector('.hf-growth-mode'), stills=root.querySelector('.hf-growth-static');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ // A caption's last paragraph (after a blank line) is its punchline, set larger and bolder.
+ const setCaption=(el,text)=>{
+   if(el.dataset.text===text) return;
+   const parts=text.split('\n\n');
+   el.textContent=parts[0];
+   if(parts.length>1){const punch=document.createElement('strong');punch.className='hf-growth-punch';punch.textContent=parts.slice(1).join('\n\n');el.append(punch);}
+   el.dataset.text=text;
+ };
  let reading=false, ready=false, loading=false, active=false, pending=0, lastWidth=innerWidth, lastHeight=innerHeight, shortViewport=innerHeight<=540;
  // Freeze runway and sticky viewport height until width/orientation changes.
  // Mobile toolbar expansion must never rewind the biological timeline.
@@ -65,7 +73,7 @@
    for(const [selector,key] of [['.hf-growth-title','title'],['.hf-growth-caption','caption']]){
      const field=probe.querySelector(selector);field.style.minHeight='0';field.style.height='auto';
      let maximum=0;
-     for(const item of data.readingBeats){field.textContent=item[key];maximum=Math.max(maximum,field.getBoundingClientRect().height);}
+     for(const item of data.readingBeats){if(key==='caption'){delete field.dataset.text;setCaption(field,item[key]);}else field.textContent=item[key];maximum=Math.max(maximum,field.getBoundingClientRect().height);}
      const real=story.querySelector(selector);real.style.minHeight='0';real.style.height=Math.ceil(maximum)+'px';
    }
    probe.remove();
@@ -106,7 +114,7 @@
    const state=art.draw(canvas,position,{stabilize:true});
    const frame=art.frames[state.dominant];
    if(root.dataset.frame!==String(state.dominant+1)){
-     title.textContent=frame.title;caption.textContent=frame.caption;
+     title.textContent=frame.title;setCaption(caption,frame.caption);
      beat.textContent='GROWTH '+String(frame.readingBeat).padStart(2,'0')+' / '+data.readingBeats.length;
      canvas.setAttribute('aria-label',frame.visible);
      root.dataset.frame=String(state.dominant+1);root.dataset.beat=String(frame.readingBeat);
