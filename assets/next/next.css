@@ -344,6 +344,29 @@ details.more .more-body a { font-weight: 500; }
 .footer-links a:hover { color: var(--teal-night); text-decoration: underline; }
 .footer-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule-night); color: var(--on-night-muted); font-size: 13px; }
 
+/* ---------- Nature feature: on the timeline (its latest entry) and near the top of Science ---------- */
+.nature-feature { padding: clamp(64px, 8vw, 112px) 0; border-top: 1px solid var(--rule); }
+.nature-feature-header { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--ink); }
+.nature-feature-header .eyebrow { margin-bottom: 6px; }
+.nature-publication { font: 600 15px/1.2 var(--display); letter-spacing: .02em; color: var(--ink); }
+.nature-byline { text-align: right; font-size: 13.5px; color: var(--muted); }
+.nature-byline span { font: 600 11px/1 var(--display); letter-spacing: .14em; color: var(--teal); }
+.nature-byline p { margin: 4px 0 2px; color: var(--ink); font-weight: 500; }
+.nature-feature-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding-top: clamp(28px, 4vw, 48px); }
+.nature-feature-copy h2 { font-size: clamp(23px, 2.1vw, 30px); line-height: 1.22; margin-bottom: 16px; }
+.nature-feature-copy p:not(.eyebrow) { font-size: 17px; }
+.nature-read { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; min-height: 48px; padding: 0 26px; border: 1px solid var(--ink); border-radius: var(--r-control); color: var(--ink); text-decoration: none; font: 500 15px/1 var(--display); }
+.nature-read:hover { background: var(--ink); color: var(--paper); }
+.coverage-note { margin-top: 14px; font-size: 13.5px !important; color: var(--muted); }
+.nature-editorial { margin: 0; }
+.nature-editorial img { width: 100%; height: auto; mix-blend-mode: multiply; }
+.nature-editorial figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+@media (max-width: 860px) { .nature-feature-grid { grid-template-columns: 1fr; } .nature-feature-header { flex-direction: column; align-items: start; } .nature-byline { text-align: left; } }
+
+/* On Science it opens the page as a cream band, right under the page map, with a bigger headline */
+.nature-feature.band { border-top: 0; }
+.science-page .nature-feature-copy h2 { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.15; }
+
 /* ---------- Reveal on scroll ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
