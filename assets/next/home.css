@@ -135,7 +135,8 @@
 .hc-panel { flex: 0 0 100%; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: center; scroll-snap-align: start; }
 .hc-img { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-image); background: var(--rule); }
 .hc-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.hc-img img.hc-left { object-position: left center; }
+/* The breast-care photo shows whole, at its own shape, so both the clinic sign and Dr. Lomis on the right stay in. */
+.hc-img:has(.hc-full) { aspect-ratio: 1280 / 733; }
 .hc-status { display: flex; align-items: center; gap: 8px; margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
 .hc-status::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
 .hc-text h3 { margin: 14px 0 16px; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.08; }
