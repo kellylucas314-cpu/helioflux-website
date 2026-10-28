@@ -76,17 +76,20 @@
 .home-quote figcaption b { color: var(--ink); font-weight: 600; }
 .home-research-link { margin-top: 32px; }
 
-.home-photo { margin-top: clamp(56px, 6vw, 96px); margin-bottom: 0; }
+.home-photo { margin-top: clamp(56px, 6vw, 96px); margin-bottom: clamp(56px, 6vw, 96px); }
 .home-photo img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: center 35%; border-radius: var(--r-image); }
 
-/* 04 What it can detect */
-.home-detect-title { margin-bottom: clamp(40px, 5vw, 64px); }
-.detect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); }
-.detect { border-top: 1px solid var(--ink); padding-top: 18px; }
-.detect-img img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center top; border-radius: var(--r-image); }
-.detect-status { margin-top: 20px; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
-.detect h3 { margin: 10px 0 14px; }
-.detect p:not(.detect-status) { font-size: 17px; color: var(--text); }
+/* 03 Evidence so far: the science page's stage line */
+.home-stages { margin-top: clamp(40px, 5vw, 64px); }
+#evidence .home-research-link { margin-top: clamp(32px, 4vw, 48px); }
+
+/* 04 The next study: the three steps, then where the first studies start, as text rows, no stock photos */
+#next-study .process3 { margin-top: clamp(40px, 5vw, 64px); margin-bottom: 0; }
+.start-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.start { border-top: 1px solid var(--ink); padding-top: 18px; }
+.detect-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.start h3 { margin: 10px 0 10px; font-size: clamp(22px, 2vw, 26px); }
+.start p:not(.detect-status) { font-size: 17px; color: var(--text); }
 
 /* 05 The team */
 .home-team { align-items: start; }
@@ -134,7 +137,7 @@
   .home-hero .hero-video { width: min(78vw, 420px); justify-self: center; margin-top: 8px; }
   .home-hero .hero-content { padding-top: 8px; }
   .home-hero .cell-pause { bottom: 14px; }
-  .detect-grid { grid-template-columns: 1fr; gap: 48px; }
+  .start-list { grid-template-columns: 1fr; gap: 32px; }
 }
 @media (max-width: 760px) {
   .hf-scan-steps { grid-template-columns: 1fr; gap: 32px; }
@@ -176,3 +179,13 @@
 .home-page .detect-status, .home-page .person-role, .home-page .platform-status, .home-page .hf-growth-beat { color: var(--ink) !important; }
 .home-page .hf-sig-accent, .home-page .hf-scan-steps li:last-child .hf-scan-num, .home-page .survival-col.early .survival-num { color: var(--teal-display); }
 .home-page .hf-sig-accent { font-weight: 600; }
+
+/* Hero on a phone: more air around the headline, and the deck request as a full-width main button */
+@media (max-width: 640px) {
+  .home-hero { padding-top: 56px; }
+  .home-hero h1 { font-size: clamp(42px, 12.4vw, 54px); line-height: 1.04; }
+  .home-hero .lead { margin-top: 22px; }
+  .home-hero .hero-actions { flex-direction: column; align-items: flex-start; gap: 20px; margin-top: 32px; }
+  .home-hero .hero-actions .button { width: 100%; justify-content: center; }
+}
+@media (max-width: 760px) { .home-page .platform-art { max-width: 240px; } }
