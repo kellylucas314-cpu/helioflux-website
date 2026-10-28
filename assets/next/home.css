@@ -320,6 +320,8 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 
 /* On the home page the "On this page" map sits under the hero and scrolls away with it, so only one bar stays on top */
 .home-page .page-map { position: relative; top: auto; }
+/* Everything under it is centered, so the map is too wherever it fits on one line (Kelly, Oct 28: it looked off center) */
+@media (min-width: 861px) { .home-page .page-map .shell { justify-content: center; } }
 
 
 /* One teal family on the home page. The wordmark takes the brand cyan everywhere, big accent words on paper
