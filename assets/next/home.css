@@ -40,8 +40,6 @@
 /* The growth chapter works exactly as on the live site (home-polish-20260917.css): the same centred heading,
    the heading and scene travel as one group centred in the pin, the same runway and colors. */
 .hf-growth-chapter { border-top: 0; }
-/* A thin shell-width line where the numbers end and the growth story starts, the same tone as the line between the numbers */
-.home-page .hf-growth-chapter::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin-inline: auto; background: var(--rule-strong); }
 .home-page .hf-growth-heading { justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 14px; }
 .home-page .hf-growth-heading h2 { font: 400 clamp(24px, 2.7vw, 38px)/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); text-align: center; text-wrap: wrap; }
 .home-page .hf-growth-heading h2 .hf-nb { white-space: nowrap; }
@@ -55,23 +53,37 @@
 .home-page #probProgression .hf-growth-title { font-weight: 400; letter-spacing: -.03em; }
 .home-page .hf-growth-caption { color: #16263a; }
 /* One palette: the tumor story takes the page's paper, navy and gray instead of its own near-copies of them */
-.home-page .hf-growth-chapter, .home-page #probProgression { --growth-paper: var(--paper); --growth-ink: var(--ink); --growth-muted: var(--muted); background: var(--paper); }
+/* The growth story is its own chapter on the pale tint band, so it reads apart from the survival numbers above it
+   (Kelly, Oct 28: the two sections ran together). */
+.home-page .hf-growth-chapter, .home-page #probProgression { --growth-paper: var(--teal-tint); --growth-ink: var(--ink); --growth-muted: var(--muted); background: var(--teal-tint); }
+.home-page .hf-growth-chapter { padding-top: clamp(24px, 3vw, 48px); }
 .home-page .hf-growth-progress { background: var(--rule); }
 .home-page .hf-growth-evidence, .home-page .hf-growth-static figure { border-color: var(--rule); }
 /* The art was drawn on the old, slightly lighter cream; darken lets the paper show through so the frame has no box */
 .home-page :is(.hf-growth-canvas, .hf-growth-poster, .hf-growth-static-canvas, .hf-growth-still-art img) { mix-blend-mode: darken; }
 .home-page .hf-growth-progress span { background: var(--cyan); }
+/* Under every step: is it on a standard scan yet? Not until the last one, so the ~1 cm point lands at each step (Kelly, Oct 28) */
+.home-page .hf-growth-scan { display: flex; align-items: center; gap: 10px; margin: 16px 0 0; font: 500 15px/1.4 var(--body); color: var(--muted); }
+.home-page .hf-growth-scan-dot { flex: none; width: 10px; height: 10px; border: 1.5px solid currentColor; border-radius: 50%; transition: background-color .3s ease, border-color .3s ease; }
+.home-page .hf-growth-scan[data-seen="true"] { color: var(--ink); }
+.home-page .hf-growth-scan[data-seen="true"] .hf-growth-scan-dot { background: var(--cyan); border-color: var(--cyan); }
+.home-page .hf-growth-static .hf-growth-scan { margin-top: 14px; font-size: 14px; }
 @media (max-width: 600px) {
   .home-page .hf-growth-heading h2 { font-size: 22px; }
   #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }
 }
 
-/* Bridge: the microscope film of cells in a dish behind one line, under a navy veil (home.js plays it in view) */
-.home-bridge { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; min-height: clamp(260px, 34vh, 340px); padding: clamp(64px, 9vh, 104px) 0; text-align: center; }
-.home-bridge-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: .7; filter: saturate(.45); }
-.home-bridge::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgba(8, 36, 50, .42), rgba(8, 36, 50, .74)); }
+/* Bridge: our 3D cell rounds up, divides and gives off faint light, on the night ground (home.js plays it in view).
+   The film is framed with empty night above the cell, so the line sits at the top and the cell below it. */
+.home-bridge { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: flex-start; height: min(56.25vw, 88vh); min-height: 420px; padding: clamp(56px, 7.5vw, 112px) 0 0; text-align: center; background: var(--night); }
+.home-bridge-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%; }
+.home-bridge::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(8, 36, 50, .7), rgba(8, 36, 50, 0) 30%), radial-gradient(ellipse 75% 85% at 50% 62%, rgba(8, 36, 50, 0) 55%, rgba(8, 36, 50, .75)); }
 .home-bridge .shell { width: 100%; }
 .home-bridge p { margin: 0 auto; font: italic 400 clamp(26px, 3vw, 42px)/1.25 var(--display); letter-spacing: -.01em; color: #fff; max-width: 26ch; text-wrap: balance; }
+@media (max-width: 700px) {
+  .home-bridge { height: 125vw; min-height: 0; padding-top: 44px; }
+  .home-bridge-film { object-position: 50% 100%; }
+}
 
 /* 02 The science: centered, with the cell film straight under the words, in teal and navy ink */
 #solution .kicker { justify-content: center; }
@@ -135,12 +147,14 @@
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
 .home-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
+/* The systems drawing sits under the two cards, so text separates it from the light-signature film above (Kelly, Oct 28) */
+.home-systems .signal-path__art { margin-top: clamp(48px, 6vw, 88px); }
 .home-research-link { margin-top: 32px; }
 
 /* Full-width microscope photo, as on the live page, drifting a little slower than the page (home.js) */
 .home-photo-break { position: relative; height: clamp(300px, 41vw, 720px); margin: 0; overflow: hidden; background: var(--night); }
 /* Tall enough to show the whole photo with Nirosha's head in frame; it is anchored at the top and only drifts a little */
-.home-photo-break img { position: absolute; left: 0; top: -2.5%; width: 100%; height: 105%; object-fit: cover; object-position: 50% 0; filter: hue-rotate(-22deg) saturate(.7); will-change: transform; }
+.home-photo-break img { position: absolute; left: 0; top: -2.5%; width: 100%; height: 105%; object-fit: cover; object-position: 50% 0; filter: hue-rotate(-22deg) saturate(.62) brightness(.8) contrast(.94); will-change: transform; }
 
 /* 03 Published research: the studies as a timeline, each dated stage linked to its paper, then the press as a row of names.
    What each study found lives on the science page. */
@@ -215,17 +229,24 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .press-logos img { display: block; width: auto; filter: brightness(0) invert(9%) sepia(30%) saturate(1800%) hue-rotate(190deg); opacity: .78; transition: opacity .25s ease; }
 .press-logos img:hover { opacity: 1; }
 .press-logos .logo-nature { height: 27px; }
-.press-logos .logo-sciam { height: 30px; }
-.press-logos .logo-radiolab { height: 24px; }
-.press-logos .logo-cellpress { height: 24px; }
-.press-logos .logo-cbcnews { height: 38px; }
-.press-logos .logo-labj { height: 18px; }
+.press-logos .logo-sciam { height: 26px; }
+.press-logos .logo-radiolab { height: 21px; }
+.press-logos .logo-cellpress { height: 21px; }
+.press-logos .logo-cbcnews { height: 33px; }
+.press-logos .logo-labj { height: 15px; }
 .press-link { margin-top: 32px; }
 /* One line for the Nature feature under the logos (the full feature is at the end of the science page) */
 .press-feature { max-width: 62ch; margin: 28px auto 0; font-size: 15px; line-height: 1.6; color: var(--text); text-wrap: balance; }
 .press-feature q { color: var(--ink); }
 .press-feature a { color: var(--teal-label); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .press-feature a:hover { color: var(--ink); }
+/* Nature on its own row, the biggest thing in the press block: logo, the headline at heading size, one link (Kelly, Oct 28) */
+.press-nature { max-width: 860px; margin: clamp(20px, 2.4vw, 32px) auto clamp(40px, 5vw, 64px); padding-bottom: clamp(36px, 4.5vw, 56px); border-bottom: 1px solid var(--rule); text-align: center; }
+.press-nature__logo { display: block; width: auto; height: clamp(34px, 3.6vw, 46px); margin: 0 auto clamp(20px, 2.4vw, 28px); filter: brightness(0) invert(9%) sepia(30%) saturate(1800%) hue-rotate(190deg); }
+.press-nature__quote { margin: 0 auto; }
+.press-nature__quote p { max-width: 25ch; margin: 0 auto; font: 400 clamp(26px, 3.1vw, 42px)/1.18 var(--display); letter-spacing: -.025em; color: var(--ink); text-wrap: balance; }
+.press-nature__meta { margin: 18px 0 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
+.press-nature__link { margin-top: 26px; }
 /* NVIDIA Inception closes the team section (Kelly: at the bottom), one ruled row: the label, then the badge */
 .home-partner { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
 .home-partner .eyebrow { margin: 0; color: var(--ink); }
@@ -299,7 +320,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }
-  .home-bridge { background: #082432 url("../homepage-v2-20260917/assets/bridge-cells-poster.jpg") center / cover; }
+  .home-bridge { background: #082432 url("../homepage-v2-20260917/bridge-mitosis-poster.jpg") 50% 80% / cover; }
   .hc-track { scroll-behavior: auto; }
   .home-photo-break img { transform: none !important; }
 }

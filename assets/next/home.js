@@ -1,6 +1,8 @@
-/* The bridge band: the microscope film loads when the band is near and plays only while it is on screen. */
+/* The bridge band: our 3D cell film loads when the band is near and plays only while it is on screen. */
 (() => {
   const film = document.querySelector('[data-bridge-film]');
+  // Phones get the portrait cut, so they get its poster too.
+  if (film && film.dataset.posterPhone && matchMedia('(max-width: 700px)').matches) film.poster = film.dataset.posterPhone;
   if (!film || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
   film.muted = true;
   let loaded = false;
