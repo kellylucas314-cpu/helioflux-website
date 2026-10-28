@@ -67,9 +67,9 @@
 .home-science h2 em { font-style: italic; }
 .home-science .lead { margin: 22px auto 0; max-width: 48ch; }
 .home-science .lead + p { margin: 14px auto 0; max-width: 56ch; color: var(--text); }
-/* The two kinds of cells in their own colors, pink and violet, as on the live page (no palette filter). */
+/* The two kinds of cells redrawn in the site's colors by the page's SVG palette filter (#hf-signal-palette):
+   normal cells in cyan on the left, cancer cells in navy on the right, from the sharper 1320px film. */
 .home-page .hf-cellular-signals { --signal-paper: var(--paper); --signal-ink: var(--ink); --signal-sage: var(--teal); max-width: 640px; }
-.home-page :is(.hf-cellular-signals__poster, .hf-cellular-signals__video) { filter: none; }
 .home-page .hf-cellular-signals__media { max-width: 580px; margin-inline: auto; }
 .home-page .hf-cellular-signals__caption { margin-top: 24px; font: 500 clamp(21px, 2.2vw, 28px)/1.28 var(--display); font-style: normal; letter-spacing: -.018em; color: var(--ink); max-width: 34ch; }
 .home-page .hf-cellular-signals__caption .hf-sig-line { text-wrap: balance; }

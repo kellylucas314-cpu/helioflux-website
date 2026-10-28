@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261027r2">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=navy-2b-punch-b">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r10">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r11">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -166,6 +166,25 @@
       </div>
 <!-- HELIOFLUX CELLULAR SIGNALS START -->
 <figure class="hf-cellular-signals" data-cellular-signals>
+  <svg class="hf-cellular-signals__filter" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="hf-signal-palette" x="0" y="0" width="1" height="1" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+        <feComponentTransfer in="SourceGraphic" result="normalized">
+          <feFuncR type="linear" slope="1.075"></feFuncR>
+          <feFuncG type="linear" slope="1.075"></feFuncG>
+          <feFuncB type="linear" slope="1.075"></feFuncB>
+        </feComponentTransfer>
+        <feColorMatrix in="normalized" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.2126 -0.7152 -0.0722 0 1" result="ink"></feColorMatrix>
+        <feComponentTransfer in="ink" result="toned"><feFuncA type="gamma" amplitude="1" exponent=".82" offset="0"></feFuncA></feComponentTransfer>
+        <feComposite in="toned" in2="SourceAlpha" operator="in" result="boundedInk"></feComposite>
+        <feFlood x="0" y="0" width=".5" height="1" flood-color="#0796c2" result="sage"></feFlood>
+        <feComposite in="sage" in2="boundedInk" operator="in" result="left"></feComposite>
+        <feFlood x=".5" y="0" width=".5" height="1" flood-color="#143a52" result="navy"></feFlood>
+        <feComposite in="navy" in2="boundedInk" operator="in" result="right"></feComposite>
+        <feMerge><feMergeNode in="left"></feMergeNode><feMergeNode in="right"></feMergeNode></feMerge>
+      </filter>
+    </defs>
+  </svg>
   <div class="hf-cellular-signals__media">
     <img class="hf-cellular-signals__poster" src="assets/homepage-v2-20260917/light-signature-1320-poster.jpg" width="1320" height="1044" decoding="async" alt="Original cellular comparison image: normal-appearing cells with a smooth waveform on the left, and atypical cells with a variable waveform on the right.">
     <video class="hf-cellular-signals__video" loop muted playsinline preload="none" poster="assets/homepage-v2-20260917/light-signature-1320-poster.jpg" width="1320" height="1044" aria-hidden="true" tabindex="-1">
