@@ -23,7 +23,7 @@
   --paper: #F7F6F2;          /* brand Off-White, the page */
   --paper-2: #f5f0eb;        /* brand Warm Cream, alternate bands */
   --wash: #cfe5ec;           /* a pale cyan, for quiet left rules and selection */
-  --wash-2: #e6f1f3;
+  --wash-2: var(--teal-tint);
   /* Ink */
   --ink: #0f1c2e;            /* brand Navy (primary dark): headings, controls */
   --text: #16263A;           /* brand Navy (secondary): body copy on light */
@@ -32,9 +32,9 @@
   --rule-strong: #bfb6a8;
   /* Accent: brand cyan */
   --cyan: #00A9D6;           /* brand accent, non-text marks on light; text on navy */
-  --cyan-glow: #00c9c8;      /* brand logo teal, wordmark on dark only */
+  --cyan-glow: var(--cyan);  /* the wordmark takes the brand cyan on dark too, one cyan across the site */
   --teal: #006d8b;           /* the brand cyan deepened for text and focus on cream: 5.2:1 on Warm Cream */
-  --teal-ink: #005a73;
+  --teal-ink: var(--ink);    /* hover and text on the pale tint go navy, so there is one deep teal */
   --teal-tint: #e0f0f4;
   /* Dark sections: hero, closing band, footer */
   --night: #082432;          /* the measurement artwork's own ground, so the hero drawing shows no box;

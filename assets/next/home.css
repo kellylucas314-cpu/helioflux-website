@@ -48,7 +48,12 @@
 #probProgression:not(.hf-growth-is-reading) .hf-growth-scene { flex: 0 0 auto; margin-bottom: auto; }
 .home-page #probProgression :is(.hf-growth-title, .hf-growth-caption, .hf-growth-beat) { text-wrap: wrap; }
 .home-page .hf-growth-caption { color: #16263a; }
-.home-page .hf-growth-progress { background: #d4dce3; }
+/* One palette: the tumor story takes the page's paper, navy and gray instead of its own near-copies of them */
+.home-page .hf-growth-chapter, .home-page #probProgression { --growth-paper: var(--paper); --growth-ink: var(--ink); --growth-muted: var(--muted); background: var(--paper); }
+.home-page .hf-growth-progress { background: var(--rule); }
+.home-page .hf-growth-evidence, .home-page .hf-growth-static figure { border-color: var(--rule); }
+/* The art was drawn on the old, slightly lighter cream; darken lets the paper show through so the frame has no box */
+.home-page :is(.hf-growth-canvas, .hf-growth-poster, .hf-growth-static-canvas, .hf-growth-still-art img) { mix-blend-mode: darken; }
 .home-page .hf-growth-progress span { background: var(--cyan); }
 @media (max-width: 600px) {
   .home-page .hf-growth-heading h2 { font-size: 22px; }
@@ -78,7 +83,7 @@
 .home-page .hf-cellular-signals__caption .hf-sig-line { text-wrap: balance; }
 .home-page .hf-sig-line { display: block; }
 .home-page .hf-sig-accent { color: var(--teal); }
-.home-page .hf-cellular-signals__toggle { border-radius: var(--r-control); font: 500 14px/1.25 var(--body); color: var(--text); }
+.home-page .hf-cellular-signals__toggle { border-color: var(--rule-strong); border-radius: var(--r-control); font: 500 14px/1.25 var(--body); color: var(--text); }
 /* Heading and whole film on one laptop screen: the film's empty top fifth is cropped off, the film shrinks on short
    screens (sized by the screen's height as well as its width), and the pause control moves under the caption. */
 .home-page .hf-cellular-signals { display: flex; flex-direction: column; }
@@ -106,14 +111,14 @@
 #two-systems .signal-path { max-width: 1040px; margin: 0 auto; overflow: hidden; border-radius: var(--r-image); background: var(--night); color: var(--on-night); }
 .signal-path__stage { position: relative; height: clamp(230px, 27vw, 330px); }
 .signal-path__stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.signal-path__tag { display: none; position: absolute; left: 5%; bottom: 12px; font: 600 11px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #7dd4f0; }
+.signal-path__tag { display: none; position: absolute; left: 5%; bottom: 12px; font: 600 11px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
 .signal-path__tag--right { left: 54%; }
 .signal-path__pause { position: absolute; top: 12px; right: 12px; min-height: 32px; padding: 0 14px; border: 1px solid rgba(255,255,255,.28); border-radius: var(--r-control); background: transparent; color: var(--on-night); font: 500 13px/1 var(--display); cursor: pointer; }
 .signal-path__pause:hover { border-color: var(--cyan); color: #fff; }
 .signal-path__systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-night); }
 .signal-path__system { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 40px); }
 .signal-path__system + .signal-path__system { border-left: 1px solid var(--rule-night); }
-.system-kind, .system-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #7dd4f0; }
+.system-kind, .system-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
 #two-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: #fff; }
 #two-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--cyan); }
 .signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--on-night); }
@@ -126,7 +131,7 @@
 .home-research-link { margin-top: 32px; }
 
 /* Full-width microscope photo, as on the live page, drifting a little slower than the page (home.js) */
-.home-photo-break { position: relative; height: clamp(280px, 36vw, 500px); margin: 0; overflow: hidden; background: #16274a; }
+.home-photo-break { position: relative; height: clamp(280px, 36vw, 500px); margin: 0; overflow: hidden; background: var(--night); }
 .home-photo-break img { position: absolute; left: 0; top: -60px; width: 100%; height: calc(100% + 120px); object-fit: cover; object-position: center; filter: hue-rotate(-22deg) saturate(.7); will-change: transform; }
 
 /* 03 Published research: the studies as a timeline, each dated stage linked to its paper, then the press as a row of names.
@@ -253,8 +258,8 @@
 
 
 /* One teal family on the home page. The wordmark takes the brand cyan everywhere, big accent words on paper
-   take a lighter shade of that same hue (3.4:1, for large type only), and small labels keep the deeper one (4:1). */
-.home-page { --teal-display: #0090b8; --teal-label: #0083a8; }
+   take a lighter shade of that same hue (3.4:1, for large type only), and small labels take the shared deep teal (5.2:1). */
+.home-page { --teal-display: #0090b8; --teal-label: var(--teal); }
 .home-page .wordmark span, .home-page .site-nav.on-night .wordmark span, .home-page .site-footer .wordmark span { color: var(--cyan); }
 .home-page .section .soft, .home-page .band .soft, .home-page .home-science h2 em { color: var(--teal-display); }
 .home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-label); font-weight: 600; }
