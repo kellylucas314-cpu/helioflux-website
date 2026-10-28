@@ -45,6 +45,7 @@
 .home-page .hf-growth-heading { justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 14px; }
 .home-page .hf-growth-heading h2 { font: 600 clamp(24px, 2.7vw, 38px)/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); text-align: center; text-wrap: wrap; }
 .home-page .hf-growth-heading h2 .hf-nb { white-space: nowrap; }
+.home-page .nb { white-space: nowrap; }
 .home-page .hf-growth-mode { display: none !important; }
 #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: clamp(20px, 2.2vw, 26px); }
 #probProgression:not(.hf-growth-is-reading) .hf-growth-heading { margin-top: auto; }
