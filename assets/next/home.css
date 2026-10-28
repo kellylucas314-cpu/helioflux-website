@@ -97,11 +97,11 @@
 .home-page .hf-cellular-signals__caption { margin-top: 20px; font-size: clamp(20px, 1.9vw, 26px); max-width: 42ch; }
 
 /* 03 The scan: four steps that fade up in order (home.js) */
-/* The scan steps sit on cream under a thin line; the navy systems band below them breaks up the chapter */
+/* We built the tool to read it: a headline on cream under a thin line, leading straight into the two systems */
 .home-page .home-scan::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin: 0 auto clamp(56px, 6vw, 88px); background: var(--rule-strong); }
 .home-page .home-scan { padding-top: 0; padding-bottom: clamp(56px, 6vw, 88px); }
 /* The two systems on a navy band, as one picture of the signal's path: Kelly's drawing, set moving by home.js.
-   Nirosha's quote sits on the same navy under the cards. The science page explains them with its own drawings. */
+   The science page explains them with its own drawings. */
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
 #two-systems { padding-block: clamp(56px, 6vw, 88px); }
 .home-systems .signal-path { max-width: 1040px; margin: 0 auto; }
@@ -114,7 +114,7 @@
 /* No visible button (Kelly's call); keyboard users still get one when they tab to it, and reduced motion stops it */
 .signal-path__pause { position: absolute; right: 0; bottom: 0; padding: 7px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: var(--r-control); background: var(--night); font: 500 14px/1.25 var(--body); color: var(--on-night); cursor: pointer; opacity: 0; pointer-events: none; }
 .signal-path__pause:focus-visible { opacity: 1; pointer-events: auto; }
-/* Only the title and the drawing sit on navy; the cards and the quote follow on cream, starting close under the band */
+/* Only the title and the drawing sit on navy; the cards follow on cream, starting close under the band */
 .home-page #two-systems .soft { color: var(--teal-night); }
 .home-systems { padding-top: clamp(56px, 6vw, 88px); }
 .home-systems .signal-path__systems { border-top: 0; }
@@ -130,11 +130,6 @@
 .signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--text); }
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
-/* Nirosha's quote as a quiet pull quote: no box, a short teal rule above, set a size down from the headings */
-.home-systems .home-quote-band { max-width: 760px; margin: clamp(56px, 7vw, 96px) auto 0; padding: 0; text-align: center; }
-.home-quote-band::before { content: ""; display: block; width: 40px; height: 2px; margin: 0 auto clamp(24px, 3vw, 32px); background: var(--cyan); }
-.home-quote-band blockquote { max-width: 34em; margin: 0 auto; font: italic 400 clamp(19px, 1.8vw, 23px)/1.55 var(--display); letter-spacing: -.005em; color: var(--ink); text-wrap: pretty; }
-.home-quote-band figcaption { margin-top: 18px; font: 400 15px/1.5 var(--body); color: var(--muted); }
 .home-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
 .home-research-link { margin-top: 32px; }
 
