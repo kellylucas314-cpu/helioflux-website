@@ -215,6 +215,11 @@
 .press-logos .logo-cbcnews { height: 38px; }
 .press-logos .logo-labj { height: 18px; }
 .press-link { margin-top: 32px; }
+/* One line for the Nature feature under the logos (the full feature is at the end of the science page) */
+.press-feature { max-width: 62ch; margin: 28px auto 0; font-size: 15px; line-height: 1.6; color: var(--text); text-wrap: balance; }
+.press-feature q { color: var(--ink); }
+.press-feature a { color: var(--teal-label); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.press-feature a:hover { color: var(--ink); }
 .partner { margin: 48px auto 0; padding-top: 36px; border-top: 1px solid var(--rule); max-width: 520px; }
 .nvidia-inception { display: inline-block; margin-top: 16px; }
 .nvidia-inception img { height: 60px; width: auto; }   /* the badge without NVIDIA's gray box, so it sits on the cream like the press logos */
