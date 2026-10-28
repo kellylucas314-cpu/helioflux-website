@@ -30,6 +30,8 @@
 .survival-num [data-percent-digits] { width: 1.14em !important; }
 .survival-what { margin: 0; font: 500 17px/1.4 var(--display); color: var(--ink); }
 .survival-when { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
+/* The same air under the numbers as above them, so the thin line before the growth story sits close */
+#problem { padding-bottom: clamp(64px, 6.7vw, 96px); }
 .survival-rule { flex: none; width: 1px; height: clamp(120px, 13vw, 170px); background: var(--rule-strong); }
 
 /* The growth chapter works exactly as on the live site (home-polish-20260917.css): the same centred heading,
@@ -68,7 +70,6 @@
 .home-science h2 { font-size: clamp(38px, 4.4vw, 64px); text-wrap: balance; }
 .home-science h2 em { font-style: italic; }
 .home-science .lead { margin: 22px auto 0; max-width: 48ch; }
-.home-science .lead + p { margin: 14px auto 0; max-width: 56ch; color: var(--text); }
 /* The two kinds of cells redrawn in the site's colors by the page's SVG palette filter (#hf-signal-palette):
    normal cells in cyan on the left, cancer cells in navy on the right, from the sharper 1320px film. */
 .home-page .hf-cellular-signals { --signal-paper: var(--paper); --signal-ink: var(--ink); --signal-sage: var(--teal); max-width: 640px; }
@@ -77,7 +78,15 @@
 .home-page .hf-cellular-signals__caption .hf-sig-line { text-wrap: balance; }
 .home-page .hf-sig-line { display: block; }
 .home-page .hf-sig-accent { color: var(--teal); }
-.home-page .hf-cellular-signals__toggle { border-radius: var(--r-control); }
+.home-page .hf-cellular-signals__toggle { border-radius: var(--r-control); font: 500 14px/1.25 var(--body); color: var(--text); }
+/* Heading and whole film on one laptop screen: the film's empty top fifth is cropped off, the film shrinks on short
+   screens (sized by the screen's height as well as its width), and the pause control moves under the caption. */
+.home-page .hf-cellular-signals { display: flex; flex-direction: column; }
+.home-page .hf-cellular-signals__media { aspect-ratio: 1320 / 830; width: min(100%, 580px, calc((100vh - 480px) * 1.59)); width: min(100%, 580px, calc((100svh - 480px) * 1.59)); min-width: min(100%, 400px); }
+.home-page .hf-cellular-signals__poster, .home-page .hf-cellular-signals__video { object-fit: cover; object-position: 50% 100%; }
+.home-page .hf-cellular-signals__controls { order: 3; margin-top: 14px; }
+.home-page .hf-cellular-signals { max-width: 760px; }
+.home-page .hf-cellular-signals__caption { margin-top: 20px; font-size: clamp(20px, 1.9vw, 26px); max-width: 42ch; }
 
 /* 03 The scan: four steps that fade up in order (home.js) */
 .hf-scan-steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 40px); margin: clamp(48px, 6vw, 80px) 0 0; padding: 0; }

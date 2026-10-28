@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261027r2">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=navy-2b-punch-c">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r14">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r15">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -161,8 +161,7 @@
       <div class="kicker"><b>02</b><span>Our approach</span></div>
       <div class="home-science">
         <h2 id="science-title">Cancer has a <em class="soft">light signature.</em></h2>
-        <p class="lead">Cells emit very faint light during metabolism. In laboratory and animal studies, cancer and comparison cells showed differences in their light emissions. HelioFlux is investigating whether those differences could support earlier cancer detection.</p>
-        <p>Dr. Nirosha J. Murugan spent a decade building the technology that reads these signals.</p>
+        <p class="lead">Cells emit faint light as they metabolize. In lab and animal studies, cancer cells&rsquo; light differed from comparison cells. HelioFlux is investigating whether that difference could support earlier detection.</p>
       </div>
 <!-- HELIOFLUX CELLULAR SIGNALS START -->
 <figure class="hf-cellular-signals" data-cellular-signals>
@@ -177,8 +176,9 @@
         <feColorMatrix in="normalized" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.2126 -0.7152 -0.0722 0 1" result="ink"></feColorMatrix>
         <feComponentTransfer in="ink" result="toned"><feFuncA type="gamma" amplitude="1" exponent=".82" offset="0"></feFuncA></feComponentTransfer>
         <feComposite in="toned" in2="SourceAlpha" operator="in" result="boundedInk"></feComposite>
-        <feFlood x="0" y="0" width=".5" height="1" flood-color="#0796c2" result="sage"></feFlood>
-        <feComposite in="sage" in2="boundedInk" operator="in" result="left"></feComposite>
+        <feFlood x="0" y="0" width=".5" height="1" flood-color="#0090b8" result="sage"></feFlood>
+        <feComposite in="sage" in2="boundedInk" operator="in" result="leftPale"></feComposite>
+        <feComponentTransfer in="leftPale" result="left"><feFuncA type="gamma" amplitude="1" exponent=".85" offset="0"></feFuncA></feComponentTransfer>
         <feFlood x=".5" y="0" width=".5" height="1" flood-color="#143a52" result="navy"></feFlood>
         <feComposite in="navy" in2="boundedInk" operator="in" result="right"></feComposite>
         <feMerge><feMergeNode in="left"></feMergeNode><feMergeNode in="right"></feMergeNode></feMerge>
