@@ -33,7 +33,7 @@
 /* The same air under the numbers as above them, so the thin line before the growth story sits close */
 #problem { padding-bottom: clamp(64px, 6.7vw, 96px); }
 /* Right after a dark band or photo, its edge already divides the page: the label drops its line and the section starts closer */
-#problem, #solution, #two-systems, #evidence { padding-top: clamp(56px, 6vw, 88px); }
+#problem, #solution, #evidence { padding-top: clamp(56px, 6vw, 88px); }
 :is(#problem, #solution, #evidence) > .shell > .kicker { padding-top: 0; border-top: 0; }
 .survival-rule { flex: none; width: 1px; height: clamp(120px, 13vw, 170px); background: var(--rule-strong); }
 
@@ -106,25 +106,37 @@
 .js .hf-scan-steps .hf-scan-rule { transform: scaleX(0); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * .55s + .45s); }
 .js .hf-scan-steps li.in { opacity: 1; transform: none; }
 .js .hf-scan-steps li.in .hf-scan-rule { transform: none; }
-/* The scan steps get their own pale teal band, so the long approach chapter breaks into film, steps and systems */
-.home-scan { background: var(--teal-tint); }
-.home-scan .hf-scan-rule { background: rgba(15, 28, 46, .22); }
-/* The two systems as one picture of the signal's path (home.js draws it): light specks leave the cells, QSense
-   counts each one as it lands, and LuminAI sorts the counts by color into three lanes and keeps their timing.
-   Nirosha's quote sits on the same navy right under it. The science page explains them with its own drawings. */
+/* The scan steps sit on cream under a thin line; the navy systems band below them breaks up the chapter */
+.home-page .home-scan::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin: 0 auto clamp(56px, 6vw, 88px); background: var(--rule-strong); }
+.home-page .home-scan { padding-top: 0; }
+/* The two systems on a navy band, as one picture of the signal's path: Kelly's drawing, set moving by home.js.
+   Nirosha's quote sits on the same navy under the cards. The science page explains them with its own drawings. */
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
 #two-systems .signal-path { max-width: 1040px; margin: 0 auto; }
-/* The drawing was made on white; darken lets the band's cream show through so it sits on the page with no box */
-.signal-path__art { margin: clamp(8px, 1.5vw, 20px) 0 clamp(32px, 4vw, 52px); }
-.signal-path__art img { display: block; width: 100%; height: auto; mix-blend-mode: darken; }
+/* Kelly's drawing on the band's own navy, so it shows no box; the canvas (home.js) lies over it and takes over
+   once its pictures load, with the still drawing left for reduced motion and no JS */
+.signal-path__art { position: relative; margin: clamp(8px, 1.5vw, 20px) 0 0; }
+.signal-path__art img { display: block; width: 100%; height: auto; }
+.signal-path__art canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .4s ease; }
+.signal-path__art.is-live canvas { opacity: 1; }
+.signal-path__controls { min-height: 34px; margin: 12px 0 clamp(28px, 3.4vw, 44px); text-align: center; }
+.signal-path__pause { padding: 7px 14px; border: 1px solid rgba(255, 255, 255, .3); border-radius: var(--r-control); background: transparent; font: 500 14px/1.25 var(--body); color: var(--on-night); cursor: pointer; }
+.signal-path__pause:hover { border-color: var(--on-night); }
+/* The systems band is navy: white words, cyan accents, soft white rules */
+.home-page #two-systems .soft, #two-systems .system-kind, #two-systems .system-status { color: var(--teal-night); }
+#two-systems .signal-path__systems { border-top-color: var(--rule-night); }
+#two-systems .signal-path__system + .signal-path__system { border-color: var(--rule-night); }
+#two-systems .signal-path__system p:not([class]) { color: var(--on-night); }
+#two-systems .home-quote-band blockquote { color: var(--on-night); }
+#two-systems .home-quote-band figcaption { color: var(--on-night-muted); }
 .signal-path__systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
 .signal-path__system { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 36px) clamp(20px, 3vw, 40px) 0; }
 .signal-path__system:first-child { padding-left: 0; }
 .signal-path__system:last-child { padding-right: 0; }
 .signal-path__system + .signal-path__system { border-left: 1px solid var(--rule); }
 .system-kind, .system-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--teal); }
-#two-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: var(--ink); }
-#two-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--teal); }
+#two-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: var(--on-night); }
+#two-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--teal-night); }
 .signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--text); }
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }

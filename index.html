@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261028r3">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=navy-2b-punch-c">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r24">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r25">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -221,13 +221,15 @@
   </section>
 
   <!-- 02 Our approach, continued: the two systems -->
-  <section class="section" id="two-systems" aria-labelledby="systems-title">
+  <section class="section night" id="two-systems" aria-labelledby="systems-title">
     <div class="shell">
       <h3 class="home-systems-title" id="systems-title">Two systems. <span class="soft">One signal.</span></h3>
       <div class="signal-path reveal">
-        <figure class="signal-path__art">
-          <img src="assets/next/signal-path-drawing.webp" srcset="assets/next/signal-path-drawing-1000.webp 1000w, assets/next/signal-path-drawing.webp 1874w" sizes="(max-width: 1100px) 100vw, 1040px" width="1874" height="564" loading="lazy" decoding="async" alt="Line drawing: faint light given off by a cluster of cells drifts to a detector panel, and the counts it records come out as three lanes of bars, one for each color.">
+        <figure class="signal-path__art" data-signal-path data-base="assets/next/signal-path-night-base.webp" data-parts="assets/next/signal-path-night-parts.webp">
+          <img src="assets/next/signal-path-night.webp" srcset="assets/next/signal-path-night-1000.webp 1000w, assets/next/signal-path-night.webp 1856w" sizes="(max-width: 1100px) 100vw, 1040px" width="1856" height="540" loading="lazy" decoding="async" alt="Line drawing on navy: faint light given off by a cluster of cells drifts to a detector panel, and the counts it records come out as three lanes of bars, one for each color.">
+          <canvas aria-hidden="true"></canvas>
         </figure>
+        <p class="signal-path__controls"><button class="signal-path__pause" type="button" aria-pressed="false" hidden>Pause animation</button></p>
         <div class="signal-path__systems">
           <article class="signal-path__system">
             <p class="system-kind">Hardware</p>
@@ -422,6 +424,6 @@
 <script src="assets/homepage-v2-20260917/percent.js"></script>
 <script src="assets/homepage-v2-20260917/hero-photons.js?v=20261028h"></script>
 <script src="assets/homepage-v2-20260917/hero-motion.js"></script>
-<script src="assets/next/home.js?v=20261028r4"></script>
+<script src="assets/next/home.js?v=20261028r9"></script>
 </body>
 </html>
