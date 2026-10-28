@@ -35,6 +35,8 @@
 /* The growth chapter works exactly as on the live site (home-polish-20260917.css): the same centred heading,
    the heading and scene travel as one group centred in the pin, the same runway and colors. */
 .hf-growth-chapter { border-top: 0; }
+/* A thin shell-width line where the numbers end and the growth story starts, the same tone as the line between the numbers */
+.home-page .hf-growth-chapter::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin-inline: auto; background: var(--rule-strong); }
 .home-page .hf-growth-heading { justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 14px; }
 .home-page .hf-growth-heading h2 { font: 600 clamp(24px, 2.7vw, 38px)/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); text-align: center; text-wrap: wrap; }
 .home-page .hf-growth-heading h2 .hf-nb { white-space: nowrap; }
@@ -128,7 +130,7 @@
 .j-name { font: 400 clamp(22px, 2.3vw, 32px)/1.15 var(--display); letter-spacing: -.02em; text-wrap: balance; transition: color .2s ease; }
 .j-meta { font-size: 14px; color: var(--muted); }
 .j-meta::after { content: " ↗"; }
-.journals a:hover .j-name, .journals a:focus-visible .j-name { color: var(--teal-display); }
+.journals a:hover .j-name, .journals a:focus-visible .j-name { color: var(--teal-label); }
 .home-proof .press-logos { margin-top: 0; }
 .home-proof .partner { margin: 0; max-width: none; padding-top: clamp(28px, 3vw, 40px); }
 .home-proof .home-research-link { margin-top: 8px; padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--rule); text-align: center; }
@@ -247,11 +249,11 @@
 
 
 /* One teal family on the home page. The wordmark takes the brand cyan everywhere, big accent words on paper
-   take a lighter shade of that same hue (4:1, for large type only), and small labels on paper go navy. */
-.home-page { --teal-display: #0083a8; }
+   take a lighter shade of that same hue (3.4:1, for large type only), and small labels keep the deeper one (4:1). */
+.home-page { --teal-display: #0090b8; --teal-label: #0083a8; }
 .home-page .wordmark span, .home-page .site-nav.on-night .wordmark span, .home-page .site-footer .wordmark span { color: var(--cyan); }
 .home-page .section .soft, .home-page .band .soft, .home-page .home-science h2 em { color: var(--teal-display); }
-.home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-display); font-weight: 600; }
+.home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-label); font-weight: 600; }
 .home-page .person-role { color: var(--ink) !important; }
 .home-page .hf-sig-accent, .home-page .hf-scan-steps li:last-child .hf-scan-num, .home-page .survival-col.early .survival-num { color: var(--teal-display); }
 .home-page .hf-sig-accent { font-weight: 600; }

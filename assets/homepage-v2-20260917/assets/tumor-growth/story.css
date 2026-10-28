@@ -40,7 +40,7 @@ html, body { overflow-x: clip !important; }
 .hf-growth-title { color:var(--growth-ink); font:520 clamp(29px,3vw,42px)/1.16 'Plus Jakarta Sans',sans-serif; letter-spacing:-.05em; min-height:2.34em; margin:0 0 20px; }
 .hf-growth-caption { font:400 clamp(18px,1.65vw,22px)/1.55 'DM Sans',sans-serif; color:var(--growth-ink); min-height:7.75em; white-space:pre-line; margin:0; }
 /* The punchline: bigger, bold and in display teal, so it outranks the headline above. */
-.hf-growth-punch { display:block; margin-top:.7em; font:700 clamp(28px,3vw,40px)/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:-.035em; color:#0083a8; white-space:normal; animation:hf-growth-punch .9s ease .35s both; }
+.hf-growth-punch { display:block; margin-top:.7em; font:700 clamp(28px,3vw,40px)/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:-.035em; color:#0090b8; white-space:normal; animation:hf-growth-punch .9s ease .35s both; }
 @keyframes hf-growth-punch { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
 @media (prefers-reduced-motion: reduce) { .hf-growth-punch { animation:none; } }
 .hf-growth-detail { font:400 13px/1.55 'DM Sans',sans-serif; color:var(--growth-muted); min-height:4.65em; margin:16px 0 0; }
