@@ -114,10 +114,12 @@
 .home-tool.night .signal-path__system + .signal-path__system { border-color: var(--rule-night); }
 /* The two systems as one picture of the signal's path: Kelly's drawing, set moving by home.js.
    The science page explains them with its own drawings. */
-/* "We built the tool to read it." centered with its lead under it, like the problem section (Kelly, Oct 28) */
-#how-it-works .split { display: block; max-width: 820px; margin: 0 auto; text-align: center; }
-#how-it-works .split h2 { text-wrap: balance; }
-#how-it-works .split .lead { margin: 22px auto 0; max-width: 48ch; text-wrap: pretty; }
+/* Every section head sits on the center line like 01 and 02: label, heading, then its lead under it
+   (Kelly, Oct 28: "everything is too heavy on the left"). What follows keeps its own layout. */
+:is(#evidence, #next-study, #credibility) > .shell > .kicker { justify-content: center; }
+:is(#how-it-works, #evidence, #next-study) .split { display: block; max-width: 820px; margin-inline: auto; text-align: center; }
+:is(#how-it-works, #evidence, #next-study) .split h2 { text-wrap: balance; }
+:is(#how-it-works, #evidence, #next-study) .split .lead { margin: 22px auto 0; max-width: 48ch; text-wrap: pretty; }
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
 .home-two-systems { margin-top: clamp(64px, 8vw, 112px); }
 .home-systems .signal-path { max-width: 1040px; margin: 0 auto; }
@@ -176,6 +178,16 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .home-proof .press-logos { margin-top: 0; }
 /* The way into the Science page sits right under the section's lead, where it is seen first */
 .home-proof .research-cta { margin-top: 28px; }
+/* Desktop: the timeline sits on the center line under the centered head. Each dot, drawing and caption is centered
+   in its column and the axis runs from the first dot to the last (Kelly, Oct 28: "everything is too heavy on the left") */
+@media (min-width: 721px) {
+  .home-proof .research-stages li:nth-child(n) { padding-inline: 12px; text-align: center; background: none; }
+  .home-proof .research-stages li::before { left: calc(50% - 7.5px); z-index: 1; }
+  .home-proof .research-stages::before, .home-proof .research-stages::after { content: ""; position: absolute; top: 7px; height: 1px; }
+  .home-proof .research-stages::before { left: 12.5%; width: 50%; background: var(--ink); }
+  .home-proof .research-stages::after { left: 62.5%; width: 25%; background: repeating-linear-gradient(90deg, var(--ink) 0 5px, transparent 5px 10px); }
+  .home-proof .stage-art { left: 12px; right: 12px; justify-content: center; }
+}
 
 /* 04 The next study: "Where we're starting", the live page's three photo panels. A row you can swipe;
    the arrows step one panel and the dots follow (home.js). Without JS it is a plain scrolling row. */
@@ -205,6 +217,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .hc-dots { display: flex; align-items: center; gap: 6px; }
 .hc-dots span { width: 16px; height: 2px; border-radius: 2px; background: var(--line); transition: background .3s ease, width .3s var(--ease); }
 .hc-dots span.is-active { width: 36px; background: var(--ink); }
+#next-study .home-carousel > .eyebrow { text-align: center; }
 #next-study .home-research-link { margin-top: clamp(32px, 4vw, 48px); text-align: center; }   /* under the centered arrows */
 
 /* 05 The team */
@@ -212,10 +225,13 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
    space). The bios and the advisors live on the team page. */
 #credibility { padding-block: clamp(64px, 7vw, 104px); background: var(--slate-tint); }   /* Kelly: a pale band in the accent's own family */
 .js #credibility .reveal { background-color: transparent; }   /* photos only here, nothing multiplied, so the fade needs no cream backing */
-.home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 3.6vw, 48px); }
-.home-team-head h2 { margin: 0; }
-.home-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
-.home-people img { display: block; width: clamp(104px, 9vw, 128px); height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 16%; border-radius: 50%; background: var(--portrait); }
+.home-team-head { margin-bottom: clamp(36px, 4vw, 56px); text-align: center; }
+.home-team-head h2 { margin: 0; text-wrap: balance; }
+/* Each portrait is cut square with the eyes on one line and the faces one size (the *-round files) */
+.home-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); text-align: center; }
+.home-people img { display: block; width: clamp(120px, 11.5vw, 168px); height: auto; aspect-ratio: 1; margin: 0 auto; object-fit: cover; border-radius: 50%; background: var(--portrait); }
+.home-people .hf-nb { white-space: nowrap; }
+.home-team-link { margin: clamp(36px, 4vw, 52px) 0 0; text-align: center; }
 .home-people h3 { margin: 18px 0 0; font-size: clamp(18px, 1.4vw, 21px); line-height: 1.25; letter-spacing: -.015em; }
 .person-role { margin: 6px 0 0; font: 600 12px/1.45 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
 
@@ -243,16 +259,17 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .press-nature__meta { margin: 18px 0 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .press-nature__link { margin-top: 26px; }
 /* NVIDIA Inception closes the team section (Kelly: at the bottom), one ruled row: the label, then the badge */
-.home-partner { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
+.home-partner { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
 .home-partner .eyebrow { margin: 0; color: var(--ink); }
 .nvidia-inception { display: inline-block; }
 .nvidia-inception img { display: block; height: 52px; width: auto; }   /* the badge without NVIDIA's gray box, so it sits on the cream like the press logos */
 
 /* The ask */
-.home-closing .shell { align-items: end; }
+.home-closing { text-align: center; }
+.home-closing .shell { display: block; }
 .home-closing h2 { font-size: clamp(34px, 3.6vw, 52px); }
-.home-closing .lead.muted { margin-top: 20px; max-width: 46ch; }
-.closing-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; }
+.home-closing .lead.muted { margin: 20px auto 0; max-width: 46ch; text-wrap: pretty; }
+.closing-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 28px; margin-top: clamp(28px, 3vw, 40px); }
 
 /* Footer: the homepage keeps its columns and the growth story's sources */
 .footer-top { align-items: flex-start; }
@@ -289,12 +306,11 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
   .hc-text h3 { font-size: 28px; margin: 12px 0 12px; }
   .hc-text p:not(.hc-status) { font-size: 16px; }
   .home-tool.night .signal-path__system + .signal-path__system { border-top-color: var(--rule-night); }
-  /* Each person a row: the portrait beside the name and title, so four people stay a short scroll */
-  .home-people { grid-template-columns: 1fr; gap: 18px; }
-  .home-people li { display: grid; grid-template-columns: 72px minmax(0, 1fr); column-gap: 16px; align-items: center; }
-  .home-people img { width: 72px; grid-row: 1 / span 2; }
-  .home-people h3 { margin: 0; align-self: end; font-size: 18px; }
-  .home-people .person-role { align-self: start; margin-top: 4px; font-size: 11px; letter-spacing: .1em; }
+  /* Two by two, each portrait centered over the name and title */
+  .home-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; }
+  .home-people img { width: 112px; }
+  .home-people h3 { margin-top: 14px; font-size: 18px; }
+  .home-people .person-role { margin-top: 4px; font-size: 11px; letter-spacing: .1em; }
   .press-logos { gap: 28px 36px; }
   .press-logos .logo-nature { height: 20px; }
   .press-logos .logo-sciam { height: 22px; }
