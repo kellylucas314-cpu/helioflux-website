@@ -157,15 +157,14 @@
 .home-proof .stages li:nth-last-child(2) { background: repeating-linear-gradient(90deg, var(--ink) 0 5px, transparent 5px 10px) no-repeat 7px var(--line-y, 7px) / 100% 1px; }
 /* Each stage shows the drawing the timeline uses for that study, above its dot and linked to its timeline entry.
    "Next" is an empty dashed frame: that study has not been run yet. */
-.home-proof .research-stages { --art: clamp(140px, 13vw, 184px); --line-y: calc(var(--art) + 32px + 7px); }
-.home-proof .research-stages li { padding-top: calc(var(--art) + 32px + 30px); }
-.home-proof .research-stages li::before { top: calc(var(--art) + 32px); }
-.home-proof .research-stages li:not(:last-child):not(:nth-last-child(2)) { background-position: 7px var(--line-y); }
-.stage-art { position: absolute; top: 0; left: 0; right: 28px; height: var(--art); display: flex; align-items: flex-end; }
+.home-proof .research-stages { --art: clamp(140px, 13vw, 184px); }
+/* The dots and line stay on top; each drawing hangs under its own dot, above its year (Kelly: the head read as
+   sitting between 2025 and Next when the line ran between the drawings and the text) */
+.home-proof .research-stages li { padding-top: calc(32px + var(--art) + 26px); }
+.stage-art { position: absolute; top: 32px; left: 0; right: 28px; height: var(--art); display: flex; align-items: center; }
 .stage-art img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; mix-blend-mode: multiply; transition: transform .35s var(--ease); }
 .stage-art img[src*="-transparent"] { mix-blend-mode: normal; }
 a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4px); }
-.stage-art-next { border: 1.5px dashed var(--rule-strong); border-radius: var(--r-image); }
 .stages .stage-paper { display: inline-block; margin-top: 10px; font-size: 14px; line-height: 1.4; color: var(--text); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
 .stages .stage-paper:hover, .stages .stage-paper:focus-visible { color: var(--teal-label); text-decoration-color: currentColor; }
 .proof-row { padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
@@ -299,7 +298,6 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
   .home-proof .research-stages li::before { top: 0; }
   .home-proof .research-stages li:not(:last-child):not(:nth-last-child(2)) { background-position: 7px 8px; }
   .stage-art { position: static; height: var(--art); margin-bottom: 18px; }
-  .stage-art-next { width: min(100%, 200px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }
