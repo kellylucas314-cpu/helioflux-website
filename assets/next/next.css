@@ -1,8 +1,9 @@
 /* HelioFlux "next" design system, playground only (September 23, 2026; re-skinned to the brand October 4, 2026).
-   Follows helioflux-website/brand_assets/brand-guide.md: warm cream (#F7F6F2 / #f5f0eb) and navy, cyan #00A9D6
-   used sparingly, light headings (400), pill buttons, soft white on dark, dark closing band and footer.
-   Cyan #00A9D6 is about 2.5:1 on cream, so it is used for non-text accents on light (dots, rules, rings,
-   underlines) and for text only on navy (5.8:1). Text accents on cream use the same hue deepened to #006d8b (5.2:1).
+   Follows helioflux-website/brand_assets/brand-guide.md: warm cream (#F7F6F2 / #f5f0eb) and navy, the teal accent
+   #489EBE used sparingly, light headings (400), pill buttons, soft white on dark, dark closing band and footer.
+   The accent is the text teal #006d8b lifted (October 28, 2026; it replaced cyan #00A9D6). It is about 2.9:1 on cream,
+   so it is used for non-text accents on light (dots, rules, rings, underlines) and for text only on navy (5.3:1).
+   Text accents on cream use #006d8b itself (5.2:1).
    Flat: hairline rules, 8px images, no shadows, no gradients. */
 
 @font-face {
@@ -32,19 +33,20 @@
   --rule-strong: #bfb6a8;
   --line: rgba(15, 28, 46, .24);   /* outlines of quiet controls; navy, so it sits on cream and on gray-blue alike */
   --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 8h12.5M9 3l5 5-5 5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  /* Accent: brand cyan */
-  --cyan: #00A9D6;           /* brand accent, non-text marks on light; text on navy */
-  --cyan-glow: var(--cyan);  /* the wordmark takes the brand cyan on dark too, one cyan across the site */
-  --teal: #006d8b;           /* the brand cyan deepened for text and focus on cream: 5.2:1 on Warm Cream */
+  /* Accent: brand teal (the token keeps its old name, --cyan) */
+  --cyan: #489EBE;           /* brand accent, the text teal lifted: non-text marks on light; text on navy */
+  --cyan-hover: #5CB1D1;     /* one step lighter, for hover on navy */
+  --cyan-glow: var(--cyan);  /* the wordmark takes the brand accent on dark too, one accent across the site */
+  --teal: #006d8b;           /* the accent deepened for text and focus on cream: 5.2:1 on Warm Cream */
   --teal-ink: var(--ink);    /* hover and text on the pale tint go navy, so there is one deep teal */
   --teal-tint: #e0f0f4;
-  --slate-tint: #dae2ea;     /* a pale cut of the old site's slate #2F4562, for the team band */
+  --slate-tint: #d0e7f1;     /* a pale cut of the accent, for the team band (labels in --teal: 4.6:1) */
   /* Dark sections: hero, closing band, footer */
   --night: #082432;          /* the measurement artwork's own ground, so the hero drawing shows no box;
                                 within a shade of helioflux.co's #092743 */
   --on-night: rgba(255, 255, 255, .88);      /* brand Soft White */
   --on-night-muted: rgba(255, 255, 255, .6); /* brand Muted White, nudged up: 6.5:1 */
-  --teal-night: #00A9D6;     /* brand cyan on navy: 5.8:1 */
+  --teal-night: #489EBE;     /* brand accent on navy: 5.3:1 */
   --rule-night: rgba(255, 255, 255, .14);   /* dividers on navy */
   --line-night: rgba(255, 255, 255, .4);    /* controls, chips, icons and drawn lines on navy */
   /* Type */
@@ -148,11 +150,11 @@ p { margin: 0; text-wrap: pretty; }
 .button-quiet:hover .arrow { background: var(--teal); }
 .night .button, .on-night .button { background: var(--cyan); border-color: var(--cyan); color: var(--night); }
 .night .button .arrow, .on-night .button .arrow { background: var(--night); color: var(--cyan); }
-.night .button:hover, .on-night .button:hover { background: #3dbde0; border-color: #3dbde0; color: var(--night); }
+.night .button:hover, .on-night .button:hover { background: var(--cyan-hover); border-color: var(--cyan-hover); color: var(--night); }
 .night .button-quiet { background: transparent; border-color: var(--line-night); color: var(--on-night); }
 .night .button-quiet .arrow { background: var(--cyan); color: var(--night); }
 .night .button-quiet:hover { background: rgba(255,255,255,.06); border-color: var(--on-night); color: var(--on-night); }
-.night .button-quiet:hover .arrow { background: #3dbde0; }
+.night .button-quiet:hover .arrow { background: var(--cyan-hover); }
 .text-link {
   display: inline-flex; align-items: center; gap: 8px;
   color: var(--ink); font: 500 16px/1.3 var(--display); text-decoration: none;

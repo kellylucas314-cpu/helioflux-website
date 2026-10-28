@@ -26,7 +26,7 @@
     return {emitted,life,age,x:x+vx*age,y:y+vy*age,vx,vy,
       size:emitted ? .8+Math.random()*1 : .5+Math.random()*.8,
       // Brand cyan for close to half, as on the earlier site; the rest stay pale.
-      color:Math.random()<.45 ? '0,169,214' : '224,240,244',
+      color:Math.random()<.45 ? '72,158,190' : '224,240,244',
       glow:Math.random()<.33,
       brightness:emitted ? .5+Math.random()*.38 : .26+Math.random()*.3,
       depth:.35+Math.random()*.65,
@@ -88,8 +88,8 @@
       // third carry a wider, soft cyan glow, as the earlier site's specks did.
       const reach=p.size*(p.glow?9:5.5);
       const glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,reach);
-      glow.addColorStop(0,'rgba('+(p.glow?'0,169,214':p.color)+','+alpha*(p.glow?.42:.28)+')');
-      glow.addColorStop(1,'rgba('+(p.glow?'0,169,214':p.color)+',0)');
+      glow.addColorStop(0,'rgba('+(p.glow?'72,158,190':p.color)+','+alpha*(p.glow?.42:.28)+')');
+      glow.addColorStop(1,'rgba('+(p.glow?'72,158,190':p.color)+',0)');
       ctx.fillStyle=glow;ctx.beginPath();ctx.arc(p.x,p.y,reach,0,Math.PI*2);ctx.fill();
       ctx.fillStyle='rgba('+p.color+','+alpha+')';
       ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();

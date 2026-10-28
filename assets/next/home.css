@@ -1,5 +1,5 @@
 /* The homepage on the "next" system (October 27, 2026). Builds on next.css and science.css;
-   only homepage pieces live here. Same tokens: paper, navy ink, cyan marks, #006d8b text accents. */
+   only homepage pieces live here. Same tokens: paper, navy ink, teal accent marks, #006d8b text accents. */
 
 .soft { color: var(--teal); }
 .night .soft { color: var(--teal-night); }
@@ -205,7 +205,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 /* 05 The team */
 /* The four people who run the company as small round portraits with name and title (Kelly: smaller, round, less
    space). The bios and the advisors live on the team page. */
-#credibility { padding-block: clamp(64px, 7vw, 104px); background: var(--slate-tint); }   /* Kelly: a light gray-blue, a pale cut of the old site's slate #2F4562 */
+#credibility { padding-block: clamp(64px, 7vw, 104px); background: var(--slate-tint); }   /* Kelly: a pale band in the accent's own family */
 .js #credibility .reveal { background-color: transparent; }   /* photos only here, nothing multiplied, so the fade needs no cream backing */
 .home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 3.6vw, 48px); }
 .home-team-head h2 { margin: 0; }
@@ -312,7 +312,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 
 /* One teal family on the home page. The wordmark takes the brand cyan everywhere, big accent words on paper
    take a lighter shade of that same hue (3.4:1, for large type only), and small labels take the shared deep teal (5.2:1). */
-.home-page { --teal-display: #0090b8; --teal-label: var(--teal); }
+.home-page { --teal-display: #378fae; --teal-label: var(--teal); }
 .home-page .wordmark span, .home-page .site-nav.on-night .wordmark span, .home-page .site-footer .wordmark span { color: var(--cyan); }
 .home-page .section .soft, .home-page .band .soft, .home-page .home-science h2 em { color: var(--teal-display); }
 .home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-label); font-weight: 600; }

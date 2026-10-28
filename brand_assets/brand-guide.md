@@ -16,8 +16,9 @@ Not a wellness brand. Not a pharma brand. A science company with urgency.
 | Navy (secondary dark) | #16263A | Text on light, some sections |
 | Warm Cream | #f5f0eb | Body/light section default |
 | Off-White | #F7F6F2 | Alternate light sections |
-| Cyan (accent) | #00A9D6 | Accent ONLY — sparingly |
-| Cyan (glow) | #00c9c8 | Logo teal, emission effects |
+| Teal (accent) | #489EBE | Accent ONLY, sparingly: logo, buttons, text on navy. The text teal lifted; replaced cyan #00A9D6 on 2026-10-28 |
+| Deep teal (text) | #006D8B | Labels and links on cream |
+| Team band | #D0E7F1 | Pale cut of the accent behind the team section |
 | Soft White | rgba(255,255,255,0.88) | Text on dark backgrounds |
 | Muted White | rgba(255,255,255,0.55) | Secondary text on dark |
 
@@ -30,7 +31,7 @@ Not a wellness brand. Not a pharma brand. A science company with urgency.
 
 ## Logo
 - Current: SVG text wordmark — "HelioFlux" in Plus Jakarta Sans
-- Color on dark: white (#ffffff) with teal (#00c9c8) accent
+- Color on dark: white (#ffffff) with teal (#489EBE) accent
 - Color on light: navy (#0f1c2e)
 - Concepts in `logo-concepts/` — Φ (phi) mon direction, not yet implemented
 
