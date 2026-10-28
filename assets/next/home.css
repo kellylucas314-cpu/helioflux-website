@@ -43,7 +43,7 @@
 /* A thin shell-width line where the numbers end and the growth story starts, the same tone as the line between the numbers */
 .home-page .hf-growth-chapter::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin-inline: auto; background: var(--rule-strong); }
 .home-page .hf-growth-heading { justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 14px; }
-.home-page .hf-growth-heading h2 { font: 600 clamp(24px, 2.7vw, 38px)/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); text-align: center; text-wrap: wrap; }
+.home-page .hf-growth-heading h2 { font: 400 clamp(24px, 2.7vw, 38px)/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); text-align: center; text-wrap: wrap; }
 .home-page .hf-growth-heading h2 .hf-nb { white-space: nowrap; }
 .home-page .nb { white-space: nowrap; }
 .home-page .hf-growth-mode { display: none !important; }
@@ -51,6 +51,8 @@
 #probProgression:not(.hf-growth-is-reading) .hf-growth-heading { margin-top: auto; }
 #probProgression:not(.hf-growth-is-reading) .hf-growth-scene { flex: 0 0 auto; margin-bottom: auto; }
 .home-page #probProgression :is(.hf-growth-title, .hf-growth-caption, .hf-growth-beat) { text-wrap: wrap; }
+/* Regular weight, like every other heading on the site (the old story.css set 520 with tight tracking). */
+.home-page #probProgression .hf-growth-title { font-weight: 400; letter-spacing: -.03em; }
 .home-page .hf-growth-caption { color: #16263a; }
 /* One palette: the tumor story takes the page's paper, navy and gray instead of its own near-copies of them */
 .home-page .hf-growth-chapter, .home-page #probProgression { --growth-paper: var(--paper); --growth-ink: var(--ink); --growth-muted: var(--muted); background: var(--paper); }
