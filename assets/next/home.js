@@ -82,8 +82,9 @@
   sync();
 })();
 
-/* The two systems as Kelly's navy drawing, set moving, as the earlier live diagram did: light specks leave the
-   cells and drift to QSense, each one glows as it lands, a counted dot runs to its color's lane, and LuminAI's bars
+/* The two systems as Kelly's navy drawing, set moving, as the earlier live diagram did: light specks start at
+   mitochondria inside the cells (where the light comes from, Nirosha's point), drift out through the membrane to
+   QSense, each one glows as it lands, a counted dot runs to its color's lane, and LuminAI's bars
    ride the lanes left to right, taller when counts come in bursts. The cells, the detector and the lines are one
    still picture; the specks and bars are cut from the same drawing (assets/next/signal-path-night-parts.webp).
    Reduced motion and no JS keep the still drawing, and it only runs while it is on screen. */
@@ -91,7 +92,7 @@
   const art = document.querySelector('[data-signal-path]');
   if (!art || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
   const canvas = art.querySelector('canvas');
-  const toggle = art.parentElement.querySelector('.signal-path__pause');
+  const toggle = art.querySelector('.signal-path__pause');
   const ctx = canvas && canvas.getContext('2d');
   if (!ctx || !toggle) return;
   // Everything below is measured in the drawing's own pixels (1856 x 540).
@@ -99,11 +100,11 @@
   const SPECKS = [[845,124,867,124,889,124,20,21],[524,124,551,124,578,124,25,24],[528,167,547,167,566,167,17,17],[243,167,261,167,279,167,16,18],[795,167,812,167,829,167,15,15],[911,124,936,124,961,124,23,21],[113,124,140,124,167,124,25,27],[297,167,318,167,339,167,19,18],[605,124,631,124,657,124,24,24],[360,167,378,167,396,167,16,18],[359,124,386,124,413,124,25,25],[174,167,197,167,220,167,21,19],[194,124,222,124,250,124,26,27],[278,124,305,124,332,124,25,26],[414,167,433,167,452,167,17,18],[986,124,0,167,21,167,19,21],[42,167,65,167,88,167,21,20],[693,167,710,167,727,167,15,16],[585,167,604,167,623,167,17,17],[642,167,659,167,676,167,15,17],[683,124,710,124,737,124,25,23],[440,124,468,124,496,124,26,25],[471,167,490,167,509,167,17,18],[111,167,132,167,153,167,19,20],[764,124,791,124,818,124,25,23]];
   const MOVER = [744,167,761,167,778,167,15,16];
   const BARS = [[[213,0,19,78,40.0],[0,124,17,41,20.0],[95,124,16,39,18.0],[150,0,19,79,41.0],[430,0,16,52,26.0],[133,0,15,83,40.0],[113,0,18,86,42.0],[42,0,6,109,54.0],[21,0,19,120,61.0],[913,0,18,42,19.0],[171,0,19,79,40.0],[507,0,16,47,23.0],[58,124,16,40,18.0],[933,0,18,42,19.0],[19,124,16,41,19.0],[702,0,17,44,21.0],[721,0,17,44,21.0],[234,0,20,78,38.0],[448,0,18,50,24.0],[37,124,19,41,19.0]],[[409,0,19,53,27.4],[389,0,18,55,25.4],[92,0,19,88,43.4],[525,0,18,46,22.4],[953,0,16,42,18.3],[76,124,17,40,17.3],[332,0,18,70,30.3],[50,0,19,107,50.3],[778,0,17,43,18.3],[740,0,18,44,19.3],[797,0,17,43,18.3],[816,0,18,43,19.3],[836,0,17,43,18.3],[71,0,19,105,48.3],[855,0,17,43,18.3],[275,0,19,71,31.3],[760,0,16,44,19.3],[971,0,18,42,18.3],[468,0,19,50,25.3]],[[604,0,18,45,21.1],[296,0,16,71,34.1],[256,0,17,72,35.1],[314,0,16,71,35.1],[370,0,17,61,33.1],[0,0,19,122,61.1],[352,0,16,66,33.1],[489,0,16,50,25.1],[545,0,17,46,21.1],[624,0,17,45,21.1],[192,0,19,79,38.1],[643,0,17,45,20.1],[662,0,18,45,21.1],[874,0,18,43,20.1],[894,0,17,43,19.1],[991,0,17,42,19.1],[564,0,19,46,22.1],[682,0,18,45,21.1],[585,0,17,46,22.1]]];
+  const MITO = [[80,217],[81,187],[100,233],[130,104],[139,219],[146,386],[150,357],[160,401],[174,265],[179,303],[190,205],[192,260],[205,98],[220,192],[223,414],[292,391],[300,380],[303,310],[308,195],[326,224],[336,157],[364,127],[365,254],[373,378],[390,330],[398,338],[401,139],[402,417],[427,137],[443,210],[462,315],[477,391],[484,337]];
   const LANES = [[126.98, .00001], [283.48, -.00011], [440, .00005]];      // each lane line: y = c + slope * x
-  const EDGE = [[84, 403], [114, 448], [138, 461], [174, 476], [210, 476], [246, 459], [282, 446], [306, 505], [342, 521], [378, 513], [414, 498], [438, 474], [456, 460]];
   const DETECTOR = { x: 888, top: 60, bottom: 488, out: 935, face: [880, 18, 58, 504] };
   const DOT_X = 1061, LANE_X0 = 1084, LANE_X1 = 1825, SPEED = 60;
-  const GLOW = ['120,214,200', '90,200,232', '150,195,235'];
+  const GLOW = ['120,214,200', '0,169,214', '150,195,235'];          // the middle lane is the brand cyan of the heading
   const bySize = BARS.map((lane) => lane.filter((b) => b[2] >= 10).sort((a, b) => a[3] - b[3]));
   const glows = GLOW.map((rgb) => {
     const c = document.createElement('canvas'); c.width = c.height = 64;
@@ -113,18 +114,12 @@
     return c;
   });
   const base = new Image(), parts = new Image();
-  let specks = [], movers = [], hits = [], bars = [[], [], []], queue = [0, 0, 0], energy = [0, 0, 0], lastBar = [0, 0, 0];
+  let specks = [], sources = [], movers = [], hits = [], bars = [[], [], []], queue = [0, 0, 0], energy = [0, 0, 0], lastBar = [0, 0, 0];
   let clock = 0, debt = 0, flash = 0, scale = 1, ready = false, inView = false, paused = false, frame = 0, last = 0;
 
   const laneY = (i, x) => LANES[i][0] + LANES[i][1] * x;
   const ease = (t) => t * t * (3 - 2 * t);
-  function edgeAt(y) {
-    for (let k = 1; k < EDGE.length; k++) {
-      if (y <= EDGE[k][0]) { const [y0, x0] = EDGE[k - 1], [y1, x1] = EDGE[k]; return x0 + (x1 - x0) * (y - y0) / (y1 - y0); }
-    }
-    return EDGE[EDGE.length - 1][1];
-  }
-
+  const grown = (p) => .35 + .65 * ease(Math.min(1, p.age / .9));            // a speck swells as it leaves the cell
   // Colors come from a shuffled bag of three, so no lane runs away with the light for long.
   let bag = [];
   function nextColor() {
@@ -132,10 +127,13 @@
     return bag.pop();
   }
   function spawn() {
-    const y = 84 + Math.random() * 372, x = edgeAt(y) + 12;
+    // Each speck starts at a mitochondrion, more often in the cells nearer the detector, and leaves the cell.
+    const [mx, my] = MITO[Math.floor(Math.pow(Math.random(), .6) * MITO.length)];
+    const x = mx + (Math.random() - .5) * 4, y = my + (Math.random() - .5) * 4, ch = nextColor();
     const ty = DETECTOR.top + Math.random() * (DETECTOR.bottom - DETECTOR.top);
-    const speed = 80 + Math.random() * 55, dx = DETECTOR.x - x, dy = ty - y, d = Math.hypot(dx, dy);
-    specks.push({ x, y, vx: dx / d * speed, vy: dy / d * speed, s: Math.floor(Math.random() * SPECKS.length), ch: nextColor(), age: 0, ph: Math.random() * 6.28 });
+    const dx = DETECTOR.x - x, dy = ty - y, d = Math.hypot(dx, dy), speed = d / (3.6 + Math.random() * 1.6);
+    specks.push({ x, y, vx: dx / d * speed, vy: dy / d * speed, s: Math.floor(Math.random() * SPECKS.length), ch, age: 0, ph: Math.random() * 6.28 });
+    sources.push({ x: mx, y: my, ch, t: 0 });
   }
   function addBar(i) {
     // Counts that arrive close together make taller bars, as in the drawing's clusters.
@@ -159,6 +157,7 @@
       return false;
     });
     hits = hits.filter((h) => (h.t += dt / .5) < 1);
+    sources = sources.filter((o) => (o.t += dt / .8) < 1);
     movers = movers.filter((m) => { m.t += dt / .55; if (m.t < 1) return true; queue[m.ch] = Math.min(3, queue[m.ch] + 1); return false; });
     bars.forEach((lane, i) => {
       lane.forEach((b) => { b.x += SPEED * dt; b.age += dt; });
@@ -181,15 +180,16 @@
       ctx.globalAlpha = flash * .3; ctx.drawImage(base, fx, fy, fw, fh, fx, fy, fw, fh);
     }
     hits.forEach((h) => { ctx.globalAlpha = (1 - h.t) * .8; ctx.drawImage(glows[h.ch], DETECTOR.x - 26, h.y - 26, 52, 52); });
+    sources.forEach((o) => { ctx.globalAlpha = Math.sin(o.t * Math.PI) * .9; ctx.drawImage(glows[o.ch], o.x - 18, o.y - 18, 36, 36); });
     specks.forEach((p) => {
-      const r = SPECKS[p.s][6] * 1.25;
-      ctx.globalAlpha = Math.min(1, p.age / .4) * .7; ctx.drawImage(glows[p.ch], p.x - r, p.y - r, r * 2, r * 2);
+      const r = SPECKS[p.s][6] * 1.25 * grown(p);
+      ctx.globalAlpha = Math.min(1, p.age / .5) * .7; ctx.drawImage(glows[p.ch], p.x - r, p.y - r, r * 2, r * 2);
     });
     ctx.globalCompositeOperation = 'source-over';
     specks.forEach((p) => {
-      const s = SPECKS[p.s], w = s[6], h = s[7];
-      ctx.globalAlpha = Math.min(1, p.age / .4);
-      sprite(s[p.ch * 2], s[p.ch * 2 + 1], w, h, p.x - w / 2, p.y - h / 2, w, h);
+      const s = SPECKS[p.s], k = grown(p), w = s[6] * k, h = s[7] * k;
+      ctx.globalAlpha = Math.min(1, p.age / .5);
+      sprite(s[p.ch * 2], s[p.ch * 2 + 1], s[6], s[7], p.x - w / 2, p.y - h / 2, w, h);
     });
     movers.forEach((m) => {
       const e = ease(m.t), w = MOVER[6], h = MOVER[7];

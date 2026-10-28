@@ -112,40 +112,38 @@
 /* The two systems on a navy band, as one picture of the signal's path: Kelly's drawing, set moving by home.js.
    Nirosha's quote sits on the same navy under the cards. The science page explains them with its own drawings. */
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
-#two-systems .signal-path { max-width: 1040px; margin: 0 auto; }
+#two-systems { padding-block: clamp(56px, 6vw, 88px); }
+.home-systems .signal-path { max-width: 1040px; margin: 0 auto; }
 /* Kelly's drawing on the band's own navy, so it shows no box; the canvas (home.js) lies over it and takes over
    once its pictures load, with the still drawing left for reduced motion and no JS */
-.signal-path__art { position: relative; margin: clamp(8px, 1.5vw, 20px) 0 0; }
+.signal-path__art { position: relative; max-width: 1040px; margin: clamp(8px, 1.5vw, 20px) auto 0; }
 .signal-path__art img { display: block; width: 100%; height: auto; }
 .signal-path__art canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .4s ease; }
 .signal-path__art.is-live canvas { opacity: 1; }
-.signal-path__controls { min-height: 34px; margin: 12px 0 clamp(28px, 3.4vw, 44px); text-align: center; }
-.signal-path__pause { padding: 7px 14px; border: 1px solid rgba(255, 255, 255, .3); border-radius: var(--r-control); background: transparent; font: 500 14px/1.25 var(--body); color: var(--on-night); cursor: pointer; }
-.signal-path__pause:hover { border-color: var(--on-night); }
-/* The systems band is navy: white words, cyan accents, soft white rules */
-.home-page #two-systems .soft, #two-systems .system-kind, #two-systems .system-status { color: var(--teal-night); }
-#two-systems .signal-path__systems { border-top-color: var(--rule-night); }
-#two-systems .signal-path__system + .signal-path__system { border-color: var(--rule-night); }
-#two-systems .signal-path__system p:not([class]) { color: var(--on-night); }
-#two-systems .home-quote-band blockquote { color: var(--on-night); }
-#two-systems .home-quote-band figcaption { color: var(--on-night-muted); }
+/* No visible button (Kelly's call); keyboard users still get one when they tab to it, and reduced motion stops it */
+.signal-path__pause { position: absolute; right: 0; bottom: 0; padding: 7px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: var(--r-control); background: var(--night); font: 500 14px/1.25 var(--body); color: var(--on-night); cursor: pointer; opacity: 0; pointer-events: none; }
+.signal-path__pause:focus-visible { opacity: 1; pointer-events: auto; }
+/* Only the title and the drawing sit on navy; the cards and the quote follow on cream, starting close under the band */
+.home-page #two-systems .soft { color: var(--teal-night); }
+.home-systems { padding-top: clamp(56px, 6vw, 88px); }
+.home-systems .signal-path__systems { border-top: 0; }
 .signal-path__systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
-.signal-path__system { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 36px) clamp(20px, 3vw, 40px) 0; }
+.signal-path__system { display: flex; flex-direction: column; padding: 0 clamp(20px, 3vw, 40px); }
 .signal-path__system:first-child { padding-left: 0; }
 .signal-path__system:last-child { padding-right: 0; }
 .signal-path__system + .signal-path__system { border-left: 1px solid var(--rule); }
 .system-kind, .system-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--teal); }
-#two-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: var(--on-night); }
-#two-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--teal-night); }
+.home-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: var(--ink); }
+.home-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--teal); }
 .signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--text); }
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
 /* Nirosha's quote as a quiet pull quote: no box, a short teal rule above, set a size down from the headings */
-#two-systems .home-quote-band { max-width: 760px; margin: clamp(56px, 7vw, 96px) auto 0; padding: 0; text-align: center; }
+.home-systems .home-quote-band { max-width: 760px; margin: clamp(56px, 7vw, 96px) auto 0; padding: 0; text-align: center; }
 .home-quote-band::before { content: ""; display: block; width: 40px; height: 2px; margin: 0 auto clamp(24px, 3vw, 32px); background: var(--cyan); }
 .home-quote-band blockquote { max-width: 34em; margin: 0 auto; font: italic 400 clamp(19px, 1.8vw, 23px)/1.55 var(--display); letter-spacing: -.005em; color: var(--ink); text-wrap: pretty; }
 .home-quote-band figcaption { margin-top: 18px; font: 400 15px/1.5 var(--body); color: var(--muted); }
-#two-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
+.home-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
 .home-research-link { margin-top: 32px; }
 
 /* Full-width microscope photo, as on the live page, drifting a little slower than the page (home.js) */
@@ -156,7 +154,10 @@
    What each study found lives on the science page. */
 .home-proof .research-head { margin-bottom: clamp(40px, 5vw, 64px); }
 .home-proof .research-stages { margin-bottom: clamp(48px, 5vw, 72px); }
-.home-proof .stages li.next::before { background: var(--paper); box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 8px var(--wash); }
+/* "Next" is a plain hollow dot the size of the others, reached by a dashed line: not yet, without a drawn-by-code target */
+.home-proof .stages li.next::before { background: var(--paper); box-shadow: none; border: 1.5px solid var(--ink); }
+.home-proof .stages li.next::after { content: none; }
+.home-proof .stages li:nth-last-child(2) { background: repeating-linear-gradient(90deg, var(--ink) 0 5px, transparent 5px 10px) no-repeat 7px 7px / 100% 1px; }
 .stages .stage-paper { display: inline-block; margin-top: 10px; font-size: 14px; line-height: 1.4; color: var(--text); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
 .stages .stage-paper:hover, .stages .stage-paper:focus-visible { color: var(--teal-label); text-decoration-color: currentColor; }
 .proof-row { padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
@@ -248,8 +249,10 @@
   .survival-when { font-size: 13px; }
   .signal-path__systems { grid-template-columns: 1fr; }
   .signal-path__system, .signal-path__system:first-child, .signal-path__system:last-child { padding: 24px 0; }
+  .signal-path__system:first-child { padding-top: 0; }
   .signal-path__system + .signal-path__system { border-left: 0; border-top: 1px solid var(--rule); }
   .signal-path__art { margin-inline: calc(var(--gutter) * -1); }
+  .home-proof .stages li:nth-last-child(2) { background: repeating-linear-gradient(180deg, var(--ink) 0 5px, transparent 5px 10px) no-repeat 7px 8px / 1px 100%; }
   .home-photo-break img { object-position: 38% center; }
   .hc-panel { flex-basis: 88%; grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .hc-text h3 { font-size: 28px; margin: 12px 0 12px; }
