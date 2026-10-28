@@ -129,17 +129,15 @@
 .home-photo-break { position: relative; height: clamp(280px, 36vw, 500px); margin: 0; overflow: hidden; background: #16274a; }
 .home-photo-break img { position: absolute; left: 0; top: -60px; width: 100%; height: calc(100% + 120px); object-fit: cover; object-position: center; filter: hue-rotate(-22deg) saturate(.7); will-change: transform; }
 
-/* 03 Evidence so far: the journals and the press as rows of names. What each study found lives on the science page. */
-.home-proof .split { margin-bottom: clamp(40px, 5vw, 64px); }
+/* 03 Published research: the studies as a timeline, each dated stage linked to its paper, then the press as a row of names.
+   What each study found lives on the science page. */
+.home-proof .research-head { margin-bottom: clamp(40px, 5vw, 64px); }
+.home-proof .research-stages { margin-bottom: clamp(48px, 5vw, 72px); }
+.home-proof .stages li.next::before { background: var(--paper); box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 8px var(--wash); }
+.stages .stage-paper { display: inline-block; margin-top: 10px; font-size: 14px; line-height: 1.4; color: var(--text); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
+.stages .stage-paper:hover, .stages .stage-paper:focus-visible { color: var(--teal-label); text-decoration-color: currentColor; }
 .proof-row { padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
 .proof-row .eyebrow { color: var(--ink); margin-bottom: 24px; }
-.journals { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.journals li + li { border-left: 1px solid var(--rule); }
-.journals a { display: flex; flex-direction: column; align-items: center; gap: 10px; height: 100%; padding: 6px clamp(12px, 2vw, 28px); color: var(--ink); text-decoration: none; }
-.j-name { font: 400 clamp(22px, 2.3vw, 32px)/1.15 var(--display); letter-spacing: -.02em; text-wrap: balance; transition: color .2s ease; }
-.j-meta { font-size: 14px; color: var(--muted); }
-.j-meta::after { content: " ↗"; }
-.journals a:hover .j-name, .journals a:focus-visible .j-name { color: var(--teal-label); }
 .home-proof .press-logos { margin-top: 0; }
 .home-proof .partner { margin: 0; max-width: none; padding-top: clamp(28px, 3vw, 40px); }
 .home-proof .home-research-link { margin-top: 8px; padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--rule); text-align: center; }
@@ -241,9 +239,6 @@
   .press-logos .logo-cbcnews { height: 30px; }
   .press-logos .logo-labj { height: 14px; }
   .nvidia-inception img { height: 72px; }
-  .journals { grid-template-columns: 1fr; }
-  .journals li + li { border-left: 0; border-top: 1px solid var(--rule); }
-  .journals a { padding: 18px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }

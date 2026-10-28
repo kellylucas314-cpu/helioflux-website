@@ -132,7 +132,21 @@
 @media (max-width: 800px) { .platforms { grid-template-columns: 1fr; } }
 
 /* ---------- 04 Studies ---------- */
-.research-stages { margin-bottom: clamp(56px, 6vw, 88px); }
+/* Published research: the three journals as a row of names over the study details (the timeline lives on the home page) */
+.research-journals { margin-bottom: clamp(48px, 5vw, 72px); padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
+.research-journals .eyebrow { color: var(--ink); margin-bottom: 24px; }
+.journals { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.journals li + li { border-left: 1px solid var(--rule); }
+.journals a { display: flex; flex-direction: column; align-items: center; gap: 10px; height: 100%; padding: 6px clamp(12px, 2vw, 28px); color: var(--ink); text-decoration: none; }
+.j-name { font: 400 clamp(22px, 2.3vw, 32px)/1.15 var(--display); letter-spacing: -.02em; text-wrap: balance; transition: color .2s ease; }
+.j-meta { font-size: 14px; color: var(--muted); }
+.j-meta::after { content: " \2197"; }
+.journals a:hover .j-name, .journals a:focus-visible .j-name { color: var(--teal); }
+@media (max-width: 760px) {
+  .journals { grid-template-columns: 1fr; }
+  .journals li + li { border-left: 0; border-top: 1px solid var(--rule); }
+  .journals a { padding: 18px 0; }
+}
 .studies { border-top: 1px solid var(--ink); }
 .study { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(20px, 4vw, 64px); padding: clamp(28px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--rule-strong); }
 .study-meta { display: flex; flex-direction: column; gap: 6px; }
