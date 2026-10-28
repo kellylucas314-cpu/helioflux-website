@@ -97,26 +97,26 @@
 .home-page .hf-cellular-signals__caption { margin-top: 20px; font-size: clamp(20px, 1.9vw, 26px); max-width: 42ch; }
 
 /* 03 The scan: four steps that fade up in order (home.js) */
-/* We built the tool to read it: a headline on cream under a thin line, leading straight into the two systems */
+/* We built the tool to read it: one cream section under a thin line, the headline, Kelly's drawing of the two
+   systems, then what each one does */
 .home-page .home-scan::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin: 0 auto clamp(56px, 6vw, 88px); background: var(--rule-strong); }
 .home-page .home-scan { padding-top: 0; padding-bottom: clamp(56px, 6vw, 88px); }
-/* The two systems on a navy band, as one picture of the signal's path: Kelly's drawing, set moving by home.js.
+/* The two systems as one picture of the signal's path: Kelly's drawing, set moving by home.js.
    The science page explains them with its own drawings. */
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
-#two-systems { padding-block: clamp(56px, 6vw, 88px); }
+.home-two-systems { margin-top: clamp(64px, 8vw, 112px); }
 .home-systems .signal-path { max-width: 1040px; margin: 0 auto; }
-/* Kelly's drawing on the band's own navy, so it shows no box; the canvas (home.js) lies over it and takes over
+/* Kelly's drawing on the page's own paper, so it shows no box; the canvas (home.js) lies over it and takes over
    once its pictures load, with the still drawing left for reduced motion and no JS */
 .signal-path__art { position: relative; max-width: 1040px; margin: clamp(8px, 1.5vw, 20px) auto 0; }
 .signal-path__art img { display: block; width: 100%; height: auto; }
 .signal-path__art canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .4s ease; }
 .signal-path__art.is-live canvas { opacity: 1; }
 /* No visible button (Kelly's call); keyboard users still get one when they tab to it, and reduced motion stops it */
-.signal-path__pause { position: absolute; right: 0; bottom: 0; padding: 7px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: var(--r-control); background: var(--night); font: 500 14px/1.25 var(--body); color: var(--on-night); cursor: pointer; opacity: 0; pointer-events: none; }
+.signal-path__pause { position: absolute; right: 0; bottom: 0; padding: 7px 14px; border: 1px solid var(--ink); border-radius: var(--r-control); background: var(--paper); font: 500 14px/1.25 var(--body); color: var(--ink); cursor: pointer; opacity: 0; pointer-events: none; }
 .signal-path__pause:focus-visible { opacity: 1; pointer-events: auto; }
-/* Only the title and the drawing sit on navy; the cards follow on cream, starting close under the band */
-.home-page #two-systems .soft { color: var(--teal-night); }
-.home-systems { padding-top: clamp(56px, 6vw, 88px); }
+/* The cards follow close under the drawing */
+.home-systems { margin-top: clamp(40px, 5vw, 64px); }
 .home-systems .signal-path__systems { border-top: 0; }
 .signal-path__systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
 .signal-path__system { display: flex; flex-direction: column; padding: 0 clamp(20px, 3vw, 40px); }

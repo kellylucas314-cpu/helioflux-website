@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261028r3">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=navy-2b-punch-c">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r33">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r34">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -204,50 +204,42 @@
     </div>
   </section>
 
-  <!-- 02 Our approach, continued: the tool, then straight into the two systems -->
-  <section class="section home-scan" id="how-it-works" aria-labelledby="scan-title">
+  <!-- 02 Our approach, continued: the tool and its two systems, one cream section around Kelly's drawing -->
+  <section class="section home-scan home-tool" id="how-it-works" aria-labelledby="scan-title">
     <div class="shell">
       <div class="split">
         <h2 id="scan-title">We built the tool to read it.</h2>
         <p class="lead">We’ve built research prototypes and published the early findings in peer-reviewed journals. Now we’re developing the clinical version.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- 02 Our approach, continued: the two systems as Kelly's drawing, moving, on a navy band -->
-  <section class="section night" id="two-systems" aria-labelledby="systems-title">
-    <div class="shell">
-      <h3 class="home-systems-title" id="systems-title">Two systems. <span class="soft">One signal.</span></h3>
-      <figure class="signal-path__art" data-signal-path data-base="assets/next/signal-path-night-base.webp" data-parts="assets/next/signal-path-night-parts.webp">
-        <img src="assets/next/signal-path-night.webp" srcset="assets/next/signal-path-night-1000.webp 1000w, assets/next/signal-path-night.webp 1856w" sizes="(max-width: 1100px) 100vw, 1040px" width="1856" height="540" loading="lazy" decoding="async" alt="Line drawing on navy: faint light given off by the mitochondria inside a cluster of cells drifts to a detector panel, and the counts it records come out as three lanes of bars, one for each color.">
-        <canvas aria-hidden="true"></canvas>
-        <button class="signal-path__pause" type="button" aria-pressed="false" hidden>Pause animation</button>
-      </figure>
-    </div>
-  </section>
-
-  <!-- 02 Our approach, continued: what each system does -->
-  <section class="section home-systems" aria-label="QSense and LuminAI">
-    <div class="shell">
-      <div class="signal-path reveal">
-        <div class="signal-path__systems">
-          <article class="signal-path__system">
-            <p class="system-kind">Hardware</p>
-            <h4>QSense&#8482;</h4>
-            <p class="signal-path__role">Counts the light.</p>
-            <p>A photon-counting sensor designed to record the faint light living tissue gives off on its own, in darkness, with no dye and no added radiation.</p>
-            <p class="system-status">Research prototype</p>
-          </article>
-          <article class="signal-path__system">
-            <p class="system-kind">Software</p>
-            <h4>LuminAI&#8482;</h4>
-            <p class="signal-path__role">Reads the pattern.</p>
-            <p>Software built on a decade of cell and animal data. It reads the color and timing of the signal, not only its brightness, distinguishing healthy tissue from cancer in real time.</p>
-            <p class="system-status">In development</p>
-          </article>
-        </div>
+      <div class="home-two-systems" id="two-systems">
+        <h3 class="home-systems-title" id="systems-title">Two systems. <span class="soft">One signal.</span></h3>
+        <figure class="signal-path__art" data-signal-path data-base="assets/next/signal-path-paper-base.webp" data-parts="assets/next/signal-path-paper-parts.webp">
+          <img src="assets/next/signal-path-paper.webp" srcset="assets/next/signal-path-paper-1000.webp 1000w, assets/next/signal-path-paper.webp 1856w" sizes="(max-width: 1100px) 100vw, 1040px" width="1856" height="540" loading="lazy" decoding="async" alt="Line drawing: faint light given off by the mitochondria inside a cluster of cells drifts to a detector panel, and the counts it records come out as three lanes of bars, one for each color.">
+          <canvas aria-hidden="true"></canvas>
+          <button class="signal-path__pause" type="button" aria-pressed="false" hidden>Pause animation</button>
+        </figure>
       </div>
-      <p class="home-research-link"><a class="text-link" href="science.html#our-approach">How QSense and LuminAI work <span class="arrow" aria-hidden="true">→</span></a></p>
+      <div class="home-systems">
+        <div class="signal-path reveal">
+          <div class="signal-path__systems">
+            <article class="signal-path__system">
+              <p class="system-kind">Hardware</p>
+              <h4>QSense&#8482;</h4>
+              <p class="signal-path__role">Counts the light.</p>
+              <p>A photon-counting sensor designed to record the faint light living tissue gives off on its own, in darkness, with no dye and no added radiation.</p>
+              <p class="system-status">Research prototype</p>
+            </article>
+            <article class="signal-path__system">
+              <p class="system-kind">Software</p>
+              <h4>LuminAI&#8482;</h4>
+              <p class="signal-path__role">Reads the pattern.</p>
+              <p>Software built on a decade of cell and animal data. It reads the color and timing of the signal, not only its brightness, distinguishing healthy tissue from cancer in real time.</p>
+              <p class="system-status">In development</p>
+            </article>
+          </div>
+        </div>
+        <p class="home-research-link"><a class="text-link" href="science.html#our-approach">How QSense and LuminAI work <span class="arrow" aria-hidden="true">→</span></a></p>
+      </div>
     </div>
   </section>
 
@@ -420,6 +412,6 @@
 <script src="assets/homepage-v2-20260917/percent.js"></script>
 <script src="assets/homepage-v2-20260917/hero-photons.js?v=20261028h"></script>
 <script src="assets/homepage-v2-20260917/hero-motion.js"></script>
-<script src="assets/next/home.js?v=20261028r12"></script>
+<script src="assets/next/home.js?v=20261028r13"></script>
 </body>
 </html>

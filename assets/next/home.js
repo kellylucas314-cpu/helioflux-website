@@ -66,11 +66,11 @@
   sync();
 })();
 
-/* The two systems as Kelly's navy drawing, set moving, as the earlier live diagram did: light specks start at
+/* The two systems as Kelly's cream drawing, set moving, as the earlier live diagram did: light specks start at
    mitochondria inside the cells (where the light comes from, Nirosha's point), drift out through the membrane to
    QSense, each one glows as it lands, a counted dot runs to its color's lane, and LuminAI's bars
    ride the lanes left to right, taller when counts come in bursts. The cells, the detector and the lines are one
-   still picture; the specks and bars are cut from the same drawing (assets/next/signal-path-night-parts.webp).
+   still picture; the specks and bars are cut from the same drawing (assets/next/signal-path-paper-parts.webp).
    Reduced motion and no JS keep the still drawing, and it only runs while it is on screen. */
 (() => {
   const art = document.querySelector('[data-signal-path]');
@@ -81,25 +81,25 @@
   if (!ctx || !toggle) return;
   // Everything below is measured in the drawing's own pixels (1856 x 540).
   const W = 1856, H = 540;
-  const SPECKS = [[845,124,867,124,889,124,20,21],[524,124,551,124,578,124,25,24],[528,167,547,167,566,167,17,17],[243,167,261,167,279,167,16,18],[795,167,812,167,829,167,15,15],[911,124,936,124,961,124,23,21],[113,124,140,124,167,124,25,27],[297,167,318,167,339,167,19,18],[605,124,631,124,657,124,24,24],[360,167,378,167,396,167,16,18],[359,124,386,124,413,124,25,25],[174,167,197,167,220,167,21,19],[194,124,222,124,250,124,26,27],[278,124,305,124,332,124,25,26],[414,167,433,167,452,167,17,18],[986,124,0,167,21,167,19,21],[42,167,65,167,88,167,21,20],[693,167,710,167,727,167,15,16],[585,167,604,167,623,167,17,17],[642,167,659,167,676,167,15,17],[683,124,710,124,737,124,25,23],[440,124,468,124,496,124,26,25],[471,167,490,167,509,167,17,18],[111,167,132,167,153,167,19,20],[764,124,791,124,818,124,25,23]];
-  const MOVER = [744,167,761,167,778,167,15,16];
-  const BARS = [[[213,0,19,78,40.0],[0,124,17,41,20.0],[95,124,16,39,18.0],[150,0,19,79,41.0],[430,0,16,52,26.0],[133,0,15,83,40.0],[113,0,18,86,42.0],[42,0,6,109,54.0],[21,0,19,120,61.0],[913,0,18,42,19.0],[171,0,19,79,40.0],[507,0,16,47,23.0],[58,124,16,40,18.0],[933,0,18,42,19.0],[19,124,16,41,19.0],[702,0,17,44,21.0],[721,0,17,44,21.0],[234,0,20,78,38.0],[448,0,18,50,24.0],[37,124,19,41,19.0]],[[409,0,19,53,27.4],[389,0,18,55,25.4],[92,0,19,88,43.4],[525,0,18,46,22.4],[953,0,16,42,18.3],[76,124,17,40,17.3],[332,0,18,70,30.3],[50,0,19,107,50.3],[778,0,17,43,18.3],[740,0,18,44,19.3],[797,0,17,43,18.3],[816,0,18,43,19.3],[836,0,17,43,18.3],[71,0,19,105,48.3],[855,0,17,43,18.3],[275,0,19,71,31.3],[760,0,16,44,19.3],[971,0,18,42,18.3],[468,0,19,50,25.3]],[[604,0,18,45,21.1],[296,0,16,71,34.1],[256,0,17,72,35.1],[314,0,16,71,35.1],[370,0,17,61,33.1],[0,0,19,122,61.1],[352,0,16,66,33.1],[489,0,16,50,25.1],[545,0,17,46,21.1],[624,0,17,45,21.1],[192,0,19,79,38.1],[643,0,17,45,20.1],[662,0,18,45,21.1],[874,0,18,43,20.1],[894,0,17,43,19.1],[991,0,17,42,19.1],[564,0,19,46,22.1],[682,0,18,45,21.1],[585,0,17,46,22.1]]];
-  const MITO = [[80,217],[81,187],[100,233],[130,104],[139,219],[146,386],[150,357],[160,401],[174,265],[179,303],[190,205],[192,260],[205,98],[220,192],[223,414],[292,391],[300,380],[303,310],[308,195],[326,224],[336,157],[364,127],[365,254],[373,378],[390,330],[398,338],[401,139],[402,417],[427,137],[443,210],[462,315],[477,391],[484,337]];
-  const LANES = [[126.98, .00001], [283.48, -.00011], [440, .00005]];      // each lane line: y = c + slope * x
-  const DETECTOR = { x: 888, top: 60, bottom: 488, out: 935, face: [880, 18, 58, 504] };
-  const DOT_X = 1061, LANE_X0 = 1084, LANE_X1 = 1825, SPEED = 60;
-  const GLOW = ['120,214,200', '0,169,214', '150,195,235'];          // the middle lane is the brand cyan of the heading
+  const SPECKS = [[714,122,735,122,756,122,19,19],[213,122,237,122,261,122,22,23],[117,163,134,163,151,163,15,15],[168,163,184,163,200,163,14,15],[471,163,487,163,503,163,14,14],[777,122,798,122,819,122,19,19],[357,122,382,122,407,122,23,22],[216,163,234,163,252,163,16,15],[432,122,456,122,480,122,22,22],[270,163,287,163,304,163,15,15],[285,122,309,122,333,122,22,23],[840,122,861,122,882,122,19,19],[57,122,84,122,111,122,25,25],[504,122,528,122,552,122,22,22],[321,163,337,163,353,163,14,15],[903,122,923,122,943,122,18,18],[963,122,983,122,1003,122,18,18],[567,163,583,163,599,163,14,13],[369,163,386,163,403,163,15,15],[519,163,535,163,551,163,14,14],[576,122,599,122,622,122,21,22],[138,122,163,122,188,122,23,24],[60,163,79,163,98,163,17,16],[0,163,20,163,40,163,18,18],[645,122,668,122,691,122,21,21]];
+  const MOVER = [420,163,437,163,454,163,15,15];
+  const BARS = [[[198,0,19,75,38.4],[907,0,18,40,19.4],[927,0,16,40,19.4],[219,0,18,75,39.4],[408,0,15,50,24.4],[119,0,16,82,39.4],[100,0,17,84,40.4],[21,0,18,118,60.4],[763,0,16,41,19.4],[137,0,18,80,40.4],[577,0,16,44,21.4],[982,0,15,39,17.4],[615,0,15,43,19.4],[999,0,15,39,17.4],[781,0,17,41,19.4],[707,0,16,42,20.4],[177,0,19,77,38.4],[443,0,17,48,23.4],[0,122,18,39,18.4]],[[371,0,17,51,26.5],[390,0,16,51,23.5],[80,0,18,89,42.5],[483,0,17,45,22.5],[632,0,17,43,19.5],[39,122,16,38,15.5],[315,0,18,68,28.5],[41,0,18,105,49.5],[800,0,16,41,16.5],[818,0,15,41,16.5],[835,0,17,41,17.5],[854,0,15,41,16.5],[725,0,16,42,18.5],[61,0,17,103,47.5],[945,0,17,40,16.5],[276,0,18,70,32.5],[871,0,15,41,17.5],[20,122,17,39,16.5],[462,0,19,48,24.5]],[[595,0,18,44,21.0],[239,0,17,71,35.0],[258,0,16,71,35.0],[296,0,17,70,35.0],[353,0,16,52,27.0],[0,0,19,120,62.0],[335,0,16,65,33.0],[425,0,16,49,26.0],[651,0,16,43,20.0],[502,0,16,45,22.0],[157,0,18,78,38.0],[520,0,16,45,21.0],[669,0,17,43,21.0],[688,0,17,43,21.0],[964,0,16,40,18.0],[888,0,17,41,19.0],[538,0,18,45,22.0],[743,0,18,42,20.0],[558,0,17,45,22.0]]];
+  const MITO = [[82,187],[87,220],[102,236],[104,112],[123,108],[141,217],[147,386],[154,352],[159,401],[178,264],[180,304],[199,198],[203,97],[208,257],[222,415],[224,191],[295,390],[305,313],[308,199],[335,165],[362,129],[363,250],[374,376],[391,330],[403,137],[405,418],[414,290],[445,206],[466,316],[475,395],[486,336]];
+  const LANES = [[126.41, 0], [282.49, .00001], [440, 0]];      // each lane line: y = c + slope * x
+  const DETECTOR = { x: 898, top: 64, bottom: 476, out: 932 };
+  const DOT_X = 1060, LANE_X0 = 1084, LANE_X1 = 1824, SPEED = 60;
+  const GLOW = ['80,170,172', '0,144,184', '105,155,200'];          // the middle lane is the display teal of the heading
   const bySize = BARS.map((lane) => lane.filter((b) => b[2] >= 10).sort((a, b) => a[3] - b[3]));
   const glows = GLOW.map((rgb) => {
     const c = document.createElement('canvas'); c.width = c.height = 64;
     const g = c.getContext('2d'), grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, `rgba(${rgb},.55)`); grad.addColorStop(1, `rgba(${rgb},0)`);
+    grad.addColorStop(0, `rgba(${rgb},.42)`); grad.addColorStop(1, `rgba(${rgb},0)`);
     g.fillStyle = grad; g.fillRect(0, 0, 64, 64);
     return c;
   });
   const base = new Image(), parts = new Image();
   let specks = [], sources = [], movers = [], hits = [], bars = [[], [], []], queue = [0, 0, 0], energy = [0, 0, 0], lastBar = [0, 0, 0];
-  let clock = 0, debt = 0, flash = 0, scale = 1, ready = false, inView = false, paused = false, frame = 0, last = 0;
+  let clock = 0, debt = 0, scale = 1, ready = false, inView = false, paused = false, frame = 0, last = 0;
 
   const laneY = (i, x) => LANES[i][0] + LANES[i][1] * x;
   const ease = (t) => t * t * (3 - 2 * t);
@@ -135,7 +135,6 @@
       p.age += dt;
       p.x += p.vx * dt; p.y += p.vy * dt + Math.sin(clock * 2.4 + p.ph) * 5 * dt;
       if (p.x < DETECTOR.x) return true;
-      flash = Math.min(1, flash + .4);
       hits.push({ y: p.y, ch: p.ch, t: 0 });
       movers.push({ y: p.y, ch: p.ch, t: 0 });
       return false;
@@ -149,7 +148,6 @@
       const prev = lane[lane.length - 1];
       if (queue[i] && (!prev || prev.x - LANE_X0 >= (prev.b[2] + 16) / 2 + 6)) { queue[i] -= 1; addBar(i); }
     });
-    flash = Math.max(0, flash - dt * 3);
   }
 
   function sprite(sx, sy, w, h, x, y, dw, dh) { ctx.drawImage(parts, sx, sy, w, h, x, y, dw, dh); }
@@ -157,19 +155,13 @@
     ctx.setTransform(scale, 0, 0, scale, 0, 0);
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
     ctx.drawImage(base, 0, 0, W, H);
-    ctx.globalCompositeOperation = 'lighter';
-    if (flash > .01) {
-      // QSense brightens a little as light lands on it, and glows where each speck hits.
-      const [fx, fy, fw, fh] = DETECTOR.face;
-      ctx.globalAlpha = flash * .3; ctx.drawImage(base, fx, fy, fw, fh, fx, fy, fw, fh);
-    }
+    // Soft colored halos on the paper: where each speck leaves its mitochondrion, around it in flight, and where it lands.
     hits.forEach((h) => { ctx.globalAlpha = (1 - h.t) * .8; ctx.drawImage(glows[h.ch], DETECTOR.x - 26, h.y - 26, 52, 52); });
     sources.forEach((o) => { ctx.globalAlpha = Math.sin(o.t * Math.PI) * .9; ctx.drawImage(glows[o.ch], o.x - 18, o.y - 18, 36, 36); });
     specks.forEach((p) => {
       const r = SPECKS[p.s][6] * 1.25 * grown(p);
       ctx.globalAlpha = Math.min(1, p.age / .5) * .7; ctx.drawImage(glows[p.ch], p.x - r, p.y - r, r * 2, r * 2);
     });
-    ctx.globalCompositeOperation = 'source-over';
     specks.forEach((p) => {
       const s = SPECKS[p.s], k = grown(p), w = s[6] * k, h = s[7] * k;
       ctx.globalAlpha = Math.min(1, p.age / .5);
