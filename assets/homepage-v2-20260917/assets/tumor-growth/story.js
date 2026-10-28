@@ -13,7 +13,7 @@
    if(el.dataset.text===text) return;
    const parts=text.split('\n\n');
    el.textContent=parts[0];
-   if(parts.length>1){const punch=document.createElement('strong');punch.className='hf-growth-punch';punch.textContent=parts.slice(1).join('\n\n');el.append(punch);}
+   if(parts.length>1){const punch=document.createElement('strong'),mark=document.createElement('mark');punch.className='hf-growth-punch';mark.textContent=parts.slice(1).join('\n\n');punch.append(mark);el.append(punch);}
    el.dataset.text=text;
  };
  let reading=false, ready=false, loading=false, active=false, pending=0, lastWidth=innerWidth, lastHeight=innerHeight, shortViewport=innerHeight<=540;
@@ -99,7 +99,9 @@
  function layout() {
    const nav=document.getElementById('nav'), navStyle=nav&&getComputedStyle(nav);
    // The story sits below the compact navigation, even when layout runs at the hero.
-   navOffset=nav?Math.ceil(nav.getBoundingClientRect().height-parseFloat(navStyle.paddingTop)-parseFloat(navStyle.paddingBottom)+(innerWidth<=900?28:36)):(innerWidth<=900?73:81);
+   // A nav that never shrinks (the site-nav bar) is used at its own height, so the pin sits right under it.
+   navOffset=nav&&nav.classList.contains('site-nav')?Math.ceil(nav.getBoundingClientRect().height)
+     :nav?Math.ceil(nav.getBoundingClientRect().height-parseFloat(navStyle.paddingTop)-parseFloat(navStyle.paddingBottom)+(innerWidth<=900?28:36)):(innerWidth<=900?73:81);
    root.style.setProperty('--growth-nav',navOffset+'px');
    active=!reading&&!reduced.matches&&!shortViewport;
    root.classList.toggle('hf-growth-short',shortViewport);

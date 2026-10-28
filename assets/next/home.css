@@ -4,15 +4,16 @@
 .soft { color: var(--teal); }
 .night .soft { color: var(--teal-night); }
 
-/* Hero: the cell film on the right, its light drawn over the whole section by hero-photons.js */
-.home-hero { position: relative; overflow: hidden; isolation: isolate; padding: clamp(48px, 7vw, 112px) 0 clamp(56px, 6vw, 96px); }
-.home-hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
-.home-hero .hero-content { position: relative; z-index: 4; }
-.home-hero h1 { font-size: clamp(44px, 5.4vw, 80px); color: #fff; }
-.home-hero h1 .soft { display: block; }
+/* Hero: the live site's layout in the next system's type. The cell film fills the right side at full height
+   and runs under the headline; hero-photons.js paints a soft scrim behind the words and the light over everything. */
+.home-hero { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; min-height: clamp(620px, calc(100svh - var(--nav-h)), 960px); padding: clamp(56px, 7vw, 112px) 0; }
+.home-hero-grid { position: relative; z-index: 4; }
+.home-hero .hero-content { position: relative; z-index: 4; max-width: 940px; }
+.home-hero h1 { font-size: clamp(52px, 7.2vw, 100px); line-height: 1.02; color: #fff; text-wrap: wrap; }
+.home-hero .hero-accent { color: var(--cyan); }
 .home-hero .lead { margin-top: 26px; color: var(--on-night); }
-.home-hero .hero-video { position: relative; z-index: 1; aspect-ratio: 1; width: 100%; max-width: 620px; justify-self: end; mix-blend-mode: lighten; pointer-events: none; }
-.home-hero .hero-video video { width: 100%; height: 100%; object-fit: contain; filter: brightness(.82) saturate(.9); }
+.home-hero .hero-video { position: absolute; top: 0; right: -2%; bottom: 0; width: 62%; z-index: 1; mix-blend-mode: lighten; pointer-events: none; }
+.home-hero .hero-video video { display: block; width: 100%; height: 100%; object-fit: contain; object-position: right center; filter: brightness(.82) saturate(.9); }
 #hero-canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .home-hero .cell-pause { position: absolute; right: var(--gutter); bottom: 20px; z-index: 5; }
 
@@ -26,12 +27,24 @@
 .survival-col p { margin-top: 14px; color: var(--muted); font-size: 17px; }
 .survival-col p strong { color: var(--ink); font-weight: 600; }
 
-/* The growth chapter keeps its own runway; only its frame and heading follow the system */
+/* The growth chapter works exactly as on the live site (home-polish-20260917.css): the same centred heading,
+   the heading and scene travel as one group centred in the pin, the same runway and colors. */
 .hf-growth-chapter { border-top: 0; }
-.home-page .hf-growth-heading h2 { font: 400 clamp(28px, 3.2vw, 44px)/1.12 var(--display); letter-spacing: -.026em; color: var(--ink); }
-.home-page .hf-growth-mode { display: none; }
-.home-page .hf-growth-beat { color: var(--teal); }
-.home-page .hf-growth-progress span { background: var(--teal); }
+.home-page .hf-growth-heading { justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 14px; }
+.home-page .hf-growth-heading h2 { font: 600 clamp(24px, 2.7vw, 38px)/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); text-align: center; text-wrap: wrap; }
+.home-page .hf-growth-heading h2 .hf-nb { white-space: nowrap; }
+.home-page .hf-growth-mode { display: none !important; }
+#probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: clamp(20px, 2.2vw, 26px); }
+#probProgression:not(.hf-growth-is-reading) .hf-growth-heading { margin-top: auto; }
+#probProgression:not(.hf-growth-is-reading) .hf-growth-scene { flex: 0 0 auto; margin-bottom: auto; }
+.home-page #probProgression :is(.hf-growth-title, .hf-growth-caption, .hf-growth-beat) { text-wrap: wrap; }
+.home-page .hf-growth-caption { color: #16263a; }
+.home-page .hf-growth-progress { background: #d4dce3; }
+.home-page .hf-growth-progress span { background: var(--cyan); }
+@media (max-width: 600px) {
+  .home-page .hf-growth-heading h2 { font-size: 22px; }
+  #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }
+}
 
 /* Bridge: the microscope film of cells in a dish behind one line, under a navy veil (home.js plays it in view) */
 .home-bridge { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; min-height: clamp(260px, 34vh, 340px); padding: clamp(64px, 9vh, 104px) 0; text-align: center; }
@@ -66,10 +79,10 @@
 .js .hf-scan-steps .hf-scan-rule { transform: scaleX(0); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * .55s + .45s); }
 .js .hf-scan-steps li.in { opacity: 1; transform: none; }
 .js .hf-scan-steps li.in .hf-scan-rule { transform: none; }
-.home-promise { margin-top: clamp(40px, 5vw, 64px); font: 400 clamp(22px, 2.2vw, 30px)/1.3 var(--display); letter-spacing: -.02em; color: var(--ink); }
-.home-systems-title { margin: clamp(72px, 8vw, 120px) 0 clamp(28px, 3vw, 40px); font-size: clamp(30px, 3.2vw, 44px); font-weight: 400; }
-.platform-status { display: flex; gap: 10px; align-items: baseline; margin-top: 16px; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal) !important; }
-.platform-status .dot { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); transform: translateY(-1px); }
+/* The two systems ride on the steps they do: QSense on the reading, LuminAI on the analysis. Their cards live on the science page. */
+.hf-scan-steps .hf-scan-tag { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; margin-top: 16px; font: 500 13px/1.4 var(--display); letter-spacing: .01em; color: var(--muted); }
+.hf-scan-steps .hf-scan-tag b { font-weight: 600; font-size: 15px; color: var(--ink); }
+#two-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); }
 .home-quote { margin: clamp(72px, 8vw, 112px) 0 0; padding-top: 28px; border-top: 1px solid var(--ink); max-width: 980px; }
 .home-quote blockquote { margin: 0; font: 400 clamp(24px, 2.6vw, 36px)/1.3 var(--display); letter-spacing: -.02em; color: var(--ink); text-wrap: pretty; }
 .home-quote figcaption { margin-top: 20px; font-size: 15px; color: var(--muted); }
@@ -79,17 +92,28 @@
 .home-photo { margin-top: clamp(56px, 6vw, 96px); margin-bottom: clamp(56px, 6vw, 96px); }
 .home-photo img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: center 35%; border-radius: var(--r-image); }
 
-/* 03 Evidence so far: the science page's stage line */
-.home-stages { margin-top: clamp(40px, 5vw, 64px); }
-#evidence .home-research-link { margin-top: clamp(32px, 4vw, 48px); }
+/* 03 Evidence so far: the journals and the press as rows of names. What each study found lives on the science page. */
+.home-proof .split { margin-bottom: clamp(40px, 5vw, 64px); }
+.proof-row { padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
+.proof-row .eyebrow { color: var(--ink); margin-bottom: 24px; }
+.journals { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.journals li + li { border-left: 1px solid var(--rule); }
+.journals a { display: flex; flex-direction: column; align-items: center; gap: 10px; height: 100%; padding: 6px clamp(12px, 2vw, 28px); color: var(--ink); text-decoration: none; }
+.j-name { font: 400 clamp(22px, 2.3vw, 32px)/1.15 var(--display); letter-spacing: -.02em; text-wrap: balance; transition: color .2s ease; }
+.j-meta { font-size: 14px; color: var(--muted); }
+.j-meta::after { content: " ↗"; }
+.journals a:hover .j-name, .journals a:focus-visible .j-name { color: var(--teal-display); }
+.home-proof .press-logos { margin-top: 0; }
+.home-proof .partner { margin: 0; max-width: none; padding-top: clamp(28px, 3vw, 40px); }
+.home-proof .home-research-link { margin-top: 8px; padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--rule); text-align: center; }
 
-/* 04 The next study: the three steps, then where the first studies start, as text rows, no stock photos */
-#next-study .process3 { margin-top: clamp(40px, 5vw, 64px); margin-bottom: 0; }
-.start-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+/* 04 The next study: where the first studies start, as text rows. The study steps live on the science page. */
+.start-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-top: clamp(40px, 5vw, 64px); }
 .start { border-top: 1px solid var(--ink); padding-top: 18px; }
 .detect-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
 .start h3 { margin: 10px 0 10px; font-size: clamp(22px, 2vw, 26px); }
-.start p:not(.detect-status) { font-size: 17px; color: var(--text); }
+.start p:not(.detect-status) { font-size: 17px; color: var(--text); max-width: 52ch; }
+#next-study .home-research-link { margin-top: clamp(32px, 4vw, 48px); }
 
 /* 05 The team */
 .home-team { align-items: start; }
@@ -100,8 +124,6 @@
 .person p:not(.person-role) { font-size: 17px; color: var(--text); margin-bottom: 20px; }
 
 /* Press: on paper, logos in ink, so the page keeps only a few dark blocks */
-.home-press { border-top: 1px solid var(--rule); }
-.home-press .shell { text-align: center; }
 .press-logos { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 5vw, 72px); flex-wrap: wrap; margin-top: 36px; }
 .press-logos img { display: block; width: auto; filter: brightness(0) invert(9%) sepia(30%) saturate(1800%) hue-rotate(190deg); opacity: .78; transition: opacity .25s ease; }
 .press-logos img:hover { opacity: 1; }
@@ -133,9 +155,8 @@
 .home-footer .hf-growth-sources a { color: var(--on-night); }
 
 @media (max-width: 900px) {
-  .home-hero-grid { grid-template-columns: 1fr; }
-  .home-hero .hero-video { width: min(78vw, 420px); justify-self: center; margin-top: 8px; }
-  .home-hero .hero-content { padding-top: 8px; }
+  .home-hero .hero-video { width: 100%; right: 0; }
+  .home-hero .hero-video video { object-position: center; filter: brightness(.44) saturate(.9); }
   .home-hero .cell-pause { bottom: 14px; }
   .start-list { grid-template-columns: 1fr; gap: 32px; }
 }
@@ -157,6 +178,9 @@
   .press-logos .logo-labj { height: 14px; }
   .nvidia-inception img { height: 72px; }
   .home-photo img { aspect-ratio: 4 / 3; }
+  .journals { grid-template-columns: 1fr; }
+  .journals li + li { border-left: 0; border-top: 1px solid var(--rule); }
+  .journals a { padding: 18px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }
@@ -166,8 +190,6 @@
 
 /* On the home page the "On this page" map sits under the hero and scrolls away with it, so only one bar stays on top */
 .home-page .page-map { position: relative; top: auto; }
-.home-page .hf-growth-pin { padding-top: 16px; }
-.home-press { padding-bottom: clamp(48px, 5vw, 72px); }
 
 
 /* One teal family on the home page. The wordmark takes the brand cyan everywhere, big accent words on paper
@@ -176,16 +198,16 @@
 .home-page .wordmark span, .home-page .site-nav.on-night .wordmark span, .home-page .site-footer .wordmark span { color: var(--cyan); }
 .home-page .section .soft, .home-page .band .soft, .home-page .home-science h2 em { color: var(--teal-display); }
 .home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-display); font-weight: 600; }
-.home-page .detect-status, .home-page .person-role, .home-page .platform-status, .home-page .hf-growth-beat { color: var(--ink) !important; }
+.home-page .detect-status, .home-page .person-role { color: var(--ink) !important; }
 .home-page .hf-sig-accent, .home-page .hf-scan-steps li:last-child .hf-scan-num, .home-page .survival-col.early .survival-num { color: var(--teal-display); }
 .home-page .hf-sig-accent { font-weight: 600; }
 
 /* Hero on a phone: more air around the headline, and the deck request as a full-width main button */
 @media (max-width: 640px) {
   .home-hero { padding-top: 56px; }
-  .home-hero h1 { font-size: clamp(42px, 12.4vw, 54px); line-height: 1.04; }
+  .home-hero h1 { font-size: clamp(42px, 12.4vw, 54px); line-height: 1.04; text-wrap: balance; }
   .home-hero .lead { margin-top: 22px; }
   .home-hero .hero-actions { flex-direction: column; align-items: flex-start; gap: 20px; margin-top: 32px; }
   .home-hero .hero-actions .button { width: 100%; justify-content: center; }
 }
-@media (max-width: 760px) { .home-page .platform-art { max-width: 240px; } }
+

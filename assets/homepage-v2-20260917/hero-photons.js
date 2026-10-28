@@ -40,9 +40,11 @@
   function placeScrim() {
     const rect=hero.getBoundingClientRect(), box=content.getBoundingClientRect();
     const grow=narrow.matches ? {t:.18,r:.14,b:.20,l:.14} : {t:.22,r:.30,b:.24,l:.16};
-    const stops=narrow.matches
-      ? 'rgba(15,28,46,.86) 0%,rgba(15,28,46,.7) 40%,rgba(15,28,46,.34) 72%,rgba(15,28,46,0) 100%'
-      : 'rgba(15,28,46,.9) 0%,rgba(15,28,46,.78) 38%,rgba(15,28,46,.42) 70%,rgba(15,28,46,0) 100%';
+    // The scrim takes the hero's own ground, so it never shows as a patch of another navy.
+    const g=(getComputedStyle(hero).backgroundColor.match(/\d+/g)||[15,28,46]).slice(0,3).join(',');
+    const stops=(narrow.matches
+      ? 'rgba(G,.86) 0%,rgba(G,.7) 40%,rgba(G,.34) 72%,rgba(G,0) 100%'
+      : 'rgba(G,.9) 0%,rgba(G,.78) 38%,rgba(G,.42) 70%,rgba(G,0) 100%').replace(/G/g,g);
     const shape=narrow.matches ? 'ellipse 66% 60% at 48% 50%' : 'ellipse 64% 60% at 46% 50%';
     const w=box.width*(1+grow.l+grow.r), h=box.height*(1+grow.t+grow.b);
     canvas.style.background='radial-gradient('+shape+','+stops+') '

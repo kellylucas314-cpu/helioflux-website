@@ -19,9 +19,9 @@
 <link rel="preload" href="assets/next/fonts/DMSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="assets/next/next.css?v=20261004r3">
 <link rel="stylesheet" href="assets/next/science.css?v=20261027r2">
-<link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=paper-composite-1-punch">
+<link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=paper-composite-1-mark">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r7">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r9">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -63,23 +63,23 @@
 
 <main id="main">
 
-  <!-- Hero: the cell film with its light, as on the science page's dark room -->
+  <!-- Hero: the live site's big cell film on the right, behind the headline, in the next system's type -->
   <section class="hero home-hero night" data-night-hero aria-labelledby="hero-title">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-video" aria-hidden="true">
+      <video id="homepage-cell" loop muted playsinline preload="auto" poster="assets/homepage-v2-20260917/hero/homepage-poster.jpg">
+        <source src="assets/homepage-v2-20260917/hero/cell-even-turn-24s.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="shell home-hero-grid">
       <div class="hero-content">
         <p class="eyebrow">Ultra-early cancer detection</p>
-        <h1 id="hero-title">Your cells emit light.<br><span class="soft">We learned to read&nbsp;it.</span></h1>
+        <h1 id="hero-title">Your cells emit <span class="hero-accent">light.</span><br> We learned to read&nbsp;it.</h1>
         <p class="lead">No needle. No dye. No added radiation.</p>
         <div class="hero-actions">
           <a class="button" href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A">Request investor deck <span class="arrow" aria-hidden="true">→</span></a>
           <a class="text-link" href="#solution">See the science <span class="arrow" aria-hidden="true">↓</span></a>
         </div>
-      </div>
-      <div class="hero-video" aria-hidden="true">
-        <video id="homepage-cell" loop muted playsinline preload="auto" poster="assets/homepage-v2-20260917/hero/homepage-poster.jpg">
-          <source src="assets/homepage-v2-20260917/hero/cell-even-turn-24s.mp4" type="video/mp4">
-        </video>
       </div>
     </div>
     <button class="cell-pause motion-button" type="button" aria-controls="homepage-cell" aria-pressed="false">Pause motion</button>
@@ -137,7 +137,7 @@
   </div>
   <div class="hf-growth-bottom"><p class="hf-growth-status">Scroll to watch it grow</p></div>
  </div>
- <div class="hf-growth-static" aria-label="Tumor growth as matched illustrations"><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/I0.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="Three separate normal-appearing cells."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/I0.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="Three separate normal-appearing cells."></noscript></div><figcaption><strong>Before the first change</strong><p>The story begins with a few normal cells.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/I1.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="The same cells; one nuclear/lineage cue begins to appear."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/I1.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="The same cells; one nuclear/lineage cue begins to appear."></noscript></div><figcaption><strong>A single cell changes</strong><p>A single cell acquires a driver mutation: a DNA change that can give it a growth advantage.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/E5.webp" loading="lazy" width="1254" height="1254" style="width:36.285957%;height:36.285957%;left:31.726809%;top:28.175319%" alt="Four descendants of the altered cell form a small cluster."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/E5.webp" loading="lazy" width="1254" height="1254" style="width:36.285957%;height:36.285957%;left:31.726809%;top:28.175319%" alt="Four descendants of the altered cell form a small cluster."></noscript></div><figcaption><strong>The change is passed on</strong><p>Now we follow the altered cell’s descendants as they inherit the change and divide.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/E7.webp" loading="lazy" width="1254" height="1254" style="width:38.761905%;height:38.761905%;left:31.036341%;top:27.268170%" alt="Additional altered descendants appear."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/E7.webp" loading="lazy" width="1254" height="1254" style="width:38.761905%;height:38.761905%;left:31.036341%;top:27.268170%" alt="Additional altered descendants appear."></noscript></div><figcaption><strong>The cluster grows</strong><p>Repeated divisions build a larger cluster of related cells.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/M3-fine.webp" loading="lazy" width="1254" height="1254" style="width:53.664629%;height:53.664629%;left:22.825328%;top:18.718341%" alt="A rounded, dense aggregate represents premalignant growth."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/M3-fine.webp" loading="lazy" width="1254" height="1254" style="width:53.664629%;height:53.664629%;left:22.825328%;top:18.718341%" alt="A rounded, dense aggregate represents premalignant growth."></noscript></div><figcaption><strong>A precancerous cluster</strong><p>The growing cluster becomes more crowded and disorganized.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/AV.webp" loading="lazy" width="1254" height="1254" style="width:66.323213%;height:66.323213%;left:17.499510%;top:16.567091%" alt="Dense mass without visible new vessels."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/AV.webp" loading="lazy" width="1254" height="1254" style="width:66.323213%;height:66.323213%;left:17.499510%;top:16.567091%" alt="Dense mass without visible new vessels."></noscript></div><figcaption><strong>Growth needs a blood supply</strong><p>As the mass grows, oxygen can become scarce inside. Cells can send signals that encourage new blood vessels to grow.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/M5.webp" loading="lazy" width="1254" height="1254" style="width:75.534770%;height:75.534770%;left:12.985553%;top:12.479187%" alt="First fine vessels are visibly present."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/M5.webp" loading="lazy" width="1254" height="1254" style="width:75.534770%;height:75.534770%;left:12.985553%;top:12.479187%" alt="First fine vessels are visibly present."></noscript></div><figcaption><strong>A blood supply supports growth</strong><p>New blood vessels grow around the mass, supplying oxygen and nutrients that support further growth.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/L4-v2.webp" loading="lazy" width="1254" height="1254" style="width:87.202742%;height:87.202742%;left:7.267875%;top:7.301175%" alt="First cells visibly extend beyond the former main-mass contour into nearby tissue."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/L4-v2.webp" loading="lazy" width="1254" height="1254" style="width:87.202742%;height:87.202742%;left:7.267875%;top:7.301175%" alt="First cells visibly extend beyond the former main-mass contour into nearby tissue."></noscript></div><figcaption><strong>Growth into nearby tissue</strong><p>With further changes, cells can become cancerous and grow into nearby tissue.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/L7-v2.webp" loading="lazy" width="1254" height="1254" style="width:94.080705%;height:94.080705%;left:3.897453%;top:4.248874%" alt="Largest mass with vessels and local extension."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/L7-v2.webp" loading="lazy" width="1254" height="1254" style="width:94.080705%;height:94.080705%;left:3.897453%;top:4.248874%" alt="Largest mass with vessels and local extension."></noscript></div><figcaption><strong>Standard imaging typically detects a tumor at ~1 cm.</strong><p>Roughly 1 billion cells.<strong class="hf-growth-punch">By then, it's been growing silently for years.</strong></p></figcaption></figure></div>
+ <div class="hf-growth-static" aria-label="Tumor growth as matched illustrations"><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/I0.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="Three separate normal-appearing cells."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/I0.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="Three separate normal-appearing cells."></noscript></div><figcaption><strong>Before the first change</strong><p>The story begins with a few normal cells.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/I1.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="The same cells; one nuclear/lineage cue begins to appear."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/I1.webp" loading="lazy" width="1254" height="1254" style="width:32.181352%;height:32.181352%;left:33.819504%;top:29.883661%" alt="The same cells; one nuclear/lineage cue begins to appear."></noscript></div><figcaption><strong>A single cell changes</strong><p>A single cell acquires a driver mutation: a DNA change that can give it a growth advantage.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/E5.webp" loading="lazy" width="1254" height="1254" style="width:36.285957%;height:36.285957%;left:31.726809%;top:28.175319%" alt="Four descendants of the altered cell form a small cluster."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/E5.webp" loading="lazy" width="1254" height="1254" style="width:36.285957%;height:36.285957%;left:31.726809%;top:28.175319%" alt="Four descendants of the altered cell form a small cluster."></noscript></div><figcaption><strong>The change is passed on</strong><p>Now we follow the altered cell’s descendants as they inherit the change and divide.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/E7.webp" loading="lazy" width="1254" height="1254" style="width:38.761905%;height:38.761905%;left:31.036341%;top:27.268170%" alt="Additional altered descendants appear."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/E7.webp" loading="lazy" width="1254" height="1254" style="width:38.761905%;height:38.761905%;left:31.036341%;top:27.268170%" alt="Additional altered descendants appear."></noscript></div><figcaption><strong>The cluster grows</strong><p>Repeated divisions build a larger cluster of related cells.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/M3-fine.webp" loading="lazy" width="1254" height="1254" style="width:53.664629%;height:53.664629%;left:22.825328%;top:18.718341%" alt="A rounded, dense aggregate represents premalignant growth."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/M3-fine.webp" loading="lazy" width="1254" height="1254" style="width:53.664629%;height:53.664629%;left:22.825328%;top:18.718341%" alt="A rounded, dense aggregate represents premalignant growth."></noscript></div><figcaption><strong>A precancerous cluster</strong><p>The growing cluster becomes more crowded and disorganized.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/AV.webp" loading="lazy" width="1254" height="1254" style="width:66.323213%;height:66.323213%;left:17.499510%;top:16.567091%" alt="Dense mass without visible new vessels."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/AV.webp" loading="lazy" width="1254" height="1254" style="width:66.323213%;height:66.323213%;left:17.499510%;top:16.567091%" alt="Dense mass without visible new vessels."></noscript></div><figcaption><strong>Growth needs a blood supply</strong><p>As the mass grows, oxygen can become scarce inside. Cells can send signals that encourage new blood vessels to grow.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/M5.webp" loading="lazy" width="1254" height="1254" style="width:75.534770%;height:75.534770%;left:12.985553%;top:12.479187%" alt="First fine vessels are visibly present."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/M5.webp" loading="lazy" width="1254" height="1254" style="width:75.534770%;height:75.534770%;left:12.985553%;top:12.479187%" alt="First fine vessels are visibly present."></noscript></div><figcaption><strong>A blood supply supports growth</strong><p>New blood vessels grow around the mass, supplying oxygen and nutrients that support further growth.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/L4-v2.webp" loading="lazy" width="1254" height="1254" style="width:87.202742%;height:87.202742%;left:7.267875%;top:7.301175%" alt="First cells visibly extend beyond the former main-mass contour into nearby tissue."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/L4-v2.webp" loading="lazy" width="1254" height="1254" style="width:87.202742%;height:87.202742%;left:7.267875%;top:7.301175%" alt="First cells visibly extend beyond the former main-mass contour into nearby tissue."></noscript></div><figcaption><strong>Growth into nearby tissue</strong><p>With further changes, cells can become cancerous and grow into nearby tissue.</p></figcaption></figure><figure><div class="hf-growth-still-art"><img data-src="assets/homepage-v2-20260917/assets/tumor-growth/L7-v2.webp" loading="lazy" width="1254" height="1254" style="width:94.080705%;height:94.080705%;left:3.897453%;top:4.248874%" alt="Largest mass with vessels and local extension."><noscript><img src="assets/homepage-v2-20260917/assets/tumor-growth/L7-v2.webp" loading="lazy" width="1254" height="1254" style="width:94.080705%;height:94.080705%;left:3.897453%;top:4.248874%" alt="Largest mass with vessels and local extension."></noscript></div><figcaption><strong>Standard imaging typically detects a tumor at ~1 cm.</strong><p>Roughly 1 billion cells.<strong class="hf-growth-punch"><mark>By then, it's been growing silently for years.</mark></strong></p></figcaption></figure></div>
 </div>
 <!-- HF-GROWTH-END -->
   </section>
@@ -210,90 +210,56 @@
       </div>
       <ol class="hf-scan-steps" aria-label="How a scan is designed to work">
         <li style="--i:0"><div class="hf-scan-num" aria-hidden="true">01</div><div class="hf-scan-rule" aria-hidden="true"></div><p>A patient sits in a dark room for about 15 minutes.</p></li>
-        <li style="--i:1"><div class="hf-scan-num" aria-hidden="true">02</div><div class="hf-scan-rule" aria-hidden="true"></div><p>A sensor reads the faint light coming off their body.</p></li>
-        <li style="--i:2"><div class="hf-scan-num" aria-hidden="true">03</div><div class="hf-scan-rule" aria-hidden="true"></div><p>AI analyzes the signal.</p></li>
+        <li style="--i:1"><div class="hf-scan-num" aria-hidden="true">02</div><div class="hf-scan-rule" aria-hidden="true"></div><p>A sensor reads the faint light coming off their body.</p><p class="hf-scan-tag"><b>QSense&#8482;</b> Sensor · Research prototype</p></li>
+        <li style="--i:2"><div class="hf-scan-num" aria-hidden="true">03</div><div class="hf-scan-rule" aria-hidden="true"></div><p>AI analyzes the signal.</p><p class="hf-scan-tag"><b>LuminAI&#8482;</b> Software · In development</p></li>
         <li style="--i:3"><div class="hf-scan-num" aria-hidden="true">04</div><div class="hf-scan-rule" aria-hidden="true"></div><p>Same visit, same day.</p></li>
       </ol>
-
-      <h3 class="home-systems-title">Two systems. <span class="soft">One signal.</span></h3>
-      <div class="platforms">
-        <article class="platform reveal">
-          <div class="platform-top"><span class="platform-role">01 · Hardware</span></div>
-          <h3 class="platform-name">QSense&#8482;</h3>
-          <div class="platform-body">
-            <figure class="platform-art"><img src="assets/next/art/qsense-paper-v2-480.webp" width="480" height="360" loading="lazy" alt="QSense concept drawing: a cylindrical photon detector faces a shallow dish of cultured cells."></figure>
-            <div>
-              <p>A photon-counting sensor designed to record the faint light living tissue gives off on its own, in darkness, with no dye and no added radiation.</p>
-              <p class="platform-status"><span class="dot" aria-hidden="true"></span>Research prototype</p>
-            </div>
-          </div>
-        </article>
-        <article class="platform reveal reveal-d1">
-          <div class="platform-top"><span class="platform-role">02 · Software</span></div>
-          <h3 class="platform-name">LuminAI&#8482;</h3>
-          <div class="platform-body">
-            <figure class="platform-art"><img src="assets/next/art/luminai-paper-v2-480.webp" width="480" height="480" loading="lazy" alt="LuminAI concept drawing: three wavelength channels feed a rhythm trace on white paper."></figure>
-            <div>
-              <p>Software built on a decade of cell and animal data, designed to read the color and timing of the signal, not only its brightness. Human cancer performance has not yet been established.</p>
-              <p class="platform-status"><span class="dot" aria-hidden="true"></span>In development</p>
-            </div>
-          </div>
-        </article>
-      </div>
-
+      <p class="home-research-link"><a class="text-link" href="science.html#our-approach">How QSense and LuminAI work <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
-  <!-- 03 Evidence so far -->
-  <section class="section" id="evidence" aria-labelledby="evidence-title">
+  <!-- 03 Evidence so far: the journals and the press, together -->
+  <section class="section home-proof" id="evidence" aria-labelledby="evidence-title">
     <div class="shell">
-      <div class="kicker"><b>03</b><span>Evidence so far</span><em>Peer-reviewed, led by Dr. Nirosha Murugan</em></div>
+      <div class="kicker"><b>03</b><span>Evidence so far</span></div>
       <div class="split">
-        <h2 id="evidence-title">A foundation in<br> <span class="soft">published science.</span></h2>
-        <p class="lead">Dr. Nirosha Murugan’s published work spans cell cultures, a mouse melanoma model, and exploratory measurements in healthy adults. Each study addresses a different level of evidence.</p>
+        <h2 id="evidence-title">Peer-reviewed <span class="soft">and published.</span></h2>
+        <p class="lead">Cells first, then mice, then healthy adults. Each study led by Dr. Nirosha Murugan has been through peer review. None has tested cancer detection in people yet. That is what the next study is for.</p>
       </div>
-      <ol class="stages home-stages reveal" aria-label="Where the science stands">
-        <li><span class="when">2018</span><span class="what">Cells in a dish</span><span class="note">Cancer and non-cancer cells differed in the color of their light.</span></li>
-        <li><span class="when">2020</span><span class="what">Cells and mice</span><span class="note">A mouse melanoma experiment found group-level differences at 24 hours.</span></li>
-        <li><span class="when">2025</span><span class="what">Healthy adults</span><span class="note">Faint light recorded near the head, alongside EEG.</span></li>
-        <li class="next"><span class="when">Next</span><span class="what">People with cancer</span><span class="note">A proposed study would match light measurements to biopsy results.</span></li>
-      </ol>
-      <p class="home-research-link"><a class="text-link" href="science.html#published-research">Read the studies <span class="arrow" aria-hidden="true">→</span></a></p>
-    </div>
-  </section>
-
-  <!-- Press and partner program -->
-  <section class="section-tight home-press" id="press" aria-labelledby="press-title">
-    <div class="shell">
-      <p class="eyebrow" id="press-title">Featured In</p>
-      <div class="press-logos reveal" aria-label="Press coverage">
-        <img class="logo-sciam" src="assets/homepage-v2-20260917/images/press/scientific-american.svg" alt="Scientific American">
-        <img class="logo-radiolab" src="assets/homepage-v2-20260917/images/press/radiolab.svg" alt="Radiolab">
-        <img class="logo-cellpress" src="assets/homepage-v2-20260917/images/press/cell-press.png" alt="Cell Press">
-        <img class="logo-cbcnews" src="assets/homepage-v2-20260917/images/press/cbc-news.svg" alt="CBC News">
-        <img class="logo-labj" src="assets/homepage-v2-20260917/images/press/la-business-journal.svg" alt="LA Business Journal">
+      <div class="proof-row">
+        <p class="eyebrow">Published in</p>
+        <ul class="journals reveal" aria-label="Peer-reviewed papers">
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener"><span class="j-name">Biochemistry and Biophysics Reports</span><span class="j-meta"><span class="num">2018</span> · Cells in a dish</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          <li><a href="https://doi.org/10.3390/cancers12041001" target="_blank" rel="noopener"><span class="j-name">Cancers</span><span class="j-meta"><span class="num">2020</span> · Cells and mice</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          <li><a href="https://doi.org/10.1016/j.isci.2025.112019" target="_blank" rel="noopener"><span class="j-name">iScience</span><span class="j-meta"><span class="num">2025</span> · Healthy adults</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        </ul>
       </div>
-      <div class="partner">
-        <p class="eyebrow">Partner Program</p>
+      <div class="proof-row" id="press">
+        <p class="eyebrow" id="press-title">Featured in</p>
+        <div class="press-logos reveal" aria-label="Press coverage">
+          <img class="logo-sciam" src="assets/homepage-v2-20260917/images/press/scientific-american.svg" alt="Scientific American">
+          <img class="logo-radiolab" src="assets/homepage-v2-20260917/images/press/radiolab.svg" alt="Radiolab">
+          <img class="logo-cellpress" src="assets/homepage-v2-20260917/images/press/cell-press.png" alt="Cell Press">
+          <img class="logo-cbcnews" src="assets/homepage-v2-20260917/images/press/cbc-news.svg" alt="CBC News">
+          <img class="logo-labj" src="assets/homepage-v2-20260917/images/press/la-business-journal.svg" alt="LA Business Journal">
+        </div>
+      </div>
+      <div class="proof-row partner">
+        <p class="eyebrow">Partner program</p>
         <span class="nvidia-inception" aria-label="NVIDIA Inception Program member"><img src="assets/homepage-v2-20260917/images/press/nvidia-inception.png" alt="NVIDIA Inception Program"></span>
       </div>
+      <p class="home-research-link"><a class="text-link" href="science.html#published-research">What each study found <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
   <!-- 04 The next study -->
   <section class="section band" id="next-study" aria-labelledby="next-title">
     <div class="shell">
-      <div class="kicker"><b>04</b><span>The next study</span><em>From laboratory evidence to human evaluation</em></div>
+      <div class="kicker"><b>04</b><span>The next study</span></div>
       <div class="split">
-        <h2 id="next-title">The proposed next test is in <span class="soft">people with cancer.</span></h2>
-        <p class="lead">The proposed first study in people with cancer would compare QSense measurements with biopsy results from the same participants. Those human cancer data do not exist yet. Generating them is the purpose of the study.</p>
+        <h2 id="next-title">Next: the first study <span class="soft">in people with cancer.</span></h2>
+        <p class="lead">Each person’s light reading would be compared with their biopsy result. That kind of human cancer data doesn’t exist yet. Producing it is the point of the study.</p>
       </div>
-      <ol class="process3">
-        <li class="reveal"><span class="p-n">01</span><h3>Measure the light</h3><p>Record the tissue’s photon signal.</p></li>
-        <li class="reveal reveal-d1"><span class="p-n">02</span><h3>Compare with biopsy</h3><p>Match the measurement to the clinical result.</p></li>
-        <li class="reveal reveal-d2"><span class="p-n">03</span><h3>Estimate performance</h3><p>Test whether the signal adds clinically useful information.</p></li>
-      </ol>
-      <h3 class="home-systems-title">Where we’re starting.</h3>
       <div class="start-list">
         <article class="start reveal">
           <p class="detect-status">IRB study in development</p>
@@ -305,12 +271,8 @@
           <h3>Skin cancer</h3>
           <p>First human study targeting Q4 2026 with a Beverly Hills dermatology partner.</p>
         </article>
-        <article class="start reveal reveal-d2">
-          <p class="detect-status">Published · 2025 · iScience</p>
-          <h3>Brain activity</h3>
-          <p>In 20 healthy adults, faint light recorded near the head was studied alongside EEG. It was an exploratory study of brain activity, not cancer detection.</p>
-        </article>
       </div>
+      <p class="home-research-link"><a class="text-link" href="science.html#human-studies">How the study would work <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -404,10 +366,10 @@
 <script src="assets/next/next.js"></script>
 <script src="assets/homepage-v2-20260917/assets/tumor-growth/sequence-data.js?v=chapter-3"></script>
 <script src="assets/homepage-v2-20260917/assets/tumor-growth/renderer.js?v=paper-composite-1"></script>
-<script src="assets/homepage-v2-20260917/assets/tumor-growth/story.js?v=paper-composite-1-punch"></script>
+<script src="assets/homepage-v2-20260917/assets/tumor-growth/story.js?v=paper-composite-1-mark"></script>
 <script defer src="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.js"></script>
 <script src="assets/homepage-v2-20260917/percent.js"></script>
-<script src="assets/homepage-v2-20260917/hero-photons.js?v=20260918f"></script>
+<script src="assets/homepage-v2-20260917/hero-photons.js?v=20261028h"></script>
 <script src="assets/homepage-v2-20260917/hero-motion.js"></script>
 <script src="assets/next/home.js?v=20261028r1"></script>
 </body>
