@@ -13,7 +13,7 @@
    if(el.dataset.text===text) return;
    const parts=text.split('\n\n');
    el.textContent=parts[0];
-   if(parts.length>1){const punch=document.createElement('strong'),mark=document.createElement('mark');punch.className='hf-growth-punch';mark.textContent=parts.slice(1).join('\n\n');punch.append(mark);el.append(punch);}
+   if(parts.length>1){const punch=document.createElement('strong');punch.className='hf-growth-punch';punch.textContent=parts.slice(1).join('\n\n');el.append(punch);}
    el.dataset.text=text;
  };
  let reading=false, ready=false, loading=false, active=false, pending=0, lastWidth=innerWidth, lastHeight=innerHeight, shortViewport=innerHeight<=540;
