@@ -176,6 +176,8 @@ p { margin: 0; text-wrap: pretty; }
 .nav-menu a small { font: 400 13px/1.35 var(--body); color: var(--muted); }
 .nav-menu a:hover { background: var(--paper-2); color: var(--ink); }
 .nav-menu a[aria-current="page"] { background: var(--teal-tint); color: var(--ink); }
+/* The timeline sits under How it works: indented, hung from a thin line */
+.nav-menu a.nav-sub { margin: 2px 0 0 22px; padding-left: 14px; border-left: 1px solid var(--rule-strong); border-radius: 0 5px 5px 0; }
 .nav-cta { display: flex; align-items: center; gap: 14px; }
 .nav-cta .button { min-height: 42px; padding: 0 18px; font-size: 14px; }
 .menu-toggle { display: none; }
@@ -211,6 +213,7 @@ p { margin: 0; text-wrap: pretty; }
   .menu-open .mobile-menu { display: block; }
   .mobile-menu a { display: flex; justify-content: space-between; align-items: center; min-height: 56px; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; font: 400 19px/1.2 var(--display); }
   .mobile-menu a small { font: 400 14px/1.2 var(--body); color: var(--muted); }
+  .mobile-menu a.nav-sub { padding-left: 22px; font-size: 17px; }
   .mobile-menu .button { margin-top: 20px; width: 100%; color: var(--paper); border-bottom: 0; justify-content: center; }
 }
 
