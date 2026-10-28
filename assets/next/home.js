@@ -70,7 +70,7 @@
    mitochondria inside the cells (where the light comes from, Nirosha's point), drift out through the membrane to
    QSense, each one glows as it lands, a counted dot runs to its color's lane, and LuminAI's bars
    ride the lanes left to right, taller when counts come in bursts. The cells, the detector and the lines are one
-   still picture; the specks and bars are cut from the same drawing (assets/next/signal-path-paper-parts.webp).
+   still picture; the specks and bars are cut from the same drawing (assets/next/signal-path-night-parts.webp, the navy re-inking).
    Reduced motion and no JS keep the still drawing, and it only runs while it is on screen. */
 (() => {
   const art = document.querySelector('[data-signal-path]');

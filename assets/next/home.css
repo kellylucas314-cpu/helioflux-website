@@ -33,8 +33,8 @@
 /* The same air under the numbers as above them, so the thin line before the growth story sits close */
 #problem { padding-bottom: clamp(64px, 6.7vw, 96px); }
 /* Right after a dark band or photo, its edge already divides the page: the label drops its line and the section starts closer */
-#problem, #solution, #evidence { padding-top: clamp(56px, 6vw, 88px); }
-:is(#problem, #solution, #evidence) > .shell > .kicker { padding-top: 0; border-top: 0; }
+#problem, #solution, #evidence, #next-study { padding-top: clamp(56px, 6vw, 88px); }
+:is(#problem, #solution, #evidence, #next-study) > .shell > .kicker { padding-top: 0; border-top: 0; }
 .survival-rule { flex: none; width: 1px; height: clamp(120px, 13vw, 170px); background: var(--rule-strong); }
 
 /* The growth chapter works exactly as on the live site (home-polish-20260917.css): the same centred heading,
@@ -98,11 +98,18 @@
 .home-page .hf-cellular-signals { max-width: 760px; }
 .home-page .hf-cellular-signals__caption { margin-top: 20px; font-size: clamp(20px, 1.9vw, 26px); max-width: 42ch; }
 
-/* 03 The scan: four steps that fade up in order (home.js) */
-/* We built the tool to read it: one cream section under a thin line, the headline, Kelly's drawing of the two
-   systems, then what each one does */
-.home-page .home-scan::before { content: ""; display: block; width: min(100% - var(--gutter) * 2, var(--max)); height: 1px; margin: 0 auto clamp(56px, 6vw, 88px); background: var(--rule-strong); }
-.home-page .home-scan { padding-top: 0; padding-bottom: clamp(56px, 6vw, 88px); }
+/* We built the tool to read it: one navy section (Kelly's call, 10/28), so it doesn't run straight on from the cream
+   cell film above it. The headline, Kelly's drawing of the two systems re-inked light on navy in the hero's line
+   style (signal-path-night-*), then what each one does. */
+.home-page .home-scan { padding-block: clamp(72px, 8vw, 120px); }
+.home-page .home-tool.night .soft { color: var(--cyan); }
+.home-tool.night .lead { color: var(--on-night); }
+.home-tool.night .home-systems .signal-path h4 { color: #fff; }
+.home-tool.night .home-systems .signal-path .signal-path__role { color: var(--cyan); }
+.home-tool.night .signal-path__system p:not([class]) { color: var(--on-night); }
+.home-tool.night :is(.system-kind, .system-status) { color: var(--teal-night); }
+.home-tool.night .signal-path__system + .signal-path__system { border-color: var(--rule-night); }
+.home-tool.night .signal-path__pause { border-color: var(--line-night); background: var(--night); color: var(--on-night); }
 /* The two systems as one picture of the signal's path: Kelly's drawing, set moving by home.js.
    The science page explains them with its own drawings. */
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
@@ -184,21 +191,24 @@
 .hc-dots { display: flex; gap: 8px; }
 .hc-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: background .3s ease, transform .3s ease; }
 .hc-dots span.is-active { background: var(--cyan); transform: scale(1.3); }
-#next-study .home-research-link { margin-top: clamp(32px, 4vw, 48px); }
+#next-study .home-research-link { margin-top: clamp(32px, 4vw, 48px); text-align: center; }   /* under the centered arrows */
 
 /* 05 The team */
-/* The four people who run the company, picture first: name and title only. The bios and the advisors live on the team page. */
-.home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 56px); }
+/* The four people who run the company as small round portraits with name and title (Kelly: smaller, round, less
+   space). The bios and the advisors live on the team page. */
+#credibility { padding-block: clamp(64px, 7vw, 104px); }
+.home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 3.6vw, 48px); }
 .home-team-head h2 { margin: 0; }
 .home-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
-.home-people img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border-radius: var(--r-image); }
-.home-people h3 { margin: 18px 0 0; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.25; letter-spacing: -.015em; }
+.home-people img { display: block; width: clamp(104px, 9vw, 128px); height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 16%; border-radius: 50%; }
+.home-people h3 { margin: 18px 0 0; font-size: clamp(18px, 1.4vw, 21px); line-height: 1.25; letter-spacing: -.015em; }
 .person-role { margin: 6px 0 0; font: 600 12px/1.45 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
 
 /* Press: on paper, logos in ink, so the page keeps only a few dark blocks */
 .press-logos { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 5vw, 72px); flex-wrap: wrap; margin-top: 36px; }
 .press-logos img { display: block; width: auto; filter: brightness(0) invert(9%) sepia(30%) saturate(1800%) hue-rotate(190deg); opacity: .78; transition: opacity .25s ease; }
 .press-logos img:hover { opacity: 1; }
+.press-logos .logo-nature { height: 27px; }
 .press-logos .logo-sciam { height: 30px; }
 .press-logos .logo-radiolab { height: 24px; }
 .press-logos .logo-cellpress { height: 24px; }
@@ -247,10 +257,15 @@
   .hc-panel { flex-basis: 88%; grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .hc-text h3 { font-size: 28px; margin: 12px 0 12px; }
   .hc-text p:not(.hc-status) { font-size: 16px; }
-  .home-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; }
-  .home-people h3 { margin-top: 14px; font-size: 18px; }
-  .home-people .person-role { font-size: 11px; letter-spacing: .1em; }
+  .home-tool.night .signal-path__system + .signal-path__system { border-top-color: var(--rule-night); }
+  /* Each person a row: the portrait beside the name and title, so four people stay a short scroll */
+  .home-people { grid-template-columns: 1fr; gap: 18px; }
+  .home-people li { display: grid; grid-template-columns: 72px minmax(0, 1fr); column-gap: 16px; align-items: center; }
+  .home-people img { width: 72px; grid-row: 1 / span 2; }
+  .home-people h3 { margin: 0; align-self: end; font-size: 18px; }
+  .home-people .person-role { align-self: start; margin-top: 4px; font-size: 11px; letter-spacing: .1em; }
   .press-logos { gap: 28px 36px; }
+  .press-logos .logo-nature { height: 20px; }
   .press-logos .logo-sciam { height: 22px; }
   .press-logos .logo-radiolab { height: 18px; }
   .press-logos .logo-cellpress { height: 20px; }
