@@ -48,7 +48,7 @@
     window.addEventListener('beforeprint', () => { printing = true; update(); });
     window.addEventListener('afterprint', () => { printing = false; update(); });
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); }, { threshold: 0 }).observe(figure);
+      new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); }, { rootMargin: '300px 0px' }).observe(figure);
     } else visible = true;
     update();
   });

@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261027r2">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=paper-composite-1-punch">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261027r1">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r1">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -143,7 +143,10 @@
   </section>
 
   <!-- Bridge -->
-  <section class="section-tight home-bridge night" aria-label="Bridge">
+  <section class="home-bridge night" aria-label="Bridge">
+    <video class="home-bridge-film" aria-hidden="true" tabindex="-1" data-bridge-film poster="assets/homepage-v2-20260917/assets/bridge-cells-poster.jpg" loop muted playsinline preload="none">
+      <source data-src="assets/homepage-v2-20260917/blue-cells-in-dish.mp4" type="video/mp4">
+    </video>
     <div class="shell">
       <p class="reveal">But there's a signal before there's a tumor.</p>
     </div>
@@ -153,15 +156,13 @@
   <section class="section" id="solution" aria-labelledby="science-title">
     <div class="shell">
       <div class="kicker"><b>02</b><span>The science</span></div>
-      <div class="split home-science">
-        <h2 id="science-title" class="split-h2">Cancer has a<br> <span class="soft">light signature.</span></h2>
-        <div>
-          <p class="lead">Cells emit very faint light during metabolism. In laboratory and animal studies, cancer and comparison cells showed differences in their light emissions. HelioFlux is investigating whether those differences could support earlier cancer detection.</p>
-          <p>Dr. Nirosha J. Murugan spent a decade building the technology that reads these signals.</p>
-        </div>
+      <div class="home-science">
+        <h2 id="science-title">Cancer has a <em class="soft">light signature.</em></h2>
+        <p class="lead">Cells emit very faint light during metabolism. In laboratory and animal studies, cancer and comparison cells showed differences in their light emissions. HelioFlux is investigating whether those differences could support earlier cancer detection.</p>
+        <p>Dr. Nirosha J. Murugan spent a decade building the technology that reads these signals.</p>
       </div>
 <!-- HELIOFLUX CELLULAR SIGNALS START -->
-<figure class="reveal hf-cellular-signals" data-cellular-signals>
+<figure class="hf-cellular-signals" data-cellular-signals>
   <svg class="hf-cellular-signals__filter" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <defs>
       <filter id="hf-signal-palette" x="0" y="0" width="1" height="1" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
@@ -182,10 +183,10 @@
     </defs>
   </svg>
   <div class="hf-cellular-signals__media">
-    <img class="hf-cellular-signals__poster" src="assets/homepage-v2-20260917/light-signature-poster.jpg" width="880" height="696" loading="lazy" decoding="async" alt="Original cellular comparison image: normal-appearing cells with a smooth waveform on the left, and atypical cells with a variable waveform on the right.">
-    <video class="hf-cellular-signals__video" loop muted playsinline preload="none" poster="assets/homepage-v2-20260917/light-signature-poster.jpg" width="880" height="696" aria-hidden="true" tabindex="-1">
-      <source data-src="assets/homepage-v2-20260917/light-signature.webm" type="video/webm">
-      <source data-src="assets/homepage-v2-20260917/light-signature.mp4" type="video/mp4">
+    <img class="hf-cellular-signals__poster" src="assets/homepage-v2-20260917/light-signature-1320-poster.jpg" width="1320" height="1044" decoding="async" alt="Original cellular comparison image: normal-appearing cells with a smooth waveform on the left, and atypical cells with a variable waveform on the right.">
+    <video class="hf-cellular-signals__video" loop muted playsinline preload="none" poster="assets/homepage-v2-20260917/light-signature-1320-poster.jpg" width="1320" height="1044" aria-hidden="true" tabindex="-1">
+      <source data-src="assets/homepage-v2-20260917/light-signature-1320.webm" type="video/webm">
+      <source data-src="assets/homepage-v2-20260917/light-signature-1320.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hf-cellular-signals__controls">
@@ -388,6 +389,6 @@
 <script src="assets/homepage-v2-20260917/percent.js"></script>
 <script src="assets/homepage-v2-20260917/hero-photons.js?v=20260918f"></script>
 <script src="assets/homepage-v2-20260917/hero-motion.js"></script>
-<script src="assets/next/home.js?v=20261027r1"></script>
+<script src="assets/next/home.js?v=20261028r1"></script>
 </body>
 </html>

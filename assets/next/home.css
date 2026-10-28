@@ -33,15 +33,24 @@
 .home-page .hf-growth-beat { color: var(--teal); }
 .home-page .hf-growth-progress span { background: var(--teal); }
 
-/* Bridge */
-.home-bridge p { font: 400 clamp(28px, 3.4vw, 48px)/1.2 var(--display); letter-spacing: -.024em; color: var(--on-night); max-width: 24ch; text-wrap: balance; }
+/* Bridge: the microscope film of cells in a dish behind one line, under a navy veil (home.js plays it in view) */
+.home-bridge { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; min-height: clamp(260px, 34vh, 340px); padding: clamp(64px, 9vh, 104px) 0; text-align: center; }
+.home-bridge-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: .7; filter: saturate(.45); }
+.home-bridge::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgba(8, 36, 50, .42), rgba(8, 36, 50, .74)); }
+.home-bridge .shell { width: 100%; }
+.home-bridge p { margin: 0 auto; font: italic 400 clamp(26px, 3vw, 42px)/1.25 var(--display); letter-spacing: -.01em; color: #fff; max-width: 26ch; text-wrap: balance; }
 
-/* 02 The science */
-.home-science { margin-bottom: clamp(40px, 5vw, 64px); }
-.home-science .lead { padding-top: .5em; }
-.home-science .lead + p { margin-top: 18px; color: var(--muted); }
-.home-page .hf-cellular-signals { --signal-paper: var(--paper); --signal-ink: var(--ink); --signal-sage: var(--teal); max-width: 560px; }
-.home-page .hf-cellular-signals__caption { font: 400 19px/1.45 var(--display); font-style: normal; color: var(--ink); max-width: 30ch; }
+/* 02 The science: centered, with the cell film straight under the words, in teal and navy ink */
+#solution .kicker { justify-content: center; }
+#solution { padding-top: clamp(56px, 6vw, 88px); }
+#solution .kicker { margin-bottom: clamp(20px, 2.4vw, 32px); }
+.home-science { max-width: 960px; margin: 0 auto clamp(8px, 1.5vw, 20px); text-align: center; }
+.home-science h2 { font-size: clamp(38px, 4.4vw, 64px); text-wrap: balance; }
+.home-science h2 em { font-style: italic; }
+.home-science .lead { margin: 22px auto 0; max-width: 48ch; }
+.home-science .lead + p { margin: 14px auto 0; max-width: 56ch; color: var(--text); }
+.home-page .hf-cellular-signals { --signal-paper: var(--paper); --signal-ink: var(--ink); --signal-sage: var(--teal); max-width: 640px; }
+.home-page .hf-cellular-signals__caption { font: 400 19px/1.45 var(--display); font-style: normal; color: var(--ink); max-width: 36ch; }
 .home-page .hf-sig-line { display: block; }
 .home-page .hf-sig-accent { color: var(--teal); }
 .home-page .hf-cellular-signals__toggle { border-radius: var(--r-control); }
@@ -146,6 +155,8 @@
   .home-photo img { aspect-ratio: 4 / 3; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .home-bridge-film { display: none; }
+  .home-bridge { background: #082432 url("../homepage-v2-20260917/assets/bridge-cells-poster.jpg") center / cover; }
   .js .hf-scan-steps li, .js .hf-scan-steps .hf-scan-rule { opacity: 1; transform: none; transition: none; }
 }
 
