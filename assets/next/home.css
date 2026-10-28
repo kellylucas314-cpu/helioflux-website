@@ -160,7 +160,6 @@
 .proof-row { padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
 .proof-row .eyebrow { color: var(--ink); margin-bottom: 24px; }
 .home-proof .press-logos { margin-top: 0; }
-.home-proof .partner { margin: 0; max-width: none; padding-top: clamp(28px, 3vw, 40px); }
 /* The way into the Science page sits right under the section's lead, where it is seen first */
 .home-proof .research-cta { margin-top: 28px; }
 
@@ -220,9 +219,11 @@
 .press-feature q { color: var(--ink); }
 .press-feature a { color: var(--teal-label); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .press-feature a:hover { color: var(--ink); }
-.partner { margin: 48px auto 0; padding-top: 36px; border-top: 1px solid var(--rule); max-width: 520px; }
-.nvidia-inception { display: inline-block; margin-top: 16px; }
-.nvidia-inception img { height: 60px; width: auto; }   /* the badge without NVIDIA's gray box, so it sits on the cream like the press logos */
+/* NVIDIA Inception closes the team section (Kelly: at the bottom), one ruled row: the label, then the badge */
+.home-partner { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--rule-strong); }
+.home-partner .eyebrow { margin: 0; color: var(--ink); }
+.nvidia-inception { display: inline-block; }
+.nvidia-inception img { display: block; height: 52px; width: auto; }   /* the badge without NVIDIA's gray box, so it sits on the cream like the press logos */
 
 /* The ask */
 .home-closing .shell { align-items: end; }
@@ -276,7 +277,7 @@
   .press-logos .logo-cellpress { height: 20px; }
   .press-logos .logo-cbcnews { height: 30px; }
   .press-logos .logo-labj { height: 14px; }
-  .nvidia-inception img { height: 46px; }
+  .nvidia-inception img { height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }
