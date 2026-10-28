@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261027r2">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=paper-composite-1-punch">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r2">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r5">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -174,9 +174,9 @@
         <feColorMatrix in="normalized" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.2126 -0.7152 -0.0722 0 1" result="ink"></feColorMatrix>
         <feComponentTransfer in="ink" result="toned"><feFuncA type="gamma" amplitude="1" exponent=".82" offset="0"></feFuncA></feComponentTransfer>
         <feComposite in="toned" in2="SourceAlpha" operator="in" result="boundedInk"></feComposite>
-        <feFlood x="0" y="0" width=".5" height="1" flood-color="#006d8b" result="sage"></feFlood>
+        <feFlood x="0" y="0" width=".5" height="1" flood-color="#0796c2" result="sage"></feFlood>
         <feComposite in="sage" in2="boundedInk" operator="in" result="left"></feComposite>
-        <feFlood x=".5" y="0" width=".5" height="1" flood-color="#0f1c2e" result="navy"></feFlood>
+        <feFlood x=".5" y="0" width=".5" height="1" flood-color="#143a52" result="navy"></feFlood>
         <feComposite in="navy" in2="boundedInk" operator="in" result="right"></feComposite>
         <feMerge><feMergeNode in="left"></feMergeNode><feMergeNode in="right"></feMergeNode></feMerge>
       </filter>

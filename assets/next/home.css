@@ -161,7 +161,18 @@
   .js .hf-scan-steps li, .js .hf-scan-steps .hf-scan-rule { opacity: 1; transform: none; transition: none; }
 }
 
-/* The sticky page map sits under the nav; give the pinned growth story room below both */
-.home-page .hf-growth-pin { padding-top: 64px; }
+/* On the home page the "On this page" map sits under the hero and scrolls away with it, so only one bar stays on top */
+.home-page .page-map { position: relative; top: auto; }
+.home-page .hf-growth-pin { padding-top: 16px; }
 .home-press { padding-bottom: clamp(48px, 5vw, 72px); }
-@media (max-width: 860px) { .home-page .hf-growth-pin { padding-top: 52px; } }
+
+
+/* One teal family on the home page. The wordmark takes the brand cyan everywhere, big accent words on paper
+   take a lighter shade of that same hue (4:1, for large type only), and small labels on paper go navy. */
+.home-page { --teal-display: #0083a8; }
+.home-page .wordmark span, .home-page .site-nav.on-night .wordmark span, .home-page .site-footer .wordmark span { color: var(--cyan); }
+.home-page .section .soft, .home-page .band .soft, .home-page .home-science h2 em { color: var(--teal-display); }
+.home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-display); font-weight: 600; }
+.home-page .detect-status, .home-page .person-role, .home-page .platform-status, .home-page .hf-growth-beat { color: var(--ink) !important; }
+.home-page .hf-sig-accent, .home-page .hf-scan-steps li:last-child .hf-scan-num, .home-page .survival-col.early .survival-num { color: var(--teal-display); }
+.home-page .hf-sig-accent { font-weight: 600; }
