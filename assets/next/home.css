@@ -140,8 +140,6 @@
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
 .home-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
-/* The systems drawing sits under the two cards, so text separates it from the light-signature film above (Kelly, Oct 28) */
-.home-systems .signal-path__art { margin-top: clamp(48px, 6vw, 88px); }
 .home-research-link { margin-top: 32px; }
 
 /* Full-width microscope photo, as on the live page, drifting a little slower than the page (home.js) */
