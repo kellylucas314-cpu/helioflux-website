@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="assets/next/science.css?v=20261027r2">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=navy-2b-punch-b">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r12">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r13">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -218,25 +218,29 @@
         <li style="--i:3"><div class="hf-scan-num" aria-hidden="true">04</div><div class="hf-scan-rule" aria-hidden="true"></div><p>Same visit, same day.</p></li>
       </ol>
       <h3 class="home-systems-title">Two systems. <span class="soft">One signal.</span></h3>
-      <div class="home-systems reveal">
-        <article class="system-card">
-          <div class="system-media"><img src="assets/homepage-v2-20260917/qsense-product.jpg" alt="QSense artwork showing cell clusters within a field of curved sensing lines." width="481" height="487" loading="lazy" decoding="async"></div>
-          <div class="system-body">
+      <div class="signal-path reveal">
+        <div class="signal-path__stage" data-signal-path>
+          <canvas aria-hidden="true"></canvas>
+          <span class="signal-path__tag" aria-hidden="true">QSense</span>
+          <span class="signal-path__tag signal-path__tag--right" aria-hidden="true">LuminAI</span>
+          <button class="signal-path__pause" type="button" aria-pressed="false" hidden>Pause</button>
+        </div>
+        <div class="signal-path__systems">
+          <article class="signal-path__system">
             <p class="system-kind">Hardware</p>
             <h4>QSense&#8482;</h4>
+            <p class="signal-path__role">Counts the light.</p>
             <p>A photon-counting sensor designed to record the faint light living tissue gives off on its own, in darkness, with no dye and no added radiation.</p>
             <p class="system-status">Research prototype</p>
-          </div>
-        </article>
-        <article class="system-card">
-          <div class="system-media"><img src="assets/homepage-v2-20260917/luminal-product.jpg" alt="LuminAI artwork showing a luminous signal trace and surrounding wave patterns." width="491" height="483" loading="lazy" decoding="async"></div>
-          <div class="system-body">
+          </article>
+          <article class="signal-path__system">
             <p class="system-kind">Software</p>
             <h4>LuminAI&#8482;</h4>
+            <p class="signal-path__role">Reads the pattern.</p>
             <p>Software built on a decade of cell and animal data, designed to read the color and timing of the signal, not only its brightness. Human cancer performance has not yet been established.</p>
             <p class="system-status">In development</p>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
       <figure class="home-quote-band reveal">
         <blockquote>“These sensors were inspired by technology built to detect faint light from distant stars. We pointed them at the faint light coming off the human body, and built an AI that uses it to read the state of your cells and tell healthy tissue from cancer.”</blockquote>
@@ -296,7 +300,7 @@
         <p class="eyebrow" id="starting-title">Where we’re starting</p>
         <div class="hc-track" role="region" aria-labelledby="starting-title" tabindex="0">
           <article class="hc-panel" aria-label="1 of 3">
-            <div class="hc-img"><img class="hc-full" src="assets/homepage-v2-20260917/breast-cancer-valley-care.jpg" alt="Valley Breast Care and Women's Health Center team" width="1280" height="733" loading="lazy" decoding="async"></div>
+            <div class="hc-img"><img class="hc-full" src="assets/homepage-v2-20260917/breast-cancer-valley-care-hf.jpg" alt="Valley Breast Care and Women's Health Center team" width="1920" height="1100" loading="lazy" decoding="async"></div>
             <div class="hc-text">
               <p class="hc-status">IRB study in development</p>
               <h3>Breast cancer <span class="soft">detection</span></h3>
@@ -417,6 +421,6 @@
 <script src="assets/homepage-v2-20260917/percent.js"></script>
 <script src="assets/homepage-v2-20260917/hero-photons.js?v=20261028h"></script>
 <script src="assets/homepage-v2-20260917/hero-motion.js"></script>
-<script src="assets/next/home.js?v=20261028r2"></script>
+<script src="assets/next/home.js?v=20261028r3"></script>
 </body>
 </html>

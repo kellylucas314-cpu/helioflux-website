@@ -88,17 +88,24 @@
 .js .hf-scan-steps .hf-scan-rule { transform: scaleX(0); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * .55s + .45s); }
 .js .hf-scan-steps li.in { opacity: 1; transform: none; }
 .js .hf-scan-steps li.in .hf-scan-rule { transform: none; }
-/* The two systems as the live page showed them: the product art on navy cards, with Nirosha's quote on the
-   same navy right under them. The science page explains them with its own drawings. */
+/* The two systems as one picture of the signal's path (home.js draws it): light specks leave the cells, QSense
+   counts each one as it lands, and LuminAI sorts the counts by color into three lanes and keeps their timing.
+   Nirosha's quote sits on the same navy right under it. The science page explains them with its own drawings. */
 .home-systems-title { margin: clamp(72px, 8vw, 112px) 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
-.home-systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); max-width: 1040px; margin: 0 auto; }
-#two-systems .system-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-image); background: var(--night); color: var(--on-night); }
-.system-media { height: clamp(200px, 19vw, 240px); overflow: hidden; background: var(--night); }
-.system-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.system-body { display: flex; flex: 1; flex-direction: column; padding: clamp(24px, 3vw, 36px); }
+#two-systems .signal-path { max-width: 1040px; margin: 0 auto; overflow: hidden; border-radius: var(--r-image); background: var(--night); color: var(--on-night); }
+.signal-path__stage { position: relative; height: clamp(230px, 27vw, 330px); }
+.signal-path__stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.signal-path__tag { display: none; position: absolute; left: 5%; bottom: 12px; font: 600 11px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #7dd4f0; }
+.signal-path__tag--right { left: 54%; }
+.signal-path__pause { position: absolute; top: 12px; right: 12px; min-height: 32px; padding: 0 14px; border: 1px solid rgba(255,255,255,.28); border-radius: var(--r-control); background: transparent; color: var(--on-night); font: 500 13px/1 var(--display); cursor: pointer; }
+.signal-path__pause:hover { border-color: var(--cyan); color: #fff; }
+.signal-path__systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-night); }
+.signal-path__system { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 40px); }
+.signal-path__system + .signal-path__system { border-left: 1px solid var(--rule-night); }
 .system-kind, .system-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #7dd4f0; }
-#two-systems .system-card h4 { margin: 10px 0 14px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: #fff; }
-.system-body p:not(.system-kind):not(.system-status) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--on-night); }
+#two-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: #fff; }
+#two-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--cyan); }
+.signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--on-night); }
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
 #two-systems .home-quote-band { max-width: 1040px; margin: clamp(16px, 2.4vw, 28px) auto 0; padding: clamp(40px, 6vw, 72px) clamp(24px, 6vw, 88px); border-radius: var(--r-image); background: var(--night); text-align: center; }
@@ -207,7 +214,9 @@
   .survival-rule { height: 115px; }
   .survival-what { font-size: 15px; }
   .survival-when { font-size: 13px; }
-  .home-systems { grid-template-columns: 1fr; }
+  .signal-path__systems { grid-template-columns: 1fr; }
+  .signal-path__system + .signal-path__system { border-left: 0; border-top: 1px solid var(--rule-night); }
+  .signal-path__tag { display: block; }
   .home-photo-break img { object-position: 38% center; }
   .hc-panel { flex-basis: 88%; grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .hc-text h3 { font-size: 28px; margin: 12px 0 12px; }
