@@ -32,6 +32,9 @@
 .survival-when { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
 /* The same air under the numbers as above them, so the thin line before the growth story sits close */
 #problem { padding-bottom: clamp(64px, 6.7vw, 96px); }
+/* Right after a dark band or photo, its edge already divides the page: the label drops its line and the section starts closer */
+#problem, #solution, #two-systems, #evidence { padding-top: clamp(56px, 6vw, 88px); }
+:is(#problem, #solution, #evidence) > .shell > .kicker { padding-top: 0; border-top: 0; }
 .survival-rule { flex: none; width: 1px; height: clamp(120px, 13vw, 170px); background: var(--rule-strong); }
 
 /* The growth chapter works exactly as on the live site (home-polish-20260917.css): the same centred heading,
@@ -69,7 +72,6 @@
 
 /* 02 The science: centered, with the cell film straight under the words, in teal and navy ink */
 #solution .kicker { justify-content: center; }
-#solution { padding-top: clamp(56px, 6vw, 88px); }
 #solution .kicker { margin-bottom: clamp(20px, 2.4vw, 32px); }
 .home-science { max-width: 960px; margin: 0 auto clamp(8px, 1.5vw, 20px); text-align: center; }
 .home-science h2 { font-size: clamp(38px, 4.4vw, 64px); text-wrap: balance; }
@@ -104,10 +106,13 @@
 .js .hf-scan-steps .hf-scan-rule { transform: scaleX(0); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * .55s + .45s); }
 .js .hf-scan-steps li.in { opacity: 1; transform: none; }
 .js .hf-scan-steps li.in .hf-scan-rule { transform: none; }
+/* The scan steps get their own pale teal band, so the long approach chapter breaks into film, steps and systems */
+.home-scan { background: var(--teal-tint); }
+.home-scan .hf-scan-rule { background: rgba(15, 28, 46, .22); }
 /* The two systems as one picture of the signal's path (home.js draws it): light specks leave the cells, QSense
    counts each one as it lands, and LuminAI sorts the counts by color into three lanes and keeps their timing.
    Nirosha's quote sits on the same navy right under it. The science page explains them with its own drawings. */
-.home-systems-title { margin: clamp(72px, 8vw, 112px) 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
+.home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
 #two-systems .signal-path { max-width: 1040px; margin: 0 auto; }
 /* The drawing was made on white; darken lets the band's cream show through so it sits on the page with no box */
 .signal-path__art { margin: clamp(8px, 1.5vw, 20px) 0 clamp(32px, 4vw, 52px); }
@@ -123,9 +128,11 @@
 .signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--text); }
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
-#two-systems .home-quote-band { max-width: 1040px; margin: clamp(16px, 2.4vw, 28px) auto 0; padding: clamp(40px, 6vw, 72px) clamp(24px, 6vw, 88px); border-radius: var(--r-image); background: var(--night); text-align: center; }
-.home-quote-band blockquote { max-width: 32em; margin: 0 auto; font: italic 400 clamp(22px, 2.5vw, 32px)/1.42 var(--display); letter-spacing: -.012em; color: #fff; text-wrap: pretty; }
-.home-quote-band figcaption { margin-top: 24px; font: 600 12px/1.5 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
+/* Nirosha's quote as a quiet pull quote: no box, a short teal rule above, set a size down from the headings */
+#two-systems .home-quote-band { max-width: 760px; margin: clamp(56px, 7vw, 96px) auto 0; padding: 0; text-align: center; }
+.home-quote-band::before { content: ""; display: block; width: 40px; height: 2px; margin: 0 auto clamp(24px, 3vw, 32px); background: var(--cyan); }
+.home-quote-band blockquote { max-width: 34em; margin: 0 auto; font: italic 400 clamp(19px, 1.8vw, 23px)/1.55 var(--display); letter-spacing: -.005em; color: var(--ink); text-wrap: pretty; }
+.home-quote-band figcaption { margin-top: 18px; font: 400 15px/1.5 var(--body); color: var(--muted); }
 #two-systems .home-research-link { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
 .home-research-link { margin-top: 32px; }
 
