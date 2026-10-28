@@ -56,6 +56,7 @@
   --r-control: 50px;         /* brand: pill buttons and controls */
   --r-box: 8px;              /* menus, tooltips and other boxes */
   --r-image: 8px;
+  --portrait: #e6ecef;       /* one backdrop behind every cut-out headshot (Oct 28: one treatment for all seven people) */
   --max: 1240px;
   --gutter: clamp(20px, 4.4vw, 56px);
   --section: clamp(88px, 10vw, 152px);
@@ -376,6 +377,8 @@ details.more .more-body a { font-weight: 500; }
 .nature-byline { text-align: right; font-size: 13.5px; color: var(--muted); }
 .nature-byline span { font: 600 11px/1 var(--display); letter-spacing: .14em; color: var(--teal); }
 .nature-byline p { margin: 4px 0 2px; color: var(--ink); font-weight: 500; }
+.nature-line { margin: 0; font: 500 14px/1.5 var(--display); letter-spacing: .01em; color: var(--muted); }   /* one line in place of three labels (Oct 28) */
+.nature-line .nature-publication { display: inline; font-size: 15px; }
 .nature-feature-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding-top: clamp(28px, 4vw, 48px); }
 .nature-feature-copy h2 { font-size: clamp(23px, 2.1vw, 30px); line-height: 1.22; margin-bottom: 16px; }
 .nature-feature-copy p:not(.eyebrow) { font-size: 17px; }
@@ -423,3 +426,60 @@ details.more .more-body a { font-weight: 500; }
   .pg-ribbon::before { width: 6px; height: 6px; }
 }
 @media print { .pg-ribbon, .site-nav, .mobile-menu { display: none !important; } }
+
+/* ---------- Request form (one dialog for the deck and for a conversation; next.js builds it) ---------- */
+/* A sheet from the bottom on phones, a centered card on desktop. Paper, navy ink, hairline fields, no shadows. */
+html:has(dialog.ask[open]) { overflow: hidden; }
+.ask {
+  width: min(560px, calc(100% - 32px)); max-height: calc(100svh - 32px); margin: auto; padding: 0;
+  border: 0; border-radius: 16px; background: var(--paper); color: var(--text); overflow: auto; overscroll-behavior: contain;
+}
+.ask::backdrop { background: rgba(8, 36, 50, .62); }
+.ask-form, .ask-done { position: relative; padding: 40px 40px 32px; }
+.ask-close {
+  position: absolute; top: 14px; right: 14px; z-index: 1; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%;
+  background: transparent; color: var(--ink); cursor: pointer;
+}
+.ask-close::before, .ask-close::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 1.6px; background: currentColor; border-radius: 2px; }
+.ask-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.ask-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.ask-close:hover { border-color: var(--ink); }
+.ask-title { margin: 0 52px 10px 0; font: 400 clamp(28px, 3vw, 34px)/1.12 var(--display); letter-spacing: -.02em; color: var(--ink); }
+.ask-intro { margin: 0 0 26px; font-size: 17px; line-height: 1.55; color: var(--muted); }
+.ask-intro strong { font-weight: 500; color: var(--text); overflow-wrap: anywhere; }
+.ask-field { display: block; margin: 0 0 16px; }
+.ask-field span { display: block; margin-bottom: 7px; font: 500 14px/1.3 var(--display); color: var(--ink); }
+.ask-field em { font-style: normal; font-weight: 400; color: var(--muted); margin-left: 4px; }
+.ask-field input, .ask-field textarea {
+  display: block; width: 100%; min-height: 52px; padding: 13px 18px; border: 1px solid var(--line); border-radius: 14px;
+  background: #fff; color: var(--text); font: 400 16px/1.4 var(--body); transition: border-color .2s var(--ease);
+}
+.ask-field textarea { resize: vertical; min-height: 84px; }
+.ask-field input:hover, .ask-field textarea:hover { border-color: var(--rule-strong); }
+.ask-field input:focus, .ask-field textarea:focus { outline: 2px solid var(--teal); outline-offset: 1px; border-color: var(--teal); }
+.ask-honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.ask-error { margin: 4px 0 14px; padding-left: 14px; border-left: 2px solid #b4442f; font-size: 15px; line-height: 1.5; color: #8a2f1f; }
+.ask-error a { color: inherit; }
+.ask-send { width: 100%; margin-top: 8px; justify-content: space-between; padding-left: 28px; }
+.ask-send:disabled { opacity: .7; cursor: progress; }
+.ask-direct { margin: 20px 0 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
+.ask-direct a { color: var(--teal); text-underline-offset: 3px; }
+.ask-copy {
+  margin-left: 6px; min-height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--r-control);
+  background: transparent; color: var(--ink); font: 500 13px/1 var(--display); cursor: pointer; vertical-align: middle;
+}
+.ask-copy:hover { border-color: var(--ink); }
+.ask-done:focus { outline: none; }
+.ask-done .ask-finish { margin-top: 4px; }
+@media (max-width: 600px) {
+  .ask { width: 100%; max-width: none; max-height: 94svh; margin: auto 0 0; border-radius: 18px 18px 0 0; }
+  .ask-form, .ask-done { padding: 30px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .ask-close { top: 12px; right: 12px; }
+  .ask-intro { font-size: 16px; margin-bottom: 22px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ask[open] { animation: ask-in .28s var(--ease); }
+  @media (max-width: 600px) { .ask[open] { animation-name: ask-up; } }
+}
+@keyframes ask-in { from { opacity: 0; transform: translateY(12px); } }
+@keyframes ask-up { from { transform: translateY(40px); opacity: .4; } }

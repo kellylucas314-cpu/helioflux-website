@@ -6,12 +6,11 @@
   // 1. The approved hero film and light overlay (scripts reused unchanged from the Sep 17 Science page).
   const canvas = document.querySelector('#signal-canvas');
   const poster = document.querySelector('.measurement-poster');
-  const toggle = document.querySelector('#motion-toggle');
   if (canvas && window.installSignalAnimation) {
     try {
       canvas.hidden = false;
       const controller = window.installSignalAnimation();
-      if (controller) { poster.hidden = false; toggle.hidden = false; } else canvas.hidden = true;
+      if (controller) poster.hidden = false; else canvas.hidden = true;
     } catch (error) { canvas.hidden = true; console.error('Measurement illustration unavailable', error); }
   }
 

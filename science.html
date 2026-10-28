@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
 <link rel="preload" href="assets/next/fonts/PlusJakartaSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/next/fonts/DMSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="assets/next/next.css?v=20261028r14">
+<link rel="stylesheet" href="assets/next/next.css?v=20261028r15">
 <link rel="stylesheet" href="assets/next/science.css?v=20261028r5">
 </head>
 <body class="science-page">
@@ -33,23 +33,23 @@
         </li>
         <li><a href="https://helioflux.co/#next-study">Studies</a></li>
         <li><a href="https://helioflux.co/team.html">Team</a></li>
-        <li><a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
+        <li><a data-form="talk" href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
       </ul>
     </nav>
     <div class="nav-cta">
-      <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span class="arrow" aria-hidden="true">→</span></a>
+      <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span class="arrow" aria-hidden="true">→</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="label">Menu</span><i aria-hidden="true"></i></button>
     </div>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu">
   <a href="https://helioflux.co/">Home</a>
-  <a href="science.html" aria-current="page">How it works <small>Science</small></a>
-  <a class="nav-sub" href="timeline.html">Research timeline <small>Science</small></a>
+  <a href="science.html" aria-current="page">How it works</a>
+  <a class="nav-sub" href="timeline.html">Research timeline</a>
   <a href="https://helioflux.co/#next-study">Studies</a>
   <a href="https://helioflux.co/team.html">Team</a>
-  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a>
-  <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck</a>
+  <a data-form="talk" href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a>
+  <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck</a>
 </div>
 
 <main id="main">
@@ -81,7 +81,6 @@
         </div>
         <figcaption class="art-utilities">
           <span>Illustration. Brightness, scale and timing are exaggerated so you can see them.</span>
-          <button class="motion-button" id="motion-toggle" type="button" hidden>Pause illustration</button>
         </figcaption>
         <details class="more art-note">
           <summary>About this illustration <span class="plus" aria-hidden="true"></span></summary>
@@ -109,7 +108,7 @@
   <!-- 2. The idea in four steps -->
   <section class="section" id="idea" aria-labelledby="idea-title">
     <div class="shell">
-      <div class="kicker"><b>01</b><span>The idea</span><em>Four steps, cell to signal</em></div>
+      <div class="kicker"><b>01</b><span>The idea</span></div>
       <div class="split idea-head">
         <h2 id="idea-title">From a living cell to a readable signal.</h2>
         <p class="lead">No dye, no needle, no added radiation. The light is already there. The challenge is collecting enough photons above background, then determining what their color and timing can tell us.</p>
@@ -146,7 +145,7 @@
   <!-- 3. The signal -->
   <section class="section band" id="the-signal" aria-labelledby="signal-title">
     <div class="shell">
-      <div class="kicker"><b>02</b><span>The biological signal</span><em>From cell chemistry to information</em></div>
+      <div class="kicker"><b>02</b><span>The biological signal</span></div>
       <div class="split signal-split">
         <div class="signal-copy">
           <h2 id="signal-title" class="split-h2">The pattern matters.<br> Not just the brightness.</h2>
@@ -186,7 +185,6 @@
           <figcaption><span>Illustrating the 2018 cell study</span><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5699883/" target="_blank" rel="noopener">Original paper ↗</a></figcaption>
         </figure>
         <div class="experiment-read">
-          <p class="eyebrow">Reading the experiment</p>
           <h3>A closer look at the light.</h3>
           <p class="muted">Total brightness alone could not separate the groups. Filtering the light by wavelength did better.</p>
           <ol class="minutes numbered">
@@ -209,23 +207,23 @@
   <!-- 4. Our approach -->
   <section class="section" id="our-approach" aria-labelledby="approach-title">
     <div class="shell">
-      <div class="kicker"><b>03</b><span>HelioFlux’s approach</span><em>Research-stage hardware and software</em></div>
+      <div class="kicker"><b>03</b><span>HelioFlux’s approach</span></div>
       <div class="split approach-head">
         <h2 id="approach-title" class="split-h2">Measure the light.<br> Look for useful patterns.</h2>
         <p class="lead">The platform in development is designed to pair photon-counting hardware with analysis software for the spectral and temporal features of the recorded signal.</p>
       </div>
       <div class="platforms">
         <article class="platform reveal">
-          <div class="platform-top"><span class="platform-role">01 · Capture</span><span class="platform-kind">Hardware</span></div>
+          <div class="platform-top"><span class="platform-kind">Hardware</span></div>
           <h3 class="platform-name">QSense</h3>
           <div class="platform-body"><figure class="platform-art"><img src="assets/next/art/qsense-paper-v2-480.webp" width="480" height="360" loading="lazy" alt="QSense concept drawing: a cylindrical photon detector faces a shallow dish of cultured cells."><figcaption>Concept artwork</figcaption></figure><div><p class="platform-takeaway">Designed to record individual photon events.</p>
           <p>QSense is a research-stage system in development, designed to measure the ultraweak light a sample gives off on its own. It is meant to work in darkness, without illuminating the sample or adding a fluorescent label.</p></div></div>
         </article>
         <article class="platform reveal reveal-d1">
-          <div class="platform-top"><span class="platform-role">02 · Interpret</span><span class="platform-kind">Software</span></div>
+          <div class="platform-top"><span class="platform-kind">Software</span></div>
           <h3 class="platform-name">LuminAI</h3>
           <div class="platform-body"><figure class="platform-art"><img src="assets/next/art/luminai-paper-v2-480.webp" width="480" height="480" loading="lazy" alt="LuminAI concept drawing: three wavelength channels feed a rhythm trace on white paper."><figcaption>Concept artwork</figcaption></figure><div><p class="platform-takeaway">Designed to analyze color and timing.</p>
-          <p>LuminAI is being developed to evaluate spectral and temporal features in photon-count data. Its role is to test whether those features contain reproducible biological information. Human cancer performance has not yet been established.</p></div></div>
+          <p>LuminAI is being developed to evaluate spectral and temporal features in photon-count data. Its role is to test whether those features contain reproducible biological information.</p></div></div>
         </article>
       </div>
       <details class="more approach-more">
@@ -240,7 +238,7 @@
   <!-- 5. Published research -->
   <section class="section band" id="published-research" aria-labelledby="research-title">
     <div class="shell">
-      <div class="kicker"><b>04</b><span>Published research</span><em>Peer-reviewed, led by Dr. Nirosha Murugan</em></div>
+      <div class="kicker"><b>04</b><span>Published research</span></div>
       <div class="split research-head">
         <h2 id="research-title">A foundation in published science.</h2>
         <p class="lead">Dr. Nirosha Murugan’s published work spans cell cultures, a mouse melanoma model, and exploratory measurements in healthy adults. Each study addresses a different level of evidence.</p>
@@ -327,7 +325,7 @@
   <!-- 7. The next step -->
   <section class="section band" id="human-studies" aria-labelledby="next-title">
     <div class="shell">
-      <div class="kicker"><b>05</b><span>The next step</span><em>From laboratory evidence to human evaluation</em></div>
+      <div class="kicker"><b>05</b><span>The next step</span></div>
       <div class="split next-head">
         <h2 id="next-title">The proposed next test is in people with cancer.</h2>
         <div>
@@ -383,10 +381,10 @@
   <!-- In the science press: Nature's news feature on the field, on paper at the end of the page, before the close (Kelly's call, 10/28) -->
   <section class="nature-feature" id="in-the-press" aria-labelledby="nature-title">
     <div class="shell">
-      <header class="nature-feature-header"><div><p class="eyebrow">In the science press</p><div class="nature-publication">Nature</div></div><div class="nature-byline"><span>NEWS FEATURE</span><p>By Jo Marchant</p><time datetime="2026-07-28">28 July 2026</time></div></header>
+      <header class="nature-feature-header"><p class="nature-line"><span class="nature-publication">Nature</span> · News feature · <time datetime="2026-07-28">28 July 2026</time> · By Jo Marchant</p></header>
       <div class="nature-feature-grid">
         <div class="nature-feature-copy">
-          <p class="eyebrow">Biophoton science in focus</p>
+          
           <h2 id="nature-title">“All living things emit a faint glow. Could this light be useful?”</h2>
           <p class="nature-mention">Mentions Dr. Nirosha Murugan, HelioFlux’s co-founder and chief scientist.</p>
           <p>Science journalist Jo Marchant reports on biophoton research and its possible applications. This is a Nature news feature, not a new experimental study.</p>
@@ -405,7 +403,7 @@
         <h2 id="close-title" class="h2">Explore the science with us.</h2>
         <p class="lead muted">Request the research, development roadmap and technical background.</p>
       </div>
-      <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Science%20Deck%20Request">Request the deck <span class="arrow" aria-hidden="true">→</span></a>
+      <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Science%20Deck%20Request">Request investor deck <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </section>
 </main>
@@ -418,7 +416,7 @@
         <li><a href="science.html">How it works</a></li>
         <li><a href="timeline.html">Research timeline</a></li>
         <li><a href="https://helioflux.co/team.html">Meet the team</a></li>
-        <li><a href="mailto:connect@helioflux.co">Contact</a></li>
+        <li><a data-form="talk" href="mailto:connect@helioflux.co">Contact</a></li>
       </ul>
     </div>
     <div class="footer-legal">
@@ -428,9 +426,9 @@
   </div>
 </footer>
 
-<script src="assets/next/next.js"></script>
+<script src="assets/next/next.js?v=20261028f1"></script>
 <script src="assets/science-v2-20260917/assets/science-overview/measurement-film.js"></script>
 <script src="assets/science-v2-20260917/assets/science-overview/measurement-atlas.js?v=20261021r3"></script>
-<script src="assets/next/science.js?v=20261004r3"></script>
+<script src="assets/next/science.js?v=20261028f1"></script>
 </body>
 </html>

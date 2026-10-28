@@ -17,11 +17,11 @@
 <link rel="apple-touch-icon" href="assets/homepage-v2-20260917/apple-touch-icon.png?v=3">
 <link rel="preload" href="assets/next/fonts/PlusJakartaSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/next/fonts/DMSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="assets/next/next.css?v=20261028r14">
+<link rel="stylesheet" href="assets/next/next.css?v=20261028r15">
 <link rel="stylesheet" href="assets/next/science.css?v=20261028r5">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/tumor-growth/story.css?v=navy-2b-punch-e">
 <link rel="stylesheet" href="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.css">
-<link rel="stylesheet" href="assets/next/home.css?v=20261028r44">
+<link rel="stylesheet" href="assets/next/home.css?v=20261028r45">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -42,23 +42,23 @@
         </li>
         <li><a href="#next-study">Studies</a></li>
         <li><a href="team.html">Team</a></li>
-        <li><a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
+        <li><a data-form="talk" href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
       </ul>
     </nav>
     <div class="nav-cta">
-      <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span class="arrow" aria-hidden="true">→</span></a>
+      <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span class="arrow" aria-hidden="true">→</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="label">Menu</span><i aria-hidden="true"></i></button>
     </div>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu">
   <a href="https://helioflux.co/" aria-current="page">Home</a>
-  <a href="science.html">How it works <small>Science</small></a>
-  <a class="nav-sub" href="timeline.html">Research timeline <small>Science</small></a>
+  <a href="science.html">How it works</a>
+  <a class="nav-sub" href="timeline.html">Research timeline</a>
   <a href="#next-study">Studies</a>
   <a href="team.html">Team</a>
-  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a>
-  <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck</a>
+  <a data-form="talk" href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a>
+  <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck</a>
 </div>
 
 <main id="main">
@@ -68,21 +68,20 @@
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero-video" aria-hidden="true">
       <video id="homepage-cell" loop muted playsinline preload="auto" poster="assets/homepage-v2-20260917/hero/homepage-poster.jpg">
-        <source src="assets/homepage-v2-20260917/hero/cell-even-turn-24s.mp4" type="video/mp4">
+        <source src="assets/homepage-v2-20260917/hero/cell-even-turn-24s.mp4" type="video/mp4" media="(min-width: 901px)">
+        <source src="assets/homepage-v2-20260917/hero/cell-even-turn-24s-1080.mp4" type="video/mp4">
       </video>
     </div>
     <div class="shell home-hero-grid">
       <div class="hero-content">
-        <p class="eyebrow">Ultra-early cancer detection</p>
         <h1 id="hero-title">Your cells emit <span class="hero-accent">light.</span><br> We learned to read&nbsp;it.</h1>
-        <p class="lead">No needle. No dye. No added radiation.</p>
+        <p class="lead"><strong class="hero-what">Ultra-early cancer detection.</strong> No needle. No dye. No added radiation.</p>
         <div class="hero-actions">
-          <a class="button" href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A">Request investor deck <span class="arrow" aria-hidden="true">→</span></a>
+          <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A">Request investor deck <span class="arrow" aria-hidden="true">→</span></a>
           <a class="text-link" href="#solution">See the science <span class="arrow" aria-hidden="true">↓</span></a>
         </div>
       </div>
     </div>
-    <button class="cell-pause motion-button" type="button" aria-controls="homepage-cell" aria-pressed="false">Pause motion</button>
   </section>
 
   <nav class="page-map" aria-label="On this page">
@@ -148,7 +147,7 @@
   <!-- Bridge -->
   <section class="home-bridge night" aria-label="Bridge">
     <video class="home-bridge-film" aria-hidden="true" tabindex="-1" data-bridge-film poster="assets/homepage-v2-20260917/assets/bridge-cells-poster.jpg" loop muted playsinline preload="none">
-      <source data-src="assets/homepage-v2-20260917/blue-cells-in-dish.mp4" type="video/mp4">
+      <source data-src="assets/homepage-v2-20260917/blue-cells-in-dish-h264.mp4" type="video/mp4">
     </video>
     <div class="shell">
       <p class="reveal">But there's a signal before there's a tumor.</p>
@@ -192,12 +191,6 @@
       <source data-src="assets/homepage-v2-20260917/light-signature-1320.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="hf-cellular-signals__controls">
-    <button class="hf-cellular-signals__toggle" type="button" aria-pressed="false" hidden>
-      <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path data-signal-toggle-icon d="M3 1.5H5V10.5H3ZM8 1.5H10V10.5H8Z"></path></svg>
-      <span data-signal-toggle-label>Pause animation</span>
-    </button>
-  </div>
   <figcaption class="hf-cellular-signals__caption"><span class="hf-sig-line">Normal cells emit a smooth, steady light signature.</span> <span class="hf-sig-line hf-sig-accent">Cancer cells emit a disrupted one.</span></figcaption>
 </figure>
 <!-- HELIOFLUX CELLULAR SIGNALS END -->
@@ -216,7 +209,6 @@
         <figure class="signal-path__art" data-signal-path data-base="assets/next/signal-path-night-base.webp?v=teal" data-parts="assets/next/signal-path-night-parts.webp?v=teal">
           <img src="assets/next/signal-path-night.webp?v=teal" srcset="assets/next/signal-path-night-1000.webp?v=teal 1000w, assets/next/signal-path-night.webp?v=teal 1856w" sizes="(max-width: 1100px) 100vw, 1040px" width="1856" height="540" loading="lazy" decoding="async" alt="Line drawing: faint light given off by the mitochondria inside a cluster of cells drifts to a detector panel, and the counts it records come out as three lanes of bars, one for each color.">
           <canvas aria-hidden="true"></canvas>
-          <button class="signal-path__pause" type="button" aria-pressed="false" hidden>Pause animation</button>
         </figure>
       </div>
       <div class="home-systems">
@@ -246,7 +238,7 @@
   <!-- 03 Evidence so far: the journals and the press, together -->
   <section class="section home-proof" id="evidence" aria-labelledby="evidence-title">
     <div class="shell">
-      <div class="kicker"><b>03</b><span>Published research</span><em>Peer-reviewed, led by Dr. Nirosha Murugan</em></div>
+      <div class="kicker"><b>03</b><span>Published research</span></div>
       <div class="split research-head">
         <h2 id="evidence-title">A foundation in published science.</h2>
         <div>
@@ -291,11 +283,12 @@
         <p class="eyebrow" id="starting-title">Where we’re starting</p>
         <div class="hc-track" role="region" aria-labelledby="starting-title" tabindex="0">
           <article class="hc-panel" aria-label="1 of 3">
-            <div class="hc-img"><img class="hc-full" src="assets/homepage-v2-20260917/breast-cancer-valley-care-hf.jpg" alt="Valley Breast Care and Women's Health Center team" width="1920" height="1100" loading="lazy" decoding="async"></div>
+            <div class="hc-img"><img class="hc-full" src="assets/homepage-v2-20260917/valley-breast-care-team.jpg" alt="Dr. Tom Lomis (right) with the Valley Breast Care and Women's Health Center team" width="1920" height="1100" loading="lazy" decoding="async"></div>
             <div class="hc-text">
               <p class="hc-status">IRB study in development</p>
               <h3>Breast cancer <span class="soft">detection</span></h3>
               <p>HelioFlux is preparing an IRB study for breast cancer detection with Dr. Tom Lomis, a world-renowned cancer oncologist and surgeon, to evaluate how ultra-weak photon emissions may support earlier, non-invasive detection.</p>
+              <img class="hc-partner" src="assets/homepage-v2-20260917/valley-breast-care-logo.png" width="492" height="99" alt="Valley Breast Care &amp; Women’s Health Center" loading="lazy" decoding="async">
             </div>
           </article>
           <article class="hc-panel" aria-label="2 of 3">
@@ -334,10 +327,10 @@
         <a class="button button-quiet" href="team.html">Meet the full team <span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <ul class="home-people reveal">
-        <li><img loading="lazy" src="assets/next/team/nirosha.webp" width="560" height="700" alt="Dr. Nirosha J. Murugan"><h3>Dr. Nirosha J. Murugan</h3><p class="person-role">Interim CEO, Chief Scientist &amp; Co-Founder</p></li>
-        <li><img loading="lazy" src="assets/next/team/kelly.webp" width="640" height="800" alt="Kelly Lucas"><h3>Kelly Lucas</h3><p class="person-role">President &amp; Co-Founder</p></li>
-        <li><img loading="lazy" src="assets/next/team/jim.webp" width="640" height="800" alt="Jim Armstrong"><h3>Jim Armstrong</h3><p class="person-role">Interim CFO</p></li>
-        <li><img loading="lazy" src="assets/next/team/glenn.webp" width="640" height="800" alt="Glenn Lucas"><h3>Glenn Lucas</h3><p class="person-role">Chief Strategy Officer</p></li>
+        <li><img loading="lazy" src="assets/next/team/nirosha.webp?v=cut1" width="640" height="800" alt="Dr. Nirosha J. Murugan"><h3>Dr. Nirosha J. Murugan</h3><p class="person-role">Interim CEO, Chief Scientist &amp; Co-Founder</p></li>
+        <li><img loading="lazy" src="assets/next/team/kelly.webp?v=cut1" width="640" height="800" alt="Kelly Lucas"><h3>Kelly Lucas</h3><p class="person-role">President &amp; Co-Founder</p></li>
+        <li><img loading="lazy" src="assets/next/team/jim.webp?v=cut1" width="640" height="800" alt="Jim Armstrong"><h3>Jim Armstrong</h3><p class="person-role">Interim CFO</p></li>
+        <li><img loading="lazy" src="assets/next/team/glenn.webp?v=cut1" width="640" height="800" alt="Glenn Lucas"><h3>Glenn Lucas</h3><p class="person-role">Chief Strategy Officer</p></li>
       </ul>
       <div class="home-partner">
         <p class="eyebrow">Partner program</p>
@@ -354,8 +347,8 @@
         <p class="lead muted">Ten years of published research. Validated in cells, animals, and living human subjects. We’re raising a <span class="nb">pre-pilot</span> round for our first <span class="nb">IRB-approved</span> human study.</p>
       </div>
       <div class="closing-actions">
-        <a class="button" href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A">Request Investor Deck <span class="arrow" aria-hidden="true">→</span></a>
-        <a class="text-link" href="mailto:connect@helioflux.co?subject=Let's connect: HelioFlux">Schedule a Conversation <span class="arrow" aria-hidden="true">→</span></a>
+        <a data-form="deck" class="button" href="mailto:connect@helioflux.co?subject=Investor Deck Request: HelioFlux&body=Hi Kelly%2C%0A%0AI'd love to see the HelioFlux investor deck.%0A%0AName%3A%0AOrganization%3A%0AHow I heard about HelioFlux%3A">Request investor deck <span class="arrow" aria-hidden="true">→</span></a>
+        <a data-form="talk" class="text-link" href="mailto:connect@helioflux.co?subject=Let's connect: HelioFlux">Start a conversation <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -383,7 +376,7 @@
           <ul class="footer-links">
             <li><a href="https://www.linkedin.com/company/helioflux" target="_blank" rel="noopener">LinkedIn ↗</a></li>
             <li><a href="mailto:connect@helioflux.co">Email</a></li>
-            <li><a href="./#contact">Request Deck</a></li>
+            <li><a data-form="deck" href="./#contact">Request deck</a></li>
           </ul>
         </div>
         <div>
@@ -406,14 +399,14 @@
   </div>
 </footer>
 
-<script src="assets/next/next.js"></script>
+<script src="assets/next/next.js?v=20261028f1"></script>
 <script src="assets/homepage-v2-20260917/assets/tumor-growth/sequence-data.js?v=chapter-3"></script>
 <script src="assets/homepage-v2-20260917/assets/tumor-growth/renderer.js?v=paper-composite-1"></script>
 <script src="assets/homepage-v2-20260917/assets/tumor-growth/story.js?v=navy-2b-punch-b"></script>
-<script defer src="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.js"></script>
+<script defer src="assets/homepage-v2-20260917/assets/science-atlas/cellular-signals.js?v=20261028f1"></script>
 <script src="assets/homepage-v2-20260917/percent.js"></script>
 <script src="assets/homepage-v2-20260917/hero-photons.js?v=20261028j"></script>
-<script src="assets/homepage-v2-20260917/hero-motion.js"></script>
-<script src="assets/next/home.js?v=20261028r13"></script>
+<script src="assets/homepage-v2-20260917/hero-motion.js?v=20261028f1"></script>
+<script src="assets/next/home.js?v=20261028r14"></script>
 </body>
 </html>

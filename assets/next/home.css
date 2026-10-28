@@ -12,10 +12,10 @@
 .home-hero h1 { font-size: clamp(52px, 7.2vw, 100px); line-height: 1.02; color: #fff; text-wrap: wrap; }
 .home-hero .hero-accent { color: var(--cyan); }
 .home-hero .lead { margin-top: 26px; color: var(--on-night); }
+.home-hero .hero-what { font-weight: 500; color: #fff; }
 .home-hero .hero-video { position: absolute; top: 0; right: -2%; bottom: 0; width: 62%; z-index: 1; mix-blend-mode: lighten; pointer-events: none; }
 .home-hero .hero-video video { display: block; width: 100%; height: 100%; object-fit: contain; object-position: right center; filter: brightness(.82) saturate(.9); }
 #hero-canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-.home-hero .cell-pause { position: absolute; right: var(--gutter); bottom: 20px; z-index: 5; }
 
 /* 01 The problem: centered, as on the live page. The two survival numbers sit side by side with a hairline
    between them, on a phone too; percent.js counts them up once. */
@@ -88,13 +88,11 @@
 .home-page .hf-cellular-signals__caption .hf-sig-line { text-wrap: balance; }
 .home-page .hf-sig-line { display: block; }
 .home-page .hf-sig-accent { color: var(--teal); }
-.home-page .hf-cellular-signals__toggle { border-color: var(--rule-strong); border-radius: var(--r-control); font: 500 14px/1.25 var(--body); color: var(--text); }
 /* Heading and whole film on one laptop screen: the film's empty top fifth is cropped off, the film shrinks on short
    screens (sized by the screen's height as well as its width), and the pause control moves under the caption. */
 .home-page .hf-cellular-signals { display: flex; flex-direction: column; }
 .home-page .hf-cellular-signals__media { aspect-ratio: 1320 / 830; width: min(100%, 580px, calc((100vh - 480px) * 1.59)); width: min(100%, 580px, calc((100svh - 480px) * 1.59)); min-width: min(100%, 400px); }
 .home-page .hf-cellular-signals__poster, .home-page .hf-cellular-signals__video { object-fit: cover; object-position: 50% 100%; }
-.home-page .hf-cellular-signals__controls { order: 3; margin-top: 14px; }
 .home-page .hf-cellular-signals { max-width: 760px; }
 .home-page .hf-cellular-signals__caption { margin-top: 20px; font-size: clamp(20px, 1.9vw, 26px); max-width: 42ch; }
 
@@ -109,7 +107,6 @@
 .home-tool.night .signal-path__system p:not([class]) { color: var(--on-night); }
 .home-tool.night :is(.system-kind, .system-status) { color: var(--teal-night); }
 .home-tool.night .signal-path__system + .signal-path__system { border-color: var(--rule-night); }
-.home-tool.night .signal-path__pause { border-color: var(--line-night); background: var(--night); color: var(--on-night); }
 /* The two systems as one picture of the signal's path: Kelly's drawing, set moving by home.js.
    The science page explains them with its own drawings. */
 .home-systems-title { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: clamp(26px, 2.6vw, 36px); }
@@ -122,8 +119,6 @@
 .signal-path__art canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .4s ease; }
 .signal-path__art.is-live canvas { opacity: 1; }
 /* No visible button (Kelly's call); keyboard users still get one when they tab to it, and reduced motion stops it */
-.signal-path__pause { position: absolute; right: 0; bottom: 0; padding: 7px 14px; border: 1px solid var(--ink); border-radius: var(--r-control); background: var(--paper); font: 500 14px/1.25 var(--body); color: var(--ink); cursor: pointer; opacity: 0; pointer-events: none; }
-.signal-path__pause:focus-visible { opacity: 1; pointer-events: auto; }
 /* The cards follow close under the drawing */
 .home-systems { margin-top: clamp(40px, 5vw, 64px); }
 .home-systems .signal-path__systems { border-top: 0; }
@@ -185,6 +180,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .hc-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* The breast-care photo shows whole, at its own shape, so both the clinic sign and Dr. Lomis on the right stay in. */
 .hc-img:has(.hc-full) { aspect-ratio: 1280 / 733; }
+.hc-partner { display: block; width: auto; height: 34px; margin-top: 22px; }   /* the clinic's own logo, clean, in place of the one burned into the photo */
 .hc-status { display: flex; align-items: center; gap: 8px; margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
 .hc-status::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
 .hc-text h3 { margin: 14px 0 16px; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.08; }
@@ -210,7 +206,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 3.6vw, 48px); }
 .home-team-head h2 { margin: 0; }
 .home-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
-.home-people img { display: block; width: clamp(104px, 9vw, 128px); height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 16%; border-radius: 50%; }
+.home-people img { display: block; width: clamp(104px, 9vw, 128px); height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 16%; border-radius: 50%; background: var(--portrait); }
 .home-people h3 { margin: 18px 0 0; font-size: clamp(18px, 1.4vw, 21px); line-height: 1.25; letter-spacing: -.015em; }
 .person-role { margin: 6px 0 0; font: 600 12px/1.45 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
 
@@ -254,9 +250,11 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .home-footer .hf-growth-sources a { color: var(--on-night); }
 
 @media (max-width: 900px) {
-  .home-hero .hero-video { width: 100%; right: 0; }
-  .home-hero .hero-video video { object-position: center; filter: brightness(.44) saturate(.9); }
-  .home-hero .cell-pause { bottom: 14px; }
+  /* Phones and tablets: the cell rises from the bottom edge under the buttons at full strength, never behind the text
+     (it used to sit dimmed to 44% behind the headline). It plays a 1080px copy of the same film. */
+  .home-hero { --cell: min(140vw, 900px); --peek: min(62vw, 420px); align-items: flex-start; min-height: 0; padding-bottom: calc(var(--peek) + 12px); }
+  .home-hero .hero-video { top: auto; right: auto; left: 50%; bottom: calc(var(--peek) - var(--cell)); width: var(--cell); height: var(--cell); transform: translateX(-50%); }
+  .home-hero .hero-video video { object-position: center; }
 }
 @media (max-width: 760px) {
   .survival-col { padding: 6px 8px; }
