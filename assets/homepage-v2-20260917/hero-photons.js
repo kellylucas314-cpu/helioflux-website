@@ -26,7 +26,7 @@
     return {emitted,life,age,x:x+vx*age,y:y+vy*age,vx,vy,
       size:emitted ? .8+Math.random()*1 : .5+Math.random()*.8,
       // Brand cyan for close to half, as on the earlier site; the rest stay pale.
-      color:Math.random()<.45 ? '0,169,214' : '216,238,255',
+      color:Math.random()<.45 ? '0,169,214' : '224,240,244',
       glow:Math.random()<.33,
       brightness:emitted ? .5+Math.random()*.38 : .26+Math.random()*.3,
       depth:.35+Math.random()*.65,

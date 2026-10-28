@@ -42,7 +42,8 @@
   --on-night: rgba(255, 255, 255, .88);      /* brand Soft White */
   --on-night-muted: rgba(255, 255, 255, .6); /* brand Muted White, nudged up: 6.5:1 */
   --teal-night: #00A9D6;     /* brand cyan on navy: 5.8:1 */
-  --rule-night: rgba(255, 255, 255, .14);
+  --rule-night: rgba(255, 255, 255, .14);   /* dividers on navy */
+  --line-night: rgba(255, 255, 255, .4);    /* controls, chips, icons and drawn lines on navy */
   /* Type */
   --display: "Plus Jakarta Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body: "DM Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif;
@@ -129,7 +130,7 @@ p { margin: 0; text-wrap: pretty; }
 .button-quiet:hover { background: var(--ink); color: var(--paper); }
 .night .button, .on-night .button { background: var(--cyan); border-color: var(--cyan); color: var(--night); }
 .night .button:hover, .on-night .button:hover { background: #3dbde0; border-color: #3dbde0; color: var(--night); }
-.night .button-quiet { background: transparent; border-color: rgba(255,255,255,.4); color: var(--on-night); }
+.night .button-quiet { background: transparent; border-color: var(--line-night); color: var(--on-night); }
 .night .button-quiet:hover { background: rgba(255,255,255,.08); border-color: var(--on-night); color: var(--on-night); }
 .text-link {
   display: inline-flex; align-items: center; gap: 8px;
@@ -190,7 +191,7 @@ p { margin: 0; text-wrap: pretty; }
 .site-nav.on-night .nav-links a, .site-nav.on-night .nav-links summary { color: var(--on-night); }
 .site-nav.on-night .nav-links a:hover, .site-nav.on-night .nav-links summary:hover { color: var(--teal-night); }
 .site-nav.on-night .nav-menu a { color: var(--ink); }
-.site-nav.on-night .menu-toggle { color: var(--on-night); border-color: rgba(255,255,255,.4); }
+.site-nav.on-night .menu-toggle { color: var(--on-night); border-color: var(--line-night); }
 
 @media (max-width: 860px) {
   :root { --nav-h: 64px; }
@@ -243,7 +244,7 @@ p { margin: 0; text-wrap: pretty; }
   .kicker span { font-size: 14px; }
   .kicker em { flex-basis: 100%; margin-left: 0; font-size: 14px; }
 }
-.night .kicker { border-top-color: rgba(255,255,255,.5); }
+.night .kicker { border-top-color: var(--line-night); }
 .night .kicker span { color: var(--on-night); }
 .night .kicker b { color: var(--teal-night); }
 
@@ -284,7 +285,7 @@ details.more .more-body p + p { margin-top: .8em; }
 details.more .more-body a { font-weight: 500; }
 .night details.more, .night details.more:last-of-type { border-color: var(--rule-night); }
 .night details.more > summary { color: var(--on-night); }
-.night details.more > summary .plus { border-color: rgba(255,255,255,.3); }
+.night details.more > summary .plus { border-color: var(--line-night); }
 .night details.more > summary .plus::before, .night details.more > summary .plus::after { background: var(--on-night); }
 .night details.more .more-body { color: var(--on-night-muted); }
 @media (prefers-reduced-motion: no-preference) {
@@ -304,7 +305,7 @@ details.more .more-body a { font-weight: 500; }
 .stages .when { font: 600 13px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
 .stages .what { display: block; margin-top: 8px; font: 450 18px/1.3 var(--display); color: var(--ink); letter-spacing: -.01em; }
 .stages .note { display: block; margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--muted); }
-.night .stages li:not(:last-child) { background-image: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.55)); }
+.night .stages li:not(:last-child) { background-image: linear-gradient(var(--line-night), var(--line-night)); }
 .night .stages li::before { background: var(--on-night); border-color: var(--on-night); }
 .night .stages li.next::before { background: var(--night); box-shadow: none; border-color: var(--on-night); }
 .night .stages li.next::after { border-color: var(--teal-night); }
