@@ -278,6 +278,7 @@ figure[data-kind="paper"] .figure-button img { max-height: 620px; width: auto; m
 .dialog-content { padding: 16px; overflow: auto; max-height: calc(94vh - 66px); }
 .dialog-content img, .dialog-content svg { display: block; width: 100%; height: auto; margin: 0 auto; }
 #dialog-image { mix-blend-mode: multiply; }
+#dialog-image[src*="-transparent"] { mix-blend-mode: normal; }   /* drawings keep their white fills */
 .dialog-content.is-zoomed img, .dialog-content.is-zoomed svg { width: 200%; max-width: none; }
 #dialog-caption { margin-top: 12px; font-size: 14px; color: var(--muted); max-width: 80ch; }
 
@@ -316,6 +317,7 @@ figure[data-kind="paper"] .figure-button img { max-height: 620px; width: auto; m
 .figure-button .plate-stack.labeled-head-plate .plate-img,
 .dialog-content .plate-stack.labeled-head-plate .plate-img {
   position: relative; left: auto; top: auto; display: block; width: 100%; height: auto;
+  mix-blend-mode: normal;   /* its detector is filled white, like the other drawings; multiply would turn it cream */
 }
 .dialog-content.is-zoomed .plate-stack { width: 200%; max-width: none; }
 .dialog-content.is-zoomed .plate-stack > svg { width: 100%; }
