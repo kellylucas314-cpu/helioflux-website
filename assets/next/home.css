@@ -96,18 +96,19 @@
 .person-role { margin: 6px 0 16px; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
 .person p:not(.person-role) { font-size: 17px; color: var(--text); margin-bottom: 20px; }
 
-/* Press */
+/* Press: on paper, logos in ink, so the page keeps only a few dark blocks */
+.home-press { border-top: 1px solid var(--rule); }
 .home-press .shell { text-align: center; }
 .press-logos { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 5vw, 72px); flex-wrap: wrap; margin-top: 36px; }
-.press-logos img { display: block; width: auto; opacity: .72; transition: opacity .25s ease; }
+.press-logos img { display: block; width: auto; filter: brightness(0) invert(9%) sepia(30%) saturate(1800%) hue-rotate(190deg); opacity: .78; transition: opacity .25s ease; }
 .press-logos img:hover { opacity: 1; }
 .press-logos .logo-sciam { height: 30px; }
 .press-logos .logo-radiolab { height: 24px; }
-.press-logos .logo-cellpress { height: 24px; filter: brightness(0) invert(1); }
-.press-logos .logo-cbcnews { height: 38px; filter: brightness(0) invert(1); }
+.press-logos .logo-cellpress { height: 24px; }
+.press-logos .logo-cbcnews { height: 38px; }
 .press-logos .logo-labj { height: 18px; }
 .press-link { margin-top: 32px; }
-.partner { margin: 48px auto 0; padding-top: 36px; border-top: 1px solid var(--rule-night); max-width: 520px; }
+.partner { margin: 48px auto 0; padding-top: 36px; border-top: 1px solid var(--rule); max-width: 520px; }
 .nvidia-inception { display: inline-block; margin-top: 16px; }
 .nvidia-inception img { height: 96px; width: auto; }
 
