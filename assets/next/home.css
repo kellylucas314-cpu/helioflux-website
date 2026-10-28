@@ -30,9 +30,9 @@
 .survival-num [data-percent-digits] { width: 1.14em !important; }
 .survival-what { margin: 0; font: 500 17px/1.4 var(--display); color: var(--ink); }
 .survival-when { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
-/* The problem sits on the pale tint band, so the tumor story below it on paper reads as its own chapter
+/* The problem sits on the warm cream band (Kelly, Oct 28: not the pale blue), so the tumor story below it on paper reads as its own chapter
    (Kelly, Oct 28: keep the tumor on white, give the section above a little color) */
-#problem { padding-bottom: clamp(64px, 6.7vw, 96px); background: var(--teal-tint); }
+#problem { padding-bottom: clamp(64px, 6.7vw, 96px); background: var(--paper-2); }
 .js #problem .reveal { background-color: transparent; }   /* only text here, so the fade needs no paper backing */
 /* Right after a dark band or photo, its edge already divides the page: the label drops its line and the section starts closer */
 #problem, #solution, #evidence, #next-study { padding-top: clamp(56px, 6vw, 88px); }
