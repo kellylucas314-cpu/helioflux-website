@@ -154,7 +154,18 @@
 /* "Next" is a plain hollow dot the size of the others, reached by a dashed line: not yet, without a drawn-by-code target */
 .home-proof .stages li.next::before { background: var(--paper); box-shadow: none; border: 1.5px solid var(--ink); }
 .home-proof .stages li.next::after { content: none; }
-.home-proof .stages li:nth-last-child(2) { background: repeating-linear-gradient(90deg, var(--ink) 0 5px, transparent 5px 10px) no-repeat 7px 7px / 100% 1px; }
+.home-proof .stages li:nth-last-child(2) { background: repeating-linear-gradient(90deg, var(--ink) 0 5px, transparent 5px 10px) no-repeat 7px var(--line-y, 7px) / 100% 1px; }
+/* Each stage shows the drawing the timeline uses for that study, above its dot and linked to its timeline entry.
+   "Next" is an empty dashed frame: that study has not been run yet. */
+.home-proof .research-stages { --art: clamp(140px, 13vw, 184px); --line-y: calc(var(--art) + 32px + 7px); }
+.home-proof .research-stages li { padding-top: calc(var(--art) + 32px + 30px); }
+.home-proof .research-stages li::before { top: calc(var(--art) + 32px); }
+.home-proof .research-stages li:not(:last-child):not(:nth-last-child(2)) { background-position: 7px var(--line-y); }
+.stage-art { position: absolute; top: 0; left: 0; right: 28px; height: var(--art); display: flex; align-items: flex-end; }
+.stage-art img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; mix-blend-mode: multiply; transition: transform .35s var(--ease); }
+.stage-art img[src*="-transparent"] { mix-blend-mode: normal; }
+a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4px); }
+.stage-art-next { border: 1.5px dashed var(--rule-strong); border-radius: var(--r-image); }
 .stages .stage-paper { display: inline-block; margin-top: 10px; font-size: 14px; line-height: 1.4; color: var(--text); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
 .stages .stage-paper:hover, .stages .stage-paper:focus-visible { color: var(--teal-label); text-decoration-color: currentColor; }
 .proof-row { padding: clamp(28px, 3vw, 40px) 0; border-top: 1px solid var(--rule); text-align: center; }
@@ -181,21 +192,22 @@
 .hc-text p:not(.hc-status) { max-width: 46ch; margin: 0; font-size: 18px; color: var(--text); }
 .hc-controls { display: none; align-items: center; justify-content: center; gap: 22px; margin-top: clamp(24px, 3vw, 36px); }
 .js .hc-controls { display: flex; }
-.hc-arrow { display: inline-grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid var(--rule-strong); border-radius: 50%; background: transparent; color: var(--ink); font: 400 20px/1 var(--display); cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+.hc-arrow { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); font-size: 0; cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease; }
+.hc-arrow::before { width: 16px; height: 16px; }
+.hc-arrow[data-carousel-prev]::before { transform: scaleX(-1); }
 .hc-arrow:hover:not(:disabled) { border-color: var(--ink); background: var(--ink); color: var(--paper); }
-.hc-arrow:disabled { opacity: .35; cursor: default; }
-/* The forward arrow is filled like a button so it reads as "there's more"; the next card also peeks in at the edge */
-.hc-arrow[data-carousel-next]:not(:disabled) { border-color: var(--cyan); background: var(--cyan); color: var(--ink); }
-.hc-arrow[data-carousel-next]:hover:not(:disabled) { border-color: var(--ink); background: var(--ink); color: var(--paper); }
-.hc-dots { display: flex; gap: 8px; }
-.hc-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: background .3s ease, transform .3s ease; }
-.hc-dots span.is-active { background: var(--cyan); transform: scale(1.3); }
+.hc-arrow:disabled { opacity: .3; cursor: default; }
+/* Progress as short hairline segments instead of dots; the current panel's segment is longer and navy */
+.hc-dots { display: flex; align-items: center; gap: 6px; }
+.hc-dots span { width: 16px; height: 2px; border-radius: 2px; background: var(--line); transition: background .3s ease, width .3s var(--ease); }
+.hc-dots span.is-active { width: 36px; background: var(--ink); }
 #next-study .home-research-link { margin-top: clamp(32px, 4vw, 48px); text-align: center; }   /* under the centered arrows */
 
 /* 05 The team */
 /* The four people who run the company as small round portraits with name and title (Kelly: smaller, round, less
    space). The bios and the advisors live on the team page. */
-#credibility { padding-block: clamp(64px, 7vw, 104px); }
+#credibility { padding-block: clamp(64px, 7vw, 104px); background: var(--slate-tint); }   /* Kelly: a light gray-blue, a pale cut of the old site's slate #2F4562 */
+.js #credibility .reveal { background-color: transparent; }   /* photos only here, nothing multiplied, so the fade needs no cream backing */
 .home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 3.6vw, 48px); }
 .home-team-head h2 { margin: 0; }
 .home-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
@@ -220,7 +232,7 @@
 .press-feature a { color: var(--teal-label); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .press-feature a:hover { color: var(--ink); }
 /* NVIDIA Inception closes the team section (Kelly: at the bottom), one ruled row: the label, then the badge */
-.home-partner { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--rule-strong); }
+.home-partner { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
 .home-partner .eyebrow { margin: 0; color: var(--ink); }
 .nvidia-inception { display: inline-block; }
 .nvidia-inception img { display: block; height: 52px; width: auto; }   /* the badge without NVIDIA's gray box, so it sits on the cream like the press logos */
@@ -278,6 +290,16 @@
   .press-logos .logo-cbcnews { height: 30px; }
   .press-logos .logo-labj { height: 14px; }
   .nvidia-inception img { height: 44px; }
+}
+/* Phone (where next.css stacks the stages): the stages run down the page; each drawing sits beside the line,
+   under its dot and before the year */
+@media (max-width: 720px) {
+  .home-proof .research-stages { --art: 124px; }
+  .home-proof .research-stages li { padding-top: 0; }
+  .home-proof .research-stages li::before { top: 0; }
+  .home-proof .research-stages li:not(:last-child):not(:nth-last-child(2)) { background-position: 7px 8px; }
+  .stage-art { position: static; height: var(--art); margin-bottom: 18px; }
+  .stage-art-next { width: min(100%, 200px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }

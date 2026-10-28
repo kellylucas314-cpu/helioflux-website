@@ -30,12 +30,15 @@
   --muted: #56606e;          /* 5.6:1 on Warm Cream */
   --rule: #e2dbd0;           /* warm hairline */
   --rule-strong: #bfb6a8;
+  --line: rgba(15, 28, 46, .24);   /* outlines of quiet controls; navy, so it sits on cream and on gray-blue alike */
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 8h12.5M9 3l5 5-5 5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   /* Accent: brand cyan */
   --cyan: #00A9D6;           /* brand accent, non-text marks on light; text on navy */
   --cyan-glow: var(--cyan);  /* the wordmark takes the brand cyan on dark too, one cyan across the site */
   --teal: #006d8b;           /* the brand cyan deepened for text and focus on cream: 5.2:1 on Warm Cream */
   --teal-ink: var(--ink);    /* hover and text on the pale tint go navy, so there is one deep teal */
   --teal-tint: #e0f0f4;
+  --slate-tint: #dae2ea;     /* a pale cut of the old site's slate #2F4562, for the team band */
   /* Dark sections: hero, closing band, footer */
   --night: #082432;          /* the measurement artwork's own ground, so the hero drawing shows no box;
                                 within a shade of helioflux.co's #092743 */
@@ -114,24 +117,42 @@ p { margin: 0; text-wrap: pretty; }
 .stack > * + * { margin-top: 1em; }
 
 /* ---------- Buttons and links ---------- */
+/* One pill for every action. The arrow sits in its own round chip at the right end and is drawn (--arrow), not a
+   font glyph, so every button and the carousel arrows share one crisp arrow (Kelly: the old pills looked cheap). */
 .button {
-  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  min-height: 50px; padding: 0 32px;
+  --chip: 36px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 16px;
+  min-height: 50px; padding: 0 30px;
   border: 1px solid var(--ink); border-radius: var(--r-control);
   background: var(--ink); color: var(--paper);
   font: 500 15px/1 var(--display); letter-spacing: .01em; text-decoration: none;
   transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
   cursor: pointer;
 }
+.button:has(.arrow) { padding-right: 6px; }
 .button:hover { background: var(--text); border-color: var(--text); color: var(--paper); }
-.button .arrow { transition: transform .25s var(--ease); }
-.button:hover .arrow { transform: translateX(3px); }
-.button-quiet { background: transparent; color: var(--ink); }
-.button-quiet:hover { background: var(--ink); color: var(--paper); }
+.button .arrow {
+  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: var(--chip); height: var(--chip); border-radius: 50%;
+  background: var(--paper); color: var(--ink); font-size: 0;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.button .arrow::before, .hc-arrow::before {
+  content: ""; width: 14px; height: 14px; background: currentColor;
+  -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat;
+  transition: transform .25s var(--ease);
+}
+.button:hover .arrow::before { transform: translateX(2px); }
+.button-quiet { background: transparent; border-color: var(--line); color: var(--ink); }
+.button-quiet .arrow { background: var(--ink); color: var(--paper); }
+.button-quiet:hover { background: transparent; border-color: var(--ink); color: var(--ink); }
+.button-quiet:hover .arrow { background: var(--teal); }
 .night .button, .on-night .button { background: var(--cyan); border-color: var(--cyan); color: var(--night); }
+.night .button .arrow, .on-night .button .arrow { background: var(--night); color: var(--cyan); }
 .night .button:hover, .on-night .button:hover { background: #3dbde0; border-color: #3dbde0; color: var(--night); }
 .night .button-quiet { background: transparent; border-color: var(--line-night); color: var(--on-night); }
-.night .button-quiet:hover { background: rgba(255,255,255,.08); border-color: var(--on-night); color: var(--on-night); }
+.night .button-quiet .arrow { background: var(--cyan); color: var(--night); }
+.night .button-quiet:hover { background: rgba(255,255,255,.06); border-color: var(--on-night); color: var(--on-night); }
+.night .button-quiet:hover .arrow { background: #3dbde0; }
 .text-link {
   display: inline-flex; align-items: center; gap: 8px;
   color: var(--ink); font: 500 16px/1.3 var(--display); text-decoration: none;
@@ -181,7 +202,8 @@ p { margin: 0; text-wrap: pretty; }
 .nav-menu a.nav-sub { margin: 0 0 4px 22px; padding: 8px 12px 8px 14px; border-left: 1px solid var(--rule-strong); border-radius: 0 5px 5px 0; font-size: 14px; color: var(--text); }
 .nav-menu a.nav-sub small { font-size: 12px; }
 .nav-cta { display: flex; align-items: center; gap: 14px; }
-.nav-cta .button { min-height: 42px; padding: 0 18px; font-size: 14px; }
+.nav-cta .button { --chip: 30px; min-height: 42px; padding: 0 18px; font-size: 14px; gap: 12px; }
+.nav-cta .button:has(.arrow) { padding-right: 5px; }
 .menu-toggle { display: none; }
 .mobile-menu { display: none; }
 
