@@ -154,7 +154,8 @@
 .proof-row .eyebrow { color: var(--ink); margin-bottom: 24px; }
 .home-proof .press-logos { margin-top: 0; }
 .home-proof .partner { margin: 0; max-width: none; padding-top: clamp(28px, 3vw, 40px); }
-.home-proof .home-research-link { margin-top: 8px; padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--rule); text-align: center; }
+/* The way into the Science page sits right under the section's lead, where it is seen first */
+.home-proof .research-cta { margin-top: 28px; }
 
 /* 04 The next study: "Where we're starting", the live page's three photo panels. A row you can swipe;
    the arrows step one panel and the dots follow (home.js). Without JS it is a plain scrolling row. */
@@ -186,12 +187,13 @@
 #next-study .home-research-link { margin-top: clamp(32px, 4vw, 48px); }
 
 /* 05 The team */
-.home-team { align-items: start; }
-.person { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: clamp(20px, 3vw, 32px); align-items: start; }
-.person img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center top; border-radius: var(--r-image); }
-.person h3 { margin: 0; }
-.person-role { margin: 6px 0 16px; font: 600 12px/1.4 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
-.person p:not(.person-role) { font-size: 17px; color: var(--text); margin-bottom: 20px; }
+/* The four people who run the company, picture first: name and title only. The bios and the advisors live on the team page. */
+.home-team-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 56px); }
+.home-team-head h2 { margin: 0; }
+.home-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
+.home-people img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border-radius: var(--r-image); }
+.home-people h3 { margin: 18px 0 0; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.25; letter-spacing: -.015em; }
+.person-role { margin: 6px 0 0; font: 600 12px/1.45 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
 
 /* Press: on paper, logos in ink, so the page keeps only a few dark blocks */
 .press-logos { display: flex; justify-content: center; align-items: center; gap: clamp(40px, 5vw, 72px); flex-wrap: wrap; margin-top: 36px; }
@@ -205,7 +207,7 @@
 .press-link { margin-top: 32px; }
 .partner { margin: 48px auto 0; padding-top: 36px; border-top: 1px solid var(--rule); max-width: 520px; }
 .nvidia-inception { display: inline-block; margin-top: 16px; }
-.nvidia-inception img { height: 96px; width: auto; }
+.nvidia-inception img { height: 60px; width: auto; }   /* the badge without NVIDIA's gray box, so it sits on the cream like the press logos */
 
 /* The ask */
 .home-closing .shell { align-items: end; }
@@ -245,15 +247,16 @@
   .hc-panel { flex-basis: 88%; grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .hc-text h3 { font-size: 28px; margin: 12px 0 12px; }
   .hc-text p:not(.hc-status) { font-size: 16px; }
-  .person { grid-template-columns: 1fr; }
-  .person img { max-width: 220px; }
+  .home-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; }
+  .home-people h3 { margin-top: 14px; font-size: 18px; }
+  .home-people .person-role { font-size: 11px; letter-spacing: .1em; }
   .press-logos { gap: 28px 36px; }
   .press-logos .logo-sciam { height: 22px; }
   .press-logos .logo-radiolab { height: 18px; }
   .press-logos .logo-cellpress { height: 20px; }
   .press-logos .logo-cbcnews { height: 30px; }
   .press-logos .logo-labj { height: 14px; }
-  .nvidia-inception img { height: 72px; }
+  .nvidia-inception img { height: 46px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }

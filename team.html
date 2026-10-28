@@ -1,326 +1,199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
-  <link rel="icon" type="image/png" href="favicon.png?v=2">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Meet the team behind HelioFlux — scientists, founders, and advisors building ultra-early cancer detection.">
-  <title>Team — HelioFlux</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="canonical" href="https://helioflux.co/team.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..600&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:      #092743;
-      --bg2:     #092743;
-      --bg-alt:  #2F4562;
-      --bg-warm: #2F4562;
-      --white:   #FFFFFF;
-      --off-white: #ECF0FF;
-      --muted:   #D0DEEA;
-      --cyan:    #00A9D6;
-      --amber:   #E8A838;
-      --body:    rgba(255,255,255,0.88);
-      --caption: rgba(255,255,255,0.55);
-      --border:  rgba(255,255,255,0.06);
-      --divider: rgba(255,255,255,0.1);
-      --serif:   'Plus Jakarta Sans', system-ui, sans-serif;
-      --sans:    'DM Sans', system-ui, sans-serif;
-    }
-    html { overflow-x: hidden; }
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: var(--sans);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      cursor: default;
-    }
-
-    /* ─── CURSOR ─── */
-    .cursor-dot {
-      position: fixed; width: 5px; height: 5px;
-      background: var(--cyan); border-radius: 50%;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-      box-shadow: 0 0 8px var(--cyan);
-      transition: width .2s, height .2s;
-    }
-    .cursor-dot.big { width: 12px; height: 12px; }
-    @media (pointer: coarse) { .cursor-dot { display: none; } body { cursor: auto; } }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 56px;
-      transition: background .5s, padding .4s, border-color .5s;
-      border-bottom: 1px solid transparent;
-    }
-    nav.scrolled { background: rgba(10,14,26,0.92); backdrop-filter: blur(28px); padding: 18px 56px; border-bottom-color: var(--border); }
-    .logo { font-family: var(--serif); font-size: 24px; font-weight: 420; color: rgba(255,255,255,.88); text-decoration: none !important; border-bottom: 0 !important; }
-    .logo span { color: var(--cyan); }
-    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-    .nav-links a { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; transition: color .3s; font-weight: 400; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta { padding: 10px 28px; background: transparent; color: var(--cyan); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all .3s; border: 1px solid rgba(0,169,214,.35); border-radius: 50px; }
-    .nav-cta:hover { background: rgba(0,169,214,.1); border-color: var(--cyan); }
-    .nav-hamburger { display: none; }
-    .mobile-menu { display: none; }
-
-    /* ─── TYPOGRAPHY ─── */
-    .eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; opacity: 0.7; font-weight: 500; }
-    .eyebrow::after { content: ''; display: block; width: 48px; height: 1px; background: rgba(0,169,214,.3); margin-top: 20px; }
-    h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 300; line-height: 1.12; margin-bottom: 44px; letter-spacing: -0.01em; }
-    h2 em { font-style: italic; font-weight: 300; }
-    .lead { font-size: 17px; color: rgba(255,255,255,.72); line-height: 1.8; font-weight: 300; }
-
-    /* ─── REVEAL ─── */
-    .reveal { opacity: 1; transform: none; transition: opacity .9s ease, transform .9s ease; }
-    .js-ready .reveal { opacity: 0; transform: translateY(20px); }
-    .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* ─── TEAM CARDS ─── */
-    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .team-card {
-      background: rgba(255,255,255,.02);
-      padding: 40px 32px;
-      transition: background .3s;
-    }
-    .team-card:hover { background: rgba(255,255,255,.04); }
-    .team-photo {
-      width: 100%; height: 280px; object-fit: cover; object-position: center top;
-      display: block; margin-bottom: 24px; filter: brightness(.92);
-    }
-    .team-name { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 4px; }
-    .team-title { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 16px; }
-    .team-bio { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.75; }
-
-    /* ─── NIROSHA PROFILE ─── */
-    .nirosha-wrap {
-      display: grid; grid-template-columns: 380px 1fr; gap: 56px; align-items: start;
-      max-width: 1200px; margin: 0 auto; padding: 0 56px;
-    }
-
-    /* ─── TAGS ─── */
-    .tag {
-      display: inline-block; padding: 6px 16px; font-size: 12px; letter-spacing: .08em;
-      color: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 50px;
-    }
-
-    /* ─── FOOTER ─── */
-    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 72px 56px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 56px; }
-    .f-logo { font-family: var(--serif); font-size: 22px; margin-bottom: 12px; }
-    .f-logo span { color: var(--cyan); }
-    .f-tagline { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--muted); margin-bottom: 20px; }
-    .f-contact { font-size: 13px; color: var(--muted); line-height: 1.9; }
-    .f-col h4 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
-    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .f-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .f-col a:hover { color: var(--white); }
-    .f-bottom { background: var(--bg2); border-top: 1px solid var(--border); padding: 20px 56px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,.18); flex-wrap: wrap; gap: 8px; }
-
-    /* ─── MOBILE ─── */
-    @media (max-width: 900px) {
-      nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 201; background: none; border: none; }
-      .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.7); transition: all .3s; }
-      .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px,4px); }
-      .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-      .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px,-4px); }
-      .nav-cta { display: none; }
-      .mobile-menu { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9,39,67,.98); backdrop-filter: blur(20px); z-index: 199; padding: 100px 32px 40px; gap: 16px; transform: translateX(100%); transition: transform .4s ease; }
-      .mobile-menu.open { transform: translateX(0); }
-      .mob-link { font-size: 20px; color: rgba(255,255,255,.8); text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--border); }
-    }
-    @media (max-width: 768px) {
-      .nirosha-wrap { grid-template-columns: 1fr; padding: 0 24px; gap: 32px; }
-      .team-grid { grid-template-columns: 1fr; }
-      footer { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
-      .f-bottom { padding: 16px 24px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team | HelioFlux</title>
+<meta name="description" content="Meet the team behind HelioFlux: scientists, founders, and advisors building ultra-early cancer detection.">
+<link rel="canonical" href="https://helioflux.co/team.html">
+<link rel="icon" href="favicon.ico?v=2">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+<link rel="preload" href="assets/next/fonts/PlusJakartaSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/next/fonts/DMSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="assets/next/next.css?v=20261028r9">
+<link rel="stylesheet" href="assets/next/team.css?v=20261028r1">
 </head>
-<body>
-<div class="cursor-dot" id="cdot"></div>
+<body class="team-page">
+<a class="skip-link" href="#main">Skip to the team</a>
 
-<nav id="nav">
-  <a href="index.html" class="logo">Helio<span>Flux</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="science.html">Science</a></li>
-    <li><a href="team.html" style="color:var(--white);">Team</a></li>
-    <li><a href="index.html#press">Press</a></li>
-    <li><a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
-  </ul>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" class="nav-cta">Request Deck</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="index.html" class="mob-link">Home</a>
-  <a href="science.html" class="mob-link">Science</a>
-  <a href="team.html" class="mob-link">Team</a>
-  <a href="index.html#press" class="mob-link">Press</a>
-  <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Contact" class="mob-link">Contact</a>
-</div>
-
-<!-- ═══ PAGE HEADER (dark) ═══ -->
-<div style="padding:180px 56px 60px;max-width:1200px;margin:0 auto;">
-  <p class="eyebrow reveal">The Team</p>
-  <h2 class="reveal">The team behind<br>HelioFlux.</h2>
-</div>
-
-<!-- ═══ NIROSHA FEATURE (cream) ═══ -->
-<div style="background:#f5f0eb;padding:100px 0;">
-  <div class="nirosha-wrap">
-    <div>
-      <img loading="lazy" src="assets/homepage-v2-20260917/nirosha-lab-headshot-v2.webp" alt="Dr. Nirosha Murugan" style="width:100%;height:420px;object-fit:cover;object-position:center top;display:block;">
-      <div style="margin-top:20px;padding:16px 20px;border-left:2px solid rgba(0,169,214,.25);">
-        <p style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#00A9D6;margin-bottom:6px;">Canada Research Chair · Tissue Biophysics</p>
-        <p style="font-size:13px;color:#5a6b7e;line-height:1.7;">40+ peer-reviewed publications<br>Harvard Wyss Fellow · Allen Discovery Center Postdoctoral Researcher</p>
-      </div>
+<header class="site-nav">
+  <div class="shell">
+    <a class="wordmark" href="https://helioflux.co/" aria-label="HelioFlux home">Helio<span>Flux</span></a>
+    <nav aria-label="Main">
+      <ul class="nav-links">
+        <li>
+          <details>
+            <summary>Science</summary>
+            <div class="nav-menu">
+              <a href="science.html">How it works<small>The signal, the instrument, the studies</small></a>
+              <a class="nav-sub" href="timeline.html">Research timeline<small>A century of research, with sources</small></a>
+            </div>
+          </details>
+        </li>
+        <li><a href="https://helioflux.co/#next-study">Studies</a></li>
+        <li><a href="https://helioflux.co/team.html" aria-current="page">Team</a></li>
+        <li><a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span class="arrow" aria-hidden="true">→</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="label">Menu</span><i aria-hidden="true"></i></button>
     </div>
-    <div class="reveal">
-      <div style="font-size:clamp(28px,3.5vw,44px);font-family:var(--serif);font-weight:300;margin-bottom:8px;color:#14263C;">Dr. Nirosha Murugan</div>
-      <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#00A9D6;margin-bottom:24px;">Interim CEO, Chief Scientist &amp; Co-Founder</div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="https://helioflux.co/">Home</a>
+  <a href="science.html">How it works <small>Science</small></a>
+  <a class="nav-sub" href="timeline.html">Research timeline <small>Science</small></a>
+  <a href="https://helioflux.co/#next-study">Studies</a>
+  <a href="https://helioflux.co/team.html" aria-current="page">Team</a>
+  <a href="mailto:connect@helioflux.co?subject=HelioFlux%20Contact">Contact</a>
+  <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck</a>
+</div>
 
-      <div style="border-left:2px solid rgba(0,169,214,.2);padding-left:20px;margin-bottom:28px;">
-        <p style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#00A9D6;margin-bottom:12px;">Awards &amp; Recognition</p>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
-          <li style="font-size:13px;color:#5a6b7e;">Optica Foundation Challenge Grant · 2023</li>
-          <li style="font-size:13px;color:#5a6b7e;">Faculty of Science Tier 2 Distinguished Research Chair · 2023</li>
-          <li style="font-size:13px;color:#5a6b7e;">Tier 2 Canada Research Chair, Tissue Biophysics · 2022</li>
-          <li style="font-size:13px;color:#5a6b7e;">Minister of Colleges and Universities Award of Excellence · 2022</li>
-          <li style="font-size:13px;color:#5a6b7e;">STRIVE Young Professional Visionary Award · 2022</li>
-          <li style="font-size:13px;color:#5a6b7e;">NSERC Science Exposed Jury Prize Winner · 2021</li>
+<main id="main">
+
+  <section class="team-hero" aria-labelledby="team-title">
+    <div class="shell">
+      <p class="eyebrow">The Team</p>
+      <h1 id="team-title">The team behind<br> HelioFlux.</h1>
+    </div>
+  </section>
+
+  <!-- Nirosha: the scientist the company is built on, given the room the others share -->
+  <section class="feature" aria-labelledby="nirosha-name">
+    <div class="shell feature-grid">
+      <div class="feature-side">
+        <img class="feature-photo" src="assets/homepage-v2-20260917/nirosha-lab-headshot-v2.webp" width="1126" height="1397" alt="Dr. Nirosha Murugan" fetchpriority="high">
+        <div class="feature-facts">
+          <p class="eyebrow">Canada Research Chair · Tissue Biophysics</p>
+          <p>40+ peer-reviewed publications<br>Harvard Wyss Fellow · Allen Discovery Center Postdoctoral Researcher</p>
+        </div>
+      </div>
+      <div class="feature-body">
+        <h2 id="nirosha-name">Dr. Nirosha Murugan</h2>
+        <p class="role">Interim CEO, Chief Scientist &amp; Co-Founder</p>
+        <ul class="team-tags" aria-label="Affiliations">
+          <li>Canada Research Chair</li>
+          <li>Wilfrid Laurier University</li>
+          <li>Tufts Postdoc (Levin Lab)</li>
+          <li>Harvard Wyss Fellow</li>
         </ul>
-      </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;">
-        <span class="tag" style="color:#5a6b7e;border-color:rgba(28,53,80,.15);">Canada Research Chair</span>
-        <span class="tag" style="color:#5a6b7e;border-color:rgba(28,53,80,.15);">Wilfrid Laurier University</span>
-        <span class="tag" style="color:#5a6b7e;border-color:rgba(28,53,80,.15);">Tufts Postdoc (Levin Lab)</span>
-        <span class="tag" style="color:#5a6b7e;border-color:rgba(28,53,80,.15);">Harvard Wyss Fellow</span>
-      </div>
-
-      <p style="font-size:16px;color:#3A5068;line-height:1.8;margin-bottom:20px;">Dr. Nirosha J. Murugan is Canada Research Chair in Tissue Biophysics at Wilfrid Laurier University and the scientific co-founder of HelioFlux. Her lab has secured $1.6M in non-dilutive grants and produced 40+ peer-reviewed publications across cancer biology, regenerative medicine, neuroscience, and quantum biology.</p>
-      <p style="font-size:16px;color:#3A5068;line-height:1.8;margin-bottom:20px;">She earned her Ph.D. in Biomolecular Sciences at Laurentian University, where she pioneered the quantum-sensor-based cancer detection technology now commercialized through HelioFlux. As a postdoctoral researcher in Dr. Michael Levin's lab at the Allen Discovery Center at Tufts University, she advanced ion-channel bioelectricity as a mechanism of tissue patterning and co-developed a drug delivery system to induce limb regeneration in non-regenerative species.</p>
-      <p style="font-size:16px;color:#3A5068;line-height:1.8;">A dedicated mentor, Dr. Murugan is deeply committed to making biophysics accessible to the next generation of health innovators.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ LEADERSHIP (dark) ═══ -->
-<div style="background:#092743;padding:100px 56px;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <p class="eyebrow reveal">The Team</p>
-    <h2 class="reveal" style="margin-bottom:48px;">Leadership</h2>
-    <div class="team-grid reveal">
-      <div class="team-card">
-        <img loading="lazy" src="kelly-headshot.jpg" alt="Kelly Lucas" class="team-photo">
-        <div class="team-name">Kelly Lucas</div>
-        <div class="team-title">President &amp; Co-Founder</div>
-        <div class="team-bio">Kelly co-founded HelioFlux to bring Nirosha's biophotonic research out of the lab and into clinical practice. She leads fundraising, strategy, and commercial partnerships — growing the company from a research concept to a funded startup with a patent-pending platform and a first human study on the horizon. Before HelioFlux, Kelly studied biology at UNC Chapel Hill and earned an MBA from Indiana University's Kelley School of Business. She's driven by one belief: nobody should die from a cancer caught too late.</div>
-      </div>
-      <div class="team-card">
-        <img loading="lazy" src="jim-headshot.jpg" alt="Jim Armstrong" class="team-photo">
-        <div class="team-name">Jim Armstrong</div>
-        <div class="team-title">Interim CFO</div>
-        <div class="team-bio">Multiple Forbes Midas List honoree. Pre-launch investor in PayPal, NetZero, and CarsDirect. Founding Partner of March Capital Partners, Managing Director of Clearstone Venture Partners and Composite Ventures. Oversees HelioFlux's financial strategy and capital allocation, milestone execution, and investor relationships.</div>
-      </div>
-      <div class="team-card">
-        <img loading="lazy" src="glenn-headshot.jpg" alt="Glenn Lucas" class="team-photo">
-        <div class="team-name">Glenn Lucas</div>
-        <div class="team-title">Chief Strategy Officer</div>
-        <div class="team-bio">President of Lucas Telepictures, CSO at Escape AI Media. Executive Produced <em>Extract</em> (Miramax, dir. Mike Judge) as Head of Business Development at Ternion Pictures. Strategic Advisor at Composite Ventures. Leads commercial strategy and media partnerships at HelioFlux.</div>
+        <div class="feature-bio">
+          <p class="lead">Dr. Nirosha J. Murugan is Canada Research Chair in Tissue Biophysics at Wilfrid Laurier University and the scientific co-founder of HelioFlux. Her lab has secured $1.6M in non-dilutive grants and produced 40+ peer-reviewed publications across cancer biology, regenerative medicine, neuroscience, and quantum biology.</p>
+          <p>She earned her Ph.D. in Biomolecular Sciences at Laurentian University, where she pioneered the quantum-sensor-based cancer detection technology now commercialized through HelioFlux. As a postdoctoral researcher in Dr. Michael Levin's lab at the Allen Discovery Center at Tufts University, she advanced ion-channel bioelectricity as a mechanism of tissue patterning and co-developed a drug delivery system to induce limb regeneration in non-regenerative species.</p>
+          <p>A dedicated mentor, Dr. Murugan is deeply committed to making biophysics accessible to the next generation of health innovators.</p>
+        </div>
+        <div class="awards">
+          <h3 class="eyebrow" id="awards-title">Awards &amp; Recognition</h3>
+          <ul aria-labelledby="awards-title">
+            <li><span>Optica Foundation Challenge Grant</span><span class="year">2023</span></li>
+            <li><span>Faculty of Science Tier 2 Distinguished Research Chair</span><span class="year">2023</span></li>
+            <li><span>Tier 2 Canada Research Chair, Tissue Biophysics</span><span class="year">2022</span></li>
+            <li><span>Minister of Colleges and Universities Award of Excellence</span><span class="year">2022</span></li>
+            <li><span>STRIVE Young Professional Visionary Award</span><span class="year">2022</span></li>
+            <li><span>NSERC Science Exposed Jury Prize Winner</span><span class="year">2021</span></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- ═══ ADVISORS (cream) ═══ -->
-<div style="background:#f5f0eb;padding:100px 56px;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <p class="eyebrow reveal" style="color:#00A9D6;">Advisory</p>
-    <h2 class="reveal" style="color:#14263C;margin-bottom:48px;">Advisors</h2>
-    <div class="team-grid reveal">
-      <div class="team-card" style="background:rgba(28,53,80,.03);">
-        <img loading="lazy" src="michael-levin-headshot.jpg" alt="Dr. Michael Levin" class="team-photo">
-        <div class="team-name" style="color:#14263C;">Dr. Michael Levin</div>
-        <div class="team-title">Scientific Advisor</div>
-        <div class="team-bio" style="color:#5a6b7e;">Vannevar Bush Distinguished Professor at Tufts University. Director of the Allen Discovery Center and the Tufts Center for Regenerative and Developmental Biology. Pioneer in bioelectric control of cell behavior. Dr. Murugan's postdoctoral mentor and the scientific foundation HelioFlux is built on.</div>
+  <section class="section band" aria-labelledby="leadership-title">
+    <div class="shell">
+      <div class="kicker"><span>The Team</span></div>
+      <h2 id="leadership-title" class="people-title">Leadership</h2>
+      <ul class="people">
+        <li class="reveal">
+          <img loading="lazy" src="assets/next/team/kelly.webp" width="640" height="800" alt="Kelly Lucas">
+          <div class="people-text">
+            <h3>Kelly Lucas</h3>
+            <p class="role">President &amp; Co-Founder</p>
+            <p class="bio">Kelly co-founded HelioFlux to bring Nirosha's biophotonic research out of the lab and into clinical practice. She leads fundraising, strategy, and commercial partnerships, growing the company from a research concept to a funded startup with a patent-pending platform and a first human study on the horizon. Before HelioFlux, Kelly studied biology at UNC Chapel Hill and earned an MBA from Indiana University's Kelley School of Business. She's driven by one belief: nobody should die from a cancer caught too late.</p>
+          </div>
+        </li>
+        <li class="reveal reveal-d1">
+          <img loading="lazy" src="assets/next/team/jim.webp" width="640" height="800" alt="Jim Armstrong">
+          <div class="people-text">
+            <h3>Jim Armstrong</h3>
+            <p class="role">Interim CFO</p>
+            <p class="bio">Multiple Forbes Midas List honoree. Pre-launch investor in PayPal, NetZero, and CarsDirect. Founding Partner of March Capital Partners, Managing Director of Clearstone Venture Partners and Composite Ventures. Oversees HelioFlux's financial strategy and capital allocation, milestone execution, and investor relationships.</p>
+          </div>
+        </li>
+        <li class="reveal reveal-d2">
+          <img loading="lazy" src="assets/next/team/glenn.webp" width="640" height="800" alt="Glenn Lucas">
+          <div class="people-text">
+            <h3>Glenn Lucas</h3>
+            <p class="role">Chief Strategy Officer</p>
+            <p class="bio">President of Lucas Telepictures, CSO at Escape AI Media. Executive Produced <em>Extract</em> (Miramax, dir. Mike Judge) as Head of Business Development at Ternion Pictures. Strategic Advisor at Composite Ventures. Leads commercial strategy and media partnerships at HelioFlux.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="advisors-title">
+    <div class="shell">
+      <div class="kicker"><span>Advisory</span></div>
+      <h2 id="advisors-title" class="people-title">Advisors</h2>
+      <ul class="people">
+        <li class="reveal">
+          <img loading="lazy" src="assets/next/team/michael-levin.webp" width="640" height="800" alt="Dr. Michael Levin">
+          <div class="people-text">
+            <h3>Dr. Michael Levin</h3>
+            <p class="role">Scientific Advisor</p>
+            <p class="bio">Vannevar Bush Distinguished Professor at Tufts University. Director of the Allen Discovery Center and the Tufts Center for Regenerative and Developmental Biology. Pioneer in bioelectric control of cell behavior. Dr. Murugan's postdoctoral mentor and the scientific foundation HelioFlux is built on.</p>
+          </div>
+        </li>
+        <li class="reveal reveal-d1">
+          <img loading="lazy" src="assets/next/team/david-kaplan.webp" width="640" height="798" alt="Dr. David Kaplan">
+          <div class="people-text">
+            <h3>Dr. David Kaplan</h3>
+            <p class="role">Scientific Advisor</p>
+            <p class="bio">Stern Family Endowed Professor of Biomedical Engineering at Tufts University. Director of the Tufts Center for Cellular Agriculture. AIMBE Fellow. Collaborated directly with Dr. Murugan on bioengineered tissue systems during her Tufts postdoctoral work.</p>
+          </div>
+        </li>
+        <li class="reveal reveal-d2">
+          <img loading="lazy" src="assets/next/team/justin-horn.webp" width="560" height="700" alt="Justin Horn">
+          <div class="people-text">
+            <h3>Justin Horn</h3>
+            <p class="role">Business Advisor</p>
+            <p class="bio">CEO and Founder of Redgate Partners, an Omaha-based advisory firm supporting healthcare and technology companies. 20+ years across strategic sales, benefits, executive leadership, and capital advisory, with prior roles at Virgin Pulse, Holmes Murphy, Diversified Benefits Group, and Neul Capital. Advises HelioFlux on capital strategy, investor relationships, and commercialization partnerships.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight closing night" aria-labelledby="close-title">
+    <div class="shell">
+      <div>
+        <h2 id="close-title" class="h2">Get in touch</h2>
+        <p class="lead muted">We're raising our next round and looking for mission-driven partners.</p>
       </div>
-      <div class="team-card" style="background:rgba(28,53,80,.03);">
-        <img loading="lazy" src="david-kaplan-headshot.jpg" alt="Dr. David Kaplan" class="team-photo">
-        <div class="team-name" style="color:#14263C;">Dr. David Kaplan</div>
-        <div class="team-title">Scientific Advisor</div>
-        <div class="team-bio" style="color:#5a6b7e;">Stern Family Endowed Professor of Biomedical Engineering at Tufts University. Director of the Tufts Center for Cellular Agriculture. AIMBE Fellow. Collaborated directly with Dr. Murugan on bioengineered tissue systems during her Tufts postdoctoral work.</div>
-      </div>
-      <div class="team-card" style="background:rgba(28,53,80,.03);">
-        <img loading="lazy" src="justin-horn-headshot.jpg" alt="Justin Horn" class="team-photo">
-        <div class="team-name" style="color:#14263C;">Justin Horn</div>
-        <div class="team-title">Business Advisor</div>
-        <div class="team-bio" style="color:#5a6b7e;">CEO and Founder of Redgate Partners, an Omaha-based advisory firm supporting healthcare and technology companies. 20+ years across strategic sales, benefits, executive leadership, and capital advisory, with prior roles at Virgin Pulse, Holmes Murphy, Diversified Benefits Group, and Neul Capital. Advises HelioFlux on capital strategy, investor relationships, and commercialization partnerships.</div>
-      </div>
+      <a class="button" href="mailto:connect@helioflux.co?subject=HelioFlux%20Deck%20Request">Request deck <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-top">
+      <a class="wordmark" href="https://helioflux.co/">Helio<span>Flux</span></a>
+      <ul class="footer-links">
+        <li><a href="science.html">How it works</a></li>
+        <li><a href="timeline.html">Research timeline</a></li>
+        <li><a href="https://helioflux.co/team.html">Meet the team</a></li>
+        <li><a href="mailto:connect@helioflux.co">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 HelioFlux Inc.</span>
+      <span>QSense and LuminAI are research-stage technologies. Not FDA cleared for clinical use.</span>
     </div>
   </div>
-</div>
-
-<!-- ═══ CTA (dark) ═══ -->
-<div style="background:#092743;padding:100px 56px;text-align:center;">
-  <div style="max-width:720px;margin:0 auto;" class="reveal">
-    <h2 style="margin-bottom:20px;">Get in touch</h2>
-    <p style="font-size:17px;color:rgba(255,255,255,.65);margin-bottom:36px;">We're raising our next round and looking for mission-driven partners.</p>
-    <a href="mailto:kelly.lucas@helioflux.co?subject=HelioFlux%20Deck%20Request" style="padding:16px 40px;background:#00A9D6;color:#092743;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:600;border-radius:50px;display:inline-block;transition:all .3s;">Request Deck</a>
-  </div>
-</div>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div><div class="f-logo">Helio<span>Flux</span></div><div class="f-tagline">Your cells emit light. We learned to read it.</div><div class="f-contact">kelly.lucas@helioflux.co<br>Manhattan Beach, CA</div></div>
-  <div class="f-col"><h4>Company</h4><ul><li><a href="science.html">Science</a></li><li><a href="team.html">Team</a></li><li><a href="index.html#press">Press</a></li></ul></div>
-  <div class="f-col"><h4>Connect</h4><ul><li><a href="https://www.linkedin.com/company/helioflux" target="_blank">LinkedIn ↗</a></li><li><a href="mailto:kelly.lucas@helioflux.co">Email</a></li></ul></div>
 </footer>
-<div class="f-bottom"><span>© 2026 HelioFlux Inc.</span><span>Not FDA cleared. Not intended to diagnose or treat any disease.</span></div>
 
-<script>document.body.classList.add("js-ready");</script>
-<script>
-const lenis = new Lenis({ duration: 1.25, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
-gsap.registerPlugin(ScrollTrigger);
-lenis.on('scroll', ScrollTrigger.update);
-const nav = document.getElementById('nav');
-nav.classList.add('scrolled');
-const cdot = document.getElementById('cdot');
-document.addEventListener('mousemove', e => { gsap.to(cdot, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'none' }); });
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => cdot.classList.add('big'));
-  el.addEventListener('mouseleave', () => cdot.classList.remove('big'));
-});
-document.querySelectorAll('.reveal').forEach(el => {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { el.classList.add('in'); obs.unobserve(el); } });
-  }, { threshold: 0.12 });
-  obs.observe(el);
-});
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-if (hamburger) {
-  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
-}
-</script>
+<script src="assets/next/next.js"></script>
 </body>
 </html>
