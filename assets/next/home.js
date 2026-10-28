@@ -38,7 +38,8 @@
     frame = 0;
     const r = box.getBoundingClientRect(), h = innerHeight;
     const t = Math.min(1, Math.max(0, (h - r.top) / (h + r.height)));
-    img.style.transform = 'translate3d(0,' + (60 - 120 * t).toFixed(1) + 'px,0)';
+    const drift = r.height * .025;            // matches the 2.5% of spare photo above and below
+    img.style.transform = 'translate3d(0,' + (drift - 2 * drift * t).toFixed(1) + 'px,0)';
   };
   const queue = () => { if (active && !frame) frame = requestAnimationFrame(place); };
   new IntersectionObserver(([e]) => { active = e.isIntersecting; queue(); }).observe(box);

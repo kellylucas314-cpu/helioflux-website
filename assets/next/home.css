@@ -134,7 +134,8 @@
 .signal-path__system + .signal-path__system { border-left: 1px solid var(--rule); }
 .system-kind, .system-status { margin: 0; font: 600 12px/1.4 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--teal); }
 .home-systems .signal-path h4 { margin: 10px 0 6px; font: 400 clamp(28px, 2.6vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: var(--ink); }
-.home-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 500 clamp(18px, 1.6vw, 21px)/1.35 var(--display); color: var(--teal); }
+/* The role lines take the lighter display teal of the big headings, at 24px and up so it stays readable (large text) */
+.home-systems .signal-path .signal-path__role { margin: 0 0 16px; font: 400 clamp(24px, 2.1vw, 28px)/1.25 var(--display); letter-spacing: -.01em; color: var(--teal-display); }
 .signal-path__system p:not([class]) { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: var(--text); }
 .system-status { display: flex; align-items: center; gap: 8px; margin-top: auto; }
 .system-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
@@ -147,8 +148,9 @@
 .home-research-link { margin-top: 32px; }
 
 /* Full-width microscope photo, as on the live page, drifting a little slower than the page (home.js) */
-.home-photo-break { position: relative; height: clamp(280px, 36vw, 500px); margin: 0; overflow: hidden; background: var(--night); }
-.home-photo-break img { position: absolute; left: 0; top: -60px; width: 100%; height: calc(100% + 120px); object-fit: cover; object-position: center; filter: hue-rotate(-22deg) saturate(.7); will-change: transform; }
+.home-photo-break { position: relative; height: clamp(300px, 41vw, 720px); margin: 0; overflow: hidden; background: var(--night); }
+/* Tall enough to show the whole photo with Nirosha's head in frame; it is anchored at the top and only drifts a little */
+.home-photo-break img { position: absolute; left: 0; top: -2.5%; width: 100%; height: 105%; object-fit: cover; object-position: 50% 0; filter: hue-rotate(-22deg) saturate(.7); will-change: transform; }
 
 /* 03 Published research: the studies as a timeline, each dated stage linked to its paper, then the press as a row of names.
    What each study found lives on the science page. */
@@ -253,7 +255,7 @@
   .signal-path__system + .signal-path__system { border-left: 0; border-top: 1px solid var(--rule); }
   .signal-path__art { margin-inline: calc(var(--gutter) * -1); }
   .home-proof .stages li:nth-last-child(2) { background: repeating-linear-gradient(180deg, var(--ink) 0 5px, transparent 5px 10px) no-repeat 7px 8px / 1px 100%; }
-  .home-photo-break img { object-position: 38% center; }
+  .home-photo-break img { object-position: 38% 0; }
   .hc-panel { flex-basis: 88%; grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .hc-text h3 { font-size: 28px; margin: 12px 0 12px; }
   .hc-text p:not(.hc-status) { font-size: 16px; }
