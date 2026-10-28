@@ -30,8 +30,10 @@
 .survival-num [data-percent-digits] { width: 1.14em !important; }
 .survival-what { margin: 0; font: 500 17px/1.4 var(--display); color: var(--ink); }
 .survival-when { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
-/* The same air under the numbers as above them, so the thin line before the growth story sits close */
-#problem { padding-bottom: clamp(64px, 6.7vw, 96px); }
+/* The problem sits on the pale tint band, so the tumor story below it on paper reads as its own chapter
+   (Kelly, Oct 28: keep the tumor on white, give the section above a little color) */
+#problem { padding-bottom: clamp(64px, 6.7vw, 96px); background: var(--teal-tint); }
+.js #problem .reveal { background-color: transparent; }   /* only text here, so the fade needs no paper backing */
 /* Right after a dark band or photo, its edge already divides the page: the label drops its line and the section starts closer */
 #problem, #solution, #evidence, #next-study { padding-top: clamp(56px, 6vw, 88px); }
 :is(#problem, #solution, #evidence, #next-study) > .shell > .kicker { padding-top: 0; border-top: 0; }
@@ -53,21 +55,12 @@
 .home-page #probProgression .hf-growth-title { font-weight: 400; letter-spacing: -.03em; }
 .home-page .hf-growth-caption { color: #16263a; }
 /* One palette: the tumor story takes the page's paper, navy and gray instead of its own near-copies of them */
-/* The growth story is its own chapter on the pale tint band, so it reads apart from the survival numbers above it
-   (Kelly, Oct 28: the two sections ran together). */
-.home-page .hf-growth-chapter, .home-page #probProgression { --growth-paper: var(--teal-tint); --growth-ink: var(--ink); --growth-muted: var(--muted); background: var(--teal-tint); }
-.home-page .hf-growth-chapter { padding-top: clamp(24px, 3vw, 48px); }
+.home-page .hf-growth-chapter, .home-page #probProgression { --growth-paper: var(--paper); --growth-ink: var(--ink); --growth-muted: var(--muted); background: var(--paper); }
 .home-page .hf-growth-progress { background: var(--rule); }
 .home-page .hf-growth-evidence, .home-page .hf-growth-static figure { border-color: var(--rule); }
 /* The art was drawn on the old, slightly lighter cream; darken lets the paper show through so the frame has no box */
 .home-page :is(.hf-growth-canvas, .hf-growth-poster, .hf-growth-static-canvas, .hf-growth-still-art img) { mix-blend-mode: darken; }
 .home-page .hf-growth-progress span { background: var(--cyan); }
-/* Under every step: is it on a standard scan yet? Not until the last one, so the ~1 cm point lands at each step (Kelly, Oct 28) */
-.home-page .hf-growth-scan { display: flex; align-items: center; gap: 10px; margin: 16px 0 0; font: 500 15px/1.4 var(--body); color: var(--muted); }
-.home-page .hf-growth-scan-dot { flex: none; width: 10px; height: 10px; border: 1.5px solid currentColor; border-radius: 50%; transition: background-color .3s ease, border-color .3s ease; }
-.home-page .hf-growth-scan[data-seen="true"] { color: var(--ink); }
-.home-page .hf-growth-scan[data-seen="true"] .hf-growth-scan-dot { background: var(--cyan); border-color: var(--cyan); }
-.home-page .hf-growth-static .hf-growth-scan { margin-top: 14px; font-size: 14px; }
 @media (max-width: 600px) {
   .home-page .hf-growth-heading h2 { font-size: 22px; }
   #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }

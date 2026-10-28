@@ -6,7 +6,6 @@
  const pin=root.querySelector('.hf-growth-pin'), canvas=root.querySelector('canvas');
  const title=root.querySelector('.hf-growth-title'), caption=root.querySelector('.hf-growth-caption'), beat=root.querySelector('.hf-growth-beat');
  const progress=root.querySelector('.hf-growth-progress span'), status=root.querySelector('.hf-growth-status');
- const scan=root.querySelector('.hf-growth-scan'), scanText=scan&&scan.querySelector('.hf-growth-scan-text');
  const toggle=root.querySelector('.hf-growth-mode'), stills=root.querySelector('.hf-growth-static');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  // A caption's last paragraph (after a blank line) is its punchline, set larger and bolder.
@@ -17,15 +16,14 @@
    if(parts.length>1){const punch=document.createElement('strong');punch.className='hf-growth-punch';punch.textContent=parts.slice(1).join('\n\n');el.append(punch);}
    el.dataset.text=text;
  };
- let block=0, reading=false, ready=false, loading=false, active=false, pending=0, lastWidth=innerWidth, lastHeight=innerHeight, shortViewport=innerHeight<=540;
+ let reading=false, ready=false, loading=false, active=false, pending=0, lastWidth=innerWidth, lastHeight=innerHeight, shortViewport=innerHeight<=540;
  // Freeze runway and sticky viewport height until width/orientation changes.
  // Mobile toolbar expansion must never rewind the biological timeline.
- let distance=innerWidth<=600?1250:innerWidth<=880?1350:1500, pinHeight=0, navOffset=0, start=0, previousPosition=0;
+ let distance=innerWidth<=600?1800:innerWidth<=880?2000:2200, pinHeight=0, navOffset=0, start=0, previousPosition=0;
  // Only this scene is sticky. Following sections remain in ordinary page flow.
  // Give the explanation room according to its reading chapter, not how many
  // source images happened to be drawn for that phase. All art frames remain.
- // Five beats (Kelly, Oct 28: the ~1 cm point has to land, and nine beats took too long). The last one holds longest.
- const weights={start:1,unnoticed:1,blood:1.15,invasion:.9,closing:1.3};
+ const weights={normal:.65,driver:1.25,division:1,cluster:1,premalignant:1,oxygen:1.15,vascular:1.25,invasion:1.15,closing:.9};
  const chapters=data.readingBeats.map((b,i)=>({
    from:Math.max(0,art.frames.findIndex(f=>f.readingBeat===i+1)-.07),
    to:i===data.readingBeats.length-1?art.frames.length-1:art.frames.findIndex(f=>f.readingBeat===i+2)-.07,
@@ -48,9 +46,7 @@
    Object.assign(img.style,{width:(1254*sx*100)+'%',height:(1254*sy*100)+'%',left:((.5-(x0+x1)/2*sx)*100)+'%',top:((.46-(y0+y1)/2*sy)*100)+'%'});
  }
  place(root.querySelector('.hf-growth-poster img'),art.frames[0]);
- // Each still shows the last frame of its beat, where that beat's change is clearest.
- const stillFrame=i=>{let k=0;art.frames.forEach((f,j)=>{if(f.readingBeat===i+1)k=j;});return k;};
- stills.querySelectorAll('figure').forEach((figure,i)=>place(figure.querySelector('img'),art.frames[stillFrame(i)]));
+ stills.querySelectorAll('figure').forEach((figure,i)=>place(figure.querySelector('img'),art.frames.find(f=>f.readingBeat===i+1)));
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  function staticAssets() {
    stills.querySelectorAll('img[data-src]').forEach(img=>{
@@ -79,7 +75,7 @@
        const size=Math.round(Math.min(1200,stage.clientWidth*(devicePixelRatio||1)));
        if(size>0){
          still.width=still.height=size;
-         art.draw(still,stillFrame(i));
+         art.draw(still,art.frames.findIndex(f=>f.readingBeat===i+1));
        }
      });
      root.classList.remove('hf-growth-stills-failed');
@@ -92,18 +88,13 @@
    probe.setAttribute('aria-hidden','true');
    probe.style.cssText='position:absolute;visibility:hidden;pointer-events:none;top:0;left:0;width:'+width+'px';
    root.append(probe);
-   // Reserve the tallest title and caption together, so a short title sits right on its caption and the bar below never moves.
-   const t=probe.querySelector('.hf-growth-title'), c=probe.querySelector('.hf-growth-caption');
-   for(const el of [t,c]){el.style.minHeight='0';el.style.height='auto';}
-   const gap=parseFloat(getComputedStyle(t).marginBottom)||0;
-   block=0;
-   for(const item of data.readingBeats){t.textContent=item.title;delete c.dataset.text;setCaption(c,item.caption);block=Math.max(block,t.getBoundingClientRect().height+gap+c.getBoundingClientRect().height);}
+   for(const [selector,key] of [['.hf-growth-title','title'],['.hf-growth-caption','caption']]){
+     const field=probe.querySelector(selector);field.style.minHeight='0';field.style.height='auto';
+     let maximum=0;
+     for(const item of data.readingBeats){if(key==='caption'){delete field.dataset.text;setCaption(field,item[key]);}else field.textContent=item[key];maximum=Math.max(maximum,field.getBoundingClientRect().height);}
+     const real=story.querySelector(selector);real.style.minHeight='0';real.style.height=Math.ceil(maximum)+'px';
+   }
    probe.remove();
-   title.style.minHeight='0';title.style.height='auto';caption.style.height='auto';
-   fitCaption();
- }
- function fitCaption() {
-   if(block) caption.style.minHeight=Math.ceil(block-title.getBoundingClientRect().height-(parseFloat(getComputedStyle(title).marginBottom)||0))+'px';
  }
  function layout() {
    const nav=document.getElementById('nav'), navStyle=nav&&getComputedStyle(nav);
@@ -143,10 +134,9 @@
    const state=art.draw(canvas,position,{stabilize:true});
    const frame=art.frames[state.dominant];
    if(root.dataset.frame!==String(state.dominant+1)){
-     title.textContent=frame.title;setCaption(caption,frame.caption);fitCaption();
+     title.textContent=frame.title;setCaption(caption,frame.caption);
      beat.textContent='GROWTH '+String(frame.readingBeat).padStart(2,'0')+' / '+data.readingBeats.length;
      canvas.setAttribute('aria-label',frame.visible);
-     if(scan){scan.dataset.seen=String(frame.readingBeat===data.readingBeats.length);scanText.textContent=frame.scan||'';}
      root.dataset.frame=String(state.dominant+1);root.dataset.beat=String(frame.readingBeat);
    }
    progress.style.transform='scaleX('+raw+')';
@@ -187,7 +177,7 @@
    if(Math.abs(innerWidth-lastWidth)>1 || (innerWidth>900&&Math.abs(innerHeight-lastHeight)>1)){
      lastWidth=innerWidth;lastHeight=innerHeight;pinHeight=0;shortViewport=innerHeight<=540;
      const inStory=active&&scrollY>=start&&scrollY<=start+distance;
-     root.classList.toggle('hf-growth-compact',innerWidth<=880&&innerHeight<=740);distance=innerWidth<=600?1250:innerWidth<=880?1350:1500;
+     root.classList.toggle('hf-growth-compact',innerWidth<=880&&innerHeight<=740);distance=innerWidth<=600?1800:innerWidth<=880?2000:2200;
      layout();
      if(active) load();
      if(inStory&&active) scrollTo({top:start+distance*progressAtPosition(previousPosition),behavior:'instant'});
