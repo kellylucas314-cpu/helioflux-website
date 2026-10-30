@@ -1,0 +1,149 @@
+/* HelioFlux loader (loader.css)
+
+   What it does: paints a full-screen navy cover while the homepage loads and
+   draws one small picture in the middle of it: a thin cell outline on the left,
+   a detector bar on the right, and a few photons leaving the cell and being
+   counted by the bar. The wordmark sits underneath. Everything else is empty navy.
+
+   Where it attaches: loader.js adds class "hf-loading" to <html> from <head>,
+   before the body paints, and injects <div id="hf-loader"> as soon as <body>
+   exists. The body::after rule below is the instant cover: it paints from the
+   first frame, so there is never a flash of the page before the overlay element
+   exists. The overlay then sits one z-index above it.
+
+   How it pauses: the photon loop in loader.js stops on "helioflux:motion"
+   paused, when the tab is hidden, when the overlay is not in view, and when
+   prefers-reduced-motion switches on; the picture then holds its still state.
+   Under prefers-reduced-motion from the start the loader is never shown at all.
+
+   Exit: loader.js adds "hf-loader-exit" to <html> (drops the cover underneath)
+   and "is-exiting" to the overlay (450ms fade, figure scales to 1.03), then
+   removes the element and the html classes. */
+
+/* Instant cover, painted before the overlay element exists. */
+html.hf-loading body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #0f1c2e;
+  pointer-events: none;
+}
+/* Once the fade starts, the cover steps aside so the fade reveals the hero. */
+html.hf-loading.hf-loader-exit body::after { display: none; }
+
+/* Scroll lock while the cover is up. The page already sets overflow-x hidden on
+   <html>, which stops body overflow from reaching the viewport, so the lock goes
+   on both. scrollbar-gutter keeps a desktop scrollbar's space reserved, so the
+   layout does not shift when the lock lifts; the html background paints that
+   gutter in the same navy as the cover. */
+html.hf-loading { overflow: hidden; scrollbar-gutter: stable; background: #0f1c2e; }
+html.hf-loading body { overflow: hidden; }
+
+/* The overlay. It catches clicks and touches so nothing underneath reacts. */
+#hf-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* The optical center sits a touch above the geometric one. */
+  padding-bottom: 5vh;
+  background: #0f1c2e;
+  opacity: 1;
+  transition: opacity 450ms cubic-bezier(.22, .61, .36, 1);
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+#hf-loader.is-exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Figure: scene plus wordmark. Fades in on arrival, scales up a hair on exit. */
+.hf-loader__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 400ms ease-out, transform 450ms cubic-bezier(.22, .61, .36, 1);
+  will-change: opacity, transform;
+}
+#hf-loader.is-ready .hf-loader__figure { opacity: 1; }
+#hf-loader.is-exiting .hf-loader__figure { transform: scale(1.03); }
+
+/* Scene: drawn at 1 SVG unit = 1 CSS px. 200 wide, 84 tall. */
+.hf-loader__scene {
+  display: block;
+  width: 200px;
+  height: 84px;
+  overflow: visible;
+}
+.hf-loader__cell {
+  fill: none;
+  stroke: rgba(216, 238, 255, .5);
+  stroke-width: 1;
+}
+.hf-loader__bar { fill: rgba(216, 238, 255, .6); }
+
+/* The detector's cyan flash: a cyan copy of the bar plus a soft glow behind it.
+   Both fade in fast and out slowly; loader.js holds the hit for 150ms. */
+.hf-loader__flash,
+.hf-loader__glow {
+  opacity: 0;
+  transition: opacity 320ms ease-out;
+}
+.hf-loader__flash { fill: rgb(0, 169, 214); }
+.hf-loader__glow { fill: rgba(0, 169, 214, .55); filter: blur(4px); }
+.hf-loader__scene.is-hit .hf-loader__flash,
+.hf-loader__scene.is-hit .hf-loader__glow {
+  opacity: 1;
+  transition-duration: 60ms;
+}
+
+/* Photons: a 2px cyan core inside a soft halo. Position and opacity are set per
+   frame by loader.js on the group's transform and opacity attributes. */
+.hf-loader__photon { will-change: transform, opacity; }
+.hf-loader__photon-core { fill: rgb(0, 169, 214); }
+
+/* One quiet tick beneath the detector per photon counted. */
+.hf-loader__tick {
+  stroke: rgba(216, 238, 255, .45);
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+.hf-loader__tick.is-on { opacity: 1; }
+
+/* Wordmark. Kept invisible until the brand font is ready (or a short cap passes),
+   so it never swaps fonts in front of the visitor. */
+.hf-loader__word {
+  margin-top: 22px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: .02em;
+  color: rgba(255, 255, 255, .88);
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+  -webkit-font-smoothing: antialiased;
+}
+#hf-loader.has-word .hf-loader__word { opacity: 1; }
+.hf-loader__accent { color: #00A9D6; }
+
+/* Should the preference switch on while the cover is up, the picture holds its
+   still state: no photons, bar unlit. The page's own reduced-motion rule already
+   shortens every transition, so the exit fade is instant too. */
+@media (prefers-reduced-motion: reduce) {
+  #hf-loader .hf-loader__photon { opacity: 0 !important; }
+  #hf-loader .hf-loader__flash,
+  #hf-loader .hf-loader__glow { opacity: 0 !important; }
+  #hf-loader .hf-loader__figure,
+  #hf-loader .hf-loader__word { opacity: 1; transition: none; }
+}

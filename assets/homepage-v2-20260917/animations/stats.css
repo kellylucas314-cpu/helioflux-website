@@ -1,0 +1,82 @@
+/* stats.css
+   Survival rings behind the two big survival numbers on the HelioFlux homepage
+   (built and sized by stats.js).
+
+   What it draws: inside #survivalGapGrid each .prob-gap-col holds one small SVG,
+   centered on its number and sitting behind it. The SVG has a faint full track
+   circle (ink at 8%), a 2px progress arc (brand cyan at 60% on the early column,
+   ink at 45% on the late column) and, on the early column only, a 3px photon with
+   a soft 14px halo that rides the leading end of the arc.
+
+   Attaches to: the column gets class "hf-ring-host", which makes it a stacking
+   context (isolation: isolate) so the SVG can sit at z-index -1: under the number
+   and under the "5-year survival" labels, but still above the page. The SVG is
+   aria-hidden and takes no pointer events. Its position and size are written
+   inline by the script from one measurement of the number, repeated on resize.
+
+   Motion: the arc length and the photon's position are driven by the script with
+   requestAnimationFrame, so this sheet only handles opacity. The photon is hidden
+   before the draw and full while drawing ("is-drawing"); once the arc is complete
+   ("is-done") the photon settles to .35 and the arc itself to half strength over
+   900ms, so the finished ring sits behind the digits as a quiet echo. "is-still"
+   (tab hidden, motion paused, print) and "is-reduced" (prefers-reduced-motion)
+   remove those fades so the finished state appears at once. Nothing loops. */
+
+.hf-ring-host {
+  position: relative;
+  isolation: isolate;
+}
+
+.hf-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;   /* stats.js sets the real box */
+  height: 0;
+  z-index: -1;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hf-ring__track {
+  fill: none;
+  stroke: rgba(16, 48, 68, .06);
+  stroke-width: 2;
+}
+
+.hf-ring__arc {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: butt;
+}
+/* Lighter than the solid cyan digits on purpose: at .85 the arc read as a stroke
+   tangled with the glyphs; at .6 it sits behind them as an echo. */
+.hf-ring--early .hf-ring__arc { stroke: rgba(0, 169, 214, .6); }
+.hf-ring--late .hf-ring__arc { stroke: rgba(16, 48, 68, .45); }
+/* After the draw the arcs settle to a quieter echo of the digits. */
+.hf-ring__arc { transition: opacity 900ms cubic-bezier(.22, .61, .36, 1); }
+.hf-ring.is-done .hf-ring__arc, .hf-ring.is-reduced .hf-ring__arc { opacity: .5; }
+.hf-ring.is-still .hf-ring__arc, .hf-ring.is-reduced .hf-ring__arc { transition: none; }
+
+/* The photon: hidden until the arc starts, bright while it travels, then it
+   settles to half strength and stays as a quiet marker at the end of the arc. */
+.hf-ring__dot {
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(.22, .61, .36, 1);
+}
+.hf-ring.is-drawing .hf-ring__dot {
+  opacity: 1;
+  transition-duration: 250ms;
+}
+.hf-ring.is-done .hf-ring__dot { opacity: .35; }
+.hf-ring__core { fill: rgb(0, 169, 214); }
+
+/* Finished state shown at once: no fade when the tab was hidden, motion was
+   paused, the page is printing, or the visitor prefers reduced motion. */
+.hf-ring.is-still .hf-ring__dot,
+.hf-ring.is-reduced .hf-ring__dot { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hf-ring__dot { transition: none; }
+}

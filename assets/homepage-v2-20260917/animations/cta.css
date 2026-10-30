@@ -1,0 +1,141 @@
+/* cta.css
+   Styles for the quiet motion that cta.js adds to the closing navy section of
+   the HelioFlux homepage (section.cta-section#contact: "The science works. The
+   next step is human data."). The section's own look (navy #092743, white
+   heading, cyan button) lives in the page's stylesheets; this file only layers
+   a little light under the words and moves two small things on the primary
+   button.
+
+   What it styles, in three parts:
+   1. Stacking. cta.js inserts one canvas (class "hf-cta-photons", aria-hidden)
+      right after .cta-glow and gives every other direct child of the section
+      the class "hf-cta-above". The canvas fills the section at z-index 0 and
+      takes no pointer events; the heading, lead and buttons sit above it at
+      z-index 1, so no speck ever paints over a letter. The script draws the
+      drifting photons; nothing in this file animates the canvas.
+   2. Idle breath on the primary button (.cta-actions .btn-cyan, which the
+      script marks "hf-cta-btn"). A ::before box the size of the button carries
+      a cyan box-shadow that grows from a 0px spread at 35% to a 12px spread at
+      0% over 3.6s, ease-out, and repeats, so a soft ring leaves the button
+      about every four seconds. It only runs while the section carries
+      "hf-cta-run" (set by the script when the section is on screen, the tab is
+      visible and motion is not paused); otherwise there is no ring at all. The
+      ring lives on the pseudo-element rather than the button because the theme
+      sheet pins the button's own box-shadow to none with !important, and an
+      !important declaration outranks any keyframe.
+   3. Hover sweep, mouse users only (hover: hover and pointer: fine). The script
+      adds an empty span (class "hf-cta-sweep", aria-hidden) inside the button:
+      it covers the button, keeps the button's radius and clips with overflow
+      hidden. Its ::after is a 60px wide band, soft white in the middle (35%)
+      and clear at both edges, tilted a little, that slides once from the left
+      edge to the right edge over 700ms on the site's curve when the pointer
+      enters the button. The clip lives on the span rather than the button so
+      the ring from part 2 is free to extend past the button's edge.
+
+   Reduced motion (prefers-reduced-motion: reduce, or the "hf-cta-reduced"
+   class the script adds when that preference switches on mid-visit): the
+   canvas is hidden, the ring never shows and the sweep band is removed. The
+   section then reads exactly as it does without this module. */
+
+/* ---------- 1. stacking: photons under, words and buttons over ---------- */
+
+.cta-section.hf-cta-ready {
+  position: relative;
+}
+.cta-section .hf-cta-photons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.cta-section .hf-cta-above {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- 2. primary button: idle breath ---------- */
+
+.cta-section .cta-actions .btn-cyan.hf-cta-btn {
+  position: relative;
+}
+/* Sits on the border box (the button has a 1px border) so the ring starts
+   exactly at the visible edge. No background: the label shows through. */
+.cta-section .cta-actions .btn-cyan.hf-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 0 0 rgba(0, 169, 214, 0);
+}
+.cta-section.hf-cta-run .cta-actions .btn-cyan.hf-cta-btn::before {
+}
+
+/* ---------- 3. primary button: hover sweep, mouse users only ---------- */
+
+.cta-section .cta-actions .btn-cyan.hf-cta-btn .hf-cta-sweep {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* The band is drawn as a 60px stripe in the middle of a box as wide as the
+     button, so translating the box by a share of its own width moves the band
+     the same share of the button, whatever the button measures. The box is
+     taller than the button so the slight skew still covers top and bottom. */
+  .cta-section .cta-actions .btn-cyan.hf-cta-btn .hf-cta-sweep::after {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: 0;
+    bottom: -30%;
+    left: 0;
+    background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) calc(50% - 30px),
+      rgba(255, 255, 255, .35) 50%,
+      rgba(255, 255, 255, 0) calc(50% + 30px));
+    transform: translateX(-65%) skewX(-16deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* ---------- reduced motion: the finished, still state ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-section .hf-cta-photons { display: none !important; }
+  .cta-section .cta-actions .btn-cyan.hf-cta-btn::before,
+  .cta-section.hf-cta-run .cta-actions .btn-cyan.hf-cta-btn::before {
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  .cta-section .cta-actions .btn-cyan.hf-cta-btn .hf-cta-sweep::after {
+    display: none !important;
+    animation: none !important;
+  }
+}
+.cta-section.hf-cta-reduced .hf-cta-photons { display: none !important; }
+.cta-section.hf-cta-reduced .cta-actions .btn-cyan.hf-cta-btn::before,
+.cta-section.hf-cta-reduced.hf-cta-run .cta-actions .btn-cyan.hf-cta-btn::before {
+  animation: none !important;
+  box-shadow: none !important;
+}
+.cta-section.hf-cta-reduced .cta-actions .btn-cyan.hf-cta-btn .hf-cta-sweep::after {
+  display: none !important;
+  animation: none !important;
+}

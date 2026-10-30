@@ -1,0 +1,106 @@
+/* bridge.css
+   Styles for the signal trace that bridge.js draws across the bridge band, the
+   dark navy slice with the italic line "But there's a signal before there's a
+   tumor." (section.bridge-band).
+
+   What it styles: one inline SVG (class "hf-bridge-trace") that the script
+   inserts into the band. Inside it, a single path (the trace, brand cyan at 60%,
+   1.5px, round caps) and a small group (the photon: a 2.5px pale core with a
+   soft cyan halo) that the script moves along the path.
+
+   Where it sits: absolutely positioned, left 0 to right 0, 140px tall and
+   vertically centered on the band on desktop; 90px tall and sitting under the
+   text at 768px and under (see the media query for the reason). z-index 1
+   puts it above the band's video and vignette (both z auto) and below the text
+   wrapper (z 2). It never takes pointer events and is aria-hidden.
+
+   Legibility: on desktop a mask fades the whole SVG, trace and photon alike,
+   full at the edges and 30% between 35% and 65% of the width, where the sentence
+   sits. At 768px and under the sentence wraps to two lines and spans most of the
+   width, so the trace leaves the text alone: it sits under the text block,
+   anchored 18px above the bottom of the band, and needs no mask.
+
+   Motion: none in this file. The draw-in, the traveling photon and all pausing
+   are driven by bridge.js with requestAnimationFrame. Under
+   prefers-reduced-motion: reduce the rules below force the finished state (the
+   full trace, no dashing) and hide the photon outright, so even if the script
+   has already set dash values the band is still. The script adds "is-reduced"
+   when the preference switches on mid-visit, and that class does the same. */
+
+.hf-bridge-trace {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  height: 140px;
+  margin-top: -70px;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  overflow: visible;
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, .3) 35%,
+    rgba(0, 0, 0, .3) 65%,
+    rgba(0, 0, 0, 1) 100%);
+  mask-image: linear-gradient(to right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, .3) 35%,
+    rgba(0, 0, 0, .3) 65%,
+    rgba(0, 0, 0, 1) 100%);
+}
+
+/* Phones and small tablets: the sentence wraps to two lines and fills the width,
+   so the trace moves out from behind it and runs underneath instead, 90px tall
+   and anchored near the bottom of the band. With no text over it the mask goes. */
+@media (max-width: 768px) {
+  .hf-bridge-trace {
+    top: auto;
+    bottom: 18px;
+    height: 90px;
+    margin-top: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* The trace. Dash values are set inline by the script for the draw-in. */
+.hf-bridge-trace__line {
+  fill: none;
+  stroke: rgba(0, 169, 214, .6);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The photon. Hidden until the trace has finished drawing; the script fades it
+   in at the start of each pass and out again at the end. */
+.hf-bridge-trace__photon {
+  opacity: 0;
+}
+.hf-bridge-trace__halo {
+  fill: url(#hfBridgeHalo);
+}
+.hf-bridge-trace__core {
+  fill: rgb(216, 238, 255);
+}
+
+/* Reduced motion: the finished trace, nothing moving. */
+@media (prefers-reduced-motion: reduce) {
+  .hf-bridge-trace__line {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .hf-bridge-trace__photon {
+    display: none;
+  }
+}
+.hf-bridge-trace.is-reduced .hf-bridge-trace__line {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+}
+.hf-bridge-trace.is-reduced .hf-bridge-trace__photon {
+  display: none;
+}

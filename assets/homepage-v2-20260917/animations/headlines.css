@@ -1,0 +1,86 @@
+/* HelioFlux headlines (headlines.css)
+
+   What it does: a word-by-word mask reveal for the big section headings. Each
+   word is wrapped by headlines.js in a clipping box (.hf-w) with the word itself
+   (.hf-wi) inside. The word starts just below its own clip edge and rises into
+   place over .7s with a short fade, one word after another at 45ms steps, when
+   the heading has class "hf-in". Nothing bounces: the curve is a plain ease-out.
+
+   Where it attaches: the spans that headlines.js injects into
+   #problem .prob-opener, #solution h2, #two-systems h2,
+   #two-systems .hf-products-heading, #platform .h-section-label h2,
+   #credibility h2 and .cta-section h2. The hero h1 and the tumor story heading
+   are not touched. Every existing child (em, span, br) stays where it was; the
+   wrappers only inherit font, color and style from it.
+
+   Layout promise: .hf-w is an inline-block whose margin box is exactly the size
+   the bare word had. The padding gives the clip some slack for descenders,
+   ascenders and italic overhang; the matching negative margins give that slack
+   back, so widths, line breaks and line heights are identical before and after
+   wrapping. vertical-align: bottom keeps the box on the line regardless of the
+   baseline rule for overflow:hidden inline-blocks.
+
+   How it pauses: a one-shot entrance has nothing to loop, so pausing means
+   "no motion": headlines.js adds "hf-still" to a heading that should snap to its
+   finished state (tab hidden, visitor paused motion on the site), and
+   "hf-headlines-paused" on <html> while the visitor has the site paused, which
+   drops every transition so words appear in place instead of rising. How the
+   script decides the visitor really paused (and not merely that the hero left
+   the screen or its video failed to start) is described at the top of
+   headlines.js. Under
+   prefers-reduced-motion: reduce the script never wraps anything; the media
+   rule below is a belt-and-braces fallback that holds the finished state if the
+   preference flips on after wrapping has already happened. */
+
+.hf-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Bottom slack is larger than top: with the headings' 1.12 line-height the
+     descenders of g, y and j end within a pixel of the line box, so .1em was
+     too close for comfort on other rasterizers. .18em leaves about 2.5px at
+     29px and 5px at 56px. A word starting at translateY(105%) still has its
+     ink well below this clip edge. */
+  padding: .1em .06em .18em;
+  margin: -.1em -.06em -.18em;
+}
+
+/* The phone stylesheet in index.html sets every span inside the cream chapters
+   to 14px with !important (div[style*="background:#faf9f5"] span), which would
+   shrink the words of #solution h2, #two-systems h2 and #credibility h2. The
+   wrappers must always take the heading's own size, so this outranks it on
+   specificity and says so just as firmly. */
+span.hf-w.hf-w,
+span.hf-wi.hf-wi {
+  font-size: inherit !important;
+}
+
+.hf-wi {
+  display: inline-block;
+  transform: translateY(105%);
+  opacity: 0;
+  transition:
+    transform .7s cubic-bezier(.22, .61, .36, 1) calc(var(--i, 0) * 45ms),
+    opacity .5s ease calc(var(--i, 0) * 45ms);
+}
+
+.hf-in .hf-wi {
+  transform: none;
+  opacity: 1;
+}
+
+/* Finished state with no travel: used when a heading crosses the threshold
+   while the tab is hidden or while the visitor has paused motion, and when
+   IntersectionObserver is unavailable. */
+.hf-still .hf-wi,
+html.hf-headlines-paused .hf-wi {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hf-wi {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

@@ -1,0 +1,42 @@
+/* signature.css
+   Styles for the live photon overlay on the light-signature figure
+   (figure.hf-cellular-signals, the artwork with normal cells on the left and
+   atypical cells on the right). The canvas itself is created by signature.js.
+
+   What it does: makes room for one decorative <canvas class="hf-signature-canvas">
+   inside .hf-cellular-signals__media, sitting above the poster image and the
+   video (both are position: absolute with no z-index, so z-index 2 wins) and
+   never catching the pointer. The canvas bleeds 20px past the media box on every
+   side so a photon halo drifting off the artwork fades rather than being cut by
+   a hard edge; the script sets the matching pixel size and the same 20px offset.
+   The figure has 24px of side padding, so the bleed stays inside the viewport at
+   390px and adds no horizontal scroll.
+
+   How it pauses: all motion lives in the script. When the visitor asks for
+   reduced motion the canvas is hidden here as well as left blank by the script,
+   so there is nothing to see even if the script never ran. Print gets the plain
+   artwork. */
+
+.hf-cellular-signals__media {
+  position: relative;
+}
+
+.hf-cellular-signals__media .hf-signature-canvas {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  display: block;
+  pointer-events: none;
+  z-index: 2;
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hf-cellular-signals__media .hf-signature-canvas { display: none; }
+}
+
+@media print {
+  .hf-cellular-signals__media .hf-signature-canvas { display: none; }
+}

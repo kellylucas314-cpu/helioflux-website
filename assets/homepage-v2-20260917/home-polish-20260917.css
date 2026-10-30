@@ -263,3 +263,8 @@ body.hf-original-page.hf-restored-original #platform .h-dots { padding: 18px 0 0
    in the DOM for their scripts but are not shown. Visitors who ask their device for
    reduced motion still get still images: both scripts honour that setting on their own. */
 .cell-pause, .hf-bridge-toggle { display: none !important; }
+
+/* Phones: the floating back-to-top button sat over the right end of the CTA headline. */
+@media (max-width: 768px) {
+  #back-to-top { display: none !important; }
+}

@@ -1,0 +1,184 @@
+/* systems.css
+   Styles for the QSense and LuminAI product cards in #two-systems
+   (.hf-products-atlas holds .qs-card and .lum-card; the script is systems.js).
+
+   What it does:
+   1. Entrance. Once the script arms the atlas (class hf-sys-armed) the two cards
+      wait at opacity 0, 18px low. When it adds hf-sys-in they rise over 700ms on
+      cubic-bezier(.22,.61,.36,1); the LuminAI card follows the QSense card by
+      90ms. The script only arms the atlas when the cards can safely be hidden,
+      and it has a 2500ms guard that shows them regardless, so a card can never
+      stay invisible.
+   2. QSense sweep. The script drops one hairline (<span class="hf-sys-sweep">)
+      into the QSense .hf-product-media. It is a 1px cyan line with a 10px soft
+      glow above and below, hidden until the script adds "is-on", when it travels
+      from above the art to below it over 1.8s and hides again. The travel
+      distance is the media height, which the script writes to the custom
+      property --hf-sys-media-h (CSS fallbacks: 220px, 180px on phones).
+   3. LuminAI trace. The script drops an <svg class="hf-sys-trace"> into the
+      LuminAI .hf-product-media, 14px in from the bottom-left corner, 38% of the
+      media width and 28px tall, where the artwork is quiet. The polyline inside
+      is cyan, 1.5px, at .75 opacity; the points are driven by the script.
+   4. Hover (mouse users only). The artwork scales to 1.035 over 700ms ease-out
+      inside the media box, which this sheet makes position: relative and
+      overflow: hidden, and the card border turns a soft cyan. The page's border
+      rule is !important, so the hover rule is too, with a heavier selector.
+
+   Attaches to: #two-systems .hf-products-atlas > .qs-card / .lum-card, each
+   given class hf-sys-card by the script, plus the two injected decorations
+   (aria-hidden, pointer-events: none). No text is touched and nothing moves out
+   of place; the decorations sit inside the media box, never over the copy.
+
+   How it pauses: the sweep is a CSS animation, and class hf-sys-paused on the
+   atlas (set by the script when the tab is hidden or the visitor has paused
+   motion on the site) holds it in place. The trace is drawn by the script, which
+   stops its own frame loop. prefers-reduced-motion: reduce shows the finished,
+   static state: cards visible, no sweep, no hover scale (the border tint stays),
+   and the script draws the trace once and leaves it still. Print gets the plain
+   cards. */
+
+/* ---- Entrance ---- */
+
+#two-systems .hf-products-atlas > .hf-sys-card {
+  transition: border-color .45s ease;
+}
+
+#two-systems .hf-products-atlas.hf-sys-armed > .hf-sys-card {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+#two-systems .hf-products-atlas.hf-sys-armed.hf-sys-in > .hf-sys-card {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity .7s cubic-bezier(.22, .61, .36, 1),
+    transform .7s cubic-bezier(.22, .61, .36, 1),
+    border-color .45s ease;
+}
+
+#two-systems .hf-products-atlas.hf-sys-armed.hf-sys-in > .hf-sys-card.lum-card {
+  transition-delay: 90ms, 90ms, 0s;
+}
+
+/* ---- Media box: the stage for the sweep, the trace and the hover zoom ---- */
+
+#two-systems .hf-products-atlas > .hf-sys-card .hf-product-media {
+  position: relative;
+  overflow: hidden;
+  --hf-sys-media-h: 220px;
+}
+
+@media (max-width: 768px) {
+  #two-systems .hf-products-atlas > .hf-sys-card .hf-product-media {
+    --hf-sys-media-h: 180px;
+  }
+}
+
+#two-systems .hf-products-atlas > .hf-sys-card .hf-product-art {
+  transform: none;
+  transform-origin: 50% 50%;
+  transition: transform .7s ease-out;
+}
+
+/* ---- QSense sweep ---- */
+
+#two-systems .hf-products-atlas .hf-sys-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -16px;
+  height: 1px;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(0, 169, 214, .42);
+  box-shadow: 0 0 6px 1px rgba(0, 169, 214, .2);
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+#two-systems .hf-products-atlas .hf-sys-sweep.is-on {
+  animation: hf-sys-sweep 2.2s linear both;
+  will-change: transform, opacity;
+}
+
+/* The line starts 16px above the art and ends 16px below it, so it is already
+   fading as it enters and leaves rather than snapping on at an edge. */
+@keyframes hf-sys-sweep {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translate3d(0, calc(var(--hf-sys-media-h, 220px) + 32px), 0); opacity: 0; }
+}
+
+#two-systems .hf-products-atlas.hf-sys-paused .hf-sys-sweep.is-on {
+  animation-play-state: paused;
+}
+
+/* ---- LuminAI trace ---- */
+
+#two-systems .hf-products-atlas .hf-sys-trace {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  width: 38%;
+  height: 28px;
+  z-index: 2;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+#two-systems .hf-products-atlas .hf-sys-trace__line {
+  fill: none;
+  stroke: rgb(0, 169, 214);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: .5;
+  vector-effect: non-scaling-stroke;
+}
+
+#two-systems .hf-products-atlas .hf-sys-trace__core {
+  fill: rgb(216, 238, 255);
+  opacity: .7;
+}
+
+/* ---- Hover (mouse users only) ---- */
+
+@media (hover: hover) and (pointer: fine) {
+  #two-systems .hf-products-atlas > .hf-sys-card:hover .hf-product-art {
+    transform: scale(1.035);
+  }
+  #two-systems .hf-products-atlas > .hf-sys-card.hf-sys-card:hover {
+    border-color: rgba(0, 169, 214, .35) !important;
+  }
+}
+
+/* ---- Reduced motion: the finished, static state ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  #two-systems .hf-products-atlas.hf-sys-armed > .hf-sys-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  #two-systems .hf-products-atlas .hf-sys-sweep {
+    display: none !important;
+  }
+  #two-systems .hf-products-atlas > .hf-sys-card .hf-product-art {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@media print {
+  #two-systems .hf-products-atlas .hf-sys-sweep,
+  #two-systems .hf-products-atlas .hf-sys-trace {
+    display: none !important;
+  }
+  #two-systems .hf-products-atlas.hf-sys-armed > .hf-sys-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

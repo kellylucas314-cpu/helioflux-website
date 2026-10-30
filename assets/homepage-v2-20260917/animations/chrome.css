@@ -1,0 +1,203 @@
+/* chrome.css
+   Small finishing touches across the HelioFlux homepage. Six pieces, all of them
+   quiet: the eyebrow underlines draw in, the "Flux" in the wordmark catches one
+   pass of light when the page is ready, nav links grow a hairline underline on
+   hover, a single photon travels the hero scroll cue, the press logos fade up one
+   after another, and the back-to-top button wears a thin cyan ring that fills as
+   the visitor scrolls.
+
+   Where it attaches: chrome.js adds class "hf-chrome" to <html> when it starts,
+   and the rules that hide anything hang off that class, so a page without the
+   script keeps every underline and logo visible. The script also toggles
+   "hf-chrome-reduced" (reduced motion, mirrored here for mid-visit changes) and
+   "hf-chrome-paused" (the cue photon holds still). Per element it adds:
+   "hf-eyebrow-in" and "hf-eyebrow-left" on .eyebrow, "hf-logo-sweep" on
+   nav a.logo > span, "hf-press-wait" and "hf-press-enter" on .press-logos img,
+   and it appends an <svg class="hf-btt-ring"> inside #back-to-top. No existing
+   text or structure changes.
+
+   How it pauses: the only continuous motion is the cue photon, a 2.6s CSS loop
+   on .scroll-line::after; it pauses through html.hf-chrome-paused (tab hidden,
+   hero off-screen, or the site's "helioflux:motion" paused event) and is removed
+   under prefers-reduced-motion. Everything else is a one-time entrance or a
+   hover, and the ring is scroll-driven information rather than animation.
+
+   Reduced motion: the waiting states (eyebrow line at scaleX(0), press logo at
+   opacity 0, the photon loop) are written inside a no-preference media query and
+   behind :not(.hf-chrome-reduced), so under reduce they never apply and the page
+   shows its finished state. A browser that does not know the media feature also
+   never hides anything. The script skips the sweep under reduce on its own.
+
+   Colors: brand cyan rgb(0,169,214) and the pale photon rgb(216,238,255). Every
+   change is transform or opacity, except the ring's stroke-dashoffset. */
+
+/* (a) Eyebrow underline: the 48px hairline under every .eyebrow draws in from
+   its anchor. Centered eyebrows grow from the middle; the platform eyebrow and any
+   other left-aligned one grow from the left edge. */
+@media (prefers-reduced-motion: no-preference) {
+  /* The waiting state carries no transition, so a line that happens to be on
+     screen when the script starts snaps to zero instead of shrinking; the
+     transition lives on the "in" state and so only ever plays the draw. */
+  html.hf-chrome:not(.hf-chrome-reduced) .eyebrow::after {
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+  }
+  html.hf-chrome:not(.hf-chrome-reduced) .eyebrow.hf-eyebrow-in::after {
+    transform: scaleX(1);
+    transition: transform 700ms cubic-bezier(.22, .61, .36, 1);
+  }
+  html.hf-chrome:not(.hf-chrome-reduced) .h-section-label .eyebrow::after,
+  html.hf-chrome:not(.hf-chrome-reduced) #platform .h-section-label .eyebrow::after,
+  html.hf-chrome:not(.hf-chrome-reduced) .eyebrow.hf-eyebrow-left::after { transform-origin: 0 50%; }
+}
+
+/* (b) Logo sweep: "Flux" turns into a clipped gradient for 900ms while a pale
+   band slides across it from left to right, then the class is removed and the
+   plain cyan returns. The id selector outranks the site's !important color rules;
+   the plain one is a fallback for pages whose nav has no id. Guarded by @supports
+   so a browser without text clipping never shows transparent text. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  #nav a.logo span.hf-logo-sweep,
+  nav a.logo span.hf-logo-sweep {
+    color: transparent !important;
+    background-image: linear-gradient(100deg,
+      rgb(0, 169, 214) 0%,
+      rgb(0, 169, 214) 38%,
+      rgb(200, 236, 250) 50%,
+      rgb(0, 169, 214) 62%,
+      rgb(0, 169, 214) 100%);
+    background-size: 300% 100%;
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Linear on purpose: the band is the middle third of a 3x image, so it is
+       in view for the middle half of the slide. An ease-out would push that
+       whole pass into the first 300ms and read as a flick rather than a sweep. */
+    animation: hf-logo-sweep 900ms linear 1 forwards;
+  }
+}
+@keyframes hf-logo-sweep {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
+/* (c) Nav link underline. The links are inline-flex boxes 44px tall with the
+   12px text centered, so the line sits a few pixels under the baseline rather
+   than at the bottom of the tap target. It grows from the left on hover and on
+   keyboard focus, in the link's own color at .6 opacity. */
+html.hf-chrome .nav-links a { position: relative; }
+html.hf-chrome .nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(50% - 9px);
+  height: 1px;
+  background: currentColor;
+  opacity: .6;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 300ms cubic-bezier(.22, .61, .36, 1);
+  pointer-events: none;
+}
+html.hf-chrome .nav-links a:hover::after,
+html.hf-chrome .nav-links a:focus-visible::after { transform: scaleX(1); }
+
+/* (d) Hero scroll cue: one 3px photon with a soft cyan halo crosses the 48px
+   line left to right. The trip takes 1.9s of a 2.6s cycle and the photon fades
+   in and out at the ends, so it never pops at either edge. The cue is already
+   display:none on phones, so nothing runs there. */
+@media (prefers-reduced-motion: no-preference) {
+  html.hf-chrome:not(.hf-chrome-reduced) .scroll-line {
+    position: relative;
+    overflow: visible;
+  }
+  html.hf-chrome:not(.hf-chrome-reduced) .scroll-line::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    margin: -1.5px 0 0 -1.5px;
+    border-radius: 50%;
+    background: rgb(216, 238, 255);
+    box-shadow: 0 0 5px 1.5px rgba(0, 169, 214, .6), 0 0 11px 4px rgba(0, 169, 214, .22);
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    animation: hf-cue-photon 2600ms linear infinite;
+  }
+  html.hf-chrome.hf-chrome-paused:not(.hf-chrome-reduced) .scroll-line::after { animation-play-state: paused; }
+}
+@keyframes hf-cue-photon {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  62% { opacity: 1; }
+  72% { transform: translate3d(48px, 0, 0); opacity: 0; }
+  100% { transform: translate3d(48px, 0, 0); opacity: 0; }
+}
+
+/* (e) Press logos: once a row is near the viewport the script arms it, and each
+   image waits 10px low and invisible; when the row is on screen they rise into
+   the opacity the site already gives them (the script staggers the delay
+   inline). The wait rule needs !important because the theme pins the logo
+   opacity that way; once the wait class is gone the cascade, and the hover to
+   opacity 1, are the site's own again. The wait state has no transition, so
+   entering it is a snap rather than a fade-out. The enter class is added in the
+   same frame the wait class is removed, carries the slower entrance transition,
+   and is removed afterwards so the hover keeps its original 250ms. */
+@media (prefers-reduced-motion: no-preference) {
+  html.hf-chrome:not(.hf-chrome-reduced) .press-logos img.hf-press-wait {
+    opacity: 0 !important;
+    transform: translateY(10px);
+    transition: none;
+  }
+  html.hf-chrome:not(.hf-chrome-reduced) .press-logos img.hf-press-enter {
+    transition: opacity 600ms cubic-bezier(.22, .61, .36, 1),
+                transform 600ms cubic-bezier(.22, .61, .36, 1);
+  }
+}
+
+/* (f) Back-to-top ring: a 54px SVG centered on the 44px button, 5px outside it
+   on every side, rotated so the arc starts at twelve o'clock and runs clockwise.
+   The track is faint cyan; the arc is full cyan and its dash offset is written by
+   the script from the scroll fraction. The ring inherits the button's fade and
+   its hover lift because it lives inside the element. */
+/* Back-to-top ring retired by art direction: the progress hairline already shows this. */
+.hf-btt-ring { display: none !important; }
+.hf-btt-ring {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  pointer-events: none;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+.hf-btt-ring circle {
+  fill: none;
+  stroke-width: 2;
+}
+.hf-btt-ring .hf-btt-ring__track { stroke: rgba(0, 169, 214, .18); }
+.hf-btt-ring .hf-btt-ring__arc {
+  stroke: rgb(0, 169, 214);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 160ms linear;
+}
+
+/* Reduced motion, the parts not already covered by the no-preference blocks
+   above: the nav underline appears without growing, the sweep does not run, and
+   the ring tracks scroll with no smoothing. Repeated for the mid-visit class. */
+@media (prefers-reduced-motion: reduce) {
+  html.hf-chrome .nav-links a::after { transition: none; }
+  #nav a.logo span.hf-logo-sweep,
+  nav a.logo span.hf-logo-sweep { animation: none; }
+  .hf-btt-ring .hf-btt-ring__arc { transition: none; }
+}
+html.hf-chrome.hf-chrome-reduced .nav-links a::after { transition: none; }
+html.hf-chrome-reduced #nav a.logo span.hf-logo-sweep,
+html.hf-chrome-reduced nav a.logo span.hf-logo-sweep { animation: none; }
+html.hf-chrome-reduced .hf-btt-ring .hf-btt-ring__arc { transition: none; }

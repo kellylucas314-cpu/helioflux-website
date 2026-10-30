@@ -1,0 +1,187 @@
+/* platform.css
+   Styles for the quiet motion that platform.js adds to the dark "Proven in the
+   lab. Heading to humans." carousel on the HelioFlux homepage (#platform: cards
+   .h-panel inside #hTrack, arrows .h-arrow, dots .h-dot). The card look itself
+   (rounded card, inset hairline, cyan status pill) lives in
+   home-polish-20260917.css section 2; this file only moves things.
+
+   What it styles, in four parts:
+   1. The status pill's dot. platform.js prepends one 6px cyan span (class
+      "hf-plat-dot") to the text of every .h-panel-status. Its ::after is a thin
+      cyan ring that grows from the dot (scale 1 to 2.6) while fading (opacity
+      .5 to 0) over 2.6s, ease-out, and repeats. The three cards start at
+      different points of the cycle so they do not blink in unison.
+   2. A slow Ken Burns on each card photo (.h-panel-img img): the "scale"
+      property drifts from 1 to 1.06 over 16s, ease-in-out, alternating, with a
+      different starting phase per card. It uses the individual "scale" property
+      rather than "transform" so the hover zoom below can compose with it.
+   3. Hover, mouse users only (hover: hover and pointer: fine, and only above
+      768px where the inset hairline exists): the card's hairline brightens from
+      rgba(255,255,255,.09) to rgba(255,255,255,.2) and the photo gains an extra
+      transform: scale(1.02), both over 600ms on the site curve. The arrow
+      glyphs nudge 2px in their own direction, done by shifting the button's
+      padding so the glyph moves inside a circle that stays put (the page's own
+      stylesheet forbids a transform on the hovered arrow, and the glyph is a
+      bare text node, so no wrapper is added).
+   4. Entrance. Once platform.js adds "hf-plat-armed" to #platform, every card
+      waits at opacity 0 and translateY(20px); the script then adds "hf-plat-in"
+      per card, and the card settles over 700ms with a 100ms stagger carried by
+      the --hf-plat-delay custom property. Without the script nothing is
+      hidden: the hidden state only exists under the armed class.
+
+   How it pauses: the pulse ring and the Ken Burns are declared with
+   animation-play-state: paused and only run while #platform carries
+   "hf-plat-run", which platform.js sets when the section is on screen, the tab
+   is visible and the visitor has not paused motion on the site. Under
+   prefers-reduced-motion: reduce (or the "hf-plat-reduced" class the script
+   adds when that preference switches on mid-visit) the ring is hidden, the
+   photos sit still at scale 1, hover changes apply without a transition and
+   the cards are simply visible in their finished place. */
+
+/* ---------- 1. status pill dot ---------- */
+
+#platform .hf-plat-dot {
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #00a9d6;
+  box-shadow: 0 0 6px rgba(0, 169, 214, .55);
+  vertical-align: middle;
+  pointer-events: none;
+}
+#platform .hf-plat-dot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 169, 214, .3);
+  opacity: 0;
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  animation: hfPlatPulse 4.8s cubic-bezier(0, 0, .2, 1) infinite;
+  animation-play-state: paused;
+}
+#platform.hf-plat-run .hf-plat-dot::after {
+  animation-play-state: running;
+}
+/* Three cards, three points in the cycle. Negative delays start mid-cycle. */
+#platform .h-panel:nth-child(2) .hf-plat-dot::after { animation-delay: -1.6s; }
+#platform .h-panel:nth-child(3) .hf-plat-dot::after { animation-delay: -3.2s; }
+
+/* Scale eases out over the whole cycle. Opacity gets a mid keyframe so the
+   ring is still visible while it is growing; with one ease-out on both it was
+   almost transparent before it had left the dot. */
+@keyframes hfPlatPulse {
+  0%   { transform: scale(1);   opacity: .45; }
+  45%  { opacity: .2; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ---------- 2. Ken Burns on the card photos ---------- */
+
+#platform .h-panel-img img {
+  transform-origin: 50% 50%;
+  animation: hfPlatKen 20s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+#platform.hf-plat-run .h-panel-img img {
+  animation-play-state: running;
+}
+#platform .h-panel:nth-child(2) .h-panel-img img { animation-delay: -6s; }
+#platform .h-panel:nth-child(3) .h-panel-img img { animation-delay: -11s; }
+
+@keyframes hfPlatKen {
+  from { scale: 1; }
+  to   { scale: 1.04; }
+}
+
+/* ---------- 3. hover, mouse users only ---------- */
+
+/* One transition list for the card so the entrance (opacity, transform) and
+   the hover (box-shadow) do not overwrite each other. The stagger delay only
+   applies to the first two; the hairline always answers at once. */
+#platform .h-panel {
+  transition:
+    opacity .7s cubic-bezier(.22, .61, .36, 1) var(--hf-plat-delay, 0s),
+    transform .7s cubic-bezier(.22, .61, .36, 1) var(--hf-plat-delay, 0s),
+    box-shadow .6s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* The inset hairline only exists above 768px (phones get a plain border). */
+@media (hover: hover) and (pointer: fine) and (min-width: 769px) {
+  body.hf-original-page.hf-restored-original #platform .h-panel:hover {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #platform .h-panel-img img {
+    transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+  }
+  #platform .h-panel:hover .h-panel-img img {
+    transform: scale(1.02);
+  }
+
+  /* Arrow glyph nudge. Buttons are border-box, 46px wide, with the glyph
+     centered by flex. Moving 4px of padding from one side to the other shifts
+     the content box, and with it the glyph, by 2px. The circle does not move. */
+  #platform .h-arrow {
+    padding: 0 6px;
+    transition: padding .3s cubic-bezier(.22, .61, .36, 1), color .25s, background .25s, border-color .25s;
+  }
+  #platform .h-arrow[data-hf-dir="next"]:hover:not(:disabled) { padding: 0 4px 0 8px; }
+  #platform .h-arrow[data-hf-dir="prev"]:hover:not(:disabled) { padding: 0 8px 0 4px; }
+}
+
+/* ---------- 4. entrance ---------- */
+
+#platform.hf-plat-armed .h-panel {
+  opacity: 0;
+  transform: translateY(20px);
+}
+#platform.hf-plat-armed .h-panel.hf-plat-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- reduced motion: the finished, still state ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  #platform .hf-plat-dot::after { display: none !important; }
+  #platform .hf-plat-dot { box-shadow: 0 0 6px rgba(0, 169, 214, .55); }
+  #platform .h-panel-img img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    scale: none !important;
+  }
+  #platform .h-panel,
+  #platform.hf-plat-armed .h-panel {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  #platform .h-arrow { transition: none !important; }
+}
+#platform.hf-plat-reduced .hf-plat-dot::after { display: none !important; }
+#platform.hf-plat-reduced .h-panel-img img {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  scale: none !important;
+}
+#platform.hf-plat-reduced .h-panel,
+#platform.hf-plat-reduced.hf-plat-armed .h-panel {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+#platform.hf-plat-reduced .h-arrow { transition: none !important; }
