@@ -1,6 +1,8 @@
-/* The bridge band: the microscope film loads when the band is near and plays only while it is on screen. */
+/* The bridge band: our 3D cell film loads when the band is near and plays only while it is on screen. */
 (() => {
   const film = document.querySelector('[data-bridge-film]');
+  // Phones get the portrait cut, so they get its poster too.
+  if (film && film.dataset.posterPhone && matchMedia('(max-width: 700px)').matches) film.poster = film.dataset.posterPhone;
   if (!film || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
   film.muted = true;
   let loaded = false;
@@ -76,9 +78,8 @@
   const art = document.querySelector('[data-signal-path]');
   if (!art || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
   const canvas = art.querySelector('canvas');
-  const toggle = art.querySelector('.signal-path__pause');
   const ctx = canvas && canvas.getContext('2d');
-  if (!ctx || !toggle) return;
+  if (!ctx) return;
   // Everything below is measured in the drawing's own pixels (1856 x 540).
   const W = 1856, H = 540;
   const SPECKS = [[714,122,735,122,756,122,19,19],[213,122,237,122,261,122,22,23],[117,163,134,163,151,163,15,15],[168,163,184,163,200,163,14,15],[471,163,487,163,503,163,14,14],[777,122,798,122,819,122,19,19],[357,122,382,122,407,122,23,22],[216,163,234,163,252,163,16,15],[432,122,456,122,480,122,22,22],[270,163,287,163,304,163,15,15],[285,122,309,122,333,122,22,23],[840,122,861,122,882,122,19,19],[57,122,84,122,111,122,25,25],[504,122,528,122,552,122,22,22],[321,163,337,163,353,163,14,15],[903,122,923,122,943,122,18,18],[963,122,983,122,1003,122,18,18],[567,163,583,163,599,163,14,13],[369,163,386,163,403,163,15,15],[519,163,535,163,551,163,14,14],[576,122,599,122,622,122,21,22],[138,122,163,122,188,122,23,24],[60,163,79,163,98,163,17,16],[0,163,20,163,40,163,18,18],[645,122,668,122,691,122,21,21]];
@@ -99,7 +100,7 @@
   });
   const base = new Image(), parts = new Image();
   let specks = [], sources = [], movers = [], hits = [], bars = [[], [], []], queue = [0, 0, 0], energy = [0, 0, 0], lastBar = [0, 0, 0];
-  let clock = 0, debt = 0, scale = 1, ready = false, inView = false, paused = false, frame = 0, last = 0;
+  let clock = 0, debt = 0, scale = 1, ready = false, inView = false, frame = 0, last = 0;
 
   const laneY = (i, x) => LANES[i][0] + LANES[i][1] * x;
   const ease = (t) => t * t * (3 - 2 * t);
@@ -190,12 +191,12 @@
     frame = 0;
     const dt = last ? Math.min(.05, (now - last) / 1000) : 0;
     last = now; step(dt); draw();
-    if (inView && !paused && !document.hidden) frame = requestAnimationFrame(tick);
+    if (inView && !document.hidden) frame = requestAnimationFrame(tick);
   }
   function sync() {
     if (frame) cancelAnimationFrame(frame);
     frame = 0; last = 0;
-    if (ready && inView && !paused && !document.hidden) frame = requestAnimationFrame(tick);
+    if (ready && inView && !document.hidden) frame = requestAnimationFrame(tick);
   }
   function start() {
     // Run a while unseen so the lanes are already full when it first shows.
@@ -203,17 +204,10 @@
     layout(); draw();
     ready = true;
     art.classList.add('is-live');
-    toggle.hidden = false;
     new ResizeObserver(() => { layout(); draw(); }).observe(canvas);
     sync();
   }
 
-  toggle.addEventListener('click', () => {
-    paused = !paused;
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.textContent = paused ? 'Play animation' : 'Pause animation';
-    sync();
-  });
   let loading = false;
   new IntersectionObserver(([e]) => {
     inView = e.isIntersecting;
