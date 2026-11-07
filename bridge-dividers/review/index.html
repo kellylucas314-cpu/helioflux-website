@@ -1,0 +1,113 @@
+<title>HelioFlux bridge dividers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=DM+Mono:wght@400&display=swap">
+<style>
+/* Layout: the page reads like helioflux.co itself. Paper notes, then each option as the real night bridge band
+   with the bridge line over it. Single look on purpose (it mirrors the site), so colors are set explicitly. */
+:root {
+  --paper: #f7f6f2;
+  --ink: #0f1c2e;
+  --text: #16263a;
+  --muted: #56606e;
+  --night: #082432;
+  --teal: #489ebe;
+  --deep-teal: #006d8b;
+  --rule: #e2dbd0;
+  --ok: #2f7d5b;
+  --ask: #a5641c;
+  --display: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+body { background: var(--paper); color: var(--text); font: 400 16px/1.6 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.wrap { padding-block: clamp(40px, 6vw, 72px) clamp(24px, 3vw, 36px); }
+h1 { margin: 0; font: 400 clamp(32px, 4.6vw, 54px)/1.08 var(--display); letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.intro { margin: 18px 0 0; max-width: 62ch; color: var(--muted); font-size: 17px; text-wrap: pretty; }
+.pick { margin: 22px 0 0; max-width: 62ch; padding: 16px 18px; background: #eaf3f6; border-radius: 10px; color: var(--text); }
+.pick b { font-weight: 500; color: var(--ink); }
+
+.options { display: grid; gap: clamp(48px, 6vw, 80px); padding-block: 12px clamp(56px, 7vw, 96px); }
+.option { display: grid; gap: 16px; }
+.meta { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; align-items: baseline; }
+.letter { grid-row: span 3; font: 400 clamp(36px, 4vw, 48px)/1 var(--display); color: var(--teal); }
+.meta h2 { margin: 0; font: 500 clamp(20px, 2vw, 24px)/1.25 var(--display); letter-spacing: -.01em; color: var(--ink); }
+.meta p { margin: 0; max-width: 70ch; color: var(--muted); text-wrap: pretty; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 12px/1.5 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.facts .ok { color: var(--ok); }
+.facts .ask { color: var(--ask); }
+
+/* The bridge band, as built on the site: night ground, film cover-cropped, a soft dark top so the line reads */
+.band { position: relative; overflow: hidden; isolation: isolate; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 4px; background: var(--night); }
+.band video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%; }
+.band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(8, 36, 50, .7), rgba(8, 36, 50, 0) 32%), radial-gradient(ellipse 75% 85% at 50% 62%, rgba(8, 36, 50, 0) 55%, rgba(8, 36, 50, .75)); }
+.band p { margin: 0 auto; padding: clamp(28px, 6%, 72px) 20px 0; max-width: 26ch; text-align: center; font: italic 400 clamp(20px, 3vw, 38px)/1.25 var(--display); letter-spacing: -.01em; color: #fff; text-wrap: balance; }
+.band--sheet video, .band--multi video { object-position: 50% 50%; }
+
+footer.wrap { padding-block: 0 48px; color: var(--muted); font-size: 14px; }
+footer p { margin: 0; max-width: 70ch; }
+
+@media (max-width: 640px) {
+  .band { aspect-ratio: 4 / 5; }
+  .band video { object-position: 50% 100%; }
+  .band--sheet video, .band--multi video { object-position: 50% 50%; }
+  .meta { grid-template-columns: minmax(0, 1fr); }
+  .letter { grid-row: auto; font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .band video { display: none; } .band { background-size: cover; background-position: 50% 70%; } }
+</style>
+
+<header class="wrap">
+  <h1>Four dividers for the bridge band</h1>
+  <p class="intro">Each one is shown the way the site would show it: the navy band after the tumor story, with the bridge line on top. All four are new renders with no text baked in, and each loops seamlessly.</p>
+  <p class="pick"><b>My pick:</b> A if cancer.mov turns out to be licensed. It's the calmest, it reads as light rising off cells, and it's the lightest file. If cancer.mov came off YouTube, go with C, the real 1956 footage, which is public domain.</p>
+</header>
+
+<main class="wrap options">
+  <section class="option" aria-labelledby="opt-a">
+    <div class="meta">
+      <span class="letter" aria-hidden="true">A</span>
+      <h2 id="opt-a">F · Horizon, on navy</h2>
+      <p>The cells as a low landscape of hairlines, with coral only on the nuclei. Slowed to about a sixth of real speed, so it barely breathes.</p>
+      <div class="facts"><span>27 s loop</span><span>1.9 MB</span><span class="ask">Traced from cancer.mov: source to confirm</span></div>
+    </div>
+    <div class="band"><video src="media/web-f.mp4" poster="media/web-f.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><p>But there’s a signal before there’s a tumor.</p></div>
+  </section>
+
+  <section class="option" aria-labelledby="opt-b">
+    <div class="meta">
+      <span class="letter" aria-hidden="true">B</span>
+      <h2 id="opt-b">D · Point cloud, on navy</h2>
+      <p>The same cells as 45,000 points, with a scan line passing through and small rings over the nuclei. More techy and busier than A, and it moves at real speed.</p>
+      <div class="facts"><span>8 s loop</span><span>2.1 MB</span><span class="ask">Traced from cancer.mov: source to confirm</span></div>
+    </div>
+    <div class="band"><video src="media/web-d.mp4" poster="media/web-d.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><p>But there’s a signal before there’s a tumor.</p></div>
+  </section>
+
+  <section class="option" aria-labelledby="opt-c">
+    <div class="meta">
+      <span class="letter" aria-hidden="true">C</span>
+      <h2 id="opt-c">1956 film · a sheet of dividing cells</h2>
+      <p>Real time-lapse from the National Library of Medicine film (5:31 to 5:41), tinted into the site’s navy. Cells crowd together and round up to divide. The grain is part of the charm.</p>
+      <div class="facts"><span>9 s loop</span><span>4.4 MB</span><span class="ok">Public domain (NLM)</span></div>
+    </div>
+    <div class="band band--sheet"><video src="media/web-nlm-sheet.mp4" poster="media/web-nlm-sheet.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><p>But there’s a signal before there’s a tumor.</p></div>
+  </section>
+
+  <section class="option" aria-labelledby="opt-d">
+    <div class="meta">
+      <span class="letter" aria-hidden="true">D</span>
+      <h2 id="opt-d">1956 film · one cell splitting four ways</h2>
+      <p>The close-up from 5:44 to 6:20: the chromosomes line up in a cross instead of a line, and the cell splits into several at once, which happens far more often in cancer cells. Dramatic, but the close-up is soft.</p>
+      <div class="facts"><span>34 s loop</span><span>6.9 MB</span><span class="ok">Public domain (NLM)</span></div>
+    </div>
+    <div class="band band--multi"><video src="media/web-nlm-multi.mp4" poster="media/web-nlm-multi.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><p>But there’s a signal before there’s a tumor.</p></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>The phone layout here matches the site’s portrait bridge band. Final cuts for the site would get their own phone versions and posters.</p>
+</footer>

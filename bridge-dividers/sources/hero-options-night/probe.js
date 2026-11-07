@@ -1,0 +1,13 @@
+const { chromium } = require('playwright');
+const http=require('http'),fs=require('fs'),path=require('path');
+const MIME={'.html':'text/html','.js':'text/javascript','.png':'image/png','.json':'application/json','.ttf':'font/ttf'};
+const server=http.createServer((req,res)=>{const p=path.join(__dirname,decodeURIComponent(req.url.split('?')[0]));if(!fs.existsSync(p)||fs.statSync(p).isDirectory()){res.writeHead(404);return res.end();}res.writeHead(200,{'content-type':MIME[path.extname(p)]||'application/octet-stream'});fs.createReadStream(p).pipe(res);});
+(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const b=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const pg=await b.newPage({viewport:{width:800,height:450}});
+pg.on('console',m=>console.log('console',m.type(),m.text().slice(0,200)));pg.on('pageerror',e=>console.log('pageerror',e.message));
+pg.on('requestfailed',r=>console.log('reqfail',r.url()));
+await pg.goto(`http://127.0.0.1:${server.address().port}/option-f-horizon.html?export=1&dpr=1&hud=0&theme=night&cx=0.5&tz=0.06`);
+await pg.waitForTimeout(20000);
+console.log(await pg.evaluate(()=>({ready:window.__ready, gl: !!document.createElement('canvas').getContext('webgl2')})));
+await b.close();server.close();})();

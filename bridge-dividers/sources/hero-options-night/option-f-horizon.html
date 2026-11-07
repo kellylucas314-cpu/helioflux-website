@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horizon</title>
+<link rel="icon" href="data:,">
+<style>
+  /* DM Sans (variable, OFL) served from ./fonts so the page needs no network; falls back to system-ui */
+  @font-face { font-family:"DM Sans"; src:url("./fonts/dm-sans.ttf") format("truetype"); font-weight:100 1000; font-display:swap; }
+  :root { --cream:#faf9f5; --ink:#103044; --muted:#526879; --rule:#cfd8cc; }
+  html, body { margin:0; height:100%; background:var(--cream); overflow:hidden;
+    font-family:"DM Sans", system-ui, -apple-system, sans-serif; color:var(--ink); -webkit-font-smoothing:antialiased; }
+  canvas { display:block; width:100%; height:100%; }
+  #hud, #accents { position:fixed; inset:0; pointer-events:none; }
+
+  /* type block — shared across the alternates (eyebrow 11.5 / headline 64 / sub 18 / CTA 14 at 1080p, vh-relative) */
+  #copy { position:absolute; left:6.5%; top:50%; transform:translateY(-50%); width:32%; }
+  .eyebrow { font-size:1.07vh; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); font-weight:500; }
+  h1 { margin:2.6vh 0 2.8vh; font-size:5.93vh; line-height:1.05; font-weight:500; letter-spacing:-.012em; color:var(--ink); }
+  .sub { margin:0 0 4vh; font-size:1.667vh; line-height:1.5; color:var(--muted); font-weight:400; }
+  .cta { display:inline-block; pointer-events:auto; padding:1.15vh 2.3vh; background:var(--ink); color:var(--cream);
+    border-radius:999px; font-size:1.296vh; font-weight:500; letter-spacing:.02em; text-decoration:none; line-height:1.3; }
+
+  /* the single data detail: one hairline rule under the near edge, three tiny tracked-caps labels */
+  #rule { position:absolute; height:1px; background:var(--rule); }
+  .tag { position:absolute; font-size:0.95vh; letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
+    white-space:nowrap; line-height:1; font-weight:500; font-variant-numeric:tabular-nums; }
+  .hidden { display:none !important; }
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hud">
+  <div id="copy">
+    <div class="eyebrow">Ultraweak photon emission</div>
+    <h1>Seeing the light<br>cells give off</h1>
+    <p class="sub">HelioFlux reads the faint light living cells emit,<br>turning metabolism into a signal you can measure.</p>
+    <a class="cta" href="#">See the science</a>
+  </div>
+</div>
+
+<div id="accents">
+  <div id="rule"></div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { LineSegments2 } from './vendor/lines/LineSegments2.js';
+import { LineSegmentsGeometry } from './vendor/lines/LineSegmentsGeometry.js';
+import { LineMaterial } from './vendor/lines/LineMaterial.js';
+import { loadFootage } from './shared/footage.js';
+import { P, bandLUT, toLinear } from './shared/palette.js';
+const _q = new URLSearchParams(location.search);
+const NIGHT = _q.get('theme') === 'night';
+{ const bg = NIGHT ? '#082432' : (_q.get('bg') ? '#' + _q.get('bg') : null); if (bg) { P.cream = bg; document.documentElement.style.setProperty('--cream', bg); } }
+
+/* ═══════════════════════════ DESIGN KNOBS ═══════════════════════════
+   Concept F — "Horizon": the fluorescence footage as a hairline relief seen at a low grazing angle,
+   slowed to a sixth of real time. The far edge and the right edge dissolve into the page by colour (no fog);
+   nuclei are soft domes that alone carry coral. Nothing moves but the cells and one very slow camera sinusoid.
+   Fix pass (art-director notes): coral now reads on every nucleus, near lines win over far ones (depthWrite),
+   fewer deeper rows so the horizon stays countable hairlines instead of a tonal wash, the sheet keeps a 6 %
+   right margin, and the mass is lifted toward the headline band. */
+
+/* timing */
+const SPEED = 0.15;           // footage seconds per page second → 27.2 s loop
+const FADE  = 1.0;            // footage crossfade (s) → a 6.7 s dissolve on the page
+
+/* sheet / grid */
+const GRID_NX = 144, GRID_NZ = 48;    // quad grid vertices across (X) and deep (Z) — few enough rows that even the far ones stay countable lines at the grazing angle (70 rows aliased into a wash)
+const CLUSTER_W = 5.0;        // world width of the cell-cluster bbox
+const PAD_L = 0.30, PAD_R = 0.28, PAD_V = 0.10;   // dish apron beyond the bbox (fraction of bbox size); the right apron now ends inside the frame and dissolves to cream (RIGHT_ZONE)
+const EDGE_TAPER = 0.06;      // heights ease to zero over this fraction at the sheet rim
+
+/* relief */
+const H_CYTO = 0.50;          // cytoplasm height (world units)
+const H_NUC  = 0.46;          // nuclei lifted further → the domes (kept under their width so they stay domes, not peaks)
+const H_UND  = 0.04;          // large-scale undulation so the empty dish is not dead flat (rotates once per loop)
+const UND_FREQ = 0.32;        // undulation spatial frequency (1/world unit)
+const SMOOTH_RX = 2, SMOOTH_RZ = 2, SMOOTH_PASSES = 2;   // grid box smoothing, twice (≈ triangle kernel) → soft domes, never spikes (the Z rows are 2.3× the X spacing, so the kernel is already deeper than wide)
+const H_MAX = 0.70;           // elevation mapped to the top of the colour ramp (≈ smoothed nuclear-dome height)
+
+/* lines */
+const LINE_PX = 1.2;          // fat-line width at 1080p (scales with buffer height)
+
+/* colour: slate at the dish → olive at the tops; coral only on the top of nuclear domes (cream + 3 colours) */
+const BANDS = NIGHT ? [ [0.00, '#2f6f8f'], [0.45, '#7fb6cf'], [0.80, '#c9d98a'], [1.00, '#dfe8a8'] ] : [ [0.00, P.slate], [0.60, P.olive], [1.00, P.olive] ];   // sage/lime vanish at 1 px on cream, so the green is olive
+const CORAL_FROM = 0.50, CORAL_SPAN = 0.25;   // coral ramps in over this band of normalised height, gated by the nucleus mask — low and wide enough that every dome wears a visible coral cap
+const BASE_FADE = 0.45;       // flat dish (h ≈ 0) fades toward cream so the cells carry the colour
+const DIST_FADE = [0.30, 0.90];   // fade toward cream by sheet depth (fraction near → far): the far rows dissolve fully, so there is no hard far rim
+const TEXT_ZONE = parseFloat(new URLSearchParams(location.search).get('tz') || 0.41), TEXT_SPAN = 0.05;     // geometry left of this screen x fades to cream before it reaches the copy
+const RIGHT_ZONE = 0.94, RIGHT_SPAN = 0.06;   // geometry right of this screen x fades to cream, keeping a 6 % margin from the frame edge
+
+/* camera: static low grazing view + ONE sinusoid at the loop period (±1.5° orbit, ±2 % dolly) */
+const CAM = { fov: 30, el: 16.5, dist: 14, az: -6, orbit: 1.5, dolly: 0.02 };
+const FRAME = { horizonY: parseFloat(_q.get('hy') || 0.48), centreX: parseFloat(_q.get('cx') || 0.68) };   // where the far edge (horizon) and the cell-cluster centre land on screen (fractions)
+
+/* the one data detail */
+const RULE = { gap: 0.045, right: RIGHT_ZONE, labelGap: 0.018 };   // rule sits `gap` below the near edge; labels `labelGap` below the rule
+const LABELS = ['15 cells', 'Relief = emission', null];      // null → "0.15× speed" from SPEED (a visitor-facing fact, not a loop statistic)
+
+/* ═══════════════════════════ url params ═══════════════════════════ */
+const params  = new URLSearchParams(location.search);
+const HUD     = params.get('hud') !== '0';
+const ACCENTS = params.has('accents') ? params.get('accents') !== '0' : HUD;
+const EXPORT  = params.get('export') === '1';
+const STILL_T = params.has('t') ? parseFloat(params.get('t')) : null;
+const DPR     = params.has('dpr') ? parseFloat(params.get('dpr')) : Math.min(2, window.devicePixelRatio || 1);
+
+/* ═══════════════════════════ utilities ═══════════════════════════ */
+const TAU = Math.PI * 2, d2r = Math.PI / 180;
+const clamp01 = x => x < 0 ? 0 : x > 1 ? 1 : x;
+const smooth  = (a, b, t) => { const x = clamp01((t - a) / (b - a)); return x * x * (3 - 2 * x); };
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const GRAD3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
+class Simplex {
+  constructor(rand) {
+    const p = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) p[i] = i;
+    for (let i = 255; i > 0; i--) { const j = (rand() * (i + 1)) | 0; const t = p[i]; p[i] = p[j]; p[j] = t; }
+    this.perm = new Uint8Array(512); this.pm = new Uint8Array(512);
+    for (let i = 0; i < 512; i++) { this.perm[i] = p[i & 255]; this.pm[i] = this.perm[i] % 12; }
+  }
+  noise3(xin, yin, zin) {
+    const perm = this.perm, pm = this.pm, F3 = 1 / 3, G3 = 1 / 6;
+    const s = (xin + yin + zin) * F3;
+    const i = Math.floor(xin + s), j = Math.floor(yin + s), k = Math.floor(zin + s);
+    const t = (i + j + k) * G3;
+    const x0 = xin - (i - t), y0 = yin - (j - t), z0 = zin - (k - t);
+    let i1, j1, k1, i2, j2, k2;
+    if (x0 >= y0) {
+      if (y0 >= z0)      { i1=1; j1=0; k1=0; i2=1; j2=1; k2=0; }
+      else if (x0 >= z0) { i1=1; j1=0; k1=0; i2=1; j2=0; k2=1; }
+      else               { i1=0; j1=0; k1=1; i2=1; j2=0; k2=1; }
+    } else {
+      if (y0 < z0)       { i1=0; j1=0; k1=1; i2=0; j2=1; k2=1; }
+      else if (x0 < z0)  { i1=0; j1=1; k1=0; i2=0; j2=1; k2=1; }
+      else               { i1=0; j1=1; k1=0; i2=1; j2=1; k2=0; }
+    }
+    const x1 = x0 - i1 + G3, y1 = y0 - j1 + G3, z1 = z0 - k1 + G3;
+    const x2 = x0 - i2 + 2*G3, y2 = y0 - j2 + 2*G3, z2 = z0 - k2 + 2*G3;
+    const x3 = x0 - 1 + 3*G3, y3 = y0 - 1 + 3*G3, z3 = z0 - 1 + 3*G3;
+    const ii = i & 255, jj = j & 255, kk = k & 255;
+    let n = 0, tt;
+    tt = 0.6 - x0*x0 - y0*y0 - z0*z0; if (tt > 0) { const g = GRAD3[pm[ii + perm[jj + perm[kk]]]]; tt *= tt; n += tt*tt*(g[0]*x0 + g[1]*y0 + g[2]*z0); }
+    tt = 0.6 - x1*x1 - y1*y1 - z1*z1; if (tt > 0) { const g = GRAD3[pm[ii+i1 + perm[jj+j1 + perm[kk+k1]]]]; tt *= tt; n += tt*tt*(g[0]*x1 + g[1]*y1 + g[2]*z1); }
+    tt = 0.6 - x2*x2 - y2*y2 - z2*z2; if (tt > 0) { const g = GRAD3[pm[ii+i2 + perm[jj+j2 + perm[kk+k2]]]]; tt *= tt; n += tt*tt*(g[0]*x2 + g[1]*y2 + g[2]*z2); }
+    tt = 0.6 - x3*x3 - y3*y3 - z3*z3; if (tt > 0) { const g = GRAD3[pm[ii+1 + perm[jj+1 + perm[kk+1]]]]; tt *= tt; n += tt*tt*(g[0]*x3 + g[1]*y3 + g[2]*z3); }
+    return 32 * n;
+  }
+}
+const noise = new Simplex(mulberry32(11));
+
+/* ═══════════════════════════ footage ═══════════════════════════ */
+const footage = await loadFootage('./data/footage.json');
+const F_PERIOD = footage.period(FADE);          // seamless loop length in footage seconds
+const LOOP     = F_PERIOD / SPEED;              // page loop period (s)
+window.__duration = LOOP;
+
+/* ═══════════════════════════ sheet geometry ═══════════════════════════ */
+const [bu0, bv0, bu1, bv1] = footage.bbox;
+const padV = (bv1 - bv0) * PAD_V;
+const U0 = bu0 - (bu1 - bu0) * PAD_L, U1 = bu1 + (bu1 - bu0) * PAD_R, V0 = bv0 - padV, V1 = bv1 + padV;
+const SHEET_W = CLUSTER_W * (U1 - U0) / (bu1 - bu0);
+const SHEET_D = SHEET_W * (V1 - V0) / ((U1 - U0) * footage.aspect);
+const NX = GRID_NX, NZ = GRID_NZ, NV = NX * NZ;
+const DX = SHEET_W / (NX - 1), DZ = SHEET_D / (NZ - 1);
+const CLUSTER_X = ((bu0 + bu1) / 2 - (U0 + U1) / 2) / (U1 - U0) * SHEET_W;   // world x of the cluster centre (the sheet is wider on the right)
+
+const VX = new Float32Array(NV), VZ = new Float32Array(NV), VU = new Float32Array(NV), VV = new Float32Array(NV);
+const TAPER = new Float32Array(NV), DIST = new Float32Array(NV), UND1 = new Float32Array(NV), UND2 = new Float32Array(NV);
+const HGT = new Float32Array(NV), NUC = new Float32Array(NV), COL = new Float32Array(NV * 3);
+for (let iz = 0; iz < NZ; iz++) for (let ix = 0; ix < NX; ix++) {
+  const i = iz * NX + ix, fx = ix / (NX - 1), fz = iz / (NZ - 1);
+  VX[i] = -SHEET_W / 2 + fx * SHEET_W;            // u → +X (right)
+  VZ[i] =  SHEET_D / 2 - fz * SHEET_D;            // v (down in source) → −Z (away): the cells cut by the source's bottom edge sit at the far edge, where it dissolves
+  VU[i] = U0 + fx * (U1 - U0); VV[i] = V0 + fz * (V1 - V0);
+  const inFrame = smooth(-0.012, 0.0, VV[i]) * smooth(1.012, 1.0, VV[i]);   // nothing beyond the source frame (no streaked edge rows)
+  TAPER[i] = inFrame * smooth(0, EDGE_TAPER, fx) * smooth(0, EDGE_TAPER, 1 - fx) * smooth(0, EDGE_TAPER, fz) * smooth(0, EDGE_TAPER, 1 - fz);
+  DIST[i] = smooth(DIST_FADE[0], DIST_FADE[1], fz);
+  UND1[i] = noise.noise3(VX[i] * UND_FREQ, VZ[i] * UND_FREQ, 0.37);
+  UND2[i] = noise.noise3(VX[i] * UND_FREQ + 11.7, VZ[i] * UND_FREQ + 5.2, 7.91);
+}
+
+/* quad grid: rows + columns, no diagonals */
+const segA = [], segB = [];
+for (let iz = 0; iz < NZ; iz++) for (let ix = 0; ix < NX; ix++) {
+  const i = iz * NX + ix;
+  if (ix < NX - 1) { segA.push(i); segB.push(i + 1); }
+  if (iz < NZ - 1) { segA.push(i); segB.push(i + NX); }
+}
+const SEG_A = Uint32Array.from(segA), SEG_B = Uint32Array.from(segB);
+
+/* ═══════════════════════════ colours (linear rgb for Three) ═══════════════════════════ */
+const LUT   = bandLUT(BANDS, true);
+const CREAM = toLinear(P.cream), CORAL = toLinear(P.coral);
+
+/* ═══════════════════════════ renderer / scene ═══════════════════════════ */
+const canvas   = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: EXPORT });
+renderer.setClearColor(new THREE.Color(P.cream), 1);
+const scene  = new THREE.Scene();                 // no fog: depth is colour only
+const camera = new THREE.PerspectiveCamera(CAM.fov, 16 / 9, 0.1, 80);
+
+const geo = new LineSegmentsGeometry();
+geo.setPositions(new Float32Array(SEG_A.length * 6));
+geo.setColors(new Float32Array(SEG_A.length * 6));
+const mat = new LineMaterial({ color: 0xffffff, vertexColors: true, linewidth: LINE_PX, transparent: false, depthWrite: true, depthTest: true, fog: false });   // depthWrite on: near hairlines win over the pale far grid, so dome silhouettes stay clean
+const lines = new LineSegments2(geo, mat); lines.frustumCulled = false;
+scene.add(lines);
+const POS = geo.attributes.instanceStart.data, CLR = geo.attributes.instanceColorStart.data;
+{ const p = POS.array; for (let s = 0, o = 0; s < SEG_A.length; s++, o += 6) { p[o] = VX[SEG_A[s]]; p[o+2] = VZ[SEG_A[s]]; p[o+3] = VX[SEG_B[s]]; p[o+5] = VZ[SEG_B[s]]; } }
+
+/* ═══════════════════════════ camera: one sinusoid per loop ═══════════════════════════ */
+const TARGET = new THREE.Vector3(0, 0, 0);
+function placeCamera(t) {
+  const s = Math.sin(TAU * t / LOOP);
+  const az = (CAM.az + CAM.orbit * s) * d2r, el = CAM.el * d2r;
+  const dist = CAM.dist * (1 + CAM.dolly * s);
+  camera.position.set(TARGET.x + dist * Math.sin(az) * Math.cos(el), TARGET.y + dist * Math.sin(el), TARGET.z + dist * Math.cos(az) * Math.cos(el));
+  camera.lookAt(TARGET);
+  camera.updateMatrixWorld();
+  camera.matrixWorldInverse.copy(camera.matrixWorld).invert();
+}
+const _v = new THREE.Vector3(), _w = new THREE.Vector3();
+function project(x, y, z) {
+  _w.set(x, y, z).applyMatrix4(camera.matrixWorldInverse);
+  _v.set(x, y, z).project(camera);
+  return { x: (_v.x + 1) * 0.5, y: (1 - _v.y) * 0.5, depth: -_w.z };   // screen fractions (y down)
+}
+/* Solve the camera target so the far edge (horizon) and the sheet centre land where FRAME says — a pure translation of the rig. */
+function solveFraming() {
+  const tanV = Math.tan(CAM.fov * 0.5 * d2r);
+  for (let k = 0; k < 30; k++) {
+    placeCamera(0);
+    const far = project(CLUSTER_X, 0, -SHEET_D / 2), cen = project(CLUSTER_X, 0, 0);
+    TARGET.y -= (far.y - FRAME.horizonY) * 2 * far.depth * tanV * 0.8;                 // scene too low on screen → look lower
+    TARGET.x += (cen.x - FRAME.centreX) * 2 * cen.depth * tanV * camera.aspect * 0.8;  // scene too far right → look right
+  }
+  placeCamera(0);
+}
+
+/* ═══════════════════════════ hud / the one detail ═══════════════════════════ */
+const hud = document.getElementById('hud'), accents = document.getElementById('accents'), ruleEl = document.getElementById('rule');
+if (!HUD) hud.classList.add('hidden');
+if (!ACCENTS) accents.classList.add('hidden');
+const tags = LABELS.map((text, k) => {
+  const el = document.createElement('div'); el.className = 'tag';
+  el.textContent = text === null ? `${SPEED}× speed` : text;
+  if (k === 1) el.style.transform = 'translateX(-50%)';
+  accents.appendChild(el); return el;
+});
+function placeRule() {
+  placeCamera(0);
+  const nl = project(-SHEET_W / 2, 0, SHEET_D / 2), nr = project(SHEET_W / 2, 0, SHEET_D / 2);
+  const y = Math.min(0.92, Math.max(nl.y, nr.y) + RULE.gap);
+  const left = Math.max(nl.x, TEXT_ZONE + TEXT_SPAN), right = Math.min(nr.x, RULE.right);
+  ruleEl.style.top = (y * 100).toFixed(2) + '%'; ruleEl.style.left = (left * 100).toFixed(2) + '%'; ruleEl.style.right = ((1 - right) * 100).toFixed(2) + '%';
+  const ty = `calc(${(y * 100).toFixed(2)}% + ${(RULE.labelGap * 100).toFixed(2)}vh)`;
+  tags[0].style.top = ty; tags[0].style.left = (left * 100).toFixed(2) + '%';
+  tags[1].style.top = ty; tags[1].style.left = ((left + right) * 50).toFixed(2) + '%';
+  tags[2].style.top = ty; tags[2].style.right = ((1 - right) * 100).toFixed(2) + '%';
+  window.__frame = { nearLeft: nl, nearRight: nr, far: project(CLUSTER_X, 0, -SHEET_D / 2), farLeft: project(-SHEET_W / 2, 0, -SHEET_D / 2), farRight: project(SHEET_W / 2, 0, -SHEET_D / 2), rule: { y, left, right } };
+}
+
+let W = 1, H = 1;
+function resize() {
+  W = window.innerWidth; H = window.innerHeight;
+  renderer.setPixelRatio(DPR);
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H; camera.updateProjectionMatrix();
+  mat.resolution.set(W * DPR, H * DPR); mat.linewidth = LINE_PX * (H * DPR / 1080);
+  solveFraming();
+  placeRule();
+}
+
+/* ═══════════════════════════ fields ═══════════════════════════ */
+const HTMP = new Float32Array(NV);
+function smoothField(F, RX, RZ, passes = 1) {     // separable box smoothing, in place, no allocation
+  for (let p = 0; p < passes; p++) {
+    for (let iz = 0; iz < NZ; iz++) for (let ix = 0; ix < NX; ix++) {
+      let s = 0, n = 0;
+      for (let d = -RX; d <= RX; d++) { const xx = ix + d; if (xx < 0 || xx >= NX) continue; s += F[iz * NX + xx]; n++; }
+      HTMP[iz * NX + ix] = s / n;
+    }
+    for (let iz = 0; iz < NZ; iz++) for (let ix = 0; ix < NX; ix++) {
+      let s = 0, n = 0;
+      for (let d = -RZ; d <= RZ; d++) { const zz = iz + d; if (zz < 0 || zz >= NZ) continue; s += HTMP[zz * NX + ix]; n++; }
+      F[iz * NX + ix] = s / n;
+    }
+  }
+}
+const rgb = [0, 0, 0];
+function sampleFields(tf, ca, sa) {
+  const raw = footage.loopFrame(tf, FADE);
+  for (let i = 0; i < NV; i++) {
+    footage.sample(raw, VU[i], VV[i], rgb);
+    const r = rgb[0], g = rgb[1];
+    const cyto = smooth(0.02, 0.62, g);
+    const nuc  = smooth(0.09, 0.26, r) * smooth(0.55, 1.05, r / (g + 0.03));
+    NUC[i] = nuc * TAPER[i];
+    HGT[i] = (H_CYTO * cyto + H_NUC * nuc) * TAPER[i];
+  }
+  smoothField(HGT, SMOOTH_RX, SMOOTH_RZ, SMOOTH_PASSES);
+  smoothField(NUC, SMOOTH_RX, SMOOTH_RZ, SMOOTH_PASSES);
+  for (let i = 0; i < NV; i++) HGT[i] += H_UND * (UND1[i] * ca + UND2[i] * sa);
+}
+
+/* ═══════════════════════════ frame ═══════════════════════════ */
+const VP = new THREE.Matrix4();
+let maxH = 0;
+function renderAt(t) {
+  const t0 = performance.now();
+  t = ((t % LOOP) + LOOP) % LOOP;
+  placeCamera(t);
+  const ph = TAU * t / LOOP;
+  sampleFields(t * SPEED, Math.cos(ph), Math.sin(ph));
+
+  /* per-vertex colour: band ramp by height → coral on nuclear tops → fades (dish, distance, text zone) toward cream */
+  const M = VP.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse).elements;
+  const m0 = M[0], m4 = M[4], m8 = M[8], m12 = M[12], m3 = M[3], m7 = M[7], m11 = M[11], m15 = M[15];
+  maxH = 0;
+  for (let i = 0; i < NV; i++) {
+    const x = VX[i], y = HGT[i], z = VZ[i];
+    if (y > maxH) maxH = y;
+    const hn = clamp01(y / H_MAX), li = (hn * 255) | 0;
+    let r = LUT[li * 3], g = LUT[li * 3 + 1], b = LUT[li * 3 + 2];
+    let k = smooth(CORAL_FROM, CORAL_FROM + CORAL_SPAN, hn) * smooth(0.08, 0.30, NUC[i]);
+    r += (CORAL[0] - r) * k; g += (CORAL[1] - g) * k; b += (CORAL[2] - b) * k;
+    const sx = ((m0 * x + m4 * y + m8 * z + m12) / (m3 * x + m7 * y + m11 * z + m15) + 1) * 0.5;
+    const f = clamp01(BASE_FADE * (1 - hn) * (1 - hn) + DIST[i] + smooth(TEXT_ZONE + TEXT_SPAN, TEXT_ZONE, sx) + smooth(RIGHT_ZONE - RIGHT_SPAN, RIGHT_ZONE, sx));
+    COL[i * 3] = r + (CREAM[0] - r) * f; COL[i * 3 + 1] = g + (CREAM[1] - g) * f; COL[i * 3 + 2] = b + (CREAM[2] - b) * f;
+  }
+
+  /* write the segment buffers in place (x/z are static; only y and colour change) */
+  const p = POS.array, c = CLR.array;
+  for (let s = 0, o = 0; s < SEG_A.length; s++, o += 6) {
+    const a = SEG_A[s], b = SEG_B[s];
+    p[o + 1] = HGT[a]; p[o + 4] = HGT[b];
+    c[o] = COL[a * 3]; c[o + 1] = COL[a * 3 + 1]; c[o + 2] = COL[a * 3 + 2];
+    c[o + 3] = COL[b * 3]; c[o + 4] = COL[b * 3 + 1]; c[o + 5] = COL[b * 3 + 2];
+  }
+  POS.needsUpdate = true; CLR.needsUpdate = true;
+
+  renderer.render(scene, camera);
+  window.__renderMs = performance.now() - t0; window.__maxH = maxH;
+}
+
+resize();
+window.addEventListener('resize', () => { resize(); if (STILL_T !== null) renderAt(STILL_T); });
+
+/* make sure the type renders in DM Sans before the first frame is captured */
+try { await Promise.race([Promise.all([document.fonts.load('500 64px "DM Sans"'), document.fonts.load('400 18px "DM Sans"')]), new Promise(r => setTimeout(r, 3000))]); } catch (e) { /* fall back silently */ }
+
+/* export hook used by render.mjs */
+window.__seek = t => new Promise(res => { renderAt(t); requestAnimationFrame(() => requestAnimationFrame(() => res(true))); });
+
+if (STILL_T !== null) {
+  renderAt(STILL_T);
+} else if (!EXPORT) {
+  const start = performance.now();
+  const loop = () => { renderAt(((performance.now() - start) / 1000) % LOOP); requestAnimationFrame(loop); };
+  renderAt(0);
+  requestAnimationFrame(loop);
+} else {
+  renderAt(0);
+}
+window.__ready = true;
+</script>
+</body>
+</html>

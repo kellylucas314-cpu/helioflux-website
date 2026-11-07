@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mitosis wireframe</title>
+<style>
+  :root { --cream:#faf9f5; --ink:#103044; --muted:#526879; --teal:#2b7a8c; }
+  html, body { margin:0; height:100%; background:var(--cream); overflow:hidden;
+    font-family:"DM Sans", system-ui, -apple-system, "Helvetica Neue", sans-serif; color:var(--ink); }
+  canvas { display:block; width:100%; height:100%; }
+  #hud { position:fixed; inset:0; pointer-events:none; }
+  .tag { position:absolute; font-size:calc(0.62vh + 4px); letter-spacing:.2em; text-transform:uppercase; color:var(--muted); line-height:1.4; }
+  #title { left:3.4%; top:5.2%; }
+  #title b { display:block; margin-top:.35em; font-weight:500; color:var(--ink); letter-spacing:.02em; text-transform:none; font-size:calc(1.05vh + 6px); }
+  #phase { left:3.4%; bottom:5.6%; }
+  #phase b { display:block; margin-top:.35em; font-weight:500; color:var(--ink); letter-spacing:.01em; text-transform:none; font-size:calc(1.35vh + 7px); }
+  #phase i { display:block; font-style:normal; margin-top:.3em; color:var(--muted); letter-spacing:.02em; text-transform:none; font-size:calc(0.85vh + 5px); }
+  #tc { right:3.4%; bottom:5.6%; text-align:right; font-variant-numeric:tabular-nums; }
+  #tc b { display:block; margin-top:.35em; font-weight:500; color:var(--ink); letter-spacing:.06em; font-size:calc(1.35vh + 7px); }
+  #scale { position:absolute; right:3.4%; top:5.2%; text-align:right; }
+  #scale .bar { display:inline-block; width:7vw; height:1px; background:var(--muted); margin-left:.6em; vertical-align:middle; }
+  #fade { position:fixed; inset:0; background:var(--cream); pointer-events:none; opacity:0; }
+  .hidden { display:none; }
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+  <div class="tag" id="title">Live‑cell time‑lapse, redrawn as a mesh<b>One cell becomes two</b></div>
+  <div class="tag" id="scale">Procedural reconstruction · not to scale</div>
+  <div class="tag" id="phase">Phase<b id="phaseName">Interphase</b><i id="phaseNote">Flattened on the dish, probing with filopodia</i></div>
+  <div class="tag" id="tc">Elapsed<b id="tcVal">00:00.00</b></div>
+</div>
+<div id="fade"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { LineSegments2 } from './vendor/lines/LineSegments2.js';
+import { LineSegmentsGeometry } from './vendor/lines/LineSegmentsGeometry.js';
+import { LineMaterial } from './vendor/lines/LineMaterial.js';
+
+/* ───────────────────────── settings ───────────────────────── */
+const params   = new URLSearchParams(location.search);
+const DURATION = 9.45;                       // matches the source clip
+const HUD      = params.get('hud')  !== '0';
+const FADE     = params.get('fade') !== '0';
+const EXPORT   = params.get('export') === '1';
+const STILL_T  = params.has('t') ? parseFloat(params.get('t')) : null;
+const DPR      = params.has('dpr') ? parseFloat(params.get('dpr')) : Math.min(2, window.devicePixelRatio || 1);
+const LOOP_FADE = 0.45;
+
+/* Site palette (heliopolis-theme.css) + the terrain / root references. */
+const P = {
+  cream:'#faf9f5', ink:'#103044', muted:'#526879', rule:'#cfd8cc',
+  teal:'#2b7a8c', slate:'#4f7fa0', sky:'#9cbcd6',
+  olive:'#6f8a3f', lime:'#c7d36a', sage:'#b9c7a4', coral:'#df7f68', fill:'#eef2df',
+};
+/* ?night=1: the HelioFlux bridge cut. The cell glows cyan on the site's night ground (#082432) and gives off light as it divides. */
+const NIGHT = params.get('night') === '1';
+const SHIFT = parseFloat(params.get('shift') || '0');   // moves the scene down the frame (fraction of the height)
+const ZOOM  = parseFloat(params.get('zoom')  || '1');   // pulls the camera back for narrow frames
+if (NIGHT) Object.assign(P, { cream:'#082432', ink:'#d6eef5', muted:'#7fa3b3', rule:'#113d50', teal:'#489EBE', slate:'#3a7f9f',
+  sky:'#7cc4dc', olive:'#eaf7fb', lime:'#a9dceb', sage:'#2e6a80', coral:'#e58a72', fill:'#0b3044' });
+document.documentElement.style.setProperty('--cream', P.cream);
+
+/*
+ * Membrane colour bands, bottom of the cell (0) to its top (1), the way the
+ * terrain reference colours its grid by elevation.  Each entry is
+ * [height 0..1, colour].  Heights must increase; the first should be 0 and the
+ * last 1.  Use P.* names or any hex.
+ *
+ * Set the band stops here; FALLBACK_BANDS is used while this list is empty.
+ */
+const BANDS = NIGHT ? [[0.00, '#1d5f7c'], [0.30, '#3a86a8'], [0.55, '#5fb3d0'], [0.78, '#a6dbea'], [1.00, '#f2fbfd']] : [
+];
+
+const FALLBACK_BANDS = [
+  [0.00, P.teal], [0.28, P.slate], [0.48, P.sky], [0.60, P.coral], [0.76, P.lime], [1.00, P.olive],
+];
+
+/* ───────────────────────── small utilities ───────────────────────── */
+const clamp01 = x => x < 0 ? 0 : x > 1 ? 1 : x;
+const lerp    = (a, b, t) => a + (b - a) * t;
+const smooth  = (a, b, t) => { const x = clamp01((t - a) / (b - a)); return x * x * (3 - 2 * x); };
+const TAU = Math.PI * 2;
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+const GRAD3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
+class Simplex {
+  constructor(rand) {
+    const p = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) p[i] = i;
+    for (let i = 255; i > 0; i--) { const j = (rand() * (i + 1)) | 0; const t = p[i]; p[i] = p[j]; p[j] = t; }
+    this.perm = new Uint8Array(512); this.pm = new Uint8Array(512);
+    for (let i = 0; i < 512; i++) { this.perm[i] = p[i & 255]; this.pm[i] = this.perm[i] % 12; }
+  }
+  noise3(xin, yin, zin) {
+    const perm = this.perm, pm = this.pm, F3 = 1 / 3, G3 = 1 / 6;
+    const s = (xin + yin + zin) * F3;
+    const i = Math.floor(xin + s), j = Math.floor(yin + s), k = Math.floor(zin + s);
+    const t = (i + j + k) * G3;
+    const x0 = xin - (i - t), y0 = yin - (j - t), z0 = zin - (k - t);
+    let i1, j1, k1, i2, j2, k2;
+    if (x0 >= y0) {
+      if (y0 >= z0)      { i1=1; j1=0; k1=0; i2=1; j2=1; k2=0; }
+      else if (x0 >= z0) { i1=1; j1=0; k1=0; i2=1; j2=0; k2=1; }
+      else               { i1=0; j1=0; k1=1; i2=1; j2=0; k2=1; }
+    } else {
+      if (y0 < z0)       { i1=0; j1=0; k1=1; i2=0; j2=1; k2=1; }
+      else if (x0 < z0)  { i1=0; j1=1; k1=0; i2=0; j2=1; k2=1; }
+      else               { i1=0; j1=1; k1=0; i2=1; j2=1; k2=0; }
+    }
+    const x1 = x0 - i1 + G3, y1 = y0 - j1 + G3, z1 = z0 - k1 + G3;
+    const x2 = x0 - i2 + 2*G3, y2 = y0 - j2 + 2*G3, z2 = z0 - k2 + 2*G3;
+    const x3 = x0 - 1 + 3*G3, y3 = y0 - 1 + 3*G3, z3 = z0 - 1 + 3*G3;
+    const ii = i & 255, jj = j & 255, kk = k & 255;
+    let n = 0, tt;
+    tt = 0.6 - x0*x0 - y0*y0 - z0*z0; if (tt > 0) { const g = GRAD3[pm[ii + perm[jj + perm[kk]]]]; tt *= tt; n += tt*tt*(g[0]*x0 + g[1]*y0 + g[2]*z0); }
+    tt = 0.6 - x1*x1 - y1*y1 - z1*z1; if (tt > 0) { const g = GRAD3[pm[ii+i1 + perm[jj+j1 + perm[kk+k1]]]]; tt *= tt; n += tt*tt*(g[0]*x1 + g[1]*y1 + g[2]*z1); }
+    tt = 0.6 - x2*x2 - y2*y2 - z2*z2; if (tt > 0) { const g = GRAD3[pm[ii+i2 + perm[jj+j2 + perm[kk+k2]]]]; tt *= tt; n += tt*tt*(g[0]*x2 + g[1]*y2 + g[2]*z2); }
+    tt = 0.6 - x3*x3 - y3*y3 - z3*z3; if (tt > 0) { const g = GRAD3[pm[ii+1 + perm[jj+1 + perm[kk+1]]]]; tt *= tt; n += tt*tt*(g[0]*x3 + g[1]*y3 + g[2]*z3); }
+    return 32 * n;
+  }
+}
+
+const rng   = mulberry32(1923);
+const noise = new Simplex(mulberry32(7));
+
+/* colours as linear-space THREE.Color so vertex colours match hex swatches */
+const C = {}; for (const k in P) C[k] = new THREE.Color(P[k]);
+function buildLUT(stops) {
+  const cols = stops.map(s => [s[0], new THREE.Color(s[1])]);
+  const lut = new Float32Array(256 * 3);
+  for (let i = 0; i < 256; i++) {
+    const h = i / 255; let a = cols[0], b = cols[cols.length - 1];
+    for (let s = 0; s < cols.length - 1; s++) if (h >= cols[s][0] && h <= cols[s + 1][0]) { a = cols[s]; b = cols[s + 1]; break; }
+    const u = clamp01((h - a[0]) / Math.max(1e-6, b[0] - a[0]));
+    lut[i*3] = lerp(a[1].r, b[1].r, u); lut[i*3+1] = lerp(a[1].g, b[1].g, u); lut[i*3+2] = lerp(a[1].b, b[1].b, u);
+  }
+  return lut;
+}
+const LUT = buildLUT(BANDS.length >= 2 ? BANDS : FALLBACK_BANDS);
+
+/* ───────────────────────── timeline ─────────────────────────
+   Keyed to the source clip: flat → rounds (0.3–1.9 s), metaphase plate
+   (2–4.3 s), anaphase (4.3–5 s), cytokinesis (4.3–5.5 s), daughters
+   re‑spread (6.2–9 s). */
+function timeline(t) {
+  const roundUp  = smooth(0.30, 1.90, t);
+  const k        = smooth(4.30, 5.50, t);
+  const spread1  = smooth(6.20, 9.10, t) * 0.92;
+  return {
+    t,
+    k,
+    spreadD  : spread1,
+    spread   : lerp(1 - roundUp, spread1, k),
+    sep      : smooth(5.20, 7.40, t),
+    nRound   : smooth(0.45, 1.90, t),                       // interphase nucleus → prophase sphere
+    plate    : smooth(1.25, 2.25, t),                       // → metaphase plate
+    split    : smooth(4.25, 5.00, t),                       // chromatids to poles
+    reform   : smooth(4.90, 6.10, t),                       // nuclear envelope reforms
+    nFlat    : smooth(6.40, 9.10, t),                       // nuclei flatten with the daughters
+    spindle  : smooth(1.35, 2.05, t) * (1 - smooth(4.95, 5.70, t)),
+  };
+}
+function phaseInfo(t) {
+  if (t < 0.55) return ['Interphase', 'Flattened on the dish, probing with filopodia'];
+  if (t < 1.95) return ['Prophase · rounding up', 'The cell pulls in its edges and lifts into a sphere'];
+  if (t < 4.30) return ['Metaphase', 'Chromosomes line up on a single plate'];
+  if (t < 5.05) return ['Anaphase', 'Sister chromatids are pulled to opposite poles'];
+  if (t < 6.30) return ['Telophase · cytokinesis', 'A furrow pinches the body into two'];
+  return ['Two daughter cells', 'Both flatten and spread out again'];
+}
+
+/* ───────────────────────── shape model ─────────────────────────
+   A lat‑long mesh whose poles sit on the division (x) axis.  Rings are
+   cross‑sections of that axis, so cytokinesis is the equatorial rings
+   shrinking to a point while the mesh blends from one sphere to two. */
+const lobeSum = (L, psi) => { let s = 0; for (const l of L) s += l[1] * Math.cos(l[0] * psi + l[2]); return s; };
+
+function makeState(cell, tl, overrides = {}) {
+  const spread = overrides.spread ?? tl.spread;
+  const k = tl.k;
+  const sx = lerp(cell.full.single[0], cell.full.daughter[0], k);
+  const sy = lerp(cell.full.single[1], cell.full.daughter[1], k);
+  const sz = lerp(cell.full.single[2], cell.full.daughter[2], k);
+  const R  = cell.R, rd = R / Math.cbrt(2);
+  const Rref = lerp(R, rd, k);
+  const SY = lerp(1, sy, spread);
+  const bk = lerp(0.84, 0.13, spread);
+  return {
+    R, rd, k, spread, Rref,
+    half  : rd * (1 + 0.30 * tl.sep + 0.24 * (tl.spreadD || 0)),
+    SX: lerp(1, sx, spread), SY, SZ: lerp(1, sz, spread), bk,
+    yshift: Rref * SY * bk + 0.025,
+    cellH : Rref * SY * (1 + bk),
+    lobeS: cell.lobes.single, lobeA: cell.lobes.a, lobeB: cell.lobes.b,
+    noiseAmp: overrides.noise ?? R * (0.022 + 0.05 * spread),
+    time: tl.t, seedOff: cell.seedOff,
+  };
+}
+
+const _p = new THREE.Vector3();
+function evalPoint(S, v, phi, f, out, info) {
+  const th  = v * Math.PI;
+  const xc1 = -S.R * Math.cos(th), r1 = S.R * Math.sin(th);
+  const side = v < 0.5 ? -1 : 1;
+  const th2 = (v < 0.5 ? v : v - 0.5) * TAU;
+  const xc2 = side * S.half - S.rd * Math.cos(th2), r2 = S.rd * Math.sin(th2);
+  const xc = lerp(xc1, xc2, S.k), r = lerp(r1, r2, S.k) * f;
+  const cxl = S.k * side * S.half;
+  let x = xc, y = r * Math.cos(phi), z = r * Math.sin(phi);
+  const hx = x - cxl, hz = z;
+  const psi = Math.atan2(hz, hx);
+  const m = 1 + S.spread * ((1 - S.k) * lobeSum(S.lobeS, psi) + S.k * lobeSum(side < 0 ? S.lobeA : S.lobeB, psi));
+  x = cxl + hx * m * S.SX; z = hz * m * S.SZ; y *= S.SY;
+  if (y < 0) y *= S.bk;
+  y += S.yshift;
+  if (S.noiseAmp > 0) {
+    const nx = x - cxl, ny = y - S.yshift, nz = z;
+    const len = Math.hypot(nx, ny, nz) || 1;
+    const n = noise.noise3(x * 1.7 + S.seedOff, y * 1.7 + S.seedOff * 0.3, z * 1.7 + S.time * 0.16);
+    const d = n * S.noiseAmp * f;
+    x += nx / len * d; y += ny / len * d; z += nz / len * d;
+  }
+  out.set(x, y, z);
+  if (info) { info.cxl = cxl; info.side = side; info.ring = lerp(r1, r2, S.k); }
+  return out;
+}
+
+/* ───────────────────────── renderer / scene ───────────────────────── */
+const canvas   = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: EXPORT });
+renderer.setClearColor(C.cream, 1);
+const scene  = new THREE.Scene();
+scene.fog = new THREE.Fog(C.cream, 7.5, 17);
+const camera = new THREE.PerspectiveCamera(30, 16 / 9, 0.1, 60);
+
+let W = 1, H = 1, bufH = 1080;
+const lineMats = [];
+function resize() {
+  W = window.innerWidth; H = window.innerHeight;
+  renderer.setPixelRatio(DPR);
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H; camera.updateProjectionMatrix();
+  bufH = H * DPR;
+  if (SHIFT) camera.setViewOffset(W, H, 0, -H * SHIFT, W, H); else camera.clearViewOffset();
+  for (const m of lineMats) { m.resolution.set(W * DPR, H * DPR); m.linewidth = m.userData.px * (bufH / 1080); }
+  if (speckleMats) for (const m of speckleMats) m.size = m.userData.px * (bufH / 1080);
+}
+
+/* soft dot sprite for the vesicle speckles */
+function dotTexture() {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d'); const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.55, 'rgba(255,255,255,0.9)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
+  const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; return tx;
+}
+const DOT = dotTexture();
+let speckleMats = null;
+
+function fatLines(count, px, opacity) {
+  const geo = new LineSegmentsGeometry();
+  geo.setPositions(new Float32Array(count * 6));
+  geo.setColors(new Float32Array(count * 6));
+  const mat = new LineMaterial({ color: 0xffffff, vertexColors: true, linewidth: px, transparent: true, opacity, depthWrite: false, fog: true });
+  mat.userData.px = px; lineMats.push(mat);
+  const obj = new LineSegments2(geo, mat); obj.frustumCulled = false;
+  return { obj, geo, mat, pos: geo.attributes.instanceStart.data, col: geo.attributes.instanceColorStart.data };
+}
+function thinLines(count, opacity, color) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(count * 6), 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(count * 6), 3));
+  const mat = new THREE.LineBasicMaterial({ vertexColors: !color, color: color || 0xffffff, transparent: true, opacity, depthWrite: false, fog: true });
+  const obj = new THREE.LineSegments(geo, mat); obj.frustumCulled = false;
+  return { obj, geo, mat, pos: geo.attributes.position, col: geo.attributes.color };
+}
+
+/* ───────────────────────── a cell ───────────────────────── */
+class Cell {
+  constructor(o) {
+    this.o = o; this.R = o.R; this.seedOff = o.seed * 3.1;
+    this.full = o.full; this.lobes = o.lobes; this.dim = o.dim || 0;
+    const rand = mulberry32(o.seed);
+    this.group = new THREE.Group(); this.group.position.copy(o.pos); this.group.rotation.y = o.rotY || 0;
+    scene.add(this.group);
+
+    /* membrane grid */
+    this.NU = o.NU; this.NV = o.NV;
+    this.verts = new Float32Array(this.NU * this.NV * 3);
+    this.vinfo = new Float32Array(this.NU * this.NV);                     // local centre x per vertex
+    this.vring = new Float32Array(this.NU * this.NV);                     // ring radius per vertex (0 at the midbody)
+    const segs = [];
+    for (let i = 0; i < this.NV; i++) for (let j = 0; j < this.NU; j++) {
+      if (i > 0 && i < this.NV - 1) segs.push(i * this.NU + j, i * this.NU + (j + 1) % this.NU);   // ring
+      if (i < this.NV - 1) segs.push(i * this.NU + j, (i + 1) * this.NU + j);                        // meridian
+    }
+    this.segs = new Uint32Array(segs);
+    this.membrane = fatLines(this.segs.length / 2, 1.45, 0.9 - this.dim * 0.45);
+    this.group.add(this.membrane.obj);
+
+    /* nuclei: two bodies that coincide until anaphase */
+    this.nNU = 40; this.nNV = 26;
+    const nsegs = [];
+    for (let i = 0; i < this.nNV; i++) for (let j = 0; j < this.nNU; j++) {
+      if (i > 0 && i < this.nNV - 1) nsegs.push(i * this.nNU + j, i * this.nNU + (j + 1) % this.nNU);
+      if (i < this.nNV - 1) nsegs.push(i * this.nNU + j, (i + 1) * this.nNU + j);
+    }
+    this.nsegs = new Uint32Array(nsegs);
+    this.nverts = new Float32Array(this.nNU * this.nNV * 3);
+    this.nuclei = [thinLines(nsegs.length / 2, 0.62 - this.dim * 0.3), thinLines(nsegs.length / 2, 0.62 - this.dim * 0.3)];
+    for (const n of this.nuclei) this.group.add(n.obj);
+
+    /* speckles (vesicles): stored as ring/angle/depth so they divide with the body */
+    const N = o.nSpeckles; this.spk = [];
+    for (let i = 0; i < N; i++) {
+      let x, y, z, l; do { x = rand()*2-1; y = rand()*2-1; z = rand()*2-1; l = Math.hypot(x, y, z); } while (l > 1 || l < 1e-3);
+      const f = Math.pow(l, 0.55) * 0.96;
+      const v = Math.acos(clamp01((-x / l + 1) / 2) * 2 - 1) / Math.PI;
+      const phi = Math.atan2(z / l, y / l);
+      const cpick = rand();
+      const col = cpick < 0.45 ? C.coral : cpick < 0.75 ? C.ink : cpick < 0.9 ? C.teal : C.lime;
+      this.spk.push({ v, phi, f, col, size: 0.6 + rand() * 0.9, j: rand() * 100 });
+    }
+    const sg = new THREE.BufferGeometry();
+    sg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+    sg.setAttribute('color', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+    this.spkMat = new THREE.PointsMaterial({ size: 3.8, sizeAttenuation: false, map: DOT, vertexColors: true, transparent: true, opacity: 1 - this.dim * 0.55, depthWrite: false, alphaTest: 0.2, fog: true });
+    this.spkMat.userData.px = 3.8; (speckleMats ||= []).push(this.spkMat);
+    this.speckles = new THREE.Points(sg, this.spkMat); this.speckles.frustumCulled = false; this.speckles.renderOrder = 2; this.group.add(this.speckles);
+
+    /* filopodia + retraction fibres */
+    this.filo = []; this.FS = 8;
+    for (let i = 0; i < o.nFilo; i++) {
+      const psi = rand() * TAU;
+      this.filo.push({ psi, psiD: rand() * TAU, side: rand() < 0.5 ? -1 : 1,
+        ext: 0.62 + rand() * 0.24, ext2: 1.06 + rand() * 0.24, anchored: rand() < 0.33,
+        wig: 0.03 + rand() * 0.07, seed: rand() * 1000, el: 0.25 + rand() * 0.35 });
+    }
+    this.filoLines = thinLines(o.nFilo * this.FS, 0.72 - this.dim * 0.35);
+    this.group.add(this.filoLines.obj);
+
+    /* spindle (hero only) */
+    if (o.spindle) {
+      this.SP_F = 22; this.SP_SEG = 7; this.SP_ASTRAL = 10;
+      const n = 2 * (this.SP_F * this.SP_SEG + this.SP_ASTRAL);
+      this.spindle = thinLines(n, 0.0, P.sky); this.group.add(this.spindle.obj);
+      this.astral = []; for (let i = 0; i < 2 * this.SP_ASTRAL; i++) { const a = rand() * TAU, b = (rand() - 0.5) * Math.PI; this.astral.push([Math.cos(b)*Math.cos(a), Math.sin(b), Math.cos(b)*Math.sin(a), 0.2 + rand()*0.22]); }
+    }
+
+    /* footprint fills (contact area with the dish) */
+    this.footMat = new THREE.MeshBasicMaterial({ color: C.fill, transparent: true, opacity: 0.95 - this.dim * 0.5, depthWrite: false, fog: true });
+    this.foot = [new THREE.Mesh(new THREE.BufferGeometry(), this.footMat), new THREE.Mesh(new THREE.BufferGeometry(), this.footMat)];
+    for (const f of this.foot) { f.rotation.x = -Math.PI / 2; f.position.y = 0.004; f.renderOrder = -2; f.frustumCulled = false; this.group.add(f); }
+    this.bodies = [];
+    this._camLocal = new THREE.Vector3();
+  }
+
+  tint(col, w, out, mult = 1) {  // facing fade toward cream, then neighbour dimming
+    const s = (0.42 + 0.58 * w) * mult;
+    let r = lerp(C.cream.r, col.r, s), g = lerp(C.cream.g, col.g, s), b = lerp(C.cream.b, col.b, s);
+    if (this.dim) { r = lerp(r, C.cream.r, this.dim); g = lerp(g, C.cream.g, this.dim); b = lerp(b, C.cream.b, this.dim); }
+    out[0] = r; out[1] = g; out[2] = b;
+  }
+
+  update(tl, camWorld) {
+    const S = makeState(this, tl);
+    const SR = makeState(this, tl, { spread: 1, noise: 0 });              // fully spread outline (fibre anchors)
+    const SN = makeState(this, tl, { noise: 0 });                          // current outline, no ruffle
+    this.group.updateMatrixWorld();
+    const cam = this._camLocal.copy(camWorld); this.group.worldToLocal(cam);
+    const V = this.verts, NU = this.NU, NV = this.NV, info = {};
+    const tmp = [0, 0, 0];
+
+    /* membrane vertices */
+    for (let i = 0; i < NV; i++) {
+      const v = i / (NV - 1);
+      for (let j = 0; j < NU; j++) {
+        const phi = j / NU * TAU, idx = i * NU + j;
+        evalPoint(S, v, phi, 1, _p, info);
+        V[idx*3] = _p.x; V[idx*3+1] = _p.y; V[idx*3+2] = _p.z; this.vinfo[idx] = info.cxl; this.vring[idx] = info.ring;
+      }
+    }
+    /* membrane segments: position + banded colour with facing fade */
+    const mp = this.membrane.pos.array, mc = this.membrane.col.array, segs = this.segs;
+    for (let s = 0; s < segs.length; s++) {
+      const a = segs[s], x = V[a*3], y = V[a*3+1], z = V[a*3+2];
+      mp[s*3] = x; mp[s*3+1] = y; mp[s*3+2] = z;
+      const h = clamp01((y - 0.02) / S.cellH);
+      const li = (h * 255) | 0;
+      const nx = x - this.vinfo[a], ny = y - S.yshift, nz = z; const nl = Math.hypot(nx, ny, nz) || 1;
+      const vx = cam.x - x, vy = cam.y - y, vz = cam.z - z; const vl = Math.hypot(vx, vy, vz) || 1;
+      const w = clamp01(0.5 + 0.5 * (nx*vx + ny*vy + nz*vz) / (nl * vl));
+      /* the intercellular bridge: rings that have collapsed to the midbody become a faint thread */
+      const bridge = S.k > 0.15 ? lerp(0.12, 1, clamp01(this.vring[a] / (0.09 * S.R))) : 1;
+      this.tint({ r: LUT[li*3], g: LUT[li*3+1], b: LUT[li*3+2] }, w, tmp, bridge);
+      mc[s*3] = tmp[0]; mc[s*3+1] = tmp[1]; mc[s*3+2] = tmp[2];
+    }
+    this.membrane.pos.needsUpdate = true; this.membrane.col.needsUpdate = true;
+
+    /* nuclei */
+    const Rr = S.Rref;
+    const INTER = [0.56, 0.20, 0.46], SPH = [0.42, 0.42, 0.42], PLATE = [0.045, 0.60, 0.60], MOVING = [0.11, 0.46, 0.46], SPHD = [0.36, 0.36, 0.36], INTERD = [0.55, 0.19, 0.45];
+    const mix = (A, B, t) => [lerp(A[0], B[0], t), lerp(A[1], B[1], t), lerp(A[2], B[2], t)];
+    let sh = mix(INTER, SPH, tl.nRound); sh = mix(sh, PLATE, tl.plate); sh = mix(sh, MOVING, tl.split); sh = mix(sh, SPHD, tl.reform); sh = mix(sh, INTERD, tl.nFlat);
+    const plateness = tl.plate * (1 - tl.reform);
+    const nCol = new THREE.Color().copy(C.ink).lerp(C.coral, plateness * 0.85);
+    this.plateRims = [];
+    for (let b = 0; b < 2; b++) {
+      const side = b === 0 ? -1 : 1;
+      const cx = side * (lerp(0, 0.52 * S.R, tl.split) * (1 - tl.k) + S.half * tl.k);
+      const cy = S.yshift * (1 - 0.1 * S.spread);
+      const ax = sh[0] * Rr, ay = sh[1] * Rr * (0.7 + 0.3 * (1 - S.spread)), az = sh[2] * Rr;
+      const NVn = this.nNV, NUn = this.nNU, NVt = this.nverts;
+      for (let i = 0; i < NVn; i++) {
+        const th = i / (NVn - 1) * Math.PI;
+        for (let j = 0; j < NUn; j++) {
+          const phi = j / NUn * TAU, idx = i * NUn + j;
+          let x = cx - ax * Math.cos(th), y = cy + ay * Math.sin(th) * Math.cos(phi), z = az * Math.sin(th) * Math.sin(phi);
+          const n = noise.noise3(x * 2.3 + 11 + b * 5, y * 2.3, z * 2.3 + tl.t * 0.2) * 0.035 * Rr * (1 - plateness * 0.7);
+          const nl = Math.hypot(x - cx, y - cy, z) || 1; x += (x - cx) / nl * n; y += (y - cy) / nl * n; z += z / nl * n;
+          NVt[idx*3] = x; NVt[idx*3+1] = y; NVt[idx*3+2] = z;
+        }
+      }
+      const L = this.nuclei[b], lp = L.pos.array, lc = L.col.array;
+      for (let s = 0; s < this.nsegs.length; s++) {
+        const a = this.nsegs[s], x = NVt[a*3], y = NVt[a*3+1], z = NVt[a*3+2];
+        lp[s*3] = x; lp[s*3+1] = y; lp[s*3+2] = z;
+        const vx = cam.x - x, vy = cam.y - y, vz = cam.z - z; const vl = Math.hypot(vx, vy, vz) || 1;
+        const nx = x - cx, ny = y - cy, nz = z; const nl = Math.hypot(nx, ny, nz) || 1;
+        const w = clamp01(0.5 + 0.5 * (nx*vx + ny*vy + nz*vz) / (nl * vl));
+        this.tint(nCol, w, tmp); lc[s*3] = tmp[0]; lc[s*3+1] = tmp[1]; lc[s*3+2] = tmp[2];
+      }
+      L.pos.needsUpdate = true; L.col.needsUpdate = true;
+      L.mat.opacity = (0.62 - this.dim * 0.3) * (b === 1 && tl.split < 0.02 && tl.k < 0.02 ? 0 : 1);   // second nucleus hidden while coincident
+      this.plateRims.push({ cx, cy, ay, az });
+      this.bodies[b] = { cx, side };
+    }
+
+    /* speckles */
+    const sp = this.speckles.geometry.attributes.position.array, sc = this.speckles.geometry.attributes.color.array;
+    for (let i = 0; i < this.spk.length; i++) {
+      const q = this.spk[i];
+      const jit = 0.05 * noise.noise3(q.j, tl.t * 0.35, 3.3);
+      evalPoint(S, clamp01(q.v + jit * 0.3), q.phi + jit, q.f, _p, info);
+      sp[i*3] = _p.x; sp[i*3+1] = _p.y; sp[i*3+2] = _p.z;
+      const nx = _p.x - info.cxl, ny = _p.y - S.yshift, nz = _p.z; const nl = Math.hypot(nx, ny, nz) || 1;
+      const vx = cam.x - _p.x, vy = cam.y - _p.y, vz = cam.z - _p.z; const vl = Math.hypot(vx, vy, vz) || 1;
+      const w = clamp01(0.5 + 0.5 * (nx*vx + ny*vy + nz*vz) / (nl * vl));
+      this.tint(q.col, 0.55 + 0.45 * w, tmp); sc[i*3] = tmp[0]; sc[i*3+1] = tmp[1]; sc[i*3+2] = tmp[2];
+    }
+    this.speckles.geometry.attributes.position.needsUpdate = true; this.speckles.geometry.attributes.color.needsUpdate = true;
+
+    /* filopodia / retraction fibres */
+    const fp = this.filoLines.pos.array, fc = this.filoLines.col.array; const FS = this.FS;
+    const A = new THREE.Vector3(), T = new THREE.Vector3(), Td = new THREE.Vector3(), Ts = new THREE.Vector3(), Q = new THREE.Vector3();
+    const dirParams = (psi, el) => { const dx = Math.cos(psi) * Math.cos(el), dy = -Math.sin(el), dz = Math.sin(psi) * Math.cos(el); return [Math.acos(-dx) / Math.PI, Math.atan2(dz, dy)]; };
+    for (let i = 0; i < this.filo.length; i++) {
+      const F = this.filo[i];
+      const [v1, p1] = dirParams(F.psi, F.el);
+      const [vd, pd] = dirParams(F.psiD, F.el);
+      const v2 = F.side < 0 ? vd * 0.5 : 0.5 + vd * 0.5;
+      /* anchor on the current membrane, blended single → daughter */
+      evalPoint(SN, v1, p1, 1, A, info); const cxl1 = info.cxl;
+      evalPoint(SN, v2, pd, 1, Q, info); const cxl2 = info.cxl;
+      A.lerp(Q, S.k); const cxl = lerp(cxl1, cxl2, S.k);
+      /* tip: either on the old spread footprint (anchored fibre) or just beyond the current rim */
+      if (F.anchored) {
+        evalPoint(SR, v1, p1, 1, Ts); evalPoint(SR, v2, pd, 1, Td); Ts.lerp(Td, S.k);
+        T.set(cxl + (Ts.x - cxl) * F.ext, 0, Ts.z * F.ext);
+      } else {
+        T.set(cxl + (A.x - cxl) * F.ext2, A.y * 0.35, A.z * F.ext2);
+      }
+      const wander = 0.06 * S.R * noise.noise3(F.seed, tl.t * 0.22, 0.5);
+      const dx = T.x - A.x, dz = T.z - A.z, dl = Math.hypot(dx, dz) || 1; const px = -dz / dl, pz = dx / dl;
+      T.x += px * wander; T.z += pz * wander;
+      const vis = F.anchored ? 1 - 0.85 * S.spread : 1;          // retraction fibres only matter once the cell lifts off
+      let prev = null;
+      for (let s = 0; s <= FS; s++) {
+        const u = s / FS, bell = Math.sin(Math.PI * u);
+        const wig = F.wig * S.R * bell * noise.noise3(u * 2.6 + F.seed, tl.t * 0.45, F.seed * 0.1);
+        const x = lerp(A.x, T.x, u) + px * wig, z = lerp(A.z, T.z, u) + pz * wig;
+        const y = lerp(A.y, T.y, u) * (1 - 0.45 * bell * (1 - S.spread)) + 0.004;
+        if (prev) {
+          const o = (i * FS + (s - 1)) * 6;
+          fp[o] = prev[0]; fp[o+1] = prev[1]; fp[o+2] = prev[2]; fp[o+3] = x; fp[o+4] = y; fp[o+5] = z;
+          const fadeA = vis * (1 - 0.6 * ((s - 1) / FS)), fadeB = vis * (1 - 0.6 * (s / FS));
+          this.tint(F.anchored ? C.sky : C.slate, 1, tmp);
+          fc[o]   = lerp(C.cream.r, tmp[0], fadeA); fc[o+1] = lerp(C.cream.g, tmp[1], fadeA); fc[o+2] = lerp(C.cream.b, tmp[2], fadeA);
+          fc[o+3] = lerp(C.cream.r, tmp[0], fadeB); fc[o+4] = lerp(C.cream.g, tmp[1], fadeB); fc[o+5] = lerp(C.cream.b, tmp[2], fadeB);
+        }
+        prev = [x, y, z];
+      }
+    }
+    this.filoLines.pos.needsUpdate = true; this.filoLines.col.needsUpdate = true;
+
+    /* spindle */
+    if (this.spindle) {
+      const vis = tl.spindle; this.spindle.mat.opacity = 0.65 * vis;
+      if (vis > 0) {
+        const spp = this.spindle.pos.array; let o = 0;
+        for (let b = 0; b < 2; b++) {
+          const side = b === 0 ? -1 : 1;
+          const pole = new THREE.Vector3(side * (0.74 * S.R * (1 - tl.k) + (S.half + 0.3 * S.rd) * tl.k), S.yshift, 0);
+          const rim = this.plateRims[b];
+          for (let f = 0; f < this.SP_F; f++) {
+            const phi = f / this.SP_F * TAU;
+            const end = new THREE.Vector3(rim.cx, rim.cy + rim.ay * 0.92 * Math.cos(phi), rim.az * 0.92 * Math.sin(phi));
+            const mid = new THREE.Vector3().addVectors(pole, end).multiplyScalar(0.5);
+            mid.y += (end.y - rim.cy) * 0.28; mid.z += end.z * 0.28;
+            let prev = pole;
+            for (let s = 1; s <= this.SP_SEG; s++) {
+              const u = s / this.SP_SEG, a = (1-u)*(1-u), bq = 2*(1-u)*u, c = u*u;
+              const x = a*pole.x + bq*mid.x + c*end.x, y = a*pole.y + bq*mid.y + c*end.y, z = a*pole.z + bq*mid.z + c*end.z;
+              spp[o++] = prev.x; spp[o++] = prev.y; spp[o++] = prev.z; spp[o++] = x; spp[o++] = y; spp[o++] = z;
+              prev = new THREE.Vector3(x, y, z);
+            }
+          }
+          for (let a = 0; a < this.SP_ASTRAL; a++) {
+            const d = this.astral[b * this.SP_ASTRAL + a];
+            spp[o++] = pole.x; spp[o++] = pole.y; spp[o++] = pole.z;
+            spp[o++] = pole.x + side * Math.abs(d[0]) * d[3] * S.R; spp[o++] = pole.y + d[1] * d[3] * S.R; spp[o++] = pole.z + d[2] * d[3] * S.R;
+          }
+        }
+        this.spindle.pos.needsUpdate = true;
+      }
+    }
+
+    /* footprints: outline of the body where it meets the dish */
+    const nBodies = S.k < 0.5 ? 1 : 2;
+    for (let b = 0; b < 2; b++) {
+      const mesh = this.foot[b];
+      if (b >= nBodies) { mesh.visible = false; continue; }
+      mesh.visible = true;
+      const pts = [];
+      const M = 72;
+      for (let m = 0; m < M; m++) {
+        const psi = m / M * TAU;
+        let v, phi;
+        if (nBodies === 1) { [v, phi] = dirParams(psi, 1.15); }
+        else { const [vv, pp] = dirParams(psi, 1.15); v = b === 0 ? vv * 0.5 : 0.5 + vv * 0.5; phi = pp; }
+        evalPoint(SN, v, phi, 1, _p);
+        pts.push(new THREE.Vector2(_p.x, -_p.z));
+      }
+      const shape = new THREE.Shape(pts);
+      mesh.geometry.dispose(); mesh.geometry = new THREE.ShapeGeometry(shape);
+    }
+    this.footMat.opacity = (0.95 - this.dim * 0.5) * (0.35 + 0.65 * S.spread);
+    this.S = S;
+  }
+}
+
+/* ───────────────────────── the two cells ───────────────────────── */
+const hero = new Cell({
+  seed: 11, R: 1.0, NU: 112, NV: 76, nSpeckles: 1100, nFilo: 170, spindle: true,
+  pos: new THREE.Vector3(0, 0, 0), rotY: 0.08,
+  full: { single: [1.80, 0.38, 1.10], daughter: [1.52, 0.38, 1.30] },
+  lobes: { single: [[2, 0.40, 0.0], [1, 0.09, 0.7], [3, 0.06, 1.3]],
+           a: [[2, 0.12, 0.2], [3, 0.05, 2.0]],
+           b: [[3, 0.21, 0.3], [2, 0.08, 1.0], [1, 0.07, 0.4]] },
+});
+const neighbour = new Cell({
+  seed: 29, R: 1.2, NU: 104, NV: 64, nSpeckles: 800, nFilo: 120, dim: NIGHT ? 0.74 : 0.56,
+  pos: new THREE.Vector3(1.35, 0, 3.05), rotY: -0.38,
+  full: { single: [1.9, 0.36, 1.05], daughter: [1.9, 0.36, 1.05] },
+  lobes: { single: [[2, 0.3, 0.0], [1, 0.14, 2.6], [3, 0.07, 0.9]], a: [], b: [] },
+});
+const NEIGHBOUR_TL = { t: 0, k: 0, spread: 0.96, sep: 0, nRound: 0, plate: 0, split: 0, reform: 0, nFlat: 0, spindle: 0 };
+
+/* ───────────────────────── substrate grid ───────────────────────── */
+const GN = 104, GEXT = 26;
+const gridSegs = [];
+for (let i = 0; i <= GN; i++) for (let j = 0; j <= GN; j++) {
+  if (j < GN) gridSegs.push(i * (GN + 1) + j, i * (GN + 1) + j + 1);
+  if (i < GN) gridSegs.push(i * (GN + 1) + j, (i + 1) * (GN + 1) + j);
+}
+const grid = thinLines(gridSegs.length / 2, 0.8, P.rule);
+scene.add(grid.obj);
+const gridV = new Float32Array((GN + 1) * (GN + 1) * 3);
+function updateGrid(cells) {
+  const inv = cells.map(c => ({ c, m: new THREE.Matrix4().copy(c.group.matrixWorld).invert() }));
+  const q = new THREE.Vector3();
+  for (let i = 0; i <= GN; i++) for (let j = 0; j <= GN; j++) {
+    const x = (j / GN - 0.5) * GEXT, z = (i / GN - 0.5) * GEXT;
+    let dip = 0;
+    for (const { c, m } of inv) {
+      q.set(x, 0, z).applyMatrix4(m);
+      const S = c.S; if (!S) continue;
+      const bodies = S.k < 0.5 ? [0] : [-S.half, S.half];
+      for (const bx of bodies) {
+        const rx = S.Rref * S.SX * 1.15, rz = S.Rref * S.SZ * 1.15;
+        const dx = (q.x - bx) / rx, dz = q.z / rz;
+        dip += Math.exp(-(dx*dx + dz*dz) * 1.6) * (0.03 + 0.07 * S.spread);
+      }
+    }
+    const idx = i * (GN + 1) + j;
+    gridV[idx*3] = x; gridV[idx*3+1] = -0.012 - dip; gridV[idx*3+2] = z;
+  }
+  const gp = grid.pos.array;
+  for (let s = 0; s < gridSegs.length; s++) { const a = gridSegs[s]; gp[s*3] = gridV[a*3]; gp[s*3+1] = gridV[a*3+1]; gp[s*3+2] = gridV[a*3+2]; }
+  grid.pos.needsUpdate = true;
+}
+
+/* ───────────────────────── photons (night cut only) ─────────────────────────
+   Faint light leaves the membrane and drifts outward: a stylised picture of
+   the signal a living cell gives off. Each photon is seeded, so frames stay
+   deterministic and the export matches the live page. */
+let photon = null;
+if (NIGHT) {
+  const r = mulberry32(4242), n = 520;
+  const pos = new Float32Array(n * 3), col = new Float32Array(n * 3), meta = [];
+  for (let i = 0; i < n; i++) meta.push({ v: (r() * hero.NU * hero.NV) | 0, b: r() * DURATION, life: 1.3 + r() * 1.7, sp: 0.32 + r() * 0.6, jx: r() - .5, jy: r() * .5, jz: r() - .5, w: .55 + r() * .45 });
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const m = new THREE.PointsMaterial({ size: 6, sizeAttenuation: false, map: DOT, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false });
+  const pts = new THREE.Points(g, m); pts.frustumCulled = false; pts.renderOrder = 6; hero.group.add(pts);
+  photon = { n, pos, col, meta, g, m, glow: new THREE.Color('#c8f0fa') };
+}
+function updatePhotons(t) {
+  if (!photon || !hero.S) return;
+  const V = hero.verts, CX = hero.vinfo, S = hero.S, { pos, col, meta, glow } = photon;
+  photon.m.size = 6 * (bufH / 1080);
+  for (let i = 0; i < photon.n; i++) {
+    const p = meta[i], o = i * 3, age = ((t - p.b) % DURATION + DURATION) % DURATION;
+    if (age > p.life) { col[o] = col[o + 1] = col[o + 2] = 0; continue; }
+    const v = p.v, x = V[v * 3], y = V[v * 3 + 1], z = V[v * 3 + 2];
+    let dx = x - CX[v], dy = y - S.yshift, dz = z; const L = Math.hypot(dx, dy, dz) || 1;
+    dx /= L; dy = Math.max(dy / L, 0.05); dz /= L;
+    const d = p.sp * age;
+    pos[o] = x + (dx + p.jx * .5) * d; pos[o + 1] = y + (dy + p.jy) * d + .12 * age; pos[o + 2] = z + (dz + p.jz * .5) * d;
+    const a = Math.sin(Math.PI * Math.min(1, age / p.life)) * p.w;
+    col[o] = glow.r * a; col[o + 1] = glow.g * a; col[o + 2] = glow.b * a;
+  }
+  photon.g.attributes.position.needsUpdate = true; photon.g.attributes.color.needsUpdate = true;
+}
+
+/* ───────────────────────── camera path ───────────────────────── */
+const camTarget = new THREE.Vector3();
+function placeCamera(t) {
+  const u = t / DURATION;
+  const d2r = Math.PI / 180;
+  const az = lerp(-9, 9, u) * d2r, el = lerp(49, 41, smooth(0, 1, u)) * d2r, dist = lerp(8.1, 7.4, u) * ZOOM;
+  camTarget.set(0.08, 0.5, 0.7 - 0.1 * u);
+  camera.position.set(camTarget.x + dist * Math.sin(az) * Math.cos(el), camTarget.y + dist * Math.sin(el), camTarget.z + dist * Math.cos(az) * Math.cos(el));
+  camera.lookAt(camTarget);
+}
+
+/* ───────────────────────── frame ───────────────────────── */
+const hud = document.getElementById('hud'), fadeEl = document.getElementById('fade');
+const phaseName = document.getElementById('phaseName'), phaseNote = document.getElementById('phaseNote'), tcVal = document.getElementById('tcVal');
+if (!HUD) hud.classList.add('hidden');
+
+function renderAt(t) {
+  t = Math.max(0, Math.min(DURATION, t));
+  placeCamera(t);
+  const tl = timeline(t);
+  hero.update(tl, camera.position);
+  NEIGHBOUR_TL.t = t; neighbour.update(NEIGHBOUR_TL, camera.position);
+  updateGrid([hero, neighbour]);
+  updatePhotons(t);
+  renderer.render(scene, camera);
+  if (HUD) {
+    const [name, note] = phaseInfo(t); phaseName.textContent = name; phaseNote.textContent = note;
+    const s = Math.floor(t), cs = Math.floor((t - s) * 100);
+    tcVal.textContent = `00:${String(s).padStart(2, '0')}.${String(cs).padStart(2, '0')}`;
+  }
+  fadeEl.style.opacity = FADE ? Math.max(1 - smooth(0, LOOP_FADE * 0.8, t), smooth(DURATION - LOOP_FADE, DURATION, t)) : 0;
+}
+
+resize();
+window.addEventListener('resize', () => { resize(); if (STILL_T !== null) renderAt(STILL_T); });
+
+/* export hook used by render.mjs */
+window.__seek = (t) => new Promise(res => { renderAt(t); requestAnimationFrame(() => requestAnimationFrame(() => res(true))); });
+window.__duration = DURATION;
+
+if (STILL_T !== null) {
+  renderAt(STILL_T);
+} else if (!EXPORT) {
+  let start = performance.now();
+  const loop = () => { const t = ((performance.now() - start) / 1000) % DURATION; renderAt(t); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+} else {
+  renderAt(0);
+}
+window.__ready = true;
+</script>
+</body>
+</html>

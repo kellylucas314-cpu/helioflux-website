@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scan volume — HelioFlux hero option D</title>
+<style>
+  :root { --cream:#faf9f5; --ink:#103044; --muted:#526879; --teal:#2b7a8c; --slate:#4f7fa0; --coral:#b16e60; }   /* dividing markers: coral deepened toward ink so rings read over coral nuclei */
+  html, body { margin:0; height:100%; background:var(--cream); overflow:hidden;
+    font-family:"DM Sans", system-ui, -apple-system, "Helvetica Neue", sans-serif; color:var(--ink);
+    -webkit-font-smoothing:antialiased; }
+  canvas { display:block; width:100%; height:100%; }
+
+  /* hero copy: left third, vertically centred */
+  #hero { position:fixed; left:6.2%; top:50%; transform:translateY(-52%); width:31%; max-width:600px; pointer-events:none; }
+  .eyebrow { font-size:calc(0.58vh + 4px); letter-spacing:.24em; text-transform:uppercase; color:var(--teal); font-weight:500; }
+  h1 { margin:.6em 0 .5em; font-size:calc(3.7vh + 12px); line-height:1.07; font-weight:500; letter-spacing:-.015em; color:var(--ink); }
+  .sub { font-size:calc(1.0vh + 6px); line-height:1.5; color:var(--muted); max-width:36ch; }
+  .cta { display:inline-block; margin-top:1.7em; padding:.78em 1.6em; border-radius:999px; background:var(--ink); color:var(--cream);
+    font-size:calc(0.74vh + 5px); letter-spacing:.05em; font-weight:500; }
+
+  /* data labels: a calm band above the cloud, joined to the 3D rings by thin slate leader lines */
+  #labels { position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+  #leaders { position:absolute; inset:0; width:100%; height:100%; }
+  #leaders line { stroke:var(--slate); stroke-width:1; stroke-linecap:round; }
+  #leaders line.div { stroke:var(--coral); }
+  .lab { position:absolute; left:0; top:0; font-size:calc(0.55vh + 4px); letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums; will-change:transform, opacity; line-height:1;
+    padding:.28em .4em .26em; }
+  .lab b { color:var(--slate); font-weight:500; }
+  .lab.div, .lab.div b { color:var(--coral); }
+  .lab.scan { color:var(--teal); padding:0; }
+  .lab .u { text-transform:none; letter-spacing:.08em; }
+  #tag { position:fixed; right:3.4%; bottom:5.2%; font-size:calc(0.5vh + 4px); letter-spacing:.2em; text-transform:uppercase; color:var(--muted); text-align:right; line-height:1.6; }
+  .hidden { display:none !important; }
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="labels"><svg id="leaders" xmlns="http://www.w3.org/2000/svg"></svg></div>
+<div id="hero">
+  <div class="eyebrow">HelioFlux · Live-cell optics</div>
+  <h1>Seeing the light<br>cells give off</h1>
+  <div class="sub">HelioFlux reads ultraweak photon emission to follow how cells live, signal and divide.</div>
+  <span class="cta">See the science →</span>
+</div>
+<div id="tag">Scan volume · 45 000 samples<br>Live-cell fluorescence, redrawn as data</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { LineSegments2 } from './vendor/lines/LineSegments2.js';
+import { LineSegmentsGeometry } from './vendor/lines/LineSegmentsGeometry.js';
+import { LineMaterial } from './vendor/lines/LineMaterial.js';
+import { loadFootage, masks } from './shared/footage.js';
+import { P, ELEVATION_BANDS, bandLUT, toLinear } from './shared/palette.js';
+const _q = new URLSearchParams(location.search);
+const NIGHT = _q.get('theme') === 'night';
+{ const bg = NIGHT ? '#082432' : (_q.get('bg') ? '#' + _q.get('bg') : null); if (bg) { P.cream = bg; document.documentElement.style.setProperty('--cream', bg); } }
+if (NIGHT) { P.olive = '#dfe8a8'; P.slate = '#2f6f8f'; P.sky = '#7fb6cf'; P.sage = '#a9c79a'; P.lime = '#c9d98a'; P.rule = '#2a4a5c'; P.ink = '#e8f1f4'; }
+   // ELEVATION_BANDS: alternative stop list for CYTO_BANDS below
+
+/* ═══════════════════════════ design knobs ═══════════════════════════
+   Concept D — "Scan volume": the live-cell footage becomes a 3D point cloud
+   that a thin scan plane keeps re-measuring. Tune here. */
+const K = {
+  fade: 0.9,                  // footage crossfade (s) → footage period 4.19 s
+  loopMult: 2,                // page loop = loopMult × footage period (camera sway spans the loop; the scan sweeps once per footage period)
+
+  /* footage → world */
+  padU: 0.065,                // extra dish around the cell bbox (normalised footage width)
+  worldScale: 3.6,            // world units per normalised footage height (cloud ≈ 4.4 × 3.6 units)
+  nx: 250, nz: 180,           // point grid → 45 000 points
+  blurRadius: 2,              // footage blur before sampling (gentle slopes; steep mesas leave parallax holes in a point cloud)
+
+  /* relief (Y) */
+  reliefCyto: 0.16,           // cytoplasm height at full brightness
+  reliefNuc: 0.08, reliefTone: 0.12, reliefCore: 0.05, reliefMax: 0.34,   // nuclei lifted by membership, brightness and (dividing) bright cores → the two dividing nuclei are the tallest domes
+  cellThresh: [0.05, 0.30],   // smoothstep on max(cyto, nuc): dust → cell
+
+  /* points */
+  jitter: 0.5,                // seeded xz jitter of every point (fraction of grid spacing); the footage is sampled AT the jittered spot, so no grid rows / terraces survive
+  dustKeep: 0.34,             // fraction of dish points drawn as dust
+  dustSize: 1.4, dustAlpha: 0.4,                         // px @1080p, alpha
+  cellSizeMin: 1.5, cellSizeMax: 3.3, nucSize: 1.08,     // px @1080p by brightness; nuclei at most ×1.08 → ≈3.6 px cap (airy, not beaded)
+  cellAlpha: 0.9, edgeAlpha: 0.55,                       // alpha of the brightest / dimmest cell points
+  colorGamma: 0.9,            // elevation → band LUT index curve
+  nucMix: 0.92, coreInk: 0.4, // how strongly nuclei override the band colour; coral → ink mix at the brightest cores (kept low so cores stay coral, not grey)
+  slopeComp: 0.8,             // enlarge points on camera-facing slopes / shrink on far slopes so dome density stays even (0 = off)
+  gainMax: 1.8,               // cap on the per-time brightness normalisation (compensates the footage's interpolated blur frames)
+  /* exposure compensation for the crossfade / blur-frame windows, driven by a precomputed per-time "cell mass" curve */
+  comp: { strength: 2.2,      // comp = clamp((medianMass / mass − 1) × strength, 0, 1)
+          threshLow: 0.18,    // cellThresh[1] slides down to this at comp = 1
+          edgeAlphaHi: 0.82, cellAlphaHi: 1.0,  // alphas slide up to these at comp = 1
+          gainBoost: 0.3 },   // extra green gain ×(1 + gainBoost × comp)
+  fogNear: 6.6, fogFar: 14.5, // world distance from camera: fade toward cream (back of the cloud ≈ 20%)
+
+  /* scan plane */
+  scan: { marginL: 0.3, marginR: 1.0,   // how far the plane travels beyond the cloud (right side must cover the highlight window)
+          phase: 0.15,                   // sweep phase offset (fraction of a period) → the plane is NOT over the dividing cells at loop t ≈ 2 s
+          fadeIn: 0.15, fadeOut: 0.18,   // fraction of the sweep used to fade the plane in / out (enters as a ghost, dissolves before the frame edge)
+          decay: 0.22, window: [0.42, 0.64],   // "fresh data" highlight: exp decay (s) and hard window (s) behind the plane
+          boost: 0.25, grow: 0.7, lift: 0.05,  // colour toward sky (light teal), size ×(1+grow), lift in Y at the plane — grow/lift are the main cue
+          lead: 0.05,                    // faint anticipation glow ahead of the plane (s)
+          planeH: 0.3, planeAlpha: 0.07, edgePx: 1.1,   // the sheet is nearly edge-on from this camera, so it is kept faint; the drawn edge is its base line on the dish
+          nearFade: 0.45, farFade: 0.18, // fraction of the plane's depth dissolved to cream at the camera-side / far end (no blade reaching the frame edge)
+          labelVis: 0.5 },               // scan readout hidden while plane visibility < this
+
+  /* nucleus markers */
+  markers: { count: 6, divSlots: 2,      // total markers; slots reserved for nuclei that are seen dividing
+             samples: 64, nms: 9, assoc: 20, closeTol: 24, thr: 0.08, seedThr: 0.12,
+             seedT: 1.2,                 // clip time (s) where tracking starts: parents intact, clear of the footage's blurry frames
+             smoothSigma: 2.4,           // position smoothing (samples)
+             valueSigma: 8, valueBlend: 0.4,   // readout = lerp(loop mean, long-smoothed value, valueBlend) → calm numbers that drift, not jump
+             holdFade: [4, 12],          // marker fades only when its nucleus is unmatched for more than ~4 → 12 samples (0.25 → 0.8 s)
+             pairSeed: 14, pairMax: 30, crowd: 22,   // division = two nucleus peaks within pairSeed footage px at the seed (one cell, two daughters); shown while they stay within pairMax; regular markers keep crowd px away from a pair
+             stemAbove: 0.24, ring: 0.05, ringSegs: 28, stemPx: 1.0, ringPx: 1.35, haloPx: 2.6, stemAlpha: 0.85, divInk: 0.22,   // ring width, cream halo under rings (px @1080p), how far dividing-marker coral is deepened toward ink
+             bandY: 0.165, labelGap: 0.11 },   // label band height (fraction of H) and minimum label spacing (fraction of H)
+
+  /* ground grid */
+  grid: { step: 0.25, ext: 20, alpha: 0.5, px: 0.8, fadeR0: 3.3, fadeR1: 7.5, y: -0.02 },
+
+  /* camera: true 3/4 view (azimuth from the right, so the cloud leans away from the copy), slow sway */
+  cam: { fov: 30, dist: 7.2, el: 41, az: 12, azAmp: 5, elAmp: 1.3, dollyAmp: 0.18,
+         targetX: parseFloat(new URLSearchParams(location.search).get('tx') || -0.95), targetY: 0.14, targetZ: 0.05 },  // target left of the cloud centre → cloud sits centre-right
+};
+
+/* Cytoplasm colour bands by elevation (dim rims → bright body). Coral/ink are kept for nuclei so the
+   two always read apart. Swap in ELEVATION_BANDS here for the terrain reference's full ramp. */
+const CYTO_BANDS = [[0.00, P.slate], [0.22, P.sky], [0.46, P.sage], [0.70, P.lime], [1.00, P.olive]];   // or: ELEVATION_BANDS
+
+/* ───────────────────────── page params ───────────────────────── */
+const params  = new URLSearchParams(location.search);
+const HUD     = params.get('hud') !== '0';        // hero copy + corner tag
+const LABELS  = params.has('labels') ? params.get('labels') === '1' : HUD;   // marker / scan data labels: follow hud unless forced
+const EXPORT  = params.get('export') === '1';
+const STILL_T = params.has('t') ? parseFloat(params.get('t')) : null;
+const DPR     = params.has('dpr') ? parseFloat(params.get('dpr')) : Math.min(2, window.devicePixelRatio || 1);
+const PERF    = params.get('perf') === '1';
+
+const clamp01 = x => x < 0 ? 0 : x > 1 ? 1 : x;
+const lerp    = (a, b, t) => a + (b - a) * t;
+const smooth  = (a, b, x) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+const TAU = Math.PI * 2, d2r = Math.PI / 180;
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+/* ───────────────────────── footage & world mapping ───────────────────────── */
+const footage = await loadFootage();
+const PERIOD  = footage.period(K.fade);          // 4.19 s
+const LOOP    = PERIOD * K.loopMult;             // 8.38 s
+const FW = footage.w, FH = footage.h, ASPECT = footage.aspect;
+const [bu0, , bu1] = footage.bbox;
+const U0 = Math.max(0, bu0 - K.padU), U1 = Math.min(1, bu1 + K.padU), V0 = 0, V1 = 1;
+const UC = (U0 + U1) / 2, VC = 0.5, S = K.worldScale;
+const uvToX = u => (u - UC) * ASPECT * S, vToZ = v => (v - VC) * S;
+const X0 = uvToX(U0), X1 = uvToX(U1), Z0 = vToZ(V0), Z1 = vToZ(V1);
+const blurBuf = new Float32Array(FW * FH * 3), blurTmp = new Float32Array(FW * FH * 3);
+/* Box blur of the red and green channels (the only ones masks() reads), running sums, no allocation.
+   Same semantics as footage.blur (mean over in-range samples) but ~10× cheaper per frame. */
+function blurRG(src, dst, r) {
+  for (let y = 0; y < FH; y++) {
+    const row = y * FW;
+    for (let c = 0; c < 2; c++) {
+      let sum = 0, cnt = 0;
+      for (let x = 0; x <= r && x < FW; x++) { sum += src[(row + x) * 3 + c]; cnt++; }
+      for (let x = 0; x < FW; x++) {
+        blurTmp[(row + x) * 3 + c] = sum / cnt;
+        const xa = x + r + 1, xr = x - r;
+        if (xa < FW) { sum += src[(row + xa) * 3 + c]; cnt++; }
+        if (xr >= 0) { sum -= src[(row + xr) * 3 + c]; cnt--; }
+      }
+    }
+  }
+  for (let x = 0; x < FW; x++) for (let c = 0; c < 2; c++) {
+    let sum = 0, cnt = 0;
+    for (let y = 0; y <= r && y < FH; y++) { sum += blurTmp[(y * FW + x) * 3 + c]; cnt++; }
+    for (let y = 0; y < FH; y++) {
+      dst[(y * FW + x) * 3 + c] = sum / cnt;
+      const ya = y + r + 1, yr = y - r;
+      if (ya < FH) { sum += blurTmp[(ya * FW + x) * 3 + c]; cnt++; }
+      if (yr >= 0) { sum -= blurTmp[(yr * FW + x) * 3 + c]; cnt--; }
+    }
+  }
+  for (let q = 2; q < src.length; q += 3) dst[q] = src[q];
+  return dst;
+}
+
+/* colours in linear space (what Three expects in attributes) */
+const LUT   = bandLUT(CYTO_BANDS, true);
+const GLUT  = new Uint8Array(256); for (let i = 0; i < 256; i++) GLUT[i] = Math.round(Math.pow(i / 255, K.colorGamma) * 255);   // gamma lookup (no per-point pow)
+const C = {}; for (const k in P) C[k] = new THREE.Color(P[k]);
+const L = {}; for (const k in P) L[k] = toLinear(P[k]);
+const mixTo = (a, b, t, out) => { out[0] = a[0] + (b[0] - a[0]) * t; out[1] = a[1] + (b[1] - a[1]) * t; out[2] = a[2] + (b[2] - a[2]) * t; return out; };
+
+/* ───────────────────────── renderer / scene ───────────────────────── */
+const canvas   = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: EXPORT });
+renderer.setClearColor(C.cream, 1);
+const scene  = new THREE.Scene();
+scene.fog = new THREE.Fog(C.cream, K.fogNear, K.fogFar);
+const camera = new THREE.PerspectiveCamera(K.cam.fov, 16 / 9, 0.1, 80);
+const camTarget = new THREE.Vector3();
+
+let W = 1, H = 1, bufH = 1080;
+const lineMats = [];
+
+/* ───────────────────────── point cloud ───────────────────────── */
+const NX = K.nx, NZ = K.nz, NPTS = NX * NZ;
+const pu = new Float32Array(NPTS), pv = new Float32Array(NPTS);          // footage uv per point (at the jittered position)
+const px = new Float32Array(NPTS), pz = new Float32Array(NPTS), jy = new Float32Array(NPTS);   // world xz (jittered), dust y jitter
+const dust = new Uint8Array(NPTS);                                       // 1 = this dish point is drawn as dust
+{
+  const rand = mulberry32(4181);
+  const du = (U1 - U0) / (NX - 1), dv = (V1 - V0) / (NZ - 1);
+  let p = 0;
+  for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++, p++) {      // far rows first → painter's order for the default view
+    const u = U0 + du * i + (rand() - 0.5) * 2 * K.jitter * du, v = V0 + dv * j + (rand() - 0.5) * 2 * K.jitter * dv;
+    pu[p] = u; pv[p] = v; px[p] = uvToX(u); pz[p] = vToZ(v);
+    jy[p] = (rand() - 0.5) * 0.006;
+    dust[p] = rand() < K.dustKeep ? 1 : 0;
+  }
+}
+const ptPos  = new Float32Array(NPTS * 3);
+const ptCol  = new Float32Array(NPTS * 3);
+const ptMeta = new Float32Array(NPTS * 3);   // (size px @1080p, alpha, cellness)
+const hArr   = new Float32Array(NPTS);       // relief per point (for the slope pass)
+const DZ_STEP = (Z1 - Z0) / (NZ - 1), COT_EL = 1 / Math.tan(K.cam.el * d2r);
+const ptGeo = new THREE.BufferGeometry();
+ptGeo.setAttribute('position', new THREE.BufferAttribute(ptPos, 3).setUsage(THREE.DynamicDrawUsage));
+ptGeo.setAttribute('aColor',   new THREE.BufferAttribute(ptCol, 3).setUsage(THREE.DynamicDrawUsage));
+ptGeo.setAttribute('aMeta',    new THREE.BufferAttribute(ptMeta, 3).setUsage(THREE.DynamicDrawUsage));
+ptGeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0.25, 0), 6);
+
+const ptUniforms = {
+  uPx:       { value: 1 },                 // device px per 1080p px
+  uRefDist:  { value: K.cam.dist },        // distance at which aMeta.x is the on-screen size
+  uScanX:    { value: -99 },
+  uScanSpeed:{ value: 1 },
+  uDecay:    { value: K.scan.decay },
+  uWin:      { value: new THREE.Vector2(K.scan.window[0], K.scan.window[1]) },
+  uBoost:    { value: K.scan.boost },
+  uGrow:     { value: K.scan.grow },
+  uLift:     { value: K.scan.lift },
+  uLead:     { value: K.scan.lead },
+  uHiColor:  { value: C.sky },             // "fresh data" tint: light sky-teal, so coral stays coral and olive stays olive
+  uFogColor: { value: C.cream },
+  uFog:      { value: new THREE.Vector2(K.fogNear, K.fogFar) },
+};
+const ptMat = new THREE.ShaderMaterial({
+  uniforms: ptUniforms, transparent: true, depthWrite: false, depthTest: true, fog: false,
+  vertexShader: /* glsl */`
+    attribute vec3 aColor; attribute vec3 aMeta;
+    uniform float uPx, uRefDist, uScanX, uScanSpeed, uDecay, uBoost, uGrow, uLift, uLead;
+    uniform vec2 uWin, uFog; uniform vec3 uHiColor, uFogColor;
+    varying vec3 vColor; varying float vAlpha;
+    void main() {
+      /* seconds since the scan plane passed this point (negative = still ahead) */
+      float age = (uScanX - position.x) / uScanSpeed;
+      float hi = age > 0.0 ? exp(-age / uDecay) * (1.0 - smoothstep(uWin.x, uWin.y, age)) : 0.45 * exp(age / uLead);
+      vec3 p = position; p.y += uLift * hi * aMeta.z;
+      vec4 mv = modelViewMatrix * vec4(p, 1.0);
+      gl_PointSize = aMeta.x * (1.0 + uGrow * hi) * uPx * uRefDist / max(0.5, -mv.z);
+      gl_Position = projectionMatrix * mv;
+      float f = smoothstep(uFog.x, uFog.y, -mv.z);
+      vColor = mix(mix(aColor, uHiColor, uBoost * hi), uFogColor, f);
+      vAlpha = min(1.0, aMeta.y * (1.0 + 0.3 * hi)) * (1.0 - 0.9 * f);
+    }`,
+  fragmentShader: /* glsl */`
+    varying vec3 vColor; varying float vAlpha;
+    void main() {
+      float r = length(gl_PointCoord - 0.5) * 2.0;
+      float a = (1.0 - smoothstep(0.5, 1.0, r)) * vAlpha;
+      if (a < 0.004) discard;
+      gl_FragColor = vec4(vColor, a);
+      #include <colorspace_fragment>
+    }`,
+});
+const points = new THREE.Points(ptGeo, ptMat); points.frustumCulled = false; points.renderOrder = 1;
+scene.add(points);
+
+/* relief + classification for one footage sample (shared by cloud and markers) */
+const _rgb = [0, 0, 0];
+function reliefAt(buf, u, v, gR, gG, comp) {
+  const thr1 = lerp(K.cellThresh[1], K.comp.threshLow, comp);
+  footage.sample(buf, u, v, _rgb);
+  const m = masks(Math.min(1, _rgb[0] * gR), Math.min(1, _rgb[1] * gG), _rgb[2]);
+  const cell = smooth(K.cellThresh[0], thr1, Math.max(m.cyto, m.nuc));
+  let h = K.reliefCyto * m.cyto + m.nuc * (K.reliefNuc + K.reliefTone * m.tone) + K.reliefCore * m.core;
+  if (h > K.reliefMax) h = K.reliefMax;
+  return { h: h * cell, cell, m };
+}
+
+function updateCloud(buf, gR, gG, comp) {
+  const dR = L.rule, cr = L.coral, ik = L.ink;
+  const thr0 = K.cellThresh[0], thr1 = lerp(K.cellThresh[1], K.comp.threshLow, comp);
+  const eA = lerp(K.edgeAlpha, K.comp.edgeAlphaHi, comp), cA = lerp(K.cellAlpha, K.comp.cellAlphaHi, comp);
+  const nucK = K.nucSize - 1;
+  for (let p = 0; p < NPTS; p++) {
+    footage.sample(buf, pu[p], pv[p], _rgb);
+    const m = masks(Math.min(1, _rgb[0] * gR), Math.min(1, _rgb[1] * gG), _rgb[2]);
+    const bright = Math.max(m.cyto, m.nuc * m.tone);
+    const cell = smooth(thr0, thr1, Math.max(m.cyto, m.nuc));
+    let h = K.reliefCyto * m.cyto + m.nuc * (K.reliefNuc + K.reliefTone * m.tone) + K.reliefCore * m.core;
+    if (h > K.reliefMax) h = K.reliefMax;
+    const o = p * 3;
+    ptPos[o]     = px[p];
+    ptPos[o + 1] = h * cell + jy[p] * (1 - cell); hArr[p] = h * cell;
+    ptPos[o + 2] = pz[p];
+
+    /* colour: elevation band by cytoplasm brightness, nuclei coral → deeper coral/ink at bright cores, dust = rule grey */
+    const li = GLUT[(m.cyto * 255) | 0];
+    let r = LUT[li * 3], g = LUT[li * 3 + 1], b = LUT[li * 3 + 2];
+    const nm = m.nuc * K.nucMix, ct = m.core * K.coreInk;
+    r += (cr[0] + (ik[0] - cr[0]) * ct - r) * nm;
+    g += (cr[1] + (ik[1] - cr[1]) * ct - g) * nm;
+    b += (cr[2] + (ik[2] - cr[2]) * ct - b) * nm;
+    ptCol[o]     = dR[0] + (r - dR[0]) * cell;
+    ptCol[o + 1] = dR[1] + (g - dR[1]) * cell;
+    ptCol[o + 2] = dR[2] + (b - dR[2]) * cell;
+
+    /* size / alpha: dust is faint and sparse, cells scale with brightness (nuclei capped ≈3.6 px so domes stay stippled) */
+    const cs = lerp(K.cellSizeMin, K.cellSizeMax, Math.sqrt(bright)) * (1 + nucK * m.nuc);
+    const ca = lerp(eA, cA, bright);
+    ptMeta[o]     = lerp(K.dustSize, cs, cell);
+    ptMeta[o + 1] = dust[p] ? lerp(K.dustAlpha, ca, cell) : ca * cell;
+    ptMeta[o + 2] = cell;
+  }
+  /* slope pass: a height field viewed from 41° spreads points on camera-facing slopes and bunches them on far ones */
+  if (K.slopeComp > 0) {
+    for (let p = NX; p < NPTS; p++) {
+      const slope = (hArr[p] - hArr[p - NX]) / DZ_STEP;          // dh/dz, +z toward the camera
+      let sc = 1 - K.slopeComp * slope * COT_EL; sc = sc < 0.45 ? 0.45 : sc > 2.2 ? 2.2 : sc;
+      ptMeta[p * 3] *= Math.sqrt(sc);
+    }
+  }
+  ptGeo.attributes.position.needsUpdate = true;
+  ptGeo.attributes.aColor.needsUpdate = true;
+  ptGeo.attributes.aMeta.needsUpdate = true;
+}
+
+/* ───────────────────────── helpers: fat lines (width in px @1080p, scaled with the buffer height) ───────────────────────── */
+function fatLines(count, px, opacity, posInit, colInit) {
+  const geo = new LineSegmentsGeometry();
+  geo.setPositions(posInit || new Float32Array(count * 6));
+  geo.setColors(colInit || new Float32Array(count * 6));
+  const mat = new LineMaterial({ color: 0xffffff, vertexColors: true, linewidth: px, transparent: true, opacity, depthWrite: false, fog: true });
+  mat.userData.px = px; lineMats.push(mat);
+  const obj = new LineSegments2(geo, mat); obj.frustumCulled = false;
+  return { obj, geo, mat, pos: geo.attributes.instanceStart.data, col: geo.attributes.instanceColorStart.data };
+}
+
+/* ───────────────────────── ground grid (static, fat lines so 0.8 px @1080p stays 0.8 px at any dpr) ───────────────────────── */
+{
+  const G = K.grid, n = Math.round(G.ext / G.step), half = G.ext / 2;
+  const cx = 0, cz = 0, rule = L.rule, cream = L.cream;
+  const SEGS_PER_LINE = 24;                 // subdivide so the radial fade is smooth
+  const count = (n + 1) * 2 * SEGS_PER_LINE;
+  const p2 = new Float32Array(count * 6), c2 = new Float32Array(count * 6); let o = 0;
+  const colAt = (x, z, out) => { const d = Math.hypot(x - cx, z - cz); const f = smooth(G.fadeR0, G.fadeR1, d); out[0] = lerp(rule[0], cream[0], f); out[1] = lerp(rule[1], cream[1], f); out[2] = lerp(rule[2], cream[2], f); };
+  const tmp = [0, 0, 0];
+  for (let i = 0; i <= n; i++) {
+    const a = -half + i * G.step;
+    for (let s = 0; s < SEGS_PER_LINE; s++) {
+      const b0 = -half + G.ext * s / SEGS_PER_LINE, b1 = -half + G.ext * (s + 1) / SEGS_PER_LINE;
+      /* line along z at x = a */
+      p2[o] = a; p2[o + 1] = G.y; p2[o + 2] = b0; p2[o + 3] = a; p2[o + 4] = G.y; p2[o + 5] = b1;
+      colAt(a, b0, tmp); c2[o] = tmp[0]; c2[o + 1] = tmp[1]; c2[o + 2] = tmp[2];
+      colAt(a, b1, tmp); c2[o + 3] = tmp[0]; c2[o + 4] = tmp[1]; c2[o + 5] = tmp[2];
+      o += 6;
+      /* line along x at z = a */
+      p2[o] = b0; p2[o + 1] = G.y; p2[o + 2] = a; p2[o + 3] = b1; p2[o + 4] = G.y; p2[o + 5] = a;
+      colAt(b0, a, tmp); c2[o] = tmp[0]; c2[o + 1] = tmp[1]; c2[o + 2] = tmp[2];
+      colAt(b1, a, tmp); c2[o + 3] = tmp[0]; c2[o + 4] = tmp[1]; c2[o + 5] = tmp[2];
+      o += 6;
+    }
+  }
+  const grid2 = fatLines(count, G.px, G.alpha, p2, c2);
+  grid2.obj.renderOrder = -2;
+  scene.add(grid2.obj);
+}
+
+/* ───────────────────────── scan plane ───────────────────────── */
+const SCAN_X0 = X0 - K.scan.marginL, SCAN_X1 = X1 + K.scan.marginR;
+const SCAN_SPEED = (SCAN_X1 - SCAN_X0) / PERIOD;
+ptUniforms.uScanSpeed.value = SCAN_SPEED;
+const planeDepth = (Z1 - Z0);                                   // exactly the dish depth: no pad, so the plane never reaches past the cloud's footprint
+const Z_FAR = -planeDepth / 2, Z_NEAR = planeDepth / 2;
+/* dissolve factor along the plane's depth: camera-side end and far end fade to cream (no hard blade in the frame) */
+const depthFade = z => Math.max(smooth(Z_NEAR - K.scan.nearFade * planeDepth, Z_NEAR, z), smooth(Z_FAR + K.scan.farFade * planeDepth, Z_FAR, z));
+const PLANE_SEGS = 12;
+const scanGeo = new THREE.PlaneGeometry(planeDepth, K.scan.planeH, PLANE_SEGS, 1);
+scanGeo.rotateY(Math.PI / 2);                                  // face ±X, width along Z
+{
+  const pos = scanGeo.attributes.position, cols = new Float32Array(pos.count * 3);
+  const base = [0, 0, 0]; mixTo(L.sky, L.cyan, 0.35, base);     // a light teal sheet
+  const tmp = [0, 0, 0];
+  for (let i = 0; i < pos.count; i++) {
+    const y = pos.getY(i), z = pos.getZ(i);
+    const topFade = smooth(-K.scan.planeH / 2, K.scan.planeH / 2, y);
+    const f = Math.max(depthFade(z), topFade);
+    mixTo(base, L.cream, f, tmp);
+    cols[i * 3] = tmp[0]; cols[i * 3 + 1] = tmp[1]; cols[i * 3 + 2] = tmp[2];
+  }
+  scanGeo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+}
+const scanMat = new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: K.scan.planeAlpha, depthWrite: false, side: THREE.DoubleSide, fog: true });
+const scanPlane = new THREE.Mesh(scanGeo, scanMat); scanPlane.renderOrder = 0; scanPlane.frustumCulled = false;
+scene.add(scanPlane);
+const EDGE_SEGS = 12;
+const scanEdges = fatLines(EDGE_SEGS, K.scan.edgePx, 1);       // the scan line on the dish (base edge), subdivided so its ends dissolve to cream
+scanEdges.obj.renderOrder = 0.5; scene.add(scanEdges.obj);   // drawn beneath the points: a line on the dish, covered where the cells are dense (its cream-dissolved ends vanish against the background instead of streaking over points)
+
+const _ea = [0, 0, 0];
+function updateScan(tf) {
+  const ph = ((tf / PERIOD + K.scan.phase) % 1 + 1) % 1;
+  const x = lerp(SCAN_X0, SCAN_X1, ph);
+  const vis = smooth(0, K.scan.fadeIn, ph) * (1 - smooth(1 - K.scan.fadeOut, 1, ph));
+  ptUniforms.uScanX.value = x;
+  scanPlane.position.set(x, K.scan.planeH / 2, 0);
+  scanMat.opacity = K.scan.planeAlpha * vis;
+  scanEdges.mat.opacity = vis;
+  const sp = scanEdges.pos.array, sc = scanEdges.col.array;
+  const cm = L.cream, tl = L.teal;
+  for (let s = 0; s < EDGE_SEGS; s++) {
+    const z0 = Z_FAR + planeDepth * s / EDGE_SEGS, z1 = Z_FAR + planeDepth * (s + 1) / EDGE_SEGS;
+    const o = s * 6;
+    sp[o] = x; sp[o + 1] = 0.004; sp[o + 2] = z0; sp[o + 3] = x; sp[o + 4] = 0.004; sp[o + 5] = z1;
+    mixTo(tl, cm, depthFade(z0), _ea); sc[o] = _ea[0]; sc[o + 1] = _ea[1]; sc[o + 2] = _ea[2];
+    mixTo(tl, cm, depthFade(z1), _ea); sc[o + 3] = _ea[0]; sc[o + 4] = _ea[1]; sc[o + 5] = _ea[2];
+  }
+  scanEdges.pos.needsUpdate = true; scanEdges.col.needsUpdate = true;
+  return { x, vis };
+}
+
+/* ───────────────────────── nucleus markers ─────────────────────────
+   Tracks are precomputed over the whole footage period at load (coarse peak search on the nucleus map,
+   nearest-neighbour association seeded just after the crossfade, Gaussian smoothing) so every frame is a
+   pure function of t. A dividing cell is recognised as two nucleus peaks sitting within a few px of each other
+   at the seed (its two daughters); the brighter one carries the marker, the other becomes its partner ring + link.
+   The same pass yields the per-time gain and exposure curves. */
+function precomputeTracks() {
+  const MK = K.markers, N = MK.samples, NPIX = FW * FH;
+  const map = new Float32Array(NPIX), cmap = new Float32Array(NPIX), tmp = new Float32Array(NPIX), bl = new Float32Array(NPIX), cbl = new Float32Array(NPIX);
+  const px0 = Math.max(1, Math.floor(U0 * (FW - 1))), px1 = Math.min(FW - 2, Math.ceil(U1 * (FW - 1)));
+  const perT = [], p97r = new Float32Array(N), p97g = new Float32Array(N), mass = new Float32Array(N), histR = new Uint32Array(256), histG = new Uint32Array(256);
+  const pct = (hist, total, q) => { let acc = 0; for (let i = 0; i < 256; i++) { acc += hist[i]; if (acc >= total * q) return (i + 0.5) / 255; } return 1; };
+  const boxBlur = (src, dst, R) => {
+    for (let y = 0; y < FH; y++) for (let x = 0; x < FW; x++) { let a = 0, n = 0; for (let d = -R; d <= R; d++) { const xx = x + d; if (xx < 0 || xx >= FW) continue; a += src[y * FW + xx]; n++; } tmp[y * FW + x] = a / n; }
+    for (let y = 0; y < FH; y++) for (let x = 0; x < FW; x++) { let a = 0, n = 0; for (let d = -R; d <= R; d++) { const yy = y + d; if (yy < 0 || yy >= FH) continue; a += tmp[yy * FW + x]; n++; } dst[y * FW + x] = a / n; }
+  };
+  for (let s = 0; s < N; s++) {
+    const buf = footage.loopFrame(s / N * PERIOD, K.fade);
+    histR.fill(0); histG.fill(0); let total = 0, cellSum = 0;
+    for (let y = 0; y < FH; y++) for (let x = 0; x < FW; x++) {
+      const p = y * FW + x, q = p * 3, m = masks(buf[q], buf[q + 1], buf[q + 2]);
+      map[p] = m.nuc * m.tone; cmap[p] = m.core;
+      if (x >= px0 && x <= px1) {
+        histR[Math.min(255, (buf[q] * 255) | 0)]++; histG[Math.min(255, (buf[q + 1] * 255) | 0)]++; total++;
+        cellSum += smooth(K.cellThresh[0], K.cellThresh[1], Math.max(m.cyto, m.nuc));
+      }
+    }
+    p97r[s] = pct(histR, total, 0.97); p97g[s] = pct(histG, total, 0.97); mass[s] = cellSum;
+    boxBlur(map, bl, 2); boxBlur(cmap, cbl, 2);
+    /* non-maximum suppression on the nucleus map */
+    const peaks = [], NR = MK.nms, NR2 = NR * NR;
+    for (let y = 1; y < FH - 1; y++) for (let x = px0; x <= px1; x++) {
+      const v = bl[y * FW + x]; if (v < MK.thr) continue;
+      let isMax = true;
+      for (let dy = -NR; dy <= NR && isMax; dy++) { const yy = y + dy; if (yy < 0 || yy >= FH) continue;
+        for (let dx = -NR; dx <= NR; dx++) { if (dx * dx + dy * dy > NR2) continue; const xx = x + dx; if (xx < 0 || xx >= FW) continue;
+          const q = bl[yy * FW + xx]; if (q > v || (q === v && (dy < 0 || (dy === 0 && dx < 0)))) { isMax = false; break; } } }
+      if (!isMax) continue;
+      /* sub-pixel parabolic refinement */
+      const l = bl[y * FW + x - 1], r = bl[y * FW + x + 1], u = bl[(y - 1) * FW + x], d = bl[(y + 1) * FW + x];
+      const dxs = (l - 2 * v + r), dys = (u - 2 * v + d);
+      const ox = dxs !== 0 ? Math.max(-0.5, Math.min(0.5, 0.5 * (l - r) / dxs)) : 0;
+      const oy = dys !== 0 ? Math.max(-0.5, Math.min(0.5, 0.5 * (u - d) / dys)) : 0;
+      peaks.push({ x: x + ox, y: y + oy, v, c: cbl[y * FW + x] });
+    }
+    peaks.sort((a, b) => b.v - a.v);
+    perT.push(peaks.slice(0, 14));
+  }
+  /* greedy association, seeded at clip time seedT and walked forward around the loop. Per-track arrays are indexed
+     by step k (sample s = (s0 + k) mod N) so a track's loop seam sits at k = N−1 → 0. */
+  const s0 = Math.round(MK.seedT / PERIOD * N) % N;
+  const sOf = k => (s0 + k) % N, kOf = s => ((s - s0) % N + N) % N;
+  const tracks = perT[s0].filter(p => p.v >= MK.seedThr).map(p => ({ xs: [p.x], ys: [p.y], vs: [p.v], pres: [1], present: 1 }));
+  for (let k = 1; k < N; k++) {
+    const s = sOf(k), claimed = new Set();
+    const order = tracks.map((t, i) => i).sort((a, b) => tracks[b].vs[k - 1] - tracks[a].vs[k - 1]);
+    for (const ti of order) {
+      const tr = tracks[ti], lx = tr.xs[k - 1], ly = tr.ys[k - 1];
+      let best = -1, bd = MK.assoc * MK.assoc;
+      perT[s].forEach((p, pi) => { if (claimed.has(pi)) return; const d = (p.x - lx) ** 2 + (p.y - ly) ** 2; if (d < bd) { bd = d; best = pi; } });
+      if (best >= 0) { const p = perT[s][best]; claimed.add(best); tr.xs.push(p.x); tr.ys.push(p.y); tr.vs.push(p.v); tr.pres.push(1); tr.present++; }
+      else { tr.xs.push(lx); tr.ys.push(ly); tr.vs.push(tr.vs[k - 1] * 0.9); tr.pres.push(0); }
+    }
+  }
+  const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  for (const tr of tracks) { tr.meanV = mean(tr.vs); tr.gap = Math.hypot(tr.xs[N - 1] - tr.xs[0], tr.ys[N - 1] - tr.ys[0]); tr.score = tr.meanV * (tr.present / N) ** 2; tr.pair = null; }   // persistence weighs twice: a marker that drops out in the crossfade is worse than a slightly dimmer steady one
+  /* dividing cells: two nucleus peaks already sitting within pairSeed px of each other at the seed (one cell, two daughter nuclei);
+     the brighter becomes the lead marker, the other its partner ring. Ordinary neighbouring nuclei are ≥ 20 px apart. */
+  const cand = [];
+  for (let i = 0; i < tracks.length; i++) for (let j = i + 1; j < tracks.length; j++) {
+    const d = Math.hypot(tracks[i].xs[0] - tracks[j].xs[0], tracks[i].ys[0] - tracks[j].ys[0]);
+    if (d < MK.pairSeed) cand.push({ i, j, d });
+  }
+  cand.sort((a, b) => a.d - b.d);
+  const leads = [];
+  for (const c of cand) {
+    const A = tracks[c.i], B = tracks[c.j]; if (A.pair || B.pair) continue;
+    const lead = A.meanV >= B.meanV ? A : B, other = lead === A ? B : A;
+    lead.pair = other; other.pair = lead; other.isPartner = true; leads.push(lead);
+  }
+  leads.sort((a, b) => b.score - a.score);
+  const chosen = leads.slice(0, MK.divSlots);
+  const dist0 = (a, b) => Math.hypot(a.xs[0] - b.xs[0], a.ys[0] - b.ys[0]);
+  const crowded = t => chosen.some(c => dist0(c, t) < MK.crowd || (c.pair && dist0(c.pair, t) < MK.crowd));
+  for (const t of tracks.slice().sort((a, b) => b.score - a.score)) {
+    if (chosen.length >= MK.count) break;
+    if (t.isPartner || chosen.includes(t) || t.gap > MK.closeTol || crowded(t)) continue;
+    chosen.push(t);
+  }
+  chosen.sort((a, b) => a.xs[0] - b.xs[0]);                    // number them left → right
+  /* close every track exactly: its seam jump is spread as a ramp over the crossfade (where the footage itself dissolves),
+     then circular Gaussian smoothing is safe */
+  const kernel = sig => { const KR = Math.ceil(sig * 3), kern = []; let ks = 0; for (let k = -KR; k <= KR; k++) { const w = Math.exp(-k * k / (2 * sig * sig)); kern.push(w); ks += w; } return { KR, kern, ks }; };
+  const sm = (arr, sig) => { const { KR, kern, ks } = kernel(sig), out = new Float32Array(N);
+    for (let i = 0; i < N; i++) { let a = 0; for (let k = -KR; k <= KR; k++) a += arr[((i + k) % N + N) % N] * kern[k + KR]; out[i] = a / ks; } return out; };
+  const kFade = kOf(0);                                        // step where loop time 0 (the crossfade) begins
+  const closeLoop = arr => { const out = Float32Array.from(arr), jump = arr[0] - arr[N - 1];
+    for (let k = kFade; k < N; k++) out[k] += jump * smooth(kFade - 1, N, k); return out; };
+  /* run length of consecutive unmatched samples around k (0 when matched) → short dropouts (the crossfade) do not blink the marker */
+  const holdLen = pres => { const out = new Float32Array(N);
+    for (let k = 0; k < N; k++) { if (pres[k]) continue; let a = k, b = k, n = 1;
+      while (n < N) { const j = ((a - 1) % N + N) % N; if (j === b || pres[j]) break; a = j; n++; }
+      while (n < N) { const j = (b + 1) % N; if (j === a || pres[j]) break; b = j; n++; }
+      out[k] = n; } return out; };
+  const visOf = tr => { const hl = holdLen(tr.pres), raw = new Float32Array(N); for (let k = 0; k < N; k++) raw[k] = 1 - smooth(MK.holdFade[0], MK.holdFade[1], hl[k]); return sm(raw, 1.5); };
+  const out = chosen.map((tr, i) => {
+    const xs = sm(closeLoop(tr.xs), MK.smoothSigma), ys = sm(closeLoop(tr.ys), MK.smoothSigma);
+    const vl = sm(tr.vs, MK.valueSigma), vals = new Float32Array(N);
+    for (let k = 0; k < N; k++) vals[k] = lerp(tr.meanV, vl[k], MK.valueBlend);
+    const vis = visOf(tr);
+    let div = new Float32Array(N), pxs = xs, pys = ys;
+    if (tr.pair) {
+      const B = tr.pair, bx = closeLoop(B.xs), by = closeLoop(B.ys), ax = closeLoop(tr.xs), ay = closeLoop(tr.ys), bv = visOf(B), raw = new Float32Array(N);
+      for (let k = 0; k < N; k++) raw[k] = (1 - smooth(MK.pairMax - 6, MK.pairMax, Math.hypot(bx[k] - ax[k], by[k] - ay[k]))) * bv[k];
+      div = sm(raw, 2); pxs = sm(bx, MK.smoothSigma); pys = sm(by, MK.smoothSigma);
+    }
+    return { id: i + 1, xs, ys, vals, vis, gap: tr.gap, meanV: tr.meanV, present: tr.present, pair: !!tr.pair, div, pxs, pys };
+  });
+  for (const t of out) t.divMax = Math.max(...t.div);
+  /* gain curve: median percentile over the loop ÷ this sample's percentile, capped, smoothed (indexed by s) */
+  const median = a => { const b = Array.from(a).sort((x, y) => x - y); return b[b.length >> 1]; };
+  const refR = median(p97r), refG = median(p97g), refM = median(mass);
+  const gR = new Float32Array(N), gG = new Float32Array(N), cp = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    gR[i] = Math.min(K.gainMax, Math.max(1, refR / Math.max(1e-3, p97r[i])));
+    gG[i] = Math.min(K.gainMax, Math.max(1, refG / Math.max(1e-3, p97g[i])));
+    cp[i] = clamp01((refM / Math.max(1, mass[i]) - 1) * K.comp.strength);        // exposure compensation where cells thin out
+  }
+  const all = tracks.map(t => ({ x0: +t.xs[0].toFixed(1), y0: +t.ys[0].toFixed(1), meanV: +t.meanV.toFixed(2), present: t.present, gap: +t.gap.toFixed(1), pair: t.pair ? `${t.pair.xs[0].toFixed(0)},${t.pair.ys[0].toFixed(0)}` : null, partner: !!t.isPartner }));
+  return { tracks: out, all, s0, kOf, gainR: sm(gR, 2.4), gainG: sm(gG, 2.4), comp: sm(cp, 2.4), mass };
+}
+const PRE = precomputeTracks();
+const TRACKS = PRE.tracks, GAIN_R = PRE.gainR, GAIN_G = PRE.gainG, COMP = PRE.comp, K_OF = PRE.kOf;
+console.log('gain range r', Math.min(...GAIN_R).toFixed(2), '-', Math.max(...GAIN_R).toFixed(2), ' g', Math.min(...GAIN_G).toFixed(2), '-', Math.max(...GAIN_G).toFixed(2), ' comp max', Math.max(...COMP).toFixed(2));
+/* interpolate a precomputed per-time curve at footage time tf (indexed by sample s) */
+function curveAt(arr, tf) {
+  const N = K.markers.samples, s = tf / PERIOD * N, i0 = ((Math.floor(s) % N) + N) % N, i1 = (i0 + 1) % N;
+  return lerp(arr[i0], arr[i1], s - Math.floor(s));
+}
+const NM = TRACKS.length;
+console.log('markers:', TRACKS.map(t => `N-${String(t.id).padStart(2, '0')} gap ${t.gap.toFixed(1)}px v ${t.meanV.toFixed(2)}${t.pair ? ' DIVIDING max ' + t.divMax.toFixed(2) : ''}`).join(' | '));
+
+const stems = fatLines(NM, K.markers.stemPx, K.markers.stemAlpha); stems.obj.renderOrder = 4; scene.add(stems.obj);
+const rings = fatLines(NM * 2 * K.markers.ringSegs, K.markers.ringPx, 0.9); rings.obj.renderOrder = 4; scene.add(rings.obj);   // primary ring + partner ring per marker
+const haloMat = new LineMaterial({ color: new THREE.Color(P.cream), linewidth: K.markers.ringPx + K.markers.haloPx, transparent: true, opacity: 0.9, depthWrite: false });   // cream halo so rings stay crisp over dense domes
+haloMat.userData.px = K.markers.ringPx + K.markers.haloPx; lineMats.push(haloMat);
+const ringHalo = new LineSegments2(rings.geo, haloMat); ringHalo.frustumCulled = false; ringHalo.renderOrder = 3.8; scene.add(ringHalo);
+const links = fatLines(NM, K.markers.ringPx, 0.9); links.obj.renderOrder = 4; scene.add(links.obj);   // link to the partner nucleus while dividing
+const labelsEl = document.getElementById('labels'), leadersEl = document.getElementById('leaders');
+const labEls = TRACKS.map(t => { const el = document.createElement('div'); el.className = 'lab'; el.innerHTML = `<b>N-${String(t.id).padStart(2, '0')}</b> · <span>0.00</span>`; labelsEl.appendChild(el); return el; });
+const labVal = labEls.map(el => el.lastElementChild.firstChild);     // text nodes, updated in place
+const leadEls = TRACKS.map(() => { const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line'); leadersEl.appendChild(ln); return ln; });
+const scanLab = document.createElement('div'); scanLab.className = 'lab scan'; scanLab.innerHTML = `Scan · <span>0</span><span class="u"> µm</span>`; labelsEl.appendChild(scanLab);
+const scanNum = scanLab.children[0].firstChild;
+const markerTop = TRACKS.map(() => new THREE.Vector3());
+const markerVal = new Float32Array(NM), markerVis = new Float32Array(NM), markerDiv = new Float32Array(NM);
+const _c0 = [0, 0, 0], _c1 = [0, 0, 0];
+const L_DIV = mixTo(L.coral, L.ink, K.markers.divInk, [0, 0, 0]);   // dividing-marker colour in linear space
+
+function ringAt(rp, rc, base, x, y, z, col) {
+  const RS = K.markers.ringSegs, RR = K.markers.ring;
+  for (let q = 0; q < RS; q++) {
+    const a0 = q / RS * TAU, a1 = (q + 1) / RS * TAU, ro = (base + q) * 6;
+    rp[ro] = x + RR * Math.cos(a0); rp[ro + 1] = y; rp[ro + 2] = z + RR * Math.sin(a0);
+    rp[ro + 3] = x + RR * Math.cos(a1); rp[ro + 4] = y; rp[ro + 5] = z + RR * Math.sin(a1);
+    for (let c = 0; c < 3; c++) { rc[ro + c] = col[c]; rc[ro + 3 + c] = col[c]; }
+  }
+}
+
+function updateMarkers(tf, buf, gR, gG, comp) {
+  const N = K.markers.samples, s = tf / PERIOD * N;
+  const i0 = ((Math.floor(s) % N) + N) % N, i1 = (i0 + 1) % N, k = s - Math.floor(s);
+  const k0 = K_OF(i0), k1 = K_OF(i1);
+  const sp = stems.pos.array, sc = stems.col.array, rp = rings.pos.array, rc = rings.col.array, lp = links.pos.array, lc = links.col.array;
+  const sl = L.slate, cm = L.cream, co = L_DIV, RS = K.markers.ringSegs, RR = K.markers.ring;
+  for (let i = 0; i < NM; i++) {
+    const tr = TRACKS[i];
+    const fx = lerp(tr.xs[k0], tr.xs[k1], k), fy = lerp(tr.ys[k0], tr.ys[k1], k);
+    markerVal[i] = lerp(tr.vals[k0], tr.vals[k1], k);
+    markerVis[i] = lerp(tr.vis[k0], tr.vis[k1], k);
+    markerDiv[i] = lerp(tr.div[k0], tr.div[k1], k);
+    const u = fx / (FW - 1), v = fy / (FH - 1);
+    const x = uvToX(u), z = vToZ(v);
+    const rel = reliefAt(buf, u, v, gR, gG, comp);
+    const yTop = rel.h + K.markers.stemAbove;
+    markerTop[i].set(x, yTop, z);
+    /* marker colour: slate, turning coral while dividing; per-marker fade by mixing toward cream */
+    const dm = smooth(0.3, 0.6, markerDiv[i]), hide = 1 - markerVis[i];
+    mixTo(sl, co, dm, _c1); mixTo(_c1, cm, hide, _c1);          // ring / stem top
+    mixTo(_c1, cm, 0.55, _c0);                                   // stem base
+    const o = i * 6;
+    sp[o] = x; sp[o + 1] = K.grid.y; sp[o + 2] = z; sp[o + 3] = x; sp[o + 4] = yTop; sp[o + 5] = z;
+    for (let c = 0; c < 3; c++) { sc[o + c] = _c0[c]; sc[o + 3 + c] = _c1[c]; }
+    ringAt(rp, rc, i * 2 * RS, x, yTop, z, _c1);
+    /* partner nucleus (the other daughter) while dividing: coral ring + link at the same height */
+    const on = dm * markerVis[i];
+    const pxw = uvToX(lerp(tr.pxs[k0], tr.pxs[k1], k) / (FW - 1)), pzw = vToZ(lerp(tr.pys[k0], tr.pys[k1], k) / (FH - 1));
+    mixTo(co, cm, 1 - on, _c0);
+    if (on > 0.35) ringAt(rp, rc, (i * 2 + 1) * RS, pxw, yTop, pzw, _c0);              // the partner ring appears once mostly faded in (its halo has no alpha of its own)
+    else ringAt(rp, rc, (i * 2 + 1) * RS, 0, -50, 0, cm);                                   // parked below the floor
+    if (on > 0.001) {
+      const dx = pxw - x, dz = pzw - z, d = Math.hypot(dx, dz) || 1, ux = dx / d, uz = dz / d;
+      const cut = Math.min(RR, d * 0.5);
+      lp[o] = x + ux * cut; lp[o + 1] = yTop; lp[o + 2] = z + uz * cut;
+      lp[o + 3] = pxw - ux * cut; lp[o + 4] = yTop; lp[o + 5] = pzw - uz * cut;
+      for (let c = 0; c < 3; c++) { lc[o + c] = _c0[c]; lc[o + 3 + c] = _c0[c]; }
+    } else {
+      lp[o] = lp[o + 3] = 0; lp[o + 1] = lp[o + 4] = -50; lp[o + 2] = lp[o + 5] = 0;
+    }
+  }
+  stems.pos.needsUpdate = true; stems.col.needsUpdate = true;
+  rings.pos.needsUpdate = true; rings.col.needsUpdate = true;
+  links.pos.needsUpdate = true; links.col.needsUpdate = true;
+}
+
+/* DOM labels sit in a calm band above the cloud (spaced apart, left → right), joined to the rings by thin leader lines */
+const _v = new THREE.Vector3();
+const labX = new Float32Array(NM), ringSX = new Float32Array(NM), ringSY = new Float32Array(NM), order = Array.from({ length: NM }, (_, i) => i);
+function updateLabels(scan) {
+  const bandY = K.markers.bandY * H, gap = K.markers.labelGap * H, ringR = 0.008 * H;
+  for (let i = 0; i < NM; i++) {
+    _v.copy(markerTop[i]).project(camera);
+    ringSX[i] = (_v.x * 0.5 + 0.5) * W; ringSY[i] = (-_v.y * 0.5 + 0.5) * H;
+    labX[i] = ringSX[i];
+  }
+  /* spread labels apart along the band (deterministic: two relaxation passes) */
+  order.sort((a, b) => ringSX[a] - ringSX[b]);
+  for (let pass = 0; pass < 2; pass++) {
+    for (let q = 1; q < NM; q++) { const a = order[q - 1], b = order[q]; if (labX[b] - labX[a] < gap) labX[b] = labX[a] + gap; }
+    for (let q = NM - 2; q >= 0; q--) { const a = order[q], b = order[q + 1]; if (labX[b] - labX[a] < gap) labX[a] = labX[b] - gap; }
+  }
+  for (let i = 0; i < NM; i++) {
+    const el = labEls[i], ln = leadEls[i], tr = TRACKS[i];
+    el.style.transform = `translate(${labX[i].toFixed(1)}px, ${bandY.toFixed(1)}px) translate(-50%, -50%)`;
+    el.style.opacity = markerVis[i].toFixed(3);
+    const dividing = markerDiv[i] > 0.5;
+    el.classList.toggle('div', dividing);
+    ln.classList.toggle('div', dividing);
+    const txt = dividing ? 'dividing' : markerVal[i].toFixed(2);
+    if (labVal[i].data !== txt) labVal[i].data = txt;
+    /* leader: from just under the label to just above the ring */
+    const y0 = bandY + 0.009 * H, y1 = ringSY[i] - ringR;
+    ln.setAttribute('x1', labX[i].toFixed(1)); ln.setAttribute('y1', y0.toFixed(1));
+    ln.setAttribute('x2', ringSX[i].toFixed(1)); ln.setAttribute('y2', Math.max(y0, y1).toFixed(1));
+    ln.style.opacity = (0.75 * markerVis[i]).toFixed(3);
+  }
+  /* scan readout: at the base of the plane where its near end dissolves (below the cloud), only once the plane is properly visible */
+  _v.set(scan.x, 0, Z_NEAR - K.scan.nearFade * planeDepth * 0.6).project(camera);
+  const sx = (_v.x * 0.5 + 0.5) * W, sy = (-_v.y * 0.5 + 0.5) * H + 0.024 * H;
+  scanLab.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px) translateX(-50%)`;
+  scanLab.style.opacity = smooth(K.scan.labelVis, Math.min(1, K.scan.labelVis + 0.35), scan.vis).toFixed(3);
+  const um = String(Math.max(0, Math.round((scan.x - X0) * 100)));
+  if (scanNum.data !== um) scanNum.data = um;
+}
+
+/* ───────────────────────── camera ───────────────────────── */
+function placeCamera(t) {
+  const ph = TAU * t / LOOP;
+  const az = (K.cam.az + K.cam.azAmp * Math.sin(ph)) * d2r;
+  const el = (K.cam.el + K.cam.elAmp * Math.cos(ph)) * d2r;
+  const dist = K.cam.dist + K.cam.dollyAmp * Math.cos(ph + 1.1);
+  camTarget.set(K.cam.targetX, K.cam.targetY, K.cam.targetZ);
+  camera.position.set(camTarget.x + dist * Math.sin(az) * Math.cos(el), camTarget.y + dist * Math.sin(el), camTarget.z + dist * Math.cos(az) * Math.cos(el));
+  camera.lookAt(camTarget);
+}
+
+/* ───────────────────────── resize ───────────────────────── */
+function resize() {
+  W = window.innerWidth; H = window.innerHeight;
+  renderer.setPixelRatio(DPR);
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H; camera.updateProjectionMatrix();
+  bufH = H * DPR;
+  ptUniforms.uPx.value = bufH / 1080;
+  for (const m of lineMats) { m.resolution.set(W * DPR, H * DPR); m.linewidth = m.userData.px * (bufH / 1080); }
+}
+
+/* ───────────────────────── frame ───────────────────────── */
+const heroEl = document.getElementById('hero'), tagEl = document.getElementById('tag');
+if (!HUD) { heroEl.classList.add('hidden'); tagEl.classList.add('hidden'); }
+if (!LABELS) labelsEl.classList.add('hidden');
+let lastCpuMs = 0;
+
+function renderAt(t) {
+  const t0 = performance.now();
+  t = ((t % LOOP) + LOOP) % LOOP;
+  const tf = t % PERIOD;
+  placeCamera(t);
+  const raw = footage.loopFrame(tf, K.fade);
+  const buf = K.blurRadius > 0 ? blurRG(raw, blurBuf, K.blurRadius) : raw;
+  const comp = curveAt(COMP, tf);
+  const gR = curveAt(GAIN_R, tf), gG = curveAt(GAIN_G, tf) * (1 + K.comp.gainBoost * comp);
+  updateCloud(buf, gR, gG, comp);
+  const scan = updateScan(tf);
+  updateMarkers(tf, buf, gR, gG, comp);
+  renderer.render(scene, camera);
+  updateLabels(scan);
+  lastCpuMs = performance.now() - t0;
+  if (PERF) console.log('renderAt ms', lastCpuMs.toFixed(2));
+}
+
+resize();
+window.addEventListener('resize', () => { resize(); if (STILL_T !== null) renderAt(STILL_T); });
+
+/* export hooks used by render.mjs */
+window.__duration = LOOP;
+window.__seek = t => new Promise(res => { renderAt(t); requestAnimationFrame(() => requestAnimationFrame(() => res(true))); });
+window.__bench = (n = 40) => { const a = performance.now(); for (let i = 0; i < n; i++) renderAt(i / n * LOOP); return (performance.now() - a) / n; };
+window.__lastCpuMs = () => lastCpuMs;
+window.__profile = (n = 20) => {
+  const acc = { frame: 0, blur: 0, cloud: 0, scan: 0, markers: 0, render: 0, labels: 0 };
+  for (let i = 0; i < n; i++) {
+    const t = i / n * LOOP, tf = t % PERIOD; let a = performance.now();
+    placeCamera(t); const raw = footage.loopFrame(tf, K.fade); acc.frame += performance.now() - a; a = performance.now();
+    const buf = K.blurRadius > 0 ? blurRG(raw, blurBuf, K.blurRadius) : raw; acc.blur += performance.now() - a; a = performance.now();
+    const comp = curveAt(COMP, tf), gR = curveAt(GAIN_R, tf), gG = curveAt(GAIN_G, tf) * (1 + K.comp.gainBoost * comp);
+    updateCloud(buf, gR, gG, comp); acc.cloud += performance.now() - a; a = performance.now();
+    const sc = updateScan(tf); acc.scan += performance.now() - a; a = performance.now();
+    updateMarkers(tf, buf, gR, gG, comp); acc.markers += performance.now() - a; a = performance.now();
+    renderer.render(scene, camera); acc.render += performance.now() - a; a = performance.now();
+    updateLabels(sc); acc.labels += performance.now() - a;
+  }
+  for (const k in acc) acc[k] = +(acc[k] / n).toFixed(2);
+  return acc;
+};
+/* debug: track / curve summary */
+window.__tracksInfo = () => ({
+  s0: PRE.s0, N: K.markers.samples, all: PRE.all,
+  comp: Array.from(COMP).map(v => +v.toFixed(2)), mass: Array.from(PRE.mass).map(v => Math.round(v)),
+  tracks: TRACKS.map(t => ({ id: t.id, gap: +t.gap.toFixed(1), meanV: +t.meanV.toFixed(2), present: t.present, pair: t.pair, divMax: +t.divMax.toFixed(2),
+    x0: +t.xs[0].toFixed(1), y0: +t.ys[0].toFixed(1),
+    div: Array.from(t.div).map(v => +v.toFixed(2)), vis: Array.from(t.vis).map(v => +v.toFixed(2)) })),
+});
+/* debug: classification maps over the point grid as a PNG data URL (cyto olive + nuc coral | cell mask | relief) */
+window.__debugMaps = (t) => {
+  const tf = ((t % LOOP) + LOOP) % LOOP % PERIOD;
+  const raw = footage.loopFrame(tf, K.fade);
+  const buf = K.blurRadius > 0 ? blurRG(raw, blurBuf, K.blurRadius) : raw;
+  const comp = curveAt(COMP, tf), gR = curveAt(GAIN_R, tf), gG = curveAt(GAIN_G, tf) * (1 + K.comp.gainBoost * comp);
+  const c = document.createElement('canvas'); c.width = NX * 3; c.height = NZ; const g = c.getContext('2d');
+  const img = g.createImageData(NX * 3, NZ); const d = img.data;
+  for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) {
+    const p = j * NX + i; const rel = reliefAt(buf, pu[p], pv[p], gR, gG, comp), m = rel.m, cell = rel.cell, h = rel.h;
+    const put = (x, r, gg, b) => { const o = (j * NX * 3 + x) * 4; d[o] = r; d[o + 1] = gg; d[o + 2] = b; d[o + 3] = 255; };
+    put(i, 250 - (250 - 111) * m.cyto, 249 - (249 - 138) * m.cyto - (249 - 127) * m.nuc, 245 - (245 - 63) * m.cyto - (245 - 104) * m.nuc);
+    put(NX + i, 250 - 234 * cell, 249 - 201 * cell, 245 - 177 * cell);
+    const hv = Math.round(255 * (1 - h / K.reliefMax)); put(2 * NX + i, hv, hv, hv);
+  }
+  g.putImageData(img, 0, 0);
+  return c.toDataURL('image/png');
+};
+
+if (STILL_T !== null) {
+  renderAt(STILL_T);
+} else if (!EXPORT) {
+  const start = performance.now();
+  const loop = () => { renderAt(((performance.now() - start) / 1000) % LOOP); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+} else {
+  renderAt(0);
+}
+window.__ready = true;
+</script>
+</body>
+</html>
