@@ -258,6 +258,18 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .press-nature__quote p { max-width: 25ch; margin: 0 auto; font: 400 clamp(26px, 3.1vw, 42px)/1.18 var(--display); letter-spacing: -.025em; color: var(--ink); text-wrap: balance; }
 .press-nature__meta { margin: 18px 0 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .press-nature__link { margin-top: 26px; }
+/* Featured in: Nature leads with its own quote and link; the LA Business Journal sits in the middle of the logo row */
+.press-logos { max-width: 960px; gap: clamp(40px, 4.4vw, 60px); margin-left: auto; margin-right: auto; }
+.press-logos .logo-sciam { order: 1; }
+.press-logos .logo-radiolab { order: 2; }
+.press-logos .logo-labj { order: 3; }
+.press-logos .logo-cellpress { order: 4; }
+.press-logos .logo-cbcnews { order: 5; }
+@media (max-width: 640px) {
+  .press-nature__meta { max-width: 32ch; margin-left: auto; margin-right: auto; text-wrap: balance; }
+  .press-logos { display: grid; grid-template-columns: 1fr 1fr; justify-items: center; align-items: center; gap: 30px 24px; max-width: 320px; }
+  .press-logos .logo-labj { grid-column: 1 / -1; height: 15px; }
+}
 /* NVIDIA Inception closes the team section (Kelly: at the bottom), one ruled row: the label, then the badge */
 .home-partner { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 40px; margin-top: clamp(44px, 5vw, 64px); padding-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
 .home-partner .eyebrow { margin: 0; color: var(--ink); }
