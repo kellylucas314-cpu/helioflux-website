@@ -349,7 +349,10 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .home-page .section .soft, .home-page .band .soft, .home-page .home-science h2 em { color: var(--teal-display); }
 .home-page .section .kicker b, .home-page .band .kicker b { color: var(--teal-label); font-weight: 600; }
 .home-page .person-role { color: var(--ink) !important; }
-.home-page .hf-sig-accent, .home-page .survival-col.early .survival-num { color: var(--teal-display); }
+.home-page .survival-col.early .survival-num { color: var(--teal-display); }
+/* Caption colors match the drawing: normal cells are light teal, cancer cells are dark navy */
+.home-page .hf-cellular-signals__caption .hf-sig-line { color: var(--teal-display); }
+.home-page .hf-cellular-signals__caption .hf-sig-accent { color: var(--ink); }
 .home-page .hf-sig-accent { font-weight: 600; }
 
 /* Hero on a phone: more air around the headline, and the deck request as a full-width main button */
