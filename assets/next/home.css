@@ -66,17 +66,12 @@
   #probProgression.hf-growth-compact .hf-growth-heading h2 { font-size: 19px; }
 }
 
-/* Bridge: our 3D cell rounds up, divides and gives off faint light, on the night ground (home.js plays it in view).
-   The film is framed with empty night above the cell, so the line sits at the top and the cell below it. */
-.home-bridge { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: flex-start; height: min(56.25vw, 88vh); min-height: 420px; padding: clamp(56px, 7.5vw, 112px) 0 0; text-align: center; background: var(--night); }
-.home-bridge-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%; }
-.home-bridge::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(8, 36, 50, .7), rgba(8, 36, 50, 0) 30%), radial-gradient(ellipse 75% 85% at 50% 62%, rgba(8, 36, 50, 0) 55%, rgba(8, 36, 50, .75)); }
+/* Bridge: the microscope film of cells in a dish behind one line, under a navy veil (home.js plays it in view) */
+.home-bridge { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; min-height: clamp(260px, 34vh, 340px); padding: clamp(64px, 9vh, 104px) 0; text-align: center; }
+.home-bridge-film { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: .7; filter: saturate(.45); }
+.home-bridge::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgba(8, 36, 50, .42), rgba(8, 36, 50, .74)); }
 .home-bridge .shell { width: 100%; }
 .home-bridge p { margin: 0 auto; font: italic 400 clamp(26px, 3vw, 42px)/1.25 var(--display); letter-spacing: -.01em; color: #fff; max-width: 26ch; text-wrap: balance; }
-@media (max-width: 700px) {
-  .home-bridge { height: 125vw; min-height: 0; padding-top: 44px; }
-  .home-bridge-film { object-position: 50% 100%; }
-}
 
 /* 02 The science: centered, with the cell film straight under the words, in teal and navy ink */
 #solution .kicker { justify-content: center; }
@@ -258,6 +253,13 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 .press-nature__quote p { max-width: 25ch; margin: 0 auto; font: 400 clamp(26px, 3.1vw, 42px)/1.18 var(--display); letter-spacing: -.025em; color: var(--ink); text-wrap: balance; }
 .press-nature__meta { margin: 18px 0 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .press-nature__link { margin-top: 26px; }
+/* Featured in, toned down: Nature's logo matches the other logos and the quote reads at lead size */
+.press-nature { margin-bottom: clamp(28px, 3.5vw, 44px); padding-bottom: clamp(28px, 3.5vw, 44px); }
+.press-nature__logo { height: 28px; margin-bottom: 16px; opacity: .78; }
+.press-nature__quote p { max-width: 34ch; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.35; letter-spacing: -.01em; }
+.press-nature__meta { margin-top: 10px; font-size: 14px; }
+.press-nature__link { margin-top: 18px; }
+@media (max-width: 640px) { .press-nature__logo { height: 22px; } }
 /* Featured in: Nature leads with its own quote and link; the LA Business Journal sits in the middle of the logo row */
 .press-logos { max-width: 960px; gap: clamp(40px, 4.4vw, 60px); margin-left: auto; margin-right: auto; }
 .press-logos .logo-sciam { order: 1; }
@@ -343,7 +345,7 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
 }
 @media (prefers-reduced-motion: reduce) {
   .home-bridge-film { display: none; }
-  .home-bridge { background: #082432 url("../homepage-v2-20260917/bridge-mitosis-poster.jpg") 50% 80% / cover; }
+  .home-bridge { background: #082432 url("../homepage-v2-20260917/assets/bridge-cells-poster.jpg") center / cover; }
   .hc-track { scroll-behavior: auto; }
   .home-photo-break img { transform: none !important; }
 }
@@ -376,3 +378,6 @@ a.stage-art:hover img, a.stage-art:focus-visible img { transform: translateY(-4p
   .home-hero .hero-actions .button { width: 100%; justify-content: center; }
 }
 
+
+/* The next study: keep the explainer no wider than the heading above it, with even lines (no one-word last line) */
+#next-study .split .lead { max-width: 40ch; text-wrap: balance; }
